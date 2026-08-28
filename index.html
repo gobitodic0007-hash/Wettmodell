@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linien-Modell</title>
+<style>
+  :root { --ink:#0f172a; --grau:#64748b; --linie:#cbd5e1; --papier:#f1f5f9;
+          --gruen:#0f766e; --rot:#9f1239; --gelb:#fbbf24; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--papier); color:var(--ink);
+         font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+  .huelle { max-width:640px; margin:0 auto; background:#fff; min-height:100vh; }
+  header { background:var(--ink); color:#f1f5f9; padding:16px; }
+  header .oben { font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:var(--gelb); }
+  header h1 { margin:2px 0 0; font-size:24px; letter-spacing:-.02em; }
+  header p { margin:4px 0 0; font-size:12px; color:#94a3b8; }
+  .block { padding:16px; border-bottom:1px solid var(--linie); }
+  label { display:block; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+          color:var(--grau); margin-bottom:4px; }
+  select, input[type=file] { width:100%; padding:9px; border:1px solid var(--linie);
+          background:#fff; font-size:15px; font-family:inherit; color:var(--ink); }
+  .zwei { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .feld { margin-bottom:12px; }
+  .schalter { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--grau); }
+  .schalter input { width:auto; }
+  .karte { border:1px solid var(--linie); margin:0 16px 14px; }
+  .kopf { display:flex; justify-content:space-between; align-items:baseline;
+          padding:10px 12px; background:#f8fafc; border-bottom:1px solid var(--linie); }
+  .kopf b { font-size:15px; }
+  .erw { font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .erw span { font-size:11px; font-weight:400; color:var(--grau);
+              letter-spacing:.1em; text-transform:uppercase; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--grau);
+       font-weight:500; text-align:right; padding:6px 12px; }
+  th:first-child { text-align:left; }
+  td { padding:8px 12px; text-align:right; font-variant-numeric:tabular-nums;
+       border-top:1px solid #e2e8f0; }
+  td:first-child { text-align:left; font-weight:700; }
+  .q { color:var(--grau); font-size:13px; }
+  .mitte { background:#fffbeb; }
+  .detail { padding:8px 12px; font-size:11px; color:var(--grau); border-top:1px solid #e2e8f0; }
+  .hinweis { padding:16px; font-size:12px; color:var(--grau); line-height:1.6; }
+  .warn { margin:0 16px 14px; padding:10px 12px; border:1px solid var(--rot);
+          color:var(--rot); font-size:13px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="huelle">
+
+<header>
+  <div class="oben">Over / Under</div>
+  <h1>Linien-Modell</h1>
+  <p>Tore · Ecken · Karten · Schüsse</p>
+</header>
+
+<div class="block">
+  <div class="feld">
+    <label for="liga">Liga</label>
+    <select id="liga"><option value="">– wählen –</option></select>
+  </div>
+  <div id="uploadbereich" style="display:none">
+    <label for="datei">Oder CSV-Dateien von football-data.co.uk auswählen</label>
+    <input type="file" id="datei" accept=".csv" multiple>
+  </div>
+  <div id="status" style="font-size:12px;color:var(--grau);margin-top:8px"></div>
+</div>
+
+<div class="block" id="auswahl" style="display:none">
+  <div class="zwei">
+    <div class="feld">
+      <label for="heim">Heim</label>
+      <select id="heim"></select>
+    </div>
+    <div class="feld">
+      <label for="gast">Auswärts</label>
+      <select id="gast"></select>
+    </div>
+  </div>
+  <div class="feld">
+    <label for="ref">Schiedsrichter (wirkt nur auf Karten)</label>
+    <select id="ref"></select>
+  </div>
+  <div class="schalter">
+    <input type="checkbox" id="alleTeams">
+    <label for="alleTeams" style="margin:0;text-transform:none;letter-spacing:0;font-size:12px">
+      auch Teams früherer Saisons anzeigen
+    </label>
+  </div>
+</div>
+
+<div id="ergebnis"></div>
+
+</div>
+
+<script>
+// ======== Einstellungen ========
+// Im Sommer die neue Saison hinten anhaengen und die aelteste entfernen.
+const SAISONS = ["2425", "2526", "2627"];
+const HALBWERTSZEIT = 365;   // Tage, nach denen ein Spiel nur noch halb zaehlt
+
+const LIGEN = {
+  D1:"Bundesliga", D2:"2. Bundesliga", E0:"Premier League", E1:"Championship",
+  SP1:"La Liga", I1:"Serie A", F1:"Ligue 1", P1:"Liga Portugal",
+  T1:"Süper Lig", B1:"Jupiler Pro League"
+};
+
+const METRIKEN = [
+  { id:"tore",  name:"Tore",             h:r=>z(r.FTHG), a:r=>z(r.FTAG), ref:false },
+  { id:"ecken", name:"Ecken",            h:r=>z(r.HC),   a:r=>z(r.AC),   ref:false },
+  { id:"karten",name:"Karten",           h:r=>z(r.HY)+z(r.HR), a:r=>z(r.AY)+z(r.AR), ref:true },
+  { id:"sch",   name:"Schüsse",          h:r=>z(r.HS),   a:r=>z(r.AS),   ref:false },
+  { id:"sot",   name:"Schüsse aufs Tor", h:r=>z(r.HST),  a:r=>z(r.AST),  ref:false }
+];
+
+// ======== Hilfsmittel ========
+function z(v){ if(v===undefined||v===null||String(v).trim()==="") return NaN;
+               const x=Number(v); return Number.isFinite(x)?x:NaN; }
+const f = (v,n=2) => Number.isFinite(v)
+  ? v.toLocaleString("de-DE",{minimumFractionDigits:n,maximumFractionDigits:n}) : "–";
+
+function zeileTeilen(l){
+  const out=[]; let cur="", q=false;
+  for(let i=0;i<l.length;i++){
+    const c=l[i];
+    if(c==='"'){ if(q && l[i+1]==='"'){cur+='"';i++;} else q=!q; }
+    else if(c===","&&!q){ out.push(cur); cur=""; }
+    else cur+=c;
+  }
+  out.push(cur); return out;
+}
+function csvLesen(text){
+  const zeilen = text.replace(/\r/g,"").split("\n").filter(l=>l.trim()!=="");
+  if(!zeilen.length) return [];
+  const kopf = zeileTeilen(zeilen[0]).map(s=>s.trim());
+  return zeilen.slice(1).map(l=>{
+    const t = zeileTeilen(l), o = {};
+    kopf.forEach((k,i)=>o[k]=t[i]);
+    return o;
+  });
+}
+
+// Datumsformat der Quelle: TT/MM/JJ oder TT/MM/JJJJ
+function datum(s){
+  if(!s) return null;
+  const t=String(s).split("/");
+  if(t.length!==3) return null;
+  let j=Number(t[2]); if(j<100) j+=2000;
+  const d=new Date(Date.UTC(j, Number(t[1])-1, Number(t[0])));
+  return isNaN(d.getTime()) ? null : d;
+}
+const JETZT = Date.now();
+function gewicht(r){
+  const d=datum(r.Date);
+  if(!d) return 0.5;
+  const tage=Math.max(0,(JETZT-d.getTime())/86400000);
+  return Math.pow(0.5, tage/HALBWERTSZEIT);
+}
+
+function lnGamma(x){
+  const g=[676.5203681218851,-1259.1392167224028,771.32342877765313,
+           -176.61502916214059,12.507343278686905,-0.13857109526572012,
+           9.9843695780195716e-6,1.5056327351493116e-7];
+  if(x<0.5) return Math.log(Math.PI/Math.sin(Math.PI*x))-lnGamma(1-x);
+  x-=1; let a=0.99999999999980993;
+  for(let i=0;i<g.length;i++) a+=g[i]/(x+i+1);
+  const t=x+g.length-0.5;
+  return 0.5*Math.log(2*Math.PI)+(x+0.5)*Math.log(t)-t+Math.log(a);
+}
+function verteilung(mu, phi, max){
+  const p=[];
+  if(phi<=1.02){
+    for(let k=0;k<=max;k++) p.push(Math.exp(-mu+k*Math.log(mu)-lnGamma(k+1)));
+  } else {
+    const r=mu/(phi-1);
+    for(let k=0;k<=max;k++){
+      p.push(Math.exp(lnGamma(k+r)-lnGamma(r)-lnGamma(k+1)
+             + r*Math.log(r/(r+mu)) + k*Math.log(mu/(r+mu))));
+    }
+  }
+  return p;
+}
+const daempfen=(v,n,k)=> (!Number.isFinite(v)||n<=0) ? 1 : 1+(v-1)*(n/(n+k));
+
+// ======== Modell ========
+let ROHDATEN=[], AKTUELLE=[];
+
+function modellBauen(rows, m){
+  const sp = rows.filter(r=>r.HomeTeam&&r.AwayTeam
+             &&Number.isFinite(m.h(r))&&Number.isFinite(m.a(r)));
+  if(sp.length<20) return null;
+
+  let gs=0, sH=0, sA=0;
+  sp.forEach(r=>{ const w=gewicht(r); gs+=w; sH+=w*m.h(r); sA+=w*m.a(r); });
+  const ligaH=sH/gs, ligaA=sA/gs;
+
+  const T={};
+  const hol=t=>T[t]=T[t]||{hFuer:0,hGegen:0,hN:0,aFuer:0,aGegen:0,aN:0,hRoh:0,aRoh:0};
+  sp.forEach(r=>{
+    const w=gewicht(r);
+    const h=hol(r.HomeTeam), a=hol(r.AwayTeam);
+    h.hFuer+=w*m.h(r); h.hGegen+=w*m.a(r); h.hN+=w; h.hRoh++;
+    a.aFuer+=w*m.a(r); a.aGegen+=w*m.h(r); a.aN+=w; a.aRoh++;
+  });
+
+  // Ueberstreuung aus den tatsaechlichen Gesamtwerten, ungewichtet
+  const summen=sp.map(r=>m.h(r)+m.a(r));
+  const mw=summen.reduce((s,x)=>s+x,0)/summen.length;
+  const vz=summen.reduce((s,x)=>s+(x-mw)**2,0)/(summen.length-1);
+
+  const R={};
+  if(m.ref) sp.forEach(r=>{
+    const n=(r.Referee||"").trim(); if(!n) return;
+    R[n]=R[n]||{s:0,n:0}; R[n].s+=m.h(r)+m.a(r); R[n].n++;
+  });
+
+  return { ligaH, ligaA, T, phi: mw>0? vz/mw : 1, mw, spiele: sp.length, R };
+}
+
+function rechnen(mo, heim, gast, ref){
+  const leer={hFuer:0,hGegen:0,hN:0,aFuer:0,aGegen:0,aN:0,hRoh:0,aRoh:0};
+  const h=mo.T[heim]||leer, a=mo.T[gast]||leer;
+
+  // Fehlt eine Seite ganz, bleibt sie beim Ligamittel stehen (Faktor 1)
+  const angriffH = h.hN>0 ? daempfen(h.hFuer/h.hN/mo.ligaH, h.hN, 4) : 1;
+  const abwehrA  = a.aN>0 ? daempfen(a.aGegen/a.aN/mo.ligaH, a.aN, 4) : 1;
+  const angriffA = a.aN>0 ? daempfen(a.aFuer/a.aN/mo.ligaA, a.aN, 4) : 1;
+  const abwehrH  = h.hN>0 ? daempfen(h.hGegen/h.hN/mo.ligaA, h.hN, 4) : 1;
+
+  let muH = mo.ligaH * angriffH * abwehrA;
+  let muA = mo.ligaA * angriffA * abwehrH;
+
+  let rf=1;
+  if(ref && mo.R[ref]){
+    rf = daempfen(mo.R[ref].s/mo.R[ref].n/mo.mw, mo.R[ref].n, 8);
+    muH*=rf; muA*=rf;
+  }
+  const mu=muH+muA;
+  const p=verteilung(mu, mo.phi, Math.ceil(mu*3+30));
+  const cdf=[]; let s=0; p.forEach(x=>{s+=x; cdf.push(s);});
+
+  let best=0, ab=9;
+  for(let k=0;k<cdf.length-1;k++){
+    const d=Math.abs((1-cdf[k])-0.5);
+    if(d<ab){ab=d;best=k;}
+  }
+  const linien=[];
+  for(let k=Math.max(0,best-1); k<=best+1; k++){
+    const over=1-cdf[k];
+    if(over<0.001||over>0.999) continue;
+    linien.push({ L:k+0.5, over, under:1-over, mitte:k===best });
+  }
+  return { mu, muH, muA, rf, linien,
+           hGew:h.hN, aGew:a.aN, hRoh:h.hRoh, aRoh:a.aRoh };
+}
+
+// ======== Anzeige ========
+function zeichnen(){
+  const heim=document.getElementById("heim").value;
+  const gast=document.getElementById("gast").value;
+  const ref=document.getElementById("ref").value;
+  const ziel=document.getElementById("ergebnis");
+  if(!heim||!gast||heim===gast){
+    ziel.innerHTML='<p class="hinweis">Wähle zwei verschiedene Mannschaften.</p>'; return;
+  }
+
+  let html="", basis=null;
+  METRIKEN.forEach(m=>{
+    const mo=modellBauen(ROHDATEN,m);
+    if(!mo){
+      html+=`<div class="karte"><div class="detail">${m.name}: in diesen Dateien nicht enthalten.</div></div>`;
+      return;
+    }
+    const e=rechnen(mo,heim,gast,m.ref?ref:"");
+    if(!basis) basis=e;
+    html+=`<div class="karte">
+      <div class="kopf"><b>${m.name}</b>
+        <div class="erw">${f(e.mu)} <span>erwartet</span></div></div>
+      <table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th>
+        <th>Under</th><th>faire Q.</th></tr></thead><tbody>`;
+    e.linien.forEach(l=>{
+      html+=`<tr class="${l.mitte?"mitte":""}">
+        <td>${f(l.L,1)}</td>
+        <td>${f(l.over*100,1)} %</td><td class="q">${f(1/l.over)}</td>
+        <td>${f(l.under*100,1)} %</td><td class="q">${f(1/l.under)}</td></tr>`;
+    });
+    html+=`</tbody></table><div class="detail">
+      ${heim} ${f(e.muH)} · ${gast} ${f(e.muA)}${e.rf!==1?` · Ref-Faktor ${f(e.rf)}`:""} ·
+      ${mo.phi<=1.02?"Poisson":"negativ-binomial, Streuung "+f(mo.phi)} ·
+      Ligaschnitt ${f(mo.mw)}</div></div>`;
+  });
+
+  // Warnung, wenn eine Mannschaft kaum Vorgeschichte in dieser Liga hat
+  if(basis){
+    const duenn=[];
+    if(basis.hGew<3) duenn.push(`${heim} (${basis.hRoh} Heimspiele)`);
+    if(basis.aGew<3) duenn.push(`${gast} (${basis.aRoh} Auswärtsspiele)`);
+    if(duenn.length){
+      html=`<div class="warn"><b>Dünne Datenbasis:</b> ${duenn.join(", ")}.
+        Für diese Mannschaft liegt in dieser Liga kaum Vorgeschichte vor, typisch für Aufsteiger.
+        Das Modell setzt sie nahe dem Ligamittel an — die Zahlen sagen dann mehr über die Liga
+        als über das Spiel.</div>`+html;
+    }
+    html+=`<p class="hinweis">
+      Gewichtete Datenbasis: ${f(basis.hGew,1)} Heimspiele ${heim} aus ${basis.hRoh} tatsächlichen,
+      ${f(basis.aGew,1)} Auswärtsspiele ${gast} aus ${basis.aRoh}.
+      Ältere Spiele zählen weniger; nach ${HALBWERTSZEIT} Tagen nur noch halb.
+      Aufstellungen, Verletzte und Spielverlauf kennt das Modell nicht.
+      Bei Ecken und Karten liegt die Buchmachermarge meist bei 6–10 statt 3–5 Prozent wie bei Toren;
+      ein rechnerischer Vorteil unter 4 Prozent ist dort in der Regel Rauschen.</p>`;
+  }
+  ziel.innerHTML=html;
+}
+
+function listenFuellen(){
+  const alle=document.getElementById("alleTeams").checked;
+  const quelle = (alle || !AKTUELLE.length) ? ROHDATEN : AKTUELLE;
+  const teams=[...new Set(quelle.flatMap(r=>[r.HomeTeam,r.AwayTeam]))].filter(Boolean).sort();
+  ["heim","gast"].forEach(id=>{
+    const s=document.getElementById(id), alt=s.value;
+    s.innerHTML='<option value="">– wählen –</option>'+
+      teams.map(t=>`<option${t===alt?" selected":""}>${t}</option>`).join("");
+  });
+}
+
+function datenSetzen(alleRows, aktuelleRows){
+  ROHDATEN=alleRows.filter(r=>r.HomeTeam&&r.AwayTeam);
+  AKTUELLE=(aktuelleRows||[]).filter(r=>r.HomeTeam&&r.AwayTeam);
+  if(!ROHDATEN.length){
+    document.getElementById("status").textContent="Keine passenden Spalten gefunden.";
+    return;
+  }
+  listenFuellen();
+  const refs={};
+  ROHDATEN.forEach(r=>{const n=(r.Referee||"").trim(); if(n) refs[n]=(refs[n]||0)+1;});
+  document.getElementById("ref").innerHTML='<option value="">Ligadurchschnitt</option>'+
+    Object.entries(refs).filter(([,c])=>c>=3).sort((a,b)=>a[0].localeCompare(b[0]))
+      .map(([n,c])=>`<option value="${n}">${n} (${c})</option>`).join("");
+  document.getElementById("auswahl").style.display="block";
+  document.getElementById("status").textContent=
+    `${ROHDATEN.length} Spiele geladen, davon ${AKTUELLE.length} in der laufenden Saison.`;
+  document.getElementById("ergebnis").innerHTML=
+    '<p class="hinweis">Wähle zwei Mannschaften.</p>';
+}
+
+async function ligaLaden(code){
+  if(!code) return;
+  document.getElementById("status").textContent="Lade …";
+  const teile=await Promise.all(SAISONS.map(async s=>{
+    try{
+      const r=await fetch(`./daten/${s}-${code}.csv`);
+      if(!r.ok) return [];
+      return csvLesen(await r.text());
+    }catch(e){ return []; }
+  }));
+  const alle=teile.flat();
+  if(!alle.length){
+    document.getElementById("status").innerHTML=
+      "Für diese Liga wurden keine Dateien gefunden. Läuft die App noch nicht auf GitHub Pages, "+
+      "nutze das Auswahlfeld darunter.";
+    document.getElementById("uploadbereich").style.display="block";
+    return;
+  }
+  datenSetzen(alle, teile[teile.length-1]);
+}
+
+// ======== Start ========
+document.getElementById("liga").innerHTML='<option value="">– wählen –</option>'+
+  Object.entries(LIGEN).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+document.getElementById("liga").addEventListener("change",e=>ligaLaden(e.target.value));
+["heim","gast","ref"].forEach(id=>
+  document.getElementById(id).addEventListener("change",zeichnen));
+document.getElementById("alleTeams").addEventListener("change",()=>{ listenFuellen(); zeichnen(); });
+document.getElementById("datei").addEventListener("change",async e=>{
+  const texte=await Promise.all([...e.target.files].map(f=>f.text()));
+  datenSetzen(texte.flatMap(csvLesen), []);
+});
+fetch(`./daten/${SAISONS[SAISONS.length-1]}-D1.csv`,{method:"HEAD"})
+  .then(r=>{ if(!r.ok) throw 0; })
+  .catch(()=>{ document.getElementById("uploadbereich").style.display="block"; });
+</script>
+</body>
+</html>
