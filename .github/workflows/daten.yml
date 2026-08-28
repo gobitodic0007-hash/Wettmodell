@@ -1,6 +1,7 @@
 name: Ligadaten aktualisieren
 
 on:
+  push:
   schedule:
     - cron: "0 4 * * *"
   workflow_dispatch:
@@ -12,14 +13,33 @@ jobs:
   holen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: CSVs abrufen
         run: |
           mkdir -p daten
           for SAISON in 2425 2526 2627; do
             for LIGA in D1 D2 E0 E1 SP1 I1 F1 P1 T1 B1; do
-              if curl -sfL --retry 3 \
-                   "https://www.football-data.co.uk/mmz4281/$SAISON/$LIGA.csv" \
-                   -o /tmp/roh.csv; then
-                iconv -f WINDOWS-1252 -t UTF-8
+              URL="https://www.football-data.co.uk/mmz4281/$SAISON/$LIGA.csv"
+              if curl -sfL --retry 3 -o roh.tmp "$URL"; then
+                iconv -f WINDOWS-1252 -t UTF-8 roh.tmp -o "daten/$SAISON-$LIGA.csv"
+                echo "ok $SAISON-$LIGA"
+              else
+                echo "fehlt $SAISON-$LIGA"
+              fi
+            done
+          done
+          rm -f roh.tmp
+          ls -l daten
+
+      - name: Änderungen sichern
+        run: |
+          git config user.name "daten-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A daten || true
+          if git diff --staged --quiet; then
+            echo "nichts Neues"
+          else
+            git commit -m "Daten $(date -I)"
+            git push
+          fi
