@@ -66,6 +66,7 @@
   .tagkopf { padding:7px 12px; background:#f1f5f9; font-size:11px; font-weight:700;
              letter-spacing:.1em; text-transform:uppercase; color:var(--grau);
              border-top:1px solid var(--linie); }
+  code { background:#f1f5f9; padding:1px 4px; font-size:11px; word-break:break-all; }
 </style>
 </head>
 <body>
@@ -135,7 +136,7 @@ const SAISONS = ["2425", "2526", "2627"];
 const SAISONABSCHLAG = 0.8;
 const KAPPA = 4;
 const ITER = 40;
-const KANTE_MIN = 0.04;   // ab welchem rechnerischen Vorteil ein Hinweis erscheint
+const KANTE_MIN = 0.04;
 
 const LIGEN = {
   D1:"Bundesliga", D2:"2. Bundesliga", E0:"Premier League", E1:"Championship",
@@ -156,13 +157,12 @@ const METRIKEN = [
     h:r=>z(r.HST),  a:r=>z(r.AST),  ref:false }
 ];
 
-// Quotenspalten der Ansetzungsdatei, in dieser Reihenfolge probiert
 const QUOTEN = {
-  "Heimsieg":      ["AvgH","B365H","PSH","BWH"],
-  "Unentschieden": ["AvgD","B365D","PSD","BWD"],
-  "Auswärtssieg":  ["AvgA","B365A","PSA","BWA"],
-  "Über 2,5":      ["Avg>2.5","B365>2.5","P>2.5"],
-  "Unter 2,5":     ["Avg<2.5","B365<2.5","P<2.5"]
+  "Heimsieg":      ["AvgH","B365H","PSH","BWH","MaxH"],
+  "Unentschieden": ["AvgD","B365D","PSD","BWD","MaxD"],
+  "Auswärtssieg":  ["AvgA","B365A","PSA","BWA","MaxA"],
+  "Über 2,5":      ["Avg>2.5","B365>2.5","P>2.5","Max>2.5"],
+  "Unter 2,5":     ["Avg<2.5","B365<2.5","P<2.5","Max<2.5"]
 };
 
 // ======== Hilfsmittel ========
@@ -184,19 +184,20 @@ function zeileTeilen(l){
   out.push(cur); return out;
 }
 function csvLesen(text){
-  const zeilen = text.replace(/\r/g,"").split("\n").filter(l=>l.trim()!=="");
+  const zeilen = text.replace(/^\uFEFF/,"").replace(/\r/g,"")
+                     .split("\n").filter(l=>l.trim()!=="");
   if(!zeilen.length) return [];
   const kopf = zeileTeilen(zeilen[0]).map(s=>s.trim());
   return zeilen.slice(1).map(l=>{
     const t = zeileTeilen(l), o = {};
-    kopf.forEach((k,i)=>o[k]=t[i]);
+    kopf.forEach((k,i)=>o[k]=(t[i]||"").trim());
     return o;
   });
 }
 
 function datum(s){
   if(!s) return null;
-  const t=String(s).split("/");
+  const t=String(s).trim().split("/");
   if(t.length!==3) return null;
   let j=Number(t[2]); if(j<100) j+=2000;
   const d=new Date(Date.UTC(j, Number(t[1])-1, Number(t[0])));
@@ -312,7 +313,7 @@ function spielausgang(muH, muA, phiH, phiA, rho){
 }
 
 // ======== Modell ========
-let ROHDATEN=[], AKTUELLE=[], SAISONLABEL="", ANSETZUNGEN=[], MODELLE={};
+let ROHDATEN=[], AKTUELLE=[], SAISONLABEL="", ANSETZUNGEN=[], FIXSTATUS="", MODELLE={};
 
 function staerkenEinfach(sp, m, g, mitte, hvH, hvA){
   const T={};
@@ -431,7 +432,6 @@ function modellBauen(rows, m, verfahren, bezugMs, bezugSaison){
   return mo;
 }
 
-// Modelle je Verfahren nur einmal bauen — die Spieltagsliste braucht sie oft
 function holModell(m, verf){
   const k=verf+":"+m.id;
   if(MODELLE[k]===undefined) MODELLE[k]=modellBauen(ROHDATEN,m,verf);
@@ -464,7 +464,6 @@ function rueckvergleich(rows, m){
              &&Number.isFinite(m.h(r))&&Number.isFinite(m.a(r))&&datum(r.Date))
     .sort((a,b)=>datum(a.Date)-datum(b.Date));
   if(sp.length<300) return null;
-
   const testN = Math.min(300, Math.floor(sp.length*0.3));
   const start = sp.length - testN;
   const basisMittel = sp.slice(0,start).reduce((s,r)=>s+m.h(r)+m.a(r),0)/start;
@@ -490,7 +489,6 @@ function rueckvergleich(rows, m){
     }
   }
   if(llE.length<50) return null;
-
   const mw=a=>a.reduce((s,x)=>s+x,0)/a.length;
   const paar=(a,b)=>{
     const d=a.map((x,i)=>x-b[i]), dm=mw(d);
@@ -528,11 +526,8 @@ function vergleichStarten(){
     });
     html+=`</tbody></table><div class="detail">
       „Passt" heißt: das Modell schlägt an dieser Linie den reinen Ligaschnitt deutlich genug,
-      dass es nicht am Zufall liegt. „Passt nicht" heißt, die Teamstärken bringen für diese
-      Kennzahl nichts — dann ist der Ligaschnitt die ehrlichere Vorhersage.
-      Jede Vorhersage nutzt nur Spiele, die vorher stattfanden.</div></div>`;
-    if(!irgendwas) html=`<p class="hinweis">Für die Prüfung werden mindestens 300 Spiele
-      je Kennzahl gebraucht.</p>`;
+      dass es nicht am Zufall liegt. Jede Vorhersage nutzt nur Spiele, die vorher stattfanden.</div></div>`;
+    if(!irgendwas) html=`<p class="hinweis">Für die Prüfung werden mindestens 300 Spiele gebraucht.</p>`;
     ziel.innerHTML=html;
   },50);
 }
@@ -550,18 +545,41 @@ function spieltagZeichnen(){
   const ziel=document.getElementById("spieltag");
   const code=document.getElementById("liga").value;
   const verf=document.getElementById("verfahren").value;
-  if(!code || !ANSETZUNGEN.length){ ziel.innerHTML=""; return; }
+  if(!code){ ziel.innerHTML=""; return; }
 
-  const grenze=JETZT-36*3600*1000;
-  const spiele=ANSETZUNGEN
-    .filter(r=>r.Div===code && r.HomeTeam && r.AwayTeam && datum(r.Date)
-               && datum(r.Date).getTime()>grenze)
-    .sort((a,b)=>datum(a.Date)-datum(b.Date)
-                 || String(a.Time||"").localeCompare(String(b.Time||"")));
-  if(!spiele.length){
+  if(!ANSETZUNGEN.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
-      <div class="detail">Für diese Liga stehen gerade keine Ansetzungen in der Datei.
-      Sie enthält jeweils nur die nächste Runde.</div></div>`;
+      <div class="detail">${FIXSTATUS||"Ansetzungsdatei nicht geladen."}</div></div>`;
+    return;
+  }
+
+  // Abgleich zuerst über den Ligacode, ersatzweise über die Mannschaftsnamen
+  const bekannt=new Set((AKTUELLE.length?AKTUELLE:ROHDATEN)
+    .flatMap(r=>[r.HomeTeam,r.AwayTeam]));
+  const grenze=JETZT-36*3600*1000;
+  const kandidaten=ANSETZUNGEN.filter(r=>r.HomeTeam&&r.AwayTeam&&datum(r.Date)
+    && datum(r.Date).getTime()>grenze);
+  let spiele=kandidaten.filter(r=>r.Div===code);
+  let weg="Ligacode";
+  if(!spiele.length){
+    spiele=kandidaten.filter(r=>bekannt.has(r.HomeTeam)&&bekannt.has(r.AwayTeam));
+    weg="Mannschaftsnamen";
+  }
+  spiele.sort((a,b)=>datum(a.Date)-datum(b.Date)
+                     || String(a.Time||"").localeCompare(String(b.Time||"")));
+
+  if(!spiele.length){
+    const divs=[...new Set(ANSETZUNGEN.map(r=>r.Div).filter(Boolean))].slice(0,25);
+    const spalten=Object.keys(ANSETZUNGEN[0]||{}).slice(0,8);
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
+      <div class="detail">
+      Keine Partie zuordenbar. Diagnose:<br><br>
+      Zeilen in der Datei: <b>${ANSETZUNGEN.length}</b><br>
+      Erste Spalten: <code>${spalten.join(", ")||"keine"}</code><br>
+      Gefundene Ligacodes: <code>${divs.join(", ")||"keine"}</code><br>
+      Gesucht wird: <code>${code}</code><br>
+      Zeilen mit gültigem Datum in der Zukunft: <b>${kandidaten.length}</b>
+      </div></div>`;
     return;
   }
 
@@ -572,7 +590,7 @@ function spieltagZeichnen(){
   let html=`<div class="karte"><div class="kopf"><b>Spieltag</b>
     <span class="q">${spiele.length} Partien</span></div>`;
   let letzterTag="";
-  spiele.forEach((r,i)=>{
+  spiele.forEach(r=>{
     const d=datum(r.Date);
     const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
               String(d.getUTCMonth()+1).padStart(2,"0")+".";
@@ -585,17 +603,16 @@ function spieltagZeichnen(){
       teile.push(`Tore ${f(e.mu)}`);
       const s=spielausgang(e.muH,e.muA,moT.phiH,moT.phiA,moT.rho);
       const p25=pOver(e.mu,moT.phiT,2.5);
-      const kand=[["Heimsieg",s.heim],["Unentschieden",s.remis],["Auswärtssieg",s.aus],
-                  ["Über 2,5",p25],["Unter 2,5",1-p25]];
-      kand.forEach(([nm,p])=>{
+      [["Heimsieg",s.heim],["Unentschieden",s.remis],["Auswärtssieg",s.aus],
+       ["Über 2,5",p25],["Unter 2,5",1-p25]].forEach(([nm,p])=>{
         const q=quote(r,nm);
         if(!q) return;
         const v=p*q-1;
         if(v>KANTE_MIN && (!kante || v>kante.v)) kante={nm,q,v};
       });
     }
-    if(moE){ teile.push(`Ecken ${f(rechnen(moE,r.HomeTeam,r.AwayTeam,"").mu,1)}`); }
-    if(moK){ teile.push(`Karten ${f(rechnen(moK,r.HomeTeam,r.AwayTeam,"").mu,1)}`); }
+    if(moE) teile.push(`Ecken ${f(rechnen(moE,r.HomeTeam,r.AwayTeam,"").mu,1)}`);
+    if(moK) teile.push(`Karten ${f(rechnen(moK,r.HomeTeam,r.AwayTeam,"").mu,1)}`);
 
     html+=`<div class="spiel" data-h="${r.HomeTeam}" data-g="${r.AwayTeam}">
       <div class="zeit">${r.Time||""}</div>
@@ -605,10 +622,10 @@ function spieltagZeichnen(){
     </div>`;
   });
   html+=`<div class="detail">Antippen öffnet die vollständige Rechnung.
-    Der grüne Hinweis vergleicht die Modellwahrscheinlichkeit mit der Durchschnittsquote
-    aus der Ansetzungsdatei und erscheint ab ${f(KANTE_MIN*100,0)} Prozent Vorteil.
-    Diese Quoten sind Momentaufnahmen vom Zeitpunkt des Downloads, nicht die Quote,
-    die du gerade bekommst.</div></div>`;
+    Zuordnung über ${weg}.
+    Der grüne Hinweis vergleicht die Modellwahrscheinlichkeit mit der Quote aus der
+    Ansetzungsdatei und erscheint ab ${f(KANTE_MIN*100,0)} Prozent Vorteil. Diese Quoten sind
+    Momentaufnahmen vom Zeitpunkt des Downloads, nicht die Quote, die du gerade bekommst.</div></div>`;
   ziel.innerHTML=html;
 
   ziel.querySelectorAll(".spiel").forEach(el=>{
@@ -757,8 +774,7 @@ function datenSetzen(alleRows, aktuelleRows, label){
   document.getElementById("status").innerHTML = AKTUELLE.length
     ? `${ROHDATEN.length} Spiele als Datenbasis. Teamliste: ${anzTeams} Mannschaften
        aus Saison ${SAISONLABEL} (${AKTUELLE.length} Spiele gespielt).`
-    : `${ROHDATEN.length} Spiele geladen. Teamliste aus allen Saisons — Auf- und Absteiger
-       sind gemischt.`;
+    : `${ROHDATEN.length} Spiele geladen. Teamliste aus allen Saisons.`;
   document.getElementById("ergebnis").innerHTML=
     '<p class="hinweis">Wähle eine Partie aus der Liste oder zwei Mannschaften.</p>';
   spieltagZeichnen();
@@ -774,10 +790,23 @@ async function ligaLaden(code){
       return csvLesen(await r.text()).filter(x=>x.HomeTeam&&x.AwayTeam);
     }catch(e){ return []; }
   }));
+
+  ANSETZUNGEN=[]; FIXSTATUS="";
   try{
     const r=await fetch("./daten/fixtures.csv");
-    ANSETZUNGEN = r.ok ? csvLesen(await r.text()) : [];
-  }catch(e){ ANSETZUNGEN=[]; }
+    if(!r.ok){ FIXSTATUS=`Die Datei daten/fixtures.csv fehlt (Code ${r.status}). Läuft die Automatik?`; }
+    else {
+      const txt=await r.text();
+      if(/^\s*</.test(txt)) FIXSTATUS="Die Datei enthält kein CSV, sondern eine Webseite. Der Download in der Automatik hat eine Fehlerseite gespeichert.";
+      else {
+        const rows=csvLesen(txt);
+        if(!rows.length || !("HomeTeam" in rows[0])){
+          FIXSTATUS="Die Datei hat keine Spalte HomeTeam. Erste Spalten: "+
+                    Object.keys(rows[0]||{}).slice(0,6).join(", ");
+        } else ANSETZUNGEN=rows;
+      }
+    }
+  }catch(e){ FIXSTATUS="Ansetzungsdatei konnte nicht geladen werden."; }
 
   const alle=teile.flat();
   if(!alle.length){
