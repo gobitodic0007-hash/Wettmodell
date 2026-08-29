@@ -24,4 +24,52 @@ jobs:
             for LIGA in D1 D2 E0 E1 SP1 I1 F1 P1 T1 B1; do
               URL="https://www.football-data.co.uk/mmz4281/$SAISON/$LIGA.csv"
               if curl -sfL --retry 3 -o roh.tmp "$URL"; then
-                if iconv -c -f WINDOWS-1252
+                if iconv -c -f WINDOWS-1252 -t UTF-8 roh.tmp > "daten/$SAISON-$LIGA.csv"; then
+                  echo "ok $SAISON-$LIGA"
+                else
+                  echo "umwandlung fehlgeschlagen $SAISON-$LIGA"
+                  rm -f "daten/$SAISON-$LIGA.csv"
+                fi
+              else
+                echo "fehlt $SAISON-$LIGA"
+              fi
+            done
+          done
+          rm -f roh.tmp
+
+      - name: Ansetzungen abrufen
+        continue-on-error: true
+        run: |
+          set +e
+          mkdir -p daten
+          curl -sL --retry 3 -o fix.tmp "https://www.football-data.co.uk/fixtures.csv"
+          echo "curl-Code: $?"
+          if [ -s fix.tmp ]; then
+            echo "Groesse: $(wc -c < fix.tmp) Bytes"
+            iconv -c -f WINDOWS-1252 -t UTF-8 fix.tmp > daten/fixtures.csv
+            echo "iconv-Code: $?"
+            echo "--- Kopfzeile ---"
+            head -c 400 daten/fixtures.csv
+            echo ""
+            echo "--- erste Datenzeile ---"
+            sed -n '2p' daten/fixtures.csv | head -c 300
+            echo ""
+          else
+            echo "Datei leer oder nicht geladen"
+          fi
+          rm -f fix.tmp
+          exit 0
+
+      - name: Änderungen sichern
+        run: |
+          git config user.name "daten-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A daten
+          if git diff --staged --quiet; then
+            echo "nichts Neues"
+          else
+            git commit -m "Daten $(date -I)"
+            git push
+          fi
+          echo "--- Inhalt ---"
+          ls -l daten
