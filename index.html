@@ -100,20 +100,61 @@
     <input type="file" id="datei" accept=".csv" multiple>
   </div>
   <div id="status" style="font-size:12px;color:var(--grau);margin:8px 0 12px"></div>
+
+  <div class="feld">
+    <label for="ereignis">Ereignis</label>
+    <select id="ereignis">
+      <option value="alle">Alle Märkte</option>
+      <optgroup label="Spielausgang">
+        <option value="1x2">Dreiweg</option>
+        <option value="btts">Beide treffen</option>
+      </optgroup>
+      <optgroup label="Tore">
+        <option value="tore">Tore, alle Linien</option>
+        <option value="tore:0.5">Tore 0,5</option>
+        <option value="tore:1.5">Tore 1,5</option>
+        <option value="tore:2.5">Tore 2,5</option>
+        <option value="tore:3.5">Tore 3,5</option>
+        <option value="tore:4.5">Tore 4,5</option>
+      </optgroup>
+      <optgroup label="Ecken">
+        <option value="ecken">Ecken, alle Linien</option>
+        <option value="ecken:8.5">Ecken 8,5</option>
+        <option value="ecken:9.5">Ecken 9,5</option>
+        <option value="ecken:10.5">Ecken 10,5</option>
+        <option value="ecken:11.5">Ecken 11,5</option>
+        <option value="ecken:12.5">Ecken 12,5</option>
+      </optgroup>
+      <optgroup label="Karten">
+        <option value="karten">Karten, alle Linien</option>
+        <option value="karten:2.5">Karten 2,5</option>
+        <option value="karten:3.5">Karten 3,5</option>
+        <option value="karten:4.5">Karten 4,5</option>
+        <option value="karten:5.5">Karten 5,5</option>
+      </optgroup>
+      <optgroup label="Schüsse">
+        <option value="sch">Schüsse, alle Linien</option>
+        <option value="sot">Schüsse aufs Tor, alle Linien</option>
+      </optgroup>
+    </select>
+  </div>
+
   <div class="zwei">
     <div class="feld">
-      <label for="schwelle">Mindestwahrscheinlichkeit</label>
+      <label for="schwelle">Mindestens</label>
       <select id="schwelle">
         <option value="55">55 %</option>
-        <option value="60" selected>60 %</option>
-        <option value="65">65 %</option>
+        <option value="60">60 %</option>
+        <option value="65" selected>65 %</option>
         <option value="70">70 %</option>
         <option value="75">75 %</option>
+        <option value="80">80 %</option>
       </select>
     </div>
     <div class="feld">
       <label for="sortierung">Sortierung</label>
       <select id="sortierung">
+        <option value="zeit" selected>Anstoßzeit</option>
         <option value="p">Wahrscheinlichkeit</option>
         <option value="v">Rechnerischer Vorteil</option>
       </select>
@@ -170,7 +211,7 @@ const SAISONABSCHLAG = 0.8;
 const KAPPA = 4;
 const ITER = 40;
 const KANTE_MIN = 0.04;
-const MAX_FUNDE = 80;
+const MAX_FUNDE = 150;
 
 const LIGEN = {
   D1:"Bundesliga", D2:"2. Bundesliga", E0:"Premier League", E1:"Championship",
@@ -178,17 +219,23 @@ const LIGEN = {
   T1:"Süper Lig", B1:"Jupiler Pro League"
 };
 
+// Feste Standardlinien je Kennzahl — sonst tauchen einzelne Linien nie auf
 const METRIKEN = [
-  { id:"tore",  name:"Tore",             halbwert:300,
-    h:r=>z(r.FTHG), a:r=>z(r.FTAG), ref:false },
-  { id:"ecken", name:"Ecken",            halbwert:500,
-    h:r=>z(r.HC),   a:r=>z(r.AC),   ref:false },
-  { id:"karten",name:"Karten",           halbwert:200,
-    h:r=>z(r.HY)+z(r.HR), a:r=>z(r.AY)+z(r.AR), ref:true },
-  { id:"sch",   name:"Schüsse",          halbwert:500,
-    h:r=>z(r.HS),   a:r=>z(r.AS),   ref:false },
-  { id:"sot",   name:"Schüsse aufs Tor", halbwert:450,
-    h:r=>z(r.HST),  a:r=>z(r.AST),  ref:false }
+  { id:"tore",  name:"Tore",             halbwert:300, ref:false,
+    leiter:[0.5,1.5,2.5,3.5,4.5],
+    h:r=>z(r.FTHG), a:r=>z(r.FTAG) },
+  { id:"ecken", name:"Ecken",            halbwert:500, ref:false,
+    leiter:[7.5,8.5,9.5,10.5,11.5,12.5,13.5],
+    h:r=>z(r.HC),   a:r=>z(r.AC) },
+  { id:"karten",name:"Karten",           halbwert:200, ref:true,
+    leiter:[1.5,2.5,3.5,4.5,5.5,6.5,7.5],
+    h:r=>z(r.HY)+z(r.HR), a:r=>z(r.AY)+z(r.AR) },
+  { id:"sch",   name:"Schüsse",          halbwert:500, ref:false,
+    leiter:[17.5,19.5,21.5,23.5,25.5,27.5,29.5],
+    h:r=>z(r.HS),   a:r=>z(r.AS) },
+  { id:"sot",   name:"Schüsse aufs Tor", halbwert:450, ref:false,
+    leiter:[5.5,6.5,7.5,8.5,9.5,10.5,11.5],
+    h:r=>z(r.HST),  a:r=>z(r.AST) }
 ];
 
 const QUOTEN = {
@@ -238,6 +285,13 @@ function datum(s){
   const d=new Date(Date.UTC(j, Number(t[1])-1, Number(t[0])));
   return isNaN(d.getTime()) ? null : d;
 }
+// Anstoß als vergleichbare Zahl: Datum plus Uhrzeit
+function anstoss(r){
+  const d=datum(r.Date);
+  if(!d) return Infinity;
+  const t=String(r.Time||"00:00").split(":");
+  return d.getTime() + (Number(t[0])||0)*3600000 + (Number(t[1])||0)*60000;
+}
 const saisonIndex = d => d.getUTCFullYear() - (d.getUTCMonth() < 6 ? 1 : 0);
 
 const HEUTE = new Date();
@@ -275,19 +329,24 @@ function verteilung(mu, phi, max){
   }
   return p;
 }
+function summenkurve(mu, phi, max){
+  const p=verteilung(mu, phi, max);
+  const cdf=[]; let s=0;
+  p.forEach(x=>{ s+=x; cdf.push(s); });
+  return cdf;
+}
 function pOver(mu, phi, L){
   if(!(mu>0)) return 0.5;
   const k=Math.floor(L);
-  const p=verteilung(mu, phi, Math.max(k+1, Math.ceil(mu*3+30)));
-  let s=0; for(let i=0;i<=k;i++) s+=p[i];
-  return Math.min(0.999, Math.max(0.001, 1-s));
+  const cdf=summenkurve(mu, phi, Math.max(k+1, Math.ceil(mu*3+30)));
+  return Math.min(0.999, Math.max(0.001, 1-cdf[k]));
 }
 const daempfen=(v,n,k)=> (!Number.isFinite(v)||n<=0) ? 1 : 1+(v-1)*(n/(n+k));
 
+// Drei Linien um die Erwartung — für die Detailansicht
 function linienFuer(mu, phi){
   if(!(mu>0)) return [];
-  const p=verteilung(mu, phi, Math.ceil(mu*3+30));
-  const cdf=[]; let s=0; p.forEach(x=>{s+=x; cdf.push(s);});
+  const cdf=summenkurve(mu, phi, Math.ceil(mu*3+30));
   let best=0, ab=9;
   for(let k=0;k<cdf.length-1;k++){
     const d=Math.abs((1-cdf[k])-0.5);
@@ -300,6 +359,16 @@ function linienFuer(mu, phi){
     out.push({ L:k+0.5, over, under:1-over, mitte:k===best });
   }
   return out;
+}
+// Feste Leiter — für die Suche
+function linienLeiter(mu, phi, leiter){
+  if(!(mu>0)) return [];
+  const max=Math.max(Math.ceil(mu*3+30), Math.ceil(leiter[leiter.length-1])+2);
+  const cdf=summenkurve(mu, phi, max);
+  return leiter.map(L=>{
+    const over=1-cdf[Math.floor(L)];
+    return { L, over, under:1-over };
+  }).filter(x=>x.over>0.005 && x.over<0.995);
 }
 
 function tau(x,y,lh,la,rho){
@@ -347,10 +416,8 @@ function spielausgang(muH, muA, phiH, phiA, rho){
 }
 
 // ======== Zustand ========
-const DATEN={};     // Ligacode -> {alle, aktuelle, label}
-const MODELLE={};   // Ligacode:Verfahren:Kennzahl -> Modell
+const DATEN={}, MODELLE={};
 let ANSETZUNGEN=[], FIXSTATUS="", AKTIV="";
-
 function rohdaten(){ return AKTIV&&DATEN[AKTIV] ? DATEN[AKTIV].alle : []; }
 function aktuelle(){ return AKTIV&&DATEN[AKTIV] ? DATEN[AKTIV].aktuelle : []; }
 
@@ -386,7 +453,6 @@ function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
   teams.forEach(t=>{att[t]=1; def[t]=1;});
   let hvH=hvH0, hvA=hvA0;
   const K = KAPPA*mitte;
-
   for(let it=0; it<ITER; it++){
     const an={}, ad={}, bn={}, bd={};
     teams.forEach(t=>{an[t]=0;ad[t]=0;bn[t]=0;bd[t]=0;});
@@ -406,7 +472,6 @@ function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
     teams.forEach(t=>{sa+=att[t]; sd+=def[t];});
     const ca=sa/teams.length, cd=sd/teams.length;
     if(ca>0&&cd>0) teams.forEach(t=>{att[t]/=ca; def[t]/=cd;});
-
     let nH=0,dH=0,nA=0,dA=0;
     sp.forEach(r=>{
       const w=g(r);
@@ -456,7 +521,6 @@ function modellBauen(rows, m, verfahren, bezugMs, bezugSaison){
   });
 
   const ligaMittel = sp.reduce((s,r)=>s+m.h(r)+m.a(r),0)/sp.length;
-
   const R={};
   if(m.ref) sp.forEach(r=>{
     const nm=(r.Referee||"").trim(); if(!nm) return;
@@ -537,11 +601,9 @@ function rueckvergleich(rows, m){
   const rVsE=paar(llR,llE);
   const besserIstR = rVsE.d < 0;
   const vsBasis=paar(besserIstR?llR:llE, llB);
-  return {
-    L, n:llE.length,
+  return { L, n:llE.length,
     sieger: Math.abs(rVsE.d) > 2*rVsE.se ? (besserIstR?"Regression":"Einfach") : "gleichwertig",
-    brauchbar: vsBasis.d < -2*vsBasis.se
-  };
+    brauchbar: vsBasis.d < -2*vsBasis.se };
 }
 
 function vergleichStarten(){
@@ -562,7 +624,7 @@ function vergleichStarten(){
     });
     html+=`</tbody></table><div class="detail">
       „Passt" heißt: das Modell schlägt an dieser Linie den reinen Ligaschnitt deutlich genug,
-      dass es nicht am Zufall liegt. Jede Vorhersage nutzt nur Spiele, die vorher stattfanden.</div></div>`;
+      dass es nicht am Zufall liegt.</div></div>`;
     if(!irgendwas) html=`<p class="hinweis">Für die Prüfung werden mindestens 300 Spiele gebraucht.</p>`;
     ziel.innerHTML=html;
   },50);
@@ -611,8 +673,7 @@ function partienFuer(code, d){
   let s=kand.filter(r=>r.Div===code);
   let weg="Ligacode";
   if(!s.length){ s=kand.filter(r=>bekannt.has(r.HomeTeam)&&bekannt.has(r.AwayTeam)); weg="Namen"; }
-  s.sort((a,b)=>datum(a.Date)-datum(b.Date)
-                || String(a.Time||"").localeCompare(String(b.Time||"")));
+  s.sort((a,b)=>anstoss(a)-anstoss(b));
   return { spiele:s, weg, kand };
 }
 
@@ -625,37 +686,44 @@ function quote(zeile, name){
   return null;
 }
 
-// Alle Märkte einer Partie mit Wahrscheinlichkeit und, wo vorhanden, Quote
+// Alle Märkte einer Partie. id dient dem Filter, n der Anzeige.
 function maerkte(code, r, verf){
   const out=[];
   const moT=holModell(code, METRIKEN[0], verf);
   if(moT){
     const e=rechnen(moT,r.HomeTeam,r.AwayTeam,"");
     const s=spielausgang(e.muH,e.muA,moT.phiH,moT.phiA,moT.rho);
-    out.push({n:"Heimsieg",p:s.heim},{n:"Unentschieden",p:s.remis},
-             {n:"Auswärtssieg",p:s.aus},
-             {n:"Beide treffen",p:s.bttsJa},{n:"Beide treffen: nein",p:s.bttsNein});
+    out.push({id:"1x2", n:"Heimsieg", p:s.heim},
+             {id:"1x2", n:"Unentschieden", p:s.remis},
+             {id:"1x2", n:"Auswärtssieg", p:s.aus},
+             {id:"btts", n:"Beide treffen: ja", p:s.bttsJa},
+             {id:"btts", n:"Beide treffen: nein", p:s.bttsNein});
   }
   METRIKEN.forEach(m=>{
     const mo=holModell(code, m, verf);
     if(!mo) return;
     const e=rechnen(mo,r.HomeTeam,r.AwayTeam,"");
-    e.gesamt.forEach(l=>{
-      out.push({n:`${m.name} über ${f(l.L,1)}`, p:l.over});
-      out.push({n:`${m.name} unter ${f(l.L,1)}`, p:l.under});
+    linienLeiter(e.mu, mo.phiT, m.leiter).forEach(l=>{
+      const id=`${m.id}:${l.L}`;
+      out.push({id, n:`${m.name} über ${f(l.L,1)}`, p:l.over});
+      out.push({id, n:`${m.name} unter ${f(l.L,1)}`, p:l.under});
     });
   });
-  out.forEach(o=>{
-    o.q = quote(r, o.n);
-    o.v = o.q ? o.p*o.q-1 : null;
-  });
+  out.forEach(o=>{ o.q=quote(r,o.n); o.v = o.q ? o.p*o.q-1 : null; });
   return out;
+}
+
+function passtZumFilter(id, filter){
+  if(filter==="alle") return true;
+  if(filter.includes(":")) return id===filter;
+  return id.split(":")[0]===filter;
 }
 
 async function alleLigenScannen(){
   const ziel=document.getElementById("funde");
   const schwelle=Number(document.getElementById("schwelle").value)/100;
   const sortierung=document.getElementById("sortierung").value;
+  const filter=document.getElementById("ereignis").value;
   const verf=document.getElementById("verfahren").value;
   const knopf=document.getElementById("scanKnopf");
   knopf.disabled=true;
@@ -668,8 +736,7 @@ async function alleLigenScannen(){
   }
 
   const codes=Object.keys(LIGEN);
-  const funde=[];
-  let partien=0;
+  const funde=[]; let partien=0;
   for(let i=0;i<codes.length;i++){
     const code=codes[i];
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche läuft</b>
@@ -682,18 +749,16 @@ async function alleLigenScannen(){
     partien+=spiele.length;
     spiele.forEach(r=>{
       maerkte(code,r,verf).forEach(o=>{
-        if(o.p>=schwelle) funde.push({code, r, ...o});
+        if(o.p>=schwelle && passtZumFilter(o.id, filter))
+          funde.push({code, r, zeit:anstoss(r), ...o});
       });
     });
     await warte();
   }
 
-  if(sortierung==="v"){
-    funde.sort((a,b)=>(b.v===null?-9:b.v)-(a.v===null?-9:a.v) || b.p-a.p);
-  } else {
-    funde.sort((a,b)=>b.p-a.p);
-  }
-  const zeigen=funde.slice(0,MAX_FUNDE);
+  if(sortierung==="v") funde.sort((a,b)=>(b.v===null?-9:b.v)-(a.v===null?-9:a.v)||b.p-a.p);
+  else if(sortierung==="p") funde.sort((a,b)=>b.p-a.p);
+  else funde.sort((a,b)=>a.zeit-b.zeit || b.p-a.p);
 
   if(!funde.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
@@ -702,15 +767,19 @@ async function alleLigenScannen(){
     knopf.disabled=false; return;
   }
 
+  const zeigen=funde.slice(0,MAX_FUNDE);
+  const nachZeit = sortierung==="zeit";
   let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
     <span class="q">${funde.length} aus ${partien} Partien</span></div>`;
+  let letzterTag="";
   zeigen.forEach(t=>{
     const d=datum(t.r.Date);
     const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
               String(d.getUTCMonth()+1).padStart(2,"0")+".";
+    if(nachZeit && tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
     html+=`<div class="fund" data-code="${t.code}" data-h="${t.r.HomeTeam}" data-g="${t.r.AwayTeam}">
       <div class="links">
-        <div class="liga">${LIGEN[t.code]} · ${tag} ${t.r.Time||""}</div>
+        <div class="liga">${LIGEN[t.code]} · ${nachZeit?(t.r.Time||""):tag+" "+(t.r.Time||"")}</div>
         <div class="partie">${t.r.HomeTeam} – ${t.r.AwayTeam}</div>
         <div class="markt">${t.n}</div>
       </div>
@@ -724,13 +793,12 @@ async function alleLigenScannen(){
       </div></div>`;
   });
   if(funde.length>MAX_FUNDE)
-    html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere Treffer ausgeblendet.</div>`;
+    html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.
+      Schwelle erhöhen oder Ereignis eingrenzen.</div>`;
   html+=`<div class="detail">
-    <b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil. Der Buchmacher rechnet
-    dieselben Favoriten aus und zahlt entsprechend wenig. Entscheidend ist die dritte Zeile
-    rechts — der Vergleich mit der tatsächlichen Quote. Grün ab ${f(KANTE_MIN*100,0)} Prozent.
-    Quoten liegen nur für Dreiweg und Tore über/unter 2,5 vor, und nur ab dem Zeitpunkt,
-    an dem die Ansetzungsdatei sie enthält.<br>
+    <b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil. Über 0,5 Tore liegt fast immer
+    über 90 Prozent — der Buchmacher zahlt dafür 1,08. Entscheidend ist die dritte Zeile rechts,
+    der Vergleich mit der tatsächlichen Quote. Quoten liegen nur für Dreiweg und Tore 2,5 vor.
     Antippen öffnet die Liga und die vollständige Rechnung.</div></div>`;
   ziel.innerHTML=html;
 
@@ -754,10 +822,8 @@ async function alleLigenScannen(){
 // ======== Spieltag ========
 function spieltagZeichnen(){
   const ziel=document.getElementById("spieltag");
-  const code=AKTIV;
-  const verf=document.getElementById("verfahren").value;
+  const code=AKTIV, verf=document.getElementById("verfahren").value;
   if(!code || !DATEN[code]){ ziel.innerHTML=""; return; }
-
   if(!ANSETZUNGEN.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
       <div class="detail">${FIXSTATUS||"Ansetzungsdatei nicht geladen."}</div></div>`;
@@ -769,15 +835,12 @@ function spieltagZeichnen(){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
       <div class="detail">Keine Partie zuordenbar.<br>
       Zeilen: <b>${ANSETZUNGEN.length}</b>, davon künftig <b>${kand.length}</b><br>
-      Ligacodes in der Datei: <code>${divs.join(", ")||"keine"}</code><br>
-      Gesucht: <code>${code}</code></div></div>`;
+      Ligacodes: <code>${divs.join(", ")||"keine"}</code> · Gesucht: <code>${code}</code></div></div>`;
     return;
   }
-
   const moT=holModell(code,METRIKEN[0],verf);
   const moE=holModell(code,METRIKEN[1],verf);
   const moK=holModell(code,METRIKEN[2],verf);
-
   let html=`<div class="karte"><div class="kopf"><b>Spieltag</b>
     <span class="q">${spiele.length} Partien</span></div>`;
   let letzterTag="";
@@ -786,8 +849,7 @@ function spieltagZeichnen(){
     const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
               String(d.getUTCMonth()+1).padStart(2,"0")+".";
     if(tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
-    const teile=[];
-    let kante=null;
+    const teile=[]; let kante=null;
     if(moT){
       const e=rechnen(moT,r.HomeTeam,r.AwayTeam,"");
       teile.push(`Tore ${f(e.mu)}`);
@@ -809,11 +871,8 @@ function spieltagZeichnen(){
       ${kante?`<div class="kante">${kante.nm} @ ${f(kante.q)} · +${f(kante.v*100,1)} %</div>`:""}
     </div>`;
   });
-  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung. Zuordnung über ${weg}.
-    Der grüne Hinweis erscheint ab ${f(KANTE_MIN*100,0)} Prozent Vorteil gegenüber der Quote
-    aus der Ansetzungsdatei.</div></div>`;
+  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung. Zuordnung über ${weg}.</div></div>`;
   ziel.innerHTML=html;
-
   ziel.querySelectorAll(".spiel").forEach(el=>{
     el.addEventListener("click",()=>{
       const h=el.getAttribute("data-h"), g=el.getAttribute("data-g");
@@ -840,7 +899,6 @@ function tabelle(linien, klasse){
   });
   return h+"</tbody></table>";
 }
-
 function zeilen(paare){
   let h='<table><thead><tr><th>Ausgang</th><th>Wahrsch.</th><th>faire Quote</th></tr></thead><tbody>';
   paare.forEach(([n,p])=>{
@@ -858,7 +916,6 @@ function zeichnen(){
   if(!AKTIV||!heim||!gast||heim===gast){
     ziel.innerHTML='<p class="hinweis">Wähle zwei verschiedene Mannschaften.</p>'; return;
   }
-
   let html="", basis=null;
   METRIKEN.forEach(m=>{
     const mo=holModell(AKTIV,m,verf);
@@ -868,7 +925,6 @@ function zeichnen(){
     }
     const e=rechnen(mo,heim,gast,m.ref?ref:"");
     if(!basis) basis=e;
-
     if(m.id==="tore"){
       const s=spielausgang(e.muH, e.muA, mo.phiH, mo.phiA, mo.rho);
       html+=`<div class="karte">
@@ -878,11 +934,9 @@ function zeichnen(){
         ${zeilen([[heim+" gewinnt",s.heim],["Unentschieden",s.remis],[gast+" gewinnt",s.aus]])}
         <div class="trenner">Beide treffen</div>
         ${zeilen([["Ja",s.bttsJa],["Nein",s.bttsNein]])}
-        <div class="detail">
-          Unentschieden-Korrektur ${f(mo.rho,3)}. Dreiweg ist der am schärfsten kalkulierte
-          Markt überhaupt; ein Vorteil unter 3 Prozent ist dort praktisch nie echt.</div></div>`;
+        <div class="detail">Unentschieden-Korrektur ${f(mo.rho,3)}. Dreiweg ist der am schärfsten
+          kalkulierte Markt; ein Vorteil unter 3 Prozent ist dort praktisch nie echt.</div></div>`;
     }
-
     html+=`<div class="karte">
       <div class="kopf"><b>${m.name}</b>
         <div class="erw">${f(e.mu)} <span>erwartet</span></div></div>
@@ -901,15 +955,13 @@ function zeichnen(){
         Streuung gesamt ${f(mo.phiT)}, Heim ${f(mo.phiH)}, Gast ${f(mo.phiA)} ·
         Ligaschnitt ${f(mo.ligaMittel)} aus ${mo.spiele} Spielen</div></div>`;
   });
-
   if(basis){
     const duenn=[];
     if(basis.hGew<5) duenn.push(`${heim} (${basis.hRoh} Spiele)`);
     if(basis.aGew<5) duenn.push(`${gast} (${basis.aRoh} Spiele)`);
     if(duenn.length){
       html=`<div class="warn"><b>Dünne Datenbasis:</b> ${duenn.join(", ")}.
-        Für diese Mannschaft liegt in dieser Liga kaum Vorgeschichte vor, typisch für Aufsteiger.
-        Das Modell setzt sie nahe dem Ligamittel an.</div>`+html;
+        Das Modell setzt diese Mannschaft nahe dem Ligamittel an.</div>`+html;
     }
     html+=`<p class="hinweis">
       Verfahren: ${verf==="regression"?"Regression über alle Mannschaften gleichzeitig":"einfache Verhältnisrechnung"}.
