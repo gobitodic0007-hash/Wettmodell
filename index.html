@@ -219,7 +219,6 @@ const LIGEN = {
   T1:"Süper Lig", B1:"Jupiler Pro League"
 };
 
-// Feste Standardlinien je Kennzahl — sonst tauchen einzelne Linien nie auf
 const METRIKEN = [
   { id:"tore",  name:"Tore",             halbwert:300, ref:false,
     leiter:[0.5,1.5,2.5,3.5,4.5],
@@ -289,7 +288,8 @@ function datum(s){
 function anstoss(r){
   const d=datum(r.Date);
   if(!d) return Infinity;
-  const t=String(r.Time||"00:00").split(":");
+  const t=String(r.Time||"").trim().split(":");
+  if(t.length<2) return d.getTime()+86340000;   // ohne Uhrzeit: Tagesende
   return d.getTime() + (Number(t[0])||0)*3600000 + (Number(t[1])||0)*60000;
 }
 const saisonIndex = d => d.getUTCFullYear() - (d.getUTCMonth() < 6 ? 1 : 0);
@@ -343,7 +343,6 @@ function pOver(mu, phi, L){
 }
 const daempfen=(v,n,k)=> (!Number.isFinite(v)||n<=0) ? 1 : 1+(v-1)*(n/(n+k));
 
-// Drei Linien um die Erwartung — für die Detailansicht
 function linienFuer(mu, phi){
   if(!(mu>0)) return [];
   const cdf=summenkurve(mu, phi, Math.ceil(mu*3+30));
@@ -360,7 +359,6 @@ function linienFuer(mu, phi){
   }
   return out;
 }
-// Feste Leiter — für die Suche
 function linienLeiter(mu, phi, leiter){
   if(!(mu>0)) return [];
   const max=Math.max(Math.ceil(mu*3+30), Math.ceil(leiter[leiter.length-1])+2);
@@ -667,9 +665,13 @@ async function ligaDatenHolen(code){
 function partienFuer(code, d){
   const bekannt=new Set((d.aktuelle.length?d.aktuelle:d.alle)
     .flatMap(r=>[r.HomeTeam,r.AwayTeam]));
-  const grenze=JETZT-36*3600*1000;
-  const kand=ANSETZUNGEN.filter(r=>r.HomeTeam&&r.AwayTeam&&datum(r.Date)
-    && datum(r.Date).getTime()>grenze);
+  // Nur Partien, deren Anpfiff noch bevorsteht — Datum UND Uhrzeit
+  const jetzt=Date.now();
+  const kand=ANSETZUNGEN.filter(r=>{
+    if(!r.HomeTeam||!r.AwayTeam) return false;
+    if(!datum(r.Date)) return false;
+    return anstoss(r) > jetzt;
+  });
   let s=kand.filter(r=>r.Div===code);
   let weg="Ligacode";
   if(!s.length){ s=kand.filter(r=>bekannt.has(r.HomeTeam)&&bekannt.has(r.AwayTeam)); weg="Namen"; }
@@ -686,7 +688,6 @@ function quote(zeile, name){
   return null;
 }
 
-// Alle Märkte einer Partie. id dient dem Filter, n der Anzeige.
 function maerkte(code, r, verf){
   const out=[];
   const moT=holModell(code, METRIKEN[0], verf);
@@ -833,8 +834,8 @@ function spieltagZeichnen(){
   if(!spiele.length){
     const divs=[...new Set(ANSETZUNGEN.map(r=>r.Div).filter(Boolean))].slice(0,25);
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
-      <div class="detail">Keine Partie zuordenbar.<br>
-      Zeilen: <b>${ANSETZUNGEN.length}</b>, davon künftig <b>${kand.length}</b><br>
+      <div class="detail">Keine anstehende Partie gefunden.<br>
+      Zeilen: <b>${ANSETZUNGEN.length}</b>, davon noch nicht angepfiffen <b>${kand.length}</b><br>
       Ligacodes: <code>${divs.join(", ")||"keine"}</code> · Gesucht: <code>${code}</code></div></div>`;
     return;
   }
