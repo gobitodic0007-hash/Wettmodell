@@ -37,6 +37,16 @@ jobs:
           echo "--- Inhalt ---"
           ls -l daten || echo "Ordner leer"
 
+
+- name: Ansetzungen abrufen
+        run: |
+          if curl -sfL --retry 3 -o fix.tmp "https://www.football-data.co.uk/fixtures.csv"; then
+            iconv -c -f WINDOWS-1252 -t UTF-8 fix.tmp > daten/fixtures.csv
+            echo "Ansetzungen ok"
+          else
+            echo "Ansetzungen nicht erreichbar"
+          fi
+          rm -f fix.tmp
       - name: Änderungen sichern
         run: |
           git config user.name "daten-bot"
