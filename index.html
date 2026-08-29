@@ -52,8 +52,20 @@
             color:var(--grau); cursor:pointer; }
   .teamzeile { padding:6px 12px 0; font-size:12px; font-weight:700; }
   .mini td, .mini th { padding:5px 12px; font-size:13px; }
-  .besser { color:var(--gruen); font-weight:700; }
-  .egal { color:var(--grau); }
+  .ja { color:var(--gruen); font-weight:700; }
+  .nein { color:var(--rot); font-weight:700; }
+  .trenner { padding:8px 12px; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+             color:var(--grau); background:#f8fafc; border-top:1px solid var(--linie); }
+  .spiel { padding:10px 12px; border-top:1px solid #e2e8f0; cursor:pointer; }
+  .spiel:hover { background:#f8fafc; }
+  .spiel .zeit { font-size:11px; color:var(--grau); letter-spacing:.06em; }
+  .spiel .paar { font-weight:700; font-size:14px; margin:1px 0 3px; }
+  .spiel .zahlen { font-size:12px; color:var(--grau); font-variant-numeric:tabular-nums; }
+  .kante { display:inline-block; margin-top:4px; padding:2px 6px; font-size:11px;
+           border:1px solid var(--gruen); color:var(--gruen); font-weight:700; }
+  .tagkopf { padding:7px 12px; background:#f1f5f9; font-size:11px; font-weight:700;
+             letter-spacing:.1em; text-transform:uppercase; color:var(--grau);
+             border-top:1px solid var(--linie); }
 </style>
 </head>
 <body>
@@ -62,7 +74,7 @@
 <header>
   <div class="oben">Over / Under</div>
   <h1>Linien-Modell</h1>
-  <p>Tore · Ecken · Karten · Schüsse</p>
+  <p>Dreiweg · Beide treffen · Tore · Ecken · Karten · Schüsse</p>
 </header>
 
 <div class="block">
@@ -76,6 +88,8 @@
   </div>
   <div id="status" style="font-size:12px;color:var(--grau);margin-top:8px"></div>
 </div>
+
+<div id="spieltag"></div>
 
 <div class="block" id="auswahl" style="display:none">
   <div class="zwei">
@@ -107,7 +121,7 @@
       auch Teams früherer Saisons anzeigen
     </label>
   </div>
-  <button id="testKnopf">Verfahren vergleichen</button>
+  <button id="testKnopf">Verfahren prüfen</button>
 </div>
 
 <div id="vergleich"></div>
@@ -118,9 +132,10 @@
 <script>
 // ======== Einstellungen ========
 const SAISONS = ["2425", "2526", "2627"];
-const SAISONABSCHLAG = 0.8;   // Abschlag je Saisonwechsel seit dem Spiel
-const KAPPA = 4;              // Staerke der Daempfung, in Durchschnittsspielen
-const ITER = 40;              // Durchlaeufe der Regression
+const SAISONABSCHLAG = 0.8;
+const KAPPA = 4;
+const ITER = 40;
+const KANTE_MIN = 0.04;   // ab welchem rechnerischen Vorteil ein Hinweis erscheint
 
 const LIGEN = {
   D1:"Bundesliga", D2:"2. Bundesliga", E0:"Premier League", E1:"Championship",
@@ -141,12 +156,22 @@ const METRIKEN = [
     h:r=>z(r.HST),  a:r=>z(r.AST),  ref:false }
 ];
 
+// Quotenspalten der Ansetzungsdatei, in dieser Reihenfolge probiert
+const QUOTEN = {
+  "Heimsieg":      ["AvgH","B365H","PSH","BWH"],
+  "Unentschieden": ["AvgD","B365D","PSD","BWD"],
+  "Auswärtssieg":  ["AvgA","B365A","PSA","BWA"],
+  "Über 2,5":      ["Avg>2.5","B365>2.5","P>2.5"],
+  "Unter 2,5":     ["Avg<2.5","B365<2.5","P<2.5"]
+};
+
 // ======== Hilfsmittel ========
 function z(v){ if(v===undefined||v===null||String(v).trim()==="") return NaN;
                const x=Number(v); return Number.isFinite(x)?x:NaN; }
 const f = (v,n=2) => Number.isFinite(v)
   ? v.toLocaleString("de-DE",{minimumFractionDigits:n,maximumFractionDigits:n}) : "–";
 const saisonText = s => "20"+s.slice(0,2)+"/"+s.slice(2);
+const TAGE = ["So","Mo","Di","Mi","Do","Fr","Sa"];
 
 function zeileTeilen(l){
   const out=[]; let cur="", q=false;
@@ -183,8 +208,6 @@ const HEUTE = new Date();
 const JETZT = HEUTE.getTime();
 const SAISON_JETZT = saisonIndex(HEUTE);
 
-// Gewicht eines Spiels, gemessen an einem Bezugszeitpunkt.
-// Beim Rückvergleich ist das der Zeitpunkt der Vorhersage, nicht heute.
 function gewicht(r, halbwert, bezugMs, bezugSaison){
   const d=datum(r.Date);
   if(!d) return 0.25;
@@ -217,7 +240,6 @@ function verteilung(mu, phi, max){
   }
   return p;
 }
-// Wahrscheinlichkeit, dass der Wert über der Linie L liegt (L ist eine Halbzahl)
 function pOver(mu, phi, L){
   if(!(mu>0)) return 0.5;
   const k=Math.floor(L);
@@ -245,10 +267,53 @@ function linienFuer(mu, phi){
   return out;
 }
 
-// ======== Modell ========
-let ROHDATEN=[], AKTUELLE=[], SAISONLABEL="";
+function tau(x,y,lh,la,rho){
+  if(x===0&&y===0) return 1-lh*la*rho;
+  if(x===0&&y===1) return 1+lh*rho;
+  if(x===1&&y===0) return 1+la*rho;
+  if(x===1&&y===1) return 1-rho;
+  return 1;
+}
+function schaetzeRho(sp, m, g, staerken){
+  let best=0, bestLL=-Infinity;
+  for(let rho=-0.20; rho<=0.2001; rho+=0.01){
+    let ll=0, ok=true;
+    for(const r of sp){
+      const x=m.h(r), y=m.a(r);
+      if(x>1||y>1) continue;
+      const s=staerken(r.HomeTeam, r.AwayTeam);
+      const t=tau(x,y,s.muH,s.muA,rho);
+      if(!(t>0)){ ok=false; break; }
+      ll += g(r)*Math.log(t);
+    }
+    if(ok && ll>bestLL){ bestLL=ll; best=rho; }
+  }
+  return best;
+}
 
-// Verfahren 1 — einfach: Stärke als Verhältnis zum Ligamittel, Gegner egal
+function spielausgang(muH, muA, phiH, phiA, rho){
+  const N=12;
+  const pH=verteilung(muH, phiH, N), pA=verteilung(muA, phiA, N);
+  const g=[]; let summe=0;
+  for(let x=0;x<=N;x++){
+    g[x]=[];
+    for(let y=0;y<=N;y++){
+      const v=pH[x]*pA[y]*tau(x,y,muH,muA,rho);
+      g[x][y]=Math.max(0,v); summe+=g[x][y];
+    }
+  }
+  let heim=0, remis=0, aus=0, btts=0;
+  for(let x=0;x<=N;x++) for(let y=0;y<=N;y++){
+    const p=g[x][y]/summe;
+    if(x>y) heim+=p; else if(x===y) remis+=p; else aus+=p;
+    if(x>=1&&y>=1) btts+=p;
+  }
+  return { heim, remis, aus, bttsJa:btts, bttsNein:1-btts };
+}
+
+// ======== Modell ========
+let ROHDATEN=[], AKTUELLE=[], SAISONLABEL="", ANSETZUNGEN=[], MODELLE={};
+
 function staerkenEinfach(sp, m, g, mitte, hvH, hvA){
   const T={};
   const hol=t=>T[t]=T[t]||{fuer:0,gegen:0,basF:0,basG:0,n:0,roh:0};
@@ -267,8 +332,6 @@ function staerkenEinfach(sp, m, g, mitte, hvH, hvA){
   return { att, def, hvH, hvA, T };
 }
 
-// Verfahren 2 — Regression: alle Stärken gleichzeitig, Gegnerstärke wird
-// herausgerechnet. Abwechselnde Aktualisierung bis sich nichts mehr ändert.
 function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
   const T={};
   const hol=t=>T[t]=T[t]||{n:0,roh:0};
@@ -281,7 +344,7 @@ function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
   const att={}, def={};
   teams.forEach(t=>{att[t]=1; def[t]=1;});
   let hvH=hvH0, hvA=hvA0;
-  const K = KAPPA*mitte;   // Dämpfung als fiktive Durchschnittsspiele
+  const K = KAPPA*mitte;
 
   for(let it=0; it<ITER; it++){
     const an={}, ad={}, bn={}, bd={};
@@ -289,10 +352,8 @@ function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
     sp.forEach(r=>{
       const w=g(r), H=r.HomeTeam, A=r.AwayTeam;
       const yH=m.h(r), yA=m.a(r);
-      // Angriff: erzielte Werte gegen die Abwehrstärke des jeweiligen Gegners
       an[H]+=w*yH; ad[H]+=w*mitte*hvH*def[A];
       an[A]+=w*yA; ad[A]+=w*mitte*hvA*def[H];
-      // Abwehr: kassierte Werte gegen die Angriffsstärke des jeweiligen Gegners
       bn[A]+=w*yH; bd[A]+=w*mitte*hvH*att[H];
       bn[H]+=w*yA; bd[H]+=w*mitte*hvA*att[A];
     });
@@ -330,11 +391,10 @@ function modellBauen(rows, m, verfahren, bezugMs, bezugSaison){
   if(!(gs>0)) return null;
   const ligaH=sH/gs, ligaA=sA/gs, mitte=(ligaH+ligaA)/2;
   if(!(mitte>0)) return null;
-  const hvH0=ligaH/mitte, hvA0=ligaA/mitte;
 
   const S = verfahren==="regression"
-    ? staerkenRegression(sp, m, g, mitte, hvH0, hvA0)
-    : staerkenEinfach(sp, m, g, mitte, hvH0, hvA0);
+    ? staerkenRegression(sp, m, g, mitte, ligaH/mitte, ligaA/mitte)
+    : staerkenEinfach(sp, m, g, mitte, ligaH/mitte, ligaA/mitte);
 
   const A = t => S.att[t]!==undefined ? S.att[t] : 1;
   const D = t => S.def[t]!==undefined ? S.def[t] : 1;
@@ -364,9 +424,18 @@ function modellBauen(rows, m, verfahren, bezugMs, bezugSaison){
     R[nm].s+=w*(m.h(r)+m.a(r)); R[nm].n+=w;
   });
 
-  return { T:S.T, staerken, angriff:A, abwehr:D, hvH:S.hvH, mitte,
-           phiH:n?rH/n:1, phiA:n?rA/n:1, phiT:n?rT/n:1,
-           ligaMittel, spiele:sp.length, R };
+  const mo = { T:S.T, staerken, angriff:A, abwehr:D, hvH:S.hvH, mitte,
+               phiH:n?rH/n:1, phiA:n?rA/n:1, phiT:n?rT/n:1,
+               ligaMittel, spiele:sp.length, R, rho:0 };
+  if(m.id==="tore") mo.rho = schaetzeRho(sp, m, g, staerken);
+  return mo;
+}
+
+// Modelle je Verfahren nur einmal bauen — die Spieltagsliste braucht sie oft
+function holModell(m, verf){
+  const k=verf+":"+m.id;
+  if(MODELLE[k]===undefined) MODELLE[k]=modellBauen(ROHDATEN,m,verf);
+  return MODELLE[k];
 }
 
 function rechnen(mo, heim, gast, ref){
@@ -390,7 +459,6 @@ function rechnen(mo, heim, gast, ref){
 }
 
 // ======== Rückvergleich ========
-// Jede Vorhersage nutzt ausschließlich Spiele, die davor stattgefunden haben.
 function rueckvergleich(rows, m){
   const sp = rows.filter(r=>r.HomeTeam&&r.AwayTeam
              &&Number.isFinite(m.h(r))&&Number.isFinite(m.a(r))&&datum(r.Date))
@@ -402,45 +470,40 @@ function rueckvergleich(rows, m){
   const basisMittel = sp.slice(0,start).reduce((s,r)=>s+m.h(r)+m.a(r),0)/start;
   const L = Math.max(0.5, Math.round(basisMittel)-0.5);
 
-  const erg={ einfach:{ll:[],ae:[]}, regression:{ll:[],ae:[]}, basis:{ll:[],ae:[]}, L, n:0 };
+  const llE=[], llR=[], llB=[];
   const BLOCK=10;
-
   for(let b=start; b<sp.length; b+=BLOCK){
     const bis=sp.slice(0,b);
     const bezug=datum(sp[b].Date);
-    const bm=bezug.getTime(), bs=saisonIndex(bezug);
-    const moE=modellBauen(bis,m,"einfach",bm,bs);
-    const moR=modellBauen(bis,m,"regression",bm,bs);
+    const moE=modellBauen(bis,m,"einfach",bezug.getTime(),saisonIndex(bezug));
+    const moR=modellBauen(bis,m,"regression",bezug.getTime(),saisonIndex(bezug));
     if(!moE||!moR) continue;
-    const pBasis=pOver(moE.ligaMittel, moE.phiT, L);
-
+    const pB=pOver(moE.ligaMittel, moE.phiT, L);
     for(let i=b; i<Math.min(b+BLOCK, sp.length); i++){
-      const r=sp[i];
-      const ist=m.h(r)+m.a(r);
-      const y = ist>L ? 1 : 0;
-      erg.n++;
-      [["einfach",moE],["regression",moR]].forEach(([k,mo])=>{
-        const s=mo.staerken(r.HomeTeam, r.AwayTeam);
-        const mu=s.muH+s.muA;
-        const p=pOver(mu, mo.phiT, L);
-        erg[k].ll.push(-(y*Math.log(p)+(1-y)*Math.log(1-p)));
-        erg[k].ae.push(Math.abs(ist-mu));
-      });
-      erg.basis.ll.push(-(y*Math.log(pBasis)+(1-y)*Math.log(1-pBasis)));
-      erg.basis.ae.push(Math.abs(ist-moE.ligaMittel));
+      const r=sp[i], ist=m.h(r)+m.a(r), y=ist>L?1:0;
+      const sE=moE.staerken(r.HomeTeam,r.AwayTeam);
+      const sR=moR.staerken(r.HomeTeam,r.AwayTeam);
+      const v=(p)=>-(y*Math.log(p)+(1-y)*Math.log(1-p));
+      llE.push(v(pOver(sE.muH+sE.muA,moE.phiT,L)));
+      llR.push(v(pOver(sR.muH+sR.muA,moR.phiT,L)));
+      llB.push(v(pB));
     }
   }
-  if(!erg.n) return null;
+  if(llE.length<50) return null;
 
   const mw=a=>a.reduce((s,x)=>s+x,0)/a.length;
-  const diff=erg.regression.ll.map((x,i)=>x-erg.einfach.ll[i]);
-  const dm=mw(diff);
-  const sd=Math.sqrt(diff.reduce((s,x)=>s+(x-dm)**2,0)/(diff.length-1));
+  const paar=(a,b)=>{
+    const d=a.map((x,i)=>x-b[i]), dm=mw(d);
+    const sd=Math.sqrt(d.reduce((s,x)=>s+(x-dm)**2,0)/(d.length-1));
+    return { d:dm, se:sd/Math.sqrt(d.length) };
+  };
+  const rVsE=paar(llR,llE);
+  const besserIstR = rVsE.d < 0;
+  const vsBasis=paar(besserIstR?llR:llE, llB);
   return {
-    L, n:erg.n,
-    llE:mw(erg.einfach.ll), llR:mw(erg.regression.ll), llB:mw(erg.basis.ll),
-    aeE:mw(erg.einfach.ae), aeR:mw(erg.regression.ae), aeB:mw(erg.basis.ae),
-    diff:dm, se:sd/Math.sqrt(diff.length)
+    L, n:llE.length,
+    sieger: Math.abs(rVsE.d) > 2*rVsE.se ? (besserIstR?"Regression":"Einfach") : "gleichwertig",
+    brauchbar: vsBasis.d < -2*vsBasis.se
   };
 }
 
@@ -448,38 +511,118 @@ function vergleichStarten(){
   const ziel=document.getElementById("vergleich");
   ziel.innerHTML='<p class="hinweis">Rechnet … das dauert einen Moment.</p>';
   setTimeout(()=>{
-    let html=`<div class="karte"><div class="kopf"><b>Verfahrensvergleich</b></div>
-      <table><thead><tr><th>Kennzahl</th><th>Einfach</th><th>Regression</th>
-      <th>Differenz</th></tr></thead><tbody>`;
+    let html=`<div class="karte"><div class="kopf"><b>Prüfung am Rückvergleich</b></div>
+      <table><thead><tr><th>Kennzahl</th><th>Urteil</th><th>Verfahren</th></tr></thead><tbody>`;
     let irgendwas=false;
     METRIKEN.forEach(m=>{
       const v=rueckvergleich(ROHDATEN,m);
       if(!v){
-        html+=`<tr><td>${m.name}</td><td colspan="3" class="q">zu wenig Spiele</td></tr>`;
+        html+=`<tr><td>${m.name}</td><td colspan="2" class="q">zu wenig Spiele</td></tr>`;
         return;
       }
       irgendwas=true;
-      const klar=Math.abs(v.diff)>2*v.se;
-      const urteil = !klar ? '<span class="egal">kein Unterschied</span>'
-        : (v.diff<0 ? '<span class="besser">Regression besser</span>'
-                    : '<span class="besser">Einfach besser</span>');
-      html+=`<tr><td>${m.name}<br><span class="q" style="font-weight:400">Linie ${f(v.L,1)} · ${v.n} Spiele</span></td>
-        <td>${f(v.llE,4)}<br><span class="q">${f(v.aeE,2)}</span></td>
-        <td>${f(v.llR,4)}<br><span class="q">${f(v.aeR,2)}</span></td>
-        <td>${f(v.diff,4)}<br><span class="q">± ${f(2*v.se,4)}</span></td></tr>
-        <tr><td colspan="4" class="q" style="text-align:left;font-weight:400;border-top:0;padding-top:0">
-        ${urteil} · Ligaschnitt allein: ${f(v.llB,4)}</td></tr>`;
+      html+=`<tr>
+        <td>${m.name}<br><span class="q" style="font-weight:400">Linie ${f(v.L,1)} · ${v.n} Spiele</span></td>
+        <td class="${v.brauchbar?"ja":"nein"}">${v.brauchbar?"passt":"passt nicht"}</td>
+        <td class="q">${v.sieger}</td></tr>`;
     });
     html+=`</tbody></table><div class="detail">
-      Obere Zahl: mittlerer Log-Verlust der Over/Under-Vorhersage an der genannten Linie —
-      kleiner ist besser. Untere Zahl: mittlere Abweichung des Erwartungswerts vom
-      tatsächlichen Ergebnis. Jede Vorhersage nutzt nur Spiele, die vorher stattfanden.
-      Die Differenz gilt erst als belastbar, wenn sie größer ist als die angegebene
-      Spanne von zwei Standardfehlern.</div></div>`;
-    if(!irgendwas) html=`<p class="hinweis">Für den Vergleich werden mindestens 300 Spiele
-      je Kennzahl gebraucht. Lade mehr Saisons.</p>`;
+      „Passt" heißt: das Modell schlägt an dieser Linie den reinen Ligaschnitt deutlich genug,
+      dass es nicht am Zufall liegt. „Passt nicht" heißt, die Teamstärken bringen für diese
+      Kennzahl nichts — dann ist der Ligaschnitt die ehrlichere Vorhersage.
+      Jede Vorhersage nutzt nur Spiele, die vorher stattfanden.</div></div>`;
+    if(!irgendwas) html=`<p class="hinweis">Für die Prüfung werden mindestens 300 Spiele
+      je Kennzahl gebraucht.</p>`;
     ziel.innerHTML=html;
   },50);
+}
+
+// ======== Spieltag ========
+function quote(zeile, name){
+  for(const sp of QUOTEN[name]){
+    const v=z(zeile[sp]);
+    if(v>1) return v;
+  }
+  return null;
+}
+
+function spieltagZeichnen(){
+  const ziel=document.getElementById("spieltag");
+  const code=document.getElementById("liga").value;
+  const verf=document.getElementById("verfahren").value;
+  if(!code || !ANSETZUNGEN.length){ ziel.innerHTML=""; return; }
+
+  const grenze=JETZT-36*3600*1000;
+  const spiele=ANSETZUNGEN
+    .filter(r=>r.Div===code && r.HomeTeam && r.AwayTeam && datum(r.Date)
+               && datum(r.Date).getTime()>grenze)
+    .sort((a,b)=>datum(a.Date)-datum(b.Date)
+                 || String(a.Time||"").localeCompare(String(b.Time||"")));
+  if(!spiele.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
+      <div class="detail">Für diese Liga stehen gerade keine Ansetzungen in der Datei.
+      Sie enthält jeweils nur die nächste Runde.</div></div>`;
+    return;
+  }
+
+  const moT=holModell(METRIKEN[0],verf);
+  const moE=holModell(METRIKEN[1],verf);
+  const moK=holModell(METRIKEN[2],verf);
+
+  let html=`<div class="karte"><div class="kopf"><b>Spieltag</b>
+    <span class="q">${spiele.length} Partien</span></div>`;
+  let letzterTag="";
+  spiele.forEach((r,i)=>{
+    const d=datum(r.Date);
+    const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
+              String(d.getUTCMonth()+1).padStart(2,"0")+".";
+    if(tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
+
+    const teile=[];
+    let kante=null;
+    if(moT){
+      const e=rechnen(moT,r.HomeTeam,r.AwayTeam,"");
+      teile.push(`Tore ${f(e.mu)}`);
+      const s=spielausgang(e.muH,e.muA,moT.phiH,moT.phiA,moT.rho);
+      const p25=pOver(e.mu,moT.phiT,2.5);
+      const kand=[["Heimsieg",s.heim],["Unentschieden",s.remis],["Auswärtssieg",s.aus],
+                  ["Über 2,5",p25],["Unter 2,5",1-p25]];
+      kand.forEach(([nm,p])=>{
+        const q=quote(r,nm);
+        if(!q) return;
+        const v=p*q-1;
+        if(v>KANTE_MIN && (!kante || v>kante.v)) kante={nm,q,v};
+      });
+    }
+    if(moE){ teile.push(`Ecken ${f(rechnen(moE,r.HomeTeam,r.AwayTeam,"").mu,1)}`); }
+    if(moK){ teile.push(`Karten ${f(rechnen(moK,r.HomeTeam,r.AwayTeam,"").mu,1)}`); }
+
+    html+=`<div class="spiel" data-h="${r.HomeTeam}" data-g="${r.AwayTeam}">
+      <div class="zeit">${r.Time||""}</div>
+      <div class="paar">${r.HomeTeam} – ${r.AwayTeam}</div>
+      <div class="zahlen">${teile.join(" · ")}</div>
+      ${kante?`<div class="kante">${kante.nm} @ ${f(kante.q)} · +${f(kante.v*100,1)} %</div>`:""}
+    </div>`;
+  });
+  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung.
+    Der grüne Hinweis vergleicht die Modellwahrscheinlichkeit mit der Durchschnittsquote
+    aus der Ansetzungsdatei und erscheint ab ${f(KANTE_MIN*100,0)} Prozent Vorteil.
+    Diese Quoten sind Momentaufnahmen vom Zeitpunkt des Downloads, nicht die Quote,
+    die du gerade bekommst.</div></div>`;
+  ziel.innerHTML=html;
+
+  ziel.querySelectorAll(".spiel").forEach(el=>{
+    el.addEventListener("click",()=>{
+      const h=el.getAttribute("data-h"), g=el.getAttribute("data-g");
+      const sh=document.getElementById("heim"), sg=document.getElementById("gast");
+      if(![...sh.options].some(o=>o.value===h)){
+        document.getElementById("alleTeams").checked=true; listenFuellen();
+      }
+      sh.value=h; sg.value=g;
+      zeichnen();
+      document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+    });
+  });
 }
 
 // ======== Anzeige ========
@@ -496,6 +639,14 @@ function tabelle(linien, klasse){
   return h+"</tbody></table>";
 }
 
+function zeilen(paare){
+  let h='<table><thead><tr><th>Ausgang</th><th>Wahrsch.</th><th>faire Quote</th></tr></thead><tbody>';
+  paare.forEach(([n,p])=>{
+    h+=`<tr><td>${n}</td><td>${f(p*100,1)} %</td><td class="q">${f(1/p)}</td></tr>`;
+  });
+  return h+"</tbody></table>";
+}
+
 function zeichnen(){
   const heim=document.getElementById("heim").value;
   const gast=document.getElementById("gast").value;
@@ -508,13 +659,29 @@ function zeichnen(){
 
   let html="", basis=null;
   METRIKEN.forEach(m=>{
-    const mo=modellBauen(ROHDATEN,m,verf);
+    const mo=holModell(m,verf);
     if(!mo){
       html+=`<div class="karte"><div class="detail">${m.name}: in diesen Dateien nicht enthalten.</div></div>`;
       return;
     }
     const e=rechnen(mo,heim,gast,m.ref?ref:"");
     if(!basis) basis=e;
+
+    if(m.id==="tore"){
+      const s=spielausgang(e.muH, e.muA, mo.phiH, mo.phiA, mo.rho);
+      html+=`<div class="karte">
+        <div class="kopf"><b>Spielausgang</b>
+          <div class="erw">${f(e.muH,1)}:${f(e.muA,1)} <span>erwartet</span></div></div>
+        <div class="trenner">Dreiweg</div>
+        ${zeilen([[heim+" gewinnt",s.heim],["Unentschieden",s.remis],[gast+" gewinnt",s.aus]])}
+        <div class="trenner">Beide treffen</div>
+        ${zeilen([["Ja",s.bttsJa],["Nein",s.bttsNein]])}
+        <div class="detail">
+          Unentschieden-Korrektur ${f(mo.rho,3)} — ohne sie fielen torarme Remis zu selten aus.
+          Dreiweg ist der am schärfsten kalkulierte Markt überhaupt; ein Vorteil unter
+          3 Prozent ist dort praktisch nie echt.</div></div>`;
+    }
+
     html+=`<div class="karte">
       <div class="kopf"><b>${m.name}</b>
         <div class="erw">${f(e.mu)} <span>erwartet</span></div></div>
@@ -572,6 +739,7 @@ function datenSetzen(alleRows, aktuelleRows, label){
   ROHDATEN=alleRows.filter(r=>r.HomeTeam&&r.AwayTeam);
   AKTUELLE=(aktuelleRows||[]).filter(r=>r.HomeTeam&&r.AwayTeam);
   SAISONLABEL=label||"";
+  MODELLE={};
   document.getElementById("vergleich").innerHTML="";
   if(!ROHDATEN.length){
     document.getElementById("status").textContent="Keine passenden Spalten gefunden.";
@@ -592,7 +760,8 @@ function datenSetzen(alleRows, aktuelleRows, label){
     : `${ROHDATEN.length} Spiele geladen. Teamliste aus allen Saisons — Auf- und Absteiger
        sind gemischt.`;
   document.getElementById("ergebnis").innerHTML=
-    '<p class="hinweis">Wähle zwei Mannschaften.</p>';
+    '<p class="hinweis">Wähle eine Partie aus der Liste oder zwei Mannschaften.</p>';
+  spieltagZeichnen();
 }
 
 async function ligaLaden(code){
@@ -605,6 +774,11 @@ async function ligaLaden(code){
       return csvLesen(await r.text()).filter(x=>x.HomeTeam&&x.AwayTeam);
     }catch(e){ return []; }
   }));
+  try{
+    const r=await fetch("./daten/fixtures.csv");
+    ANSETZUNGEN = r.ok ? csvLesen(await r.text()) : [];
+  }catch(e){ ANSETZUNGEN=[]; }
+
   const alle=teile.flat();
   if(!alle.length){
     document.getElementById("status").innerHTML=
@@ -622,8 +796,9 @@ async function ligaLaden(code){
 document.getElementById("liga").innerHTML='<option value="">– wählen –</option>'+
   Object.entries(LIGEN).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
 document.getElementById("liga").addEventListener("change",e=>ligaLaden(e.target.value));
-["heim","gast","ref","verfahren"].forEach(id=>
+["heim","gast","ref"].forEach(id=>
   document.getElementById(id).addEventListener("change",zeichnen));
+document.getElementById("verfahren").addEventListener("change",()=>{ zeichnen(); spieltagZeichnen(); });
 document.getElementById("alleTeams").addEventListener("change",()=>{ listenFuellen(); zeichnen(); });
 document.getElementById("testKnopf").addEventListener("click",vergleichStarten);
 document.getElementById("datei").addEventListener("change",async e=>{
