@@ -22,6 +22,7 @@
           background:#fff; font-size:15px; font-family:inherit; color:var(--ink); }
   button { width:100%; padding:10px; border:1px solid var(--ink); background:#fff;
            font-family:inherit; font-size:14px; cursor:pointer; }
+  button.voll { background:var(--ink); color:#fff; }
   .zwei { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .feld { margin-bottom:12px; }
   .schalter { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--grau); }
@@ -67,6 +68,17 @@
              letter-spacing:.1em; text-transform:uppercase; color:var(--grau);
              border-top:1px solid var(--linie); }
   code { background:#f1f5f9; padding:1px 4px; font-size:11px; word-break:break-all; }
+  .fund { padding:9px 12px; border-top:1px solid #e2e8f0; cursor:pointer; display:flex;
+          justify-content:space-between; gap:10px; align-items:flex-start; }
+  .fund:hover { background:#f8fafc; }
+  .fund .links { min-width:0; }
+  .fund .liga { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--grau); }
+  .fund .partie { font-size:13px; font-weight:700; }
+  .fund .markt { font-size:12px; color:var(--grau); }
+  .fund .rechts { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .fund .proz { font-size:16px; font-weight:700; }
+  .fund .vorteil { font-size:11px; font-weight:700; color:var(--gruen); }
+  .fund .kein { font-size:11px; color:var(--grau); }
 </style>
 </head>
 <body>
@@ -87,9 +99,30 @@
     <label for="datei">Oder CSV-Dateien von football-data.co.uk auswählen</label>
     <input type="file" id="datei" accept=".csv" multiple>
   </div>
-  <div id="status" style="font-size:12px;color:var(--grau);margin-top:8px"></div>
+  <div id="status" style="font-size:12px;color:var(--grau);margin:8px 0 12px"></div>
+  <div class="zwei">
+    <div class="feld">
+      <label for="schwelle">Mindestwahrscheinlichkeit</label>
+      <select id="schwelle">
+        <option value="55">55 %</option>
+        <option value="60" selected>60 %</option>
+        <option value="65">65 %</option>
+        <option value="70">70 %</option>
+        <option value="75">75 %</option>
+      </select>
+    </div>
+    <div class="feld">
+      <label for="sortierung">Sortierung</label>
+      <select id="sortierung">
+        <option value="p">Wahrscheinlichkeit</option>
+        <option value="v">Rechnerischer Vorteil</option>
+      </select>
+    </div>
+  </div>
+  <button id="scanKnopf" class="voll">Alle Ligen durchsuchen</button>
 </div>
 
+<div id="funde"></div>
 <div id="spieltag"></div>
 
 <div class="block" id="auswahl" style="display:none">
@@ -137,6 +170,7 @@ const SAISONABSCHLAG = 0.8;
 const KAPPA = 4;
 const ITER = 40;
 const KANTE_MIN = 0.04;
+const MAX_FUNDE = 80;
 
 const LIGEN = {
   D1:"Bundesliga", D2:"2. Bundesliga", E0:"Premier League", E1:"Championship",
@@ -161,8 +195,8 @@ const QUOTEN = {
   "Heimsieg":      ["AvgH","B365H","PSH","BWH","MaxH"],
   "Unentschieden": ["AvgD","B365D","PSD","BWD","MaxD"],
   "Auswärtssieg":  ["AvgA","B365A","PSA","BWA","MaxA"],
-  "Über 2,5":      ["Avg>2.5","B365>2.5","P>2.5","Max>2.5"],
-  "Unter 2,5":     ["Avg<2.5","B365<2.5","P<2.5","Max<2.5"]
+  "Tore über 2,5": ["Avg>2.5","B365>2.5","P>2.5","Max>2.5"],
+  "Tore unter 2,5":["Avg<2.5","B365<2.5","P<2.5","Max<2.5"]
 };
 
 // ======== Hilfsmittel ========
@@ -172,6 +206,7 @@ const f = (v,n=2) => Number.isFinite(v)
   ? v.toLocaleString("de-DE",{minimumFractionDigits:n,maximumFractionDigits:n}) : "–";
 const saisonText = s => "20"+s.slice(0,2)+"/"+s.slice(2);
 const TAGE = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+const warte = () => new Promise(r=>setTimeout(r,0));
 
 function zeileTeilen(l){
   const out=[]; let cur="", q=false;
@@ -213,9 +248,8 @@ function gewicht(r, halbwert, bezugMs, bezugSaison){
   const d=datum(r.Date);
   if(!d) return 0.25;
   const tage=Math.max(0,(bezugMs-d.getTime())/86400000);
-  const zeit=Math.pow(0.5, tage/halbwert);
-  const wechsel=Math.max(0, bezugSaison - saisonIndex(d));
-  return zeit * Math.pow(SAISONABSCHLAG, wechsel);
+  return Math.pow(0.5, tage/halbwert)
+       * Math.pow(SAISONABSCHLAG, Math.max(0, bezugSaison - saisonIndex(d)));
 }
 
 function lnGamma(x){
@@ -312,9 +346,15 @@ function spielausgang(muH, muA, phiH, phiA, rho){
   return { heim, remis, aus, bttsJa:btts, bttsNein:1-btts };
 }
 
-// ======== Modell ========
-let ROHDATEN=[], AKTUELLE=[], SAISONLABEL="", ANSETZUNGEN=[], FIXSTATUS="", MODELLE={};
+// ======== Zustand ========
+const DATEN={};     // Ligacode -> {alle, aktuelle, label}
+const MODELLE={};   // Ligacode:Verfahren:Kennzahl -> Modell
+let ANSETZUNGEN=[], FIXSTATUS="", AKTIV="";
 
+function rohdaten(){ return AKTIV&&DATEN[AKTIV] ? DATEN[AKTIV].alle : []; }
+function aktuelle(){ return AKTIV&&DATEN[AKTIV] ? DATEN[AKTIV].aktuelle : []; }
+
+// ======== Modell ========
 function staerkenEinfach(sp, m, g, mitte, hvH, hvA){
   const T={};
   const hol=t=>T[t]=T[t]||{fuer:0,gegen:0,basF:0,basG:0,n:0,roh:0};
@@ -432,9 +472,9 @@ function modellBauen(rows, m, verfahren, bezugMs, bezugSaison){
   return mo;
 }
 
-function holModell(m, verf){
-  const k=verf+":"+m.id;
-  if(MODELLE[k]===undefined) MODELLE[k]=modellBauen(ROHDATEN,m,verf);
+function holModell(code, m, verf){
+  const k=code+":"+verf+":"+m.id;
+  if(MODELLE[k]===undefined) MODELLE[k]=modellBauen(DATEN[code].alle,m,verf);
   return MODELLE[k];
 }
 
@@ -468,7 +508,6 @@ function rueckvergleich(rows, m){
   const start = sp.length - testN;
   const basisMittel = sp.slice(0,start).reduce((s,r)=>s+m.h(r)+m.a(r),0)/start;
   const L = Math.max(0.5, Math.round(basisMittel)-0.5);
-
   const llE=[], llR=[], llB=[];
   const BLOCK=10;
   for(let b=start; b<sp.length; b+=BLOCK){
@@ -513,11 +552,8 @@ function vergleichStarten(){
       <table><thead><tr><th>Kennzahl</th><th>Urteil</th><th>Verfahren</th></tr></thead><tbody>`;
     let irgendwas=false;
     METRIKEN.forEach(m=>{
-      const v=rueckvergleich(ROHDATEN,m);
-      if(!v){
-        html+=`<tr><td>${m.name}</td><td colspan="2" class="q">zu wenig Spiele</td></tr>`;
-        return;
-      }
+      const v=rueckvergleich(rohdaten(),m);
+      if(!v){ html+=`<tr><td>${m.name}</td><td colspan="2" class="q">zu wenig Spiele</td></tr>`; return; }
       irgendwas=true;
       html+=`<tr>
         <td>${m.name}<br><span class="q" style="font-weight:400">Linie ${f(v.L,1)} · ${v.n} Spiele</span></td>
@@ -532,8 +568,56 @@ function vergleichStarten(){
   },50);
 }
 
-// ======== Spieltag ========
+// ======== Daten laden ========
+async function ansetzungenLaden(){
+  if(ANSETZUNGEN.length || FIXSTATUS) return;
+  try{
+    const r=await fetch("./daten/fixtures.csv");
+    if(!r.ok){ FIXSTATUS=`Die Datei daten/fixtures.csv fehlt (Code ${r.status}).`; return; }
+    const txt=await r.text();
+    if(/^\s*</.test(txt)){ FIXSTATUS="Die Datei enthält kein CSV, sondern eine Webseite."; return; }
+    const rows=csvLesen(txt);
+    if(!rows.length || !("HomeTeam" in rows[0])){
+      FIXSTATUS="Die Datei hat keine Spalte HomeTeam. Erste Spalten: "+
+                Object.keys(rows[0]||{}).slice(0,6).join(", ");
+      return;
+    }
+    ANSETZUNGEN=rows;
+  }catch(e){ FIXSTATUS="Ansetzungsdatei konnte nicht geladen werden."; }
+}
+
+async function ligaDatenHolen(code){
+  if(DATEN[code]) return DATEN[code];
+  const teile=await Promise.all(SAISONS.map(async s=>{
+    try{
+      const r=await fetch(`./daten/${s}-${code}.csv`);
+      if(!r.ok) return [];
+      return csvLesen(await r.text()).filter(x=>x.HomeTeam&&x.AwayTeam);
+    }catch(e){ return []; }
+  }));
+  const alle=teile.flat();
+  let i=teile.length-1;
+  while(i>=0 && !teile[i].length) i--;
+  DATEN[code]={ alle, aktuelle: i>=0?teile[i]:[], label: i>=0?saisonText(SAISONS[i]):"" };
+  return DATEN[code];
+}
+
+function partienFuer(code, d){
+  const bekannt=new Set((d.aktuelle.length?d.aktuelle:d.alle)
+    .flatMap(r=>[r.HomeTeam,r.AwayTeam]));
+  const grenze=JETZT-36*3600*1000;
+  const kand=ANSETZUNGEN.filter(r=>r.HomeTeam&&r.AwayTeam&&datum(r.Date)
+    && datum(r.Date).getTime()>grenze);
+  let s=kand.filter(r=>r.Div===code);
+  let weg="Ligacode";
+  if(!s.length){ s=kand.filter(r=>bekannt.has(r.HomeTeam)&&bekannt.has(r.AwayTeam)); weg="Namen"; }
+  s.sort((a,b)=>datum(a.Date)-datum(b.Date)
+                || String(a.Time||"").localeCompare(String(b.Time||"")));
+  return { spiele:s, weg, kand };
+}
+
 function quote(zeile, name){
+  if(!QUOTEN[name]) return null;
   for(const sp of QUOTEN[name]){
     const v=z(zeile[sp]);
     if(v>1) return v;
@@ -541,51 +625,158 @@ function quote(zeile, name){
   return null;
 }
 
+// Alle Märkte einer Partie mit Wahrscheinlichkeit und, wo vorhanden, Quote
+function maerkte(code, r, verf){
+  const out=[];
+  const moT=holModell(code, METRIKEN[0], verf);
+  if(moT){
+    const e=rechnen(moT,r.HomeTeam,r.AwayTeam,"");
+    const s=spielausgang(e.muH,e.muA,moT.phiH,moT.phiA,moT.rho);
+    out.push({n:"Heimsieg",p:s.heim},{n:"Unentschieden",p:s.remis},
+             {n:"Auswärtssieg",p:s.aus},
+             {n:"Beide treffen",p:s.bttsJa},{n:"Beide treffen: nein",p:s.bttsNein});
+  }
+  METRIKEN.forEach(m=>{
+    const mo=holModell(code, m, verf);
+    if(!mo) return;
+    const e=rechnen(mo,r.HomeTeam,r.AwayTeam,"");
+    e.gesamt.forEach(l=>{
+      out.push({n:`${m.name} über ${f(l.L,1)}`, p:l.over});
+      out.push({n:`${m.name} unter ${f(l.L,1)}`, p:l.under});
+    });
+  });
+  out.forEach(o=>{
+    o.q = quote(r, o.n);
+    o.v = o.q ? o.p*o.q-1 : null;
+  });
+  return out;
+}
+
+async function alleLigenScannen(){
+  const ziel=document.getElementById("funde");
+  const schwelle=Number(document.getElementById("schwelle").value)/100;
+  const sortierung=document.getElementById("sortierung").value;
+  const verf=document.getElementById("verfahren").value;
+  const knopf=document.getElementById("scanKnopf");
+  knopf.disabled=true;
+
+  await ansetzungenLaden();
+  if(!ANSETZUNGEN.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
+      <div class="detail">${FIXSTATUS||"Keine Ansetzungen verfügbar."}</div></div>`;
+    knopf.disabled=false; return;
+  }
+
+  const codes=Object.keys(LIGEN);
+  const funde=[];
+  let partien=0;
+  for(let i=0;i<codes.length;i++){
+    const code=codes[i];
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche läuft</b>
+      <span class="q">${i+1}/${codes.length}</span></div>
+      <div class="detail">${LIGEN[code]} …</div></div>`;
+    await warte();
+    const d=await ligaDatenHolen(code);
+    if(!d.alle.length) continue;
+    const {spiele}=partienFuer(code,d);
+    partien+=spiele.length;
+    spiele.forEach(r=>{
+      maerkte(code,r,verf).forEach(o=>{
+        if(o.p>=schwelle) funde.push({code, r, ...o});
+      });
+    });
+    await warte();
+  }
+
+  if(sortierung==="v"){
+    funde.sort((a,b)=>(b.v===null?-9:b.v)-(a.v===null?-9:a.v) || b.p-a.p);
+  } else {
+    funde.sort((a,b)=>b.p-a.p);
+  }
+  const zeigen=funde.slice(0,MAX_FUNDE);
+
+  if(!funde.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
+      <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+      in ${partien} anstehenden Partien.</div></div>`;
+    knopf.disabled=false; return;
+  }
+
+  let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+    <span class="q">${funde.length} aus ${partien} Partien</span></div>`;
+  zeigen.forEach(t=>{
+    const d=datum(t.r.Date);
+    const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
+              String(d.getUTCMonth()+1).padStart(2,"0")+".";
+    html+=`<div class="fund" data-code="${t.code}" data-h="${t.r.HomeTeam}" data-g="${t.r.AwayTeam}">
+      <div class="links">
+        <div class="liga">${LIGEN[t.code]} · ${tag} ${t.r.Time||""}</div>
+        <div class="partie">${t.r.HomeTeam} – ${t.r.AwayTeam}</div>
+        <div class="markt">${t.n}</div>
+      </div>
+      <div class="rechts">
+        <div class="proz">${f(t.p*100,1)} %</div>
+        <div class="q">fair ${f(1/t.p)}</div>
+        ${t.q ? (t.v>KANTE_MIN
+            ? `<div class="vorteil">@ ${f(t.q)} · +${f(t.v*100,1)} %</div>`
+            : `<div class="kein">@ ${f(t.q)} · ${t.v>0?"+":""}${f(t.v*100,1)} %</div>`)
+          : `<div class="kein">keine Quote</div>`}
+      </div></div>`;
+  });
+  if(funde.length>MAX_FUNDE)
+    html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere Treffer ausgeblendet.</div>`;
+  html+=`<div class="detail">
+    <b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil. Der Buchmacher rechnet
+    dieselben Favoriten aus und zahlt entsprechend wenig. Entscheidend ist die dritte Zeile
+    rechts — der Vergleich mit der tatsächlichen Quote. Grün ab ${f(KANTE_MIN*100,0)} Prozent.
+    Quoten liegen nur für Dreiweg und Tore über/unter 2,5 vor, und nur ab dem Zeitpunkt,
+    an dem die Ansetzungsdatei sie enthält.<br>
+    Antippen öffnet die Liga und die vollständige Rechnung.</div></div>`;
+  ziel.innerHTML=html;
+
+  ziel.querySelectorAll(".fund").forEach(el=>{
+    el.addEventListener("click",async ()=>{
+      const c=el.getAttribute("data-code");
+      document.getElementById("liga").value=c;
+      await ligaLaden(c);
+      const sh=document.getElementById("heim"), sg=document.getElementById("gast");
+      const h=el.getAttribute("data-h"), g=el.getAttribute("data-g");
+      if(![...sh.options].some(o=>o.value===h)){
+        document.getElementById("alleTeams").checked=true; listenFuellen();
+      }
+      sh.value=h; sg.value=g; zeichnen();
+      document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+    });
+  });
+  knopf.disabled=false;
+}
+
+// ======== Spieltag ========
 function spieltagZeichnen(){
   const ziel=document.getElementById("spieltag");
-  const code=document.getElementById("liga").value;
+  const code=AKTIV;
   const verf=document.getElementById("verfahren").value;
-  if(!code){ ziel.innerHTML=""; return; }
+  if(!code || !DATEN[code]){ ziel.innerHTML=""; return; }
 
   if(!ANSETZUNGEN.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
       <div class="detail">${FIXSTATUS||"Ansetzungsdatei nicht geladen."}</div></div>`;
     return;
   }
-
-  // Abgleich zuerst über den Ligacode, ersatzweise über die Mannschaftsnamen
-  const bekannt=new Set((AKTUELLE.length?AKTUELLE:ROHDATEN)
-    .flatMap(r=>[r.HomeTeam,r.AwayTeam]));
-  const grenze=JETZT-36*3600*1000;
-  const kandidaten=ANSETZUNGEN.filter(r=>r.HomeTeam&&r.AwayTeam&&datum(r.Date)
-    && datum(r.Date).getTime()>grenze);
-  let spiele=kandidaten.filter(r=>r.Div===code);
-  let weg="Ligacode";
-  if(!spiele.length){
-    spiele=kandidaten.filter(r=>bekannt.has(r.HomeTeam)&&bekannt.has(r.AwayTeam));
-    weg="Mannschaftsnamen";
-  }
-  spiele.sort((a,b)=>datum(a.Date)-datum(b.Date)
-                     || String(a.Time||"").localeCompare(String(b.Time||"")));
-
+  const {spiele, weg, kand}=partienFuer(code, DATEN[code]);
   if(!spiele.length){
     const divs=[...new Set(ANSETZUNGEN.map(r=>r.Div).filter(Boolean))].slice(0,25);
-    const spalten=Object.keys(ANSETZUNGEN[0]||{}).slice(0,8);
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
-      <div class="detail">
-      Keine Partie zuordenbar. Diagnose:<br><br>
-      Zeilen in der Datei: <b>${ANSETZUNGEN.length}</b><br>
-      Erste Spalten: <code>${spalten.join(", ")||"keine"}</code><br>
-      Gefundene Ligacodes: <code>${divs.join(", ")||"keine"}</code><br>
-      Gesucht wird: <code>${code}</code><br>
-      Zeilen mit gültigem Datum in der Zukunft: <b>${kandidaten.length}</b>
-      </div></div>`;
+      <div class="detail">Keine Partie zuordenbar.<br>
+      Zeilen: <b>${ANSETZUNGEN.length}</b>, davon künftig <b>${kand.length}</b><br>
+      Ligacodes in der Datei: <code>${divs.join(", ")||"keine"}</code><br>
+      Gesucht: <code>${code}</code></div></div>`;
     return;
   }
 
-  const moT=holModell(METRIKEN[0],verf);
-  const moE=holModell(METRIKEN[1],verf);
-  const moK=holModell(METRIKEN[2],verf);
+  const moT=holModell(code,METRIKEN[0],verf);
+  const moE=holModell(code,METRIKEN[1],verf);
+  const moK=holModell(code,METRIKEN[2],verf);
 
   let html=`<div class="karte"><div class="kopf"><b>Spieltag</b>
     <span class="q">${spiele.length} Partien</span></div>`;
@@ -595,7 +786,6 @@ function spieltagZeichnen(){
     const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
               String(d.getUTCMonth()+1).padStart(2,"0")+".";
     if(tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
-
     const teile=[];
     let kante=null;
     if(moT){
@@ -604,16 +794,14 @@ function spieltagZeichnen(){
       const s=spielausgang(e.muH,e.muA,moT.phiH,moT.phiA,moT.rho);
       const p25=pOver(e.mu,moT.phiT,2.5);
       [["Heimsieg",s.heim],["Unentschieden",s.remis],["Auswärtssieg",s.aus],
-       ["Über 2,5",p25],["Unter 2,5",1-p25]].forEach(([nm,p])=>{
-        const q=quote(r,nm);
-        if(!q) return;
+       ["Tore über 2,5",p25],["Tore unter 2,5",1-p25]].forEach(([nm,p])=>{
+        const q=quote(r,nm); if(!q) return;
         const v=p*q-1;
         if(v>KANTE_MIN && (!kante || v>kante.v)) kante={nm,q,v};
       });
     }
     if(moE) teile.push(`Ecken ${f(rechnen(moE,r.HomeTeam,r.AwayTeam,"").mu,1)}`);
     if(moK) teile.push(`Karten ${f(rechnen(moK,r.HomeTeam,r.AwayTeam,"").mu,1)}`);
-
     html+=`<div class="spiel" data-h="${r.HomeTeam}" data-g="${r.AwayTeam}">
       <div class="zeit">${r.Time||""}</div>
       <div class="paar">${r.HomeTeam} – ${r.AwayTeam}</div>
@@ -621,11 +809,9 @@ function spieltagZeichnen(){
       ${kante?`<div class="kante">${kante.nm} @ ${f(kante.q)} · +${f(kante.v*100,1)} %</div>`:""}
     </div>`;
   });
-  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung.
-    Zuordnung über ${weg}.
-    Der grüne Hinweis vergleicht die Modellwahrscheinlichkeit mit der Quote aus der
-    Ansetzungsdatei und erscheint ab ${f(KANTE_MIN*100,0)} Prozent Vorteil. Diese Quoten sind
-    Momentaufnahmen vom Zeitpunkt des Downloads, nicht die Quote, die du gerade bekommst.</div></div>`;
+  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung. Zuordnung über ${weg}.
+    Der grüne Hinweis erscheint ab ${f(KANTE_MIN*100,0)} Prozent Vorteil gegenüber der Quote
+    aus der Ansetzungsdatei.</div></div>`;
   ziel.innerHTML=html;
 
   ziel.querySelectorAll(".spiel").forEach(el=>{
@@ -635,8 +821,7 @@ function spieltagZeichnen(){
       if(![...sh.options].some(o=>o.value===h)){
         document.getElementById("alleTeams").checked=true; listenFuellen();
       }
-      sh.value=h; sg.value=g;
-      zeichnen();
+      sh.value=h; sg.value=g; zeichnen();
       document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
     });
   });
@@ -670,13 +855,13 @@ function zeichnen(){
   const ref=document.getElementById("ref").value;
   const verf=document.getElementById("verfahren").value;
   const ziel=document.getElementById("ergebnis");
-  if(!heim||!gast||heim===gast){
+  if(!AKTIV||!heim||!gast||heim===gast){
     ziel.innerHTML='<p class="hinweis">Wähle zwei verschiedene Mannschaften.</p>'; return;
   }
 
   let html="", basis=null;
   METRIKEN.forEach(m=>{
-    const mo=holModell(m,verf);
+    const mo=holModell(AKTIV,m,verf);
     if(!mo){
       html+=`<div class="karte"><div class="detail">${m.name}: in diesen Dateien nicht enthalten.</div></div>`;
       return;
@@ -694,9 +879,8 @@ function zeichnen(){
         <div class="trenner">Beide treffen</div>
         ${zeilen([["Ja",s.bttsJa],["Nein",s.bttsNein]])}
         <div class="detail">
-          Unentschieden-Korrektur ${f(mo.rho,3)} — ohne sie fielen torarme Remis zu selten aus.
-          Dreiweg ist der am schärfsten kalkulierte Markt überhaupt; ein Vorteil unter
-          3 Prozent ist dort praktisch nie echt.</div></div>`;
+          Unentschieden-Korrektur ${f(mo.rho,3)}. Dreiweg ist der am schärfsten kalkulierte
+          Markt überhaupt; ein Vorteil unter 3 Prozent ist dort praktisch nie echt.</div></div>`;
     }
 
     html+=`<div class="karte">
@@ -725,8 +909,7 @@ function zeichnen(){
     if(duenn.length){
       html=`<div class="warn"><b>Dünne Datenbasis:</b> ${duenn.join(", ")}.
         Für diese Mannschaft liegt in dieser Liga kaum Vorgeschichte vor, typisch für Aufsteiger.
-        Das Modell setzt sie nahe dem Ligamittel an — die Zahlen sagen dann mehr über die Liga
-        als über das Spiel.</div>`+html;
+        Das Modell setzt sie nahe dem Ligamittel an.</div>`+html;
     }
     html+=`<p class="hinweis">
       Verfahren: ${verf==="regression"?"Regression über alle Mannschaften gleichzeitig":"einfache Verhältnisrechnung"}.
@@ -742,7 +925,8 @@ function zeichnen(){
 
 function listenFuellen(){
   const alle=document.getElementById("alleTeams").checked;
-  const quelle = (alle || !AKTUELLE.length) ? ROHDATEN : AKTUELLE;
+  const akt=aktuelle();
+  const quelle = (alle || !akt.length) ? rohdaten() : akt;
   const teams=[...new Set(quelle.flatMap(r=>[r.HomeTeam,r.AwayTeam]))]
     .filter(Boolean).sort((a,b)=>a.localeCompare(b,"de"));
   ["heim","gast"].forEach(id=>{
@@ -752,73 +936,35 @@ function listenFuellen(){
   });
 }
 
-function datenSetzen(alleRows, aktuelleRows, label){
-  ROHDATEN=alleRows.filter(r=>r.HomeTeam&&r.AwayTeam);
-  AKTUELLE=(aktuelleRows||[]).filter(r=>r.HomeTeam&&r.AwayTeam);
-  SAISONLABEL=label||"";
-  MODELLE={};
-  document.getElementById("vergleich").innerHTML="";
-  if(!ROHDATEN.length){
-    document.getElementById("status").textContent="Keine passenden Spalten gefunden.";
-    return;
-  }
-  listenFuellen();
-  const refs={};
-  ROHDATEN.forEach(r=>{const n=(r.Referee||"").trim(); if(n) refs[n]=(refs[n]||0)+1;});
-  document.getElementById("ref").innerHTML='<option value="">Ligadurchschnitt</option>'+
-    Object.entries(refs).filter(([,c])=>c>=3).sort((a,b)=>a[0].localeCompare(b[0],"de"))
-      .map(([n,c])=>`<option value="${n}">${n} (${c})</option>`).join("");
-  document.getElementById("auswahl").style.display="block";
-
-  const anzTeams=new Set(AKTUELLE.flatMap(r=>[r.HomeTeam,r.AwayTeam])).size;
-  document.getElementById("status").innerHTML = AKTUELLE.length
-    ? `${ROHDATEN.length} Spiele als Datenbasis. Teamliste: ${anzTeams} Mannschaften
-       aus Saison ${SAISONLABEL} (${AKTUELLE.length} Spiele gespielt).`
-    : `${ROHDATEN.length} Spiele geladen. Teamliste aus allen Saisons.`;
-  document.getElementById("ergebnis").innerHTML=
-    '<p class="hinweis">Wähle eine Partie aus der Liste oder zwei Mannschaften.</p>';
-  spieltagZeichnen();
-}
-
 async function ligaLaden(code){
   if(!code) return;
   document.getElementById("status").textContent="Lade …";
-  const teile=await Promise.all(SAISONS.map(async s=>{
-    try{
-      const r=await fetch(`./daten/${s}-${code}.csv`);
-      if(!r.ok) return [];
-      return csvLesen(await r.text()).filter(x=>x.HomeTeam&&x.AwayTeam);
-    }catch(e){ return []; }
-  }));
-
-  ANSETZUNGEN=[]; FIXSTATUS="";
-  try{
-    const r=await fetch("./daten/fixtures.csv");
-    if(!r.ok){ FIXSTATUS=`Die Datei daten/fixtures.csv fehlt (Code ${r.status}). Läuft die Automatik?`; }
-    else {
-      const txt=await r.text();
-      if(/^\s*</.test(txt)) FIXSTATUS="Die Datei enthält kein CSV, sondern eine Webseite. Der Download in der Automatik hat eine Fehlerseite gespeichert.";
-      else {
-        const rows=csvLesen(txt);
-        if(!rows.length || !("HomeTeam" in rows[0])){
-          FIXSTATUS="Die Datei hat keine Spalte HomeTeam. Erste Spalten: "+
-                    Object.keys(rows[0]||{}).slice(0,6).join(", ");
-        } else ANSETZUNGEN=rows;
-      }
-    }
-  }catch(e){ FIXSTATUS="Ansetzungsdatei konnte nicht geladen werden."; }
-
-  const alle=teile.flat();
-  if(!alle.length){
+  await ansetzungenLaden();
+  const d=await ligaDatenHolen(code);
+  if(!d.alle.length){
     document.getElementById("status").innerHTML=
       "Für diese Liga wurden keine Dateien gefunden. Läuft die App noch nicht auf GitHub Pages, "+
       "nutze das Auswahlfeld darunter.";
     document.getElementById("uploadbereich").style.display="block";
     return;
   }
-  let i=teile.length-1;
-  while(i>=0 && !teile[i].length) i--;
-  datenSetzen(alle, i>=0?teile[i]:[], i>=0?saisonText(SAISONS[i]):"");
+  AKTIV=code;
+  document.getElementById("vergleich").innerHTML="";
+  listenFuellen();
+  const refs={};
+  d.alle.forEach(r=>{const n=(r.Referee||"").trim(); if(n) refs[n]=(refs[n]||0)+1;});
+  document.getElementById("ref").innerHTML='<option value="">Ligadurchschnitt</option>'+
+    Object.entries(refs).filter(([,c])=>c>=3).sort((a,b)=>a[0].localeCompare(b[0],"de"))
+      .map(([n,c])=>`<option value="${n}">${n} (${c})</option>`).join("");
+  document.getElementById("auswahl").style.display="block";
+  const anzTeams=new Set(d.aktuelle.flatMap(r=>[r.HomeTeam,r.AwayTeam])).size;
+  document.getElementById("status").innerHTML = d.aktuelle.length
+    ? `${d.alle.length} Spiele als Datenbasis. Teamliste: ${anzTeams} Mannschaften
+       aus Saison ${d.label} (${d.aktuelle.length} Spiele gespielt).`
+    : `${d.alle.length} Spiele geladen. Teamliste aus allen Saisons.`;
+  document.getElementById("ergebnis").innerHTML=
+    '<p class="hinweis">Wähle eine Partie aus der Liste oder zwei Mannschaften.</p>';
+  spieltagZeichnen();
 }
 
 // ======== Start ========
@@ -830,9 +976,15 @@ document.getElementById("liga").addEventListener("change",e=>ligaLaden(e.target.
 document.getElementById("verfahren").addEventListener("change",()=>{ zeichnen(); spieltagZeichnen(); });
 document.getElementById("alleTeams").addEventListener("change",()=>{ listenFuellen(); zeichnen(); });
 document.getElementById("testKnopf").addEventListener("click",vergleichStarten);
+document.getElementById("scanKnopf").addEventListener("click",alleLigenScannen);
 document.getElementById("datei").addEventListener("change",async e=>{
   const texte=await Promise.all([...e.target.files].map(f=>f.text()));
-  datenSetzen(texte.flatMap(csvLesen), [], "");
+  const rows=texte.flatMap(csvLesen).filter(r=>r.HomeTeam&&r.AwayTeam);
+  DATEN["UPLOAD"]={alle:rows, aktuelle:[], label:""};
+  AKTIV="UPLOAD";
+  listenFuellen();
+  document.getElementById("auswahl").style.display="block";
+  document.getElementById("status").textContent=`${rows.length} Spiele geladen.`;
 });
 fetch(`./daten/${SAISONS[SAISONS.length-1]}-D1.csv`,{method:"HEAD"})
   .then(r=>{ if(!r.ok) throw 0; })
