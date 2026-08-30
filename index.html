@@ -212,11 +212,23 @@ const KAPPA = 4;
 const ITER = 40;
 const KANTE_MIN = 0.04;
 const MAX_FUNDE = 150;
+const QUELLZONE = "Europe/London";
 
+// Alle Ligen des Hauptdatensatzes von football-data.co.uk
 const LIGEN = {
-  D1:"Bundesliga", D2:"2. Bundesliga", E0:"Premier League", E1:"Championship",
-  SP1:"La Liga", I1:"Serie A", F1:"Ligue 1", P1:"Liga Portugal",
-  T1:"Süper Lig", B1:"Jupiler Pro League"
+  D1:"Bundesliga", D2:"2. Bundesliga",
+  E0:"Premier League", E1:"Championship", E2:"League One", E3:"League Two",
+  EC:"National League",
+  SP1:"La Liga", SP2:"La Liga 2",
+  I1:"Serie A", I2:"Serie B",
+  F1:"Ligue 1", F2:"Ligue 2",
+  N1:"Eredivisie",
+  B1:"Jupiler Pro League",
+  P1:"Liga Portugal",
+  T1:"Süper Lig",
+  G1:"Super League Griechenland",
+  SC0:"Premiership (Schottland)", SC1:"Championship (Schottland)",
+  SC2:"League One (Schottland)", SC3:"League Two (Schottland)"
 };
 
 const METRIKEN = [
@@ -253,6 +265,7 @@ const f = (v,n=2) => Number.isFinite(v)
 const saisonText = s => "20"+s.slice(0,2)+"/"+s.slice(2);
 const TAGE = ["So","Mo","Di","Mi","Do","Fr","Sa"];
 const warte = () => new Promise(r=>setTimeout(r,0));
+const zwei = n => String(n).padStart(2,"0");
 
 function zeileTeilen(l){
   const out=[]; let cur="", q=false;
@@ -284,16 +297,40 @@ function datum(s){
   const d=new Date(Date.UTC(j, Number(t[1])-1, Number(t[0])));
   return isNaN(d.getTime()) ? null : d;
 }
-// Anstoß als vergleichbare Zahl: Datum plus Uhrzeit
+
+const ZONENFORMAT = new Intl.DateTimeFormat("en-GB",{ timeZone:QUELLZONE, hour12:false,
+  year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+function zonenversatz(ms){
+  const p={};
+  ZONENFORMAT.formatToParts(new Date(ms)).forEach(x=>{ p[x.type]=x.value; });
+  const alsUTC=Date.UTC(+p.year, +p.month-1, +p.day, +p.hour%24, +p.minute);
+  return (alsUTC-ms)/60000;
+}
+// Anpfiff: Datum und Uhrzeit stehen in britischer Zeit, Rückgabe als echter Zeitpunkt
 function anstoss(r){
   const d=datum(r.Date);
   if(!d) return Infinity;
   const t=String(r.Time||"").trim().split(":");
-  if(t.length<2) return d.getTime()+86340000;   // ohne Uhrzeit: Tagesende
-  return d.getTime() + (Number(t[0])||0)*3600000 + (Number(t[1])||0)*60000;
+  if(t.length<2) return d.getTime()+86340000;
+  const roh=Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(),
+                     Number(t[0])||0, Number(t[1])||0);
+  let ms=roh;
+  for(let i=0;i<2;i++) ms = roh - zonenversatz(ms)*60000;
+  return ms;
 }
-const saisonIndex = d => d.getUTCFullYear() - (d.getUTCMonth() < 6 ? 1 : 0);
+function zeitText(r){
+  const ms=anstoss(r);
+  if(!isFinite(ms) || !String(r.Time||"").includes(":")) return "";
+  const d=new Date(ms);
+  return zwei(d.getHours())+":"+zwei(d.getMinutes());
+}
+function tagText(r){
+  const ms=anstoss(r);
+  const d=isFinite(ms) ? new Date(ms) : datum(r.Date);
+  return TAGE[d.getDay()]+" "+zwei(d.getDate())+"."+zwei(d.getMonth()+1)+".";
+}
 
+const saisonIndex = d => d.getUTCFullYear() - (d.getUTCMonth() < 6 ? 1 : 0);
 const HEUTE = new Date();
 const JETZT = HEUTE.getTime();
 const SAISON_JETZT = saisonIndex(HEUTE);
@@ -665,7 +702,6 @@ async function ligaDatenHolen(code){
 function partienFuer(code, d){
   const bekannt=new Set((d.aktuelle.length?d.aktuelle:d.alle)
     .flatMap(r=>[r.HomeTeam,r.AwayTeam]));
-  // Nur Partien, deren Anpfiff noch bevorsteht — Datum UND Uhrzeit
   const jetzt=Date.now();
   const kand=ANSETZUNGEN.filter(r=>{
     if(!r.HomeTeam||!r.AwayTeam) return false;
@@ -774,13 +810,11 @@ async function alleLigenScannen(){
     <span class="q">${funde.length} aus ${partien} Partien</span></div>`;
   let letzterTag="";
   zeigen.forEach(t=>{
-    const d=datum(t.r.Date);
-    const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
-              String(d.getUTCMonth()+1).padStart(2,"0")+".";
+    const tag=tagText(t.r), zeit=zeitText(t.r);
     if(nachZeit && tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
     html+=`<div class="fund" data-code="${t.code}" data-h="${t.r.HomeTeam}" data-g="${t.r.AwayTeam}">
       <div class="links">
-        <div class="liga">${LIGEN[t.code]} · ${nachZeit?(t.r.Time||""):tag+" "+(t.r.Time||"")}</div>
+        <div class="liga">${LIGEN[t.code]} · ${nachZeit?zeit:tag+" "+zeit}</div>
         <div class="partie">${t.r.HomeTeam} – ${t.r.AwayTeam}</div>
         <div class="markt">${t.n}</div>
       </div>
@@ -797,10 +831,10 @@ async function alleLigenScannen(){
     html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.
       Schwelle erhöhen oder Ereignis eingrenzen.</div>`;
   html+=`<div class="detail">
-    <b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil. Über 0,5 Tore liegt fast immer
-    über 90 Prozent — der Buchmacher zahlt dafür 1,08. Entscheidend ist die dritte Zeile rechts,
-    der Vergleich mit der tatsächlichen Quote. Quoten liegen nur für Dreiweg und Tore 2,5 vor.
-    Antippen öffnet die Liga und die vollständige Rechnung.</div></div>`;
+    <b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil. Entscheidend ist die dritte
+    Zeile rechts, der Vergleich mit der Quote. Diese stammt aus der Ansetzungsdatei, ist ein
+    Buchmacherdurchschnitt vom Erhebungszeitpunkt und liegt nur für Dreiweg und Tore 2,5 vor.
+    Alle Zeiten in deiner Ortszeit. Antippen öffnet die vollständige Rechnung.</div></div>`;
   ziel.innerHTML=html;
 
   ziel.querySelectorAll(".fund").forEach(el=>{
@@ -832,7 +866,7 @@ function spieltagZeichnen(){
   }
   const {spiele, weg, kand}=partienFuer(code, DATEN[code]);
   if(!spiele.length){
-    const divs=[...new Set(ANSETZUNGEN.map(r=>r.Div).filter(Boolean))].slice(0,25);
+    const divs=[...new Set(ANSETZUNGEN.map(r=>r.Div).filter(Boolean))].slice(0,30);
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
       <div class="detail">Keine anstehende Partie gefunden.<br>
       Zeilen: <b>${ANSETZUNGEN.length}</b>, davon noch nicht angepfiffen <b>${kand.length}</b><br>
@@ -846,9 +880,7 @@ function spieltagZeichnen(){
     <span class="q">${spiele.length} Partien</span></div>`;
   let letzterTag="";
   spiele.forEach(r=>{
-    const d=datum(r.Date);
-    const tag=TAGE[d.getUTCDay()]+" "+String(d.getUTCDate()).padStart(2,"0")+"."+
-              String(d.getUTCMonth()+1).padStart(2,"0")+".";
+    const tag=tagText(r);
     if(tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
     const teile=[]; let kante=null;
     if(moT){
@@ -866,13 +898,14 @@ function spieltagZeichnen(){
     if(moE) teile.push(`Ecken ${f(rechnen(moE,r.HomeTeam,r.AwayTeam,"").mu,1)}`);
     if(moK) teile.push(`Karten ${f(rechnen(moK,r.HomeTeam,r.AwayTeam,"").mu,1)}`);
     html+=`<div class="spiel" data-h="${r.HomeTeam}" data-g="${r.AwayTeam}">
-      <div class="zeit">${r.Time||""}</div>
+      <div class="zeit">${zeitText(r)}</div>
       <div class="paar">${r.HomeTeam} – ${r.AwayTeam}</div>
       <div class="zahlen">${teile.join(" · ")}</div>
       ${kante?`<div class="kante">${kante.nm} @ ${f(kante.q)} · +${f(kante.v*100,1)} %</div>`:""}
     </div>`;
   });
-  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung. Zuordnung über ${weg}.</div></div>`;
+  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung. Zuordnung über ${weg}.
+    Zeiten in deiner Ortszeit.</div></div>`;
   ziel.innerHTML=html;
   ziel.querySelectorAll(".spiel").forEach(el=>{
     el.addEventListener("click",()=>{
@@ -996,8 +1029,7 @@ async function ligaLaden(code){
   const d=await ligaDatenHolen(code);
   if(!d.alle.length){
     document.getElementById("status").innerHTML=
-      "Für diese Liga wurden keine Dateien gefunden. Läuft die App noch nicht auf GitHub Pages, "+
-      "nutze das Auswahlfeld darunter.";
+      "Für diese Liga wurden keine Dateien gefunden. Läuft die Automatik schon mit dieser Liga?";
     document.getElementById("uploadbereich").style.display="block";
     return;
   }
