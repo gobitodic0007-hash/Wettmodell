@@ -1,59 +1,17 @@
-name: Ligadaten aktualisieren
-
-on:
-  push:
-  schedule:
-    - cron: "0 4 * * *"
-    - cron: "0 17 * * 5"
-    - cron: "0 14 * * 2"
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-jobs:
-  holen:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - name: CSVs abrufen
-        run: |
-          mkdir -p daten
-          for SAISON in 2425 2526 2627; do
-            for LIGA in E0 E1 E2 E3 EC SC0 SC1 SC2 SC3 D1 D2 I1 I2 SP1 SP2 F1 F2 N1 B1 P1 T1 G1; do
-              URL="https://www.football-data.co.uk/mmz4281/$SAISON/$LIGA.csv"
-              if curl -sfL --retry 3 -o roh.tmp "$URL"; then
-                if iconv -c -f WINDOWS-1252 -t UTF-8 roh.tmp > "daten/$SAISON-$LIGA.csv"; then
-                  echo "ok $SAISON-$LIGA"
-                else
-                  echo "umwandlung fehlgeschlagen $SAISON-$LIGA"
-                  rm -f "daten/$SAISON-$LIGA.csv"
-                fi
-              else
-                echo "fehlt $SAISON-$LIGA"
-              fi
-            done
-          done
-          rm -f roh.tmp
-
-      - name: Ansetzungen abrufen
-        continue-on-error: true
-        run: |
-          set +e
-          mkdir -p daten
-          curl -sL --retry 3 -o fix.tmp "https://www.football-data.co.uk/fixtures.csv"
-          if [ -s fix.tmp ]; then
-            iconv -c -f WINDOWS-1252 -t UTF-8 fix.tmp > daten/fixtures.csv
-            echo "Ansetzungen ok"
-          else
-            echo "Ansetzungen nicht erreichbar"
-          fi
-          rm -f fix.tmp
-          exit 0
-
-      - name: Änderungen sichern
+- name: Änderungen sichern
         run: |
           git config user.name "daten-bot"
           git config user.email "bot@users.noreply.github.com"
-          g
+          git add -A daten
+          if git diff --staged --quiet; then
+            echo "nichts Neues"
+            exit 0
+          fi
+          git commit -m "Daten $(date -I)"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            echo "Versuch $i fehlgeschlagen, neuer Anlauf"
+            sleep 5
+          done
+          echo "Push endgültig fehlgeschlagen"
+          exit 1
