@@ -79,6 +79,8 @@
   .fund .proz { font-size:16px; font-weight:700; }
   .fund .vorteil { font-size:11px; font-weight:700; color:var(--gruen); }
   .fund .kein { font-size:11px; color:var(--grau); }
+  .minute { display:inline-block; padding:1px 6px; background:var(--gruen); color:#fff;
+            font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; }
 </style>
 </head>
 <body>
@@ -160,7 +162,10 @@
       </select>
     </div>
   </div>
-  <button id="scanKnopf" class="voll">Alle Ligen durchsuchen</button>
+  <div class="zwei">
+    <button id="scanKnopf" class="voll">Alle Ligen durchsuchen</button>
+    <button id="liveKnopf">Läuft gerade</button>
+  </div>
 </div>
 
 <div id="funde"></div>
@@ -213,8 +218,8 @@ const ITER = 40;
 const KANTE_MIN = 0.04;
 const MAX_FUNDE = 150;
 const QUELLZONE = "Europe/London";
+const LIVE_FENSTER = 125;   // Minuten nach Anpfiff, in denen eine Partie als laufend gilt
 
-// Alle Ligen des Hauptdatensatzes von football-data.co.uk
 const LIGEN = {
   D1:"Bundesliga", D2:"2. Bundesliga",
   E0:"Premier League", E1:"Championship", E2:"League One", E3:"League Two",
@@ -306,12 +311,12 @@ function zonenversatz(ms){
   const alsUTC=Date.UTC(+p.year, +p.month-1, +p.day, +p.hour%24, +p.minute);
   return (alsUTC-ms)/60000;
 }
-// Anpfiff: Datum und Uhrzeit stehen in britischer Zeit, Rückgabe als echter Zeitpunkt
+const hatZeit = r => String(r.Time||"").includes(":");
 function anstoss(r){
   const d=datum(r.Date);
   if(!d) return Infinity;
-  const t=String(r.Time||"").trim().split(":");
-  if(t.length<2) return d.getTime()+86340000;
+  if(!hatZeit(r)) return d.getTime()+86340000;
+  const t=String(r.Time).trim().split(":");
   const roh=Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(),
                      Number(t[0])||0, Number(t[1])||0);
   let ms=roh;
@@ -320,7 +325,7 @@ function anstoss(r){
 }
 function zeitText(r){
   const ms=anstoss(r);
-  if(!isFinite(ms) || !String(r.Time||"").includes(":")) return "";
+  if(!isFinite(ms) || !hatZeit(r)) return "";
   const d=new Date(ms);
   return zwei(d.getHours())+":"+zwei(d.getMinutes());
 }
@@ -699,14 +704,13 @@ async function ligaDatenHolen(code){
   return DATEN[code];
 }
 
-function partienFuer(code, d){
+// Partien einer Liga, gefiltert über den Anpfiff
+function zugeordnet(code, d, passt){
   const bekannt=new Set((d.aktuelle.length?d.aktuelle:d.alle)
     .flatMap(r=>[r.HomeTeam,r.AwayTeam]));
-  const jetzt=Date.now();
   const kand=ANSETZUNGEN.filter(r=>{
-    if(!r.HomeTeam||!r.AwayTeam) return false;
-    if(!datum(r.Date)) return false;
-    return anstoss(r) > jetzt;
+    if(!r.HomeTeam||!r.AwayTeam||!datum(r.Date)) return false;
+    return passt(anstoss(r), r);
   });
   let s=kand.filter(r=>r.Div===code);
   let weg="Ligacode";
@@ -714,6 +718,11 @@ function partienFuer(code, d){
   s.sort((a,b)=>anstoss(a)-anstoss(b));
   return { spiele:s, weg, kand };
 }
+const partienFuer  = (code,d) => zugeordnet(code,d, ms => ms > Date.now());
+const laufendeFuer = (code,d) => zugeordnet(code,d, (ms,r) => {
+  const n=Date.now();
+  return hatZeit(r) && ms<=n && ms > n - LIVE_FENSTER*60000;
+});
 
 function quote(zeile, name){
   if(!QUOTEN[name]) return null;
@@ -754,6 +763,79 @@ function passtZumFilter(id, filter){
   if(filter==="alle") return true;
   if(filter.includes(":")) return id===filter;
   return id.split(":")[0]===filter;
+}
+
+// ======== Läuft gerade ========
+async function liveZeigen(){
+  const ziel=document.getElementById("funde");
+  const verf=document.getElementById("verfahren").value;
+  const knopf=document.getElementById("liveKnopf");
+  knopf.disabled=true;
+  ziel.innerHTML='<div class="karte"><div class="kopf"><b>Laufende Partien</b></div>'+
+                 '<div class="detail">Suche …</div></div>';
+  await ansetzungenLaden();
+  if(!ANSETZUNGEN.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Laufende Partien</b></div>
+      <div class="detail">${FIXSTATUS||"Keine Ansetzungen verfügbar."}</div></div>`;
+    knopf.disabled=false; return;
+  }
+
+  const treffer=[];
+  for(const code of Object.keys(LIGEN)){
+    const d=await ligaDatenHolen(code);
+    if(!d.alle.length) continue;
+    laufendeFuer(code,d).spiele.forEach(r=>treffer.push({code,r}));
+    await warte();
+  }
+  treffer.sort((a,b)=>anstoss(a.r)-anstoss(b.r));
+
+  if(!treffer.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Laufende Partien</b></div>
+      <div class="detail">Im Moment läuft keine Partie aus den erfassten Ligen.
+      Als laufend gilt eine Partie bis ${LIVE_FENSTER} Minuten nach Anpfiff.</div></div>`;
+    knopf.disabled=false; return;
+  }
+
+  const jetzt=Date.now();
+  let html=`<div class="karte"><div class="kopf"><b>Laufende Partien</b>
+    <span class="q">${treffer.length}</span></div>`;
+  treffer.forEach(({code,r})=>{
+    const min=Math.floor((jetzt-anstoss(r))/60000);
+    const teile=[];
+    METRIKEN.slice(0,3).forEach(m=>{
+      const mo=holModell(code,m,verf);
+      if(mo) teile.push(`${m.name} ${f(rechnen(mo,r.HomeTeam,r.AwayTeam,"").mu, m.id==="tore"?2:1)}`);
+    });
+    html+=`<div class="spiel" data-code="${code}" data-h="${r.HomeTeam}" data-g="${r.AwayTeam}">
+      <div class="zeit"><span class="minute">${min}'</span> &nbsp;${LIGEN[code]} · Anpfiff ${zeitText(r)}</div>
+      <div class="paar">${r.HomeTeam} – ${r.AwayTeam}</div>
+      <div class="zahlen">${teile.join(" · ")}</div>
+    </div>`;
+  });
+  html+=`<div class="detail">
+    <b>Ohne Spielstand.</b> Die Datenquelle liefert keine Livedaten — hier steht nur, welche
+    Partien angepfiffen sind, samt der Minute seit Anpfiff. Halbzeit und Nachspielzeit sind
+    darin enthalten, die Angabe ist also nur ungefähr.<br>
+    Die Zahlen sind die Erwartungswerte <b>vor</b> dem Spiel. Für Livewetten taugen sie nicht:
+    Nach einem Tor oder einer Roten Karte verschiebt sich die Verteilung für die Restzeit
+    vollständig. Antippen öffnet die Vorabrechnung.</div></div>`;
+  ziel.innerHTML=html;
+
+  ziel.querySelectorAll(".spiel").forEach(el=>{
+    el.addEventListener("click",async ()=>{
+      const c=el.getAttribute("data-code");
+      document.getElementById("liga").value=c;
+      await ligaLaden(c);
+      const sh=document.getElementById("heim"), sg=document.getElementById("gast");
+      const h=el.getAttribute("data-h"), g=el.getAttribute("data-g");
+      if(![...sh.options].some(o=>o.value===h)){
+        document.getElementById("alleTeams").checked=true; listenFuellen();
+      }
+      sh.value=h; sg.value=g; zeichnen();
+      document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+    });
+  });
+  knopf.disabled=false;
 }
 
 async function alleLigenScannen(){
@@ -832,9 +914,8 @@ async function alleLigenScannen(){
       Schwelle erhöhen oder Ereignis eingrenzen.</div>`;
   html+=`<div class="detail">
     <b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil. Entscheidend ist die dritte
-    Zeile rechts, der Vergleich mit der Quote. Diese stammt aus der Ansetzungsdatei, ist ein
-    Buchmacherdurchschnitt vom Erhebungszeitpunkt und liegt nur für Dreiweg und Tore 2,5 vor.
-    Alle Zeiten in deiner Ortszeit. Antippen öffnet die vollständige Rechnung.</div></div>`;
+    Zeile rechts, der Vergleich mit der Quote. Diese stammt aus der Ansetzungsdatei und liegt nur
+    für Dreiweg und Tore 2,5 vor. Alle Zeiten in deiner Ortszeit.</div></div>`;
   ziel.innerHTML=html;
 
   ziel.querySelectorAll(".fund").forEach(el=>{
@@ -1062,6 +1143,7 @@ document.getElementById("verfahren").addEventListener("change",()=>{ zeichnen();
 document.getElementById("alleTeams").addEventListener("change",()=>{ listenFuellen(); zeichnen(); });
 document.getElementById("testKnopf").addEventListener("click",vergleichStarten);
 document.getElementById("scanKnopf").addEventListener("click",alleLigenScannen);
+document.getElementById("liveKnopf").addEventListener("click",liveZeigen);
 document.getElementById("datei").addEventListener("change",async e=>{
   const texte=await Promise.all([...e.target.files].map(f=>f.text()));
   const rows=texte.flatMap(csvLesen).filter(r=>r.HomeTeam&&r.AwayTeam);
