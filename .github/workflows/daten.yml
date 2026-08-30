@@ -20,18 +20,18 @@ jobs:
       - name: CSVs abrufen
         run: |
           mkdir -p daten
+          echo "Lauf vom $(date -u '+%Y-%m-%d %H:%M UTC')" > daten/bericht.txt
+          echo "" >> daten/bericht.txt
           for SAISON in 2425 2526 2627; do
             for LIGA in E0 E1 E2 E3 EC SC0 SC1 SC2 SC3 D1 D2 I1 I2 SP1 SP2 F1 F2 N1 B1 P1 T1 G1; do
               URL="https://www.football-data.co.uk/mmz4281/$SAISON/$LIGA.csv"
-              if curl -sfL --retry 3 -o roh.tmp "$URL"; then
-                if iconv -c -f WINDOWS-1252 -t UTF-8 roh.tmp > "daten/$SAISON-$LIGA.csv"; then
-                  echo "ok $SAISON-$LIGA"
-                else
-                  echo "umwandlung fehlgeschlagen $SAISON-$LIGA"
-                  rm -f "daten/$SAISON-$LIGA.csv"
-                fi
+              CODE=$(curl -sL --retry 3 -o roh.tmp -w "%{http_code}" "$URL")
+              if [ "$CODE" = "200" ] && [ -s roh.tmp ]; then
+                iconv -c -f WINDOWS-1252 -t UTF-8 roh.tmp > "daten/$SAISON-$LIGA.csv"
+                ZEILEN=$(wc -l < "daten/$SAISON-$LIGA.csv")
+                echo "ok    $SAISON-$LIGA  $ZEILEN Zeilen" >> daten/bericht.txt
               else
-                echo "fehlt $SAISON-$LIGA"
+                echo "FEHLT $SAISON-$LIGA  HTTP $CODE" >> daten/bericht.txt
               fi
             done
           done
@@ -41,7 +41,26 @@ jobs:
         continue-on-error: true
         run: |
           set +e
-          mkdir -p daten
-          curl -sL --retry 3 -o fix.tmp "https://www.football-data.co.uk/fixtures.csv"
-          if [ -s fix.tmp ]; then
+          CODE=$(curl -sL --retry 3 -o fix.tmp -w "%{http_code}" "https://www.football-data.co.uk/fixtures.csv")
+          if [ "$CODE" = "200" ] && [ -s fix.tmp ]; then
             iconv -c -f WINDOWS-1252 -t UTF-8 fix.tmp > daten/fixtures.csv
+            echo "" >> daten/bericht.txt
+            echo "Ansetzungen ok, $(wc -l < daten/fixtures.csv) Zeilen" >> daten/bericht.txt
+          else
+            echo "" >> daten/bericht.txt
+            echo "Ansetzungen FEHLEN, HTTP $CODE" >> daten/bericht.txt
+          fi
+          rm -f fix.tmp
+          exit 0
+
+      - name: Änderungen sichern
+        run: |
+          git config user.name "daten-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A daten
+          git commit -m "Daten $(date -I)" || echo "nichts zu committen"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            sleep 5
+          done
+          exit 1
