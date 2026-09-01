@@ -1,4 +1,4 @@
-Lauf vom 2026-08-31 10:44 UTC
+Lauf vom 2026-09-01 09:20 UTC
 
 ok    2425-E0  381 Zeilen
 ok    2425-E1  553 Zeilen
@@ -44,27 +44,27 @@ ok    2526-B1  312 Zeilen
 ok    2526-P1  307 Zeilen
 ok    2526-T1  307 Zeilen
 ok    2526-G1  237 Zeilen
-ok    2627-E0  11 Zeilen
-ok    2627-E1  25 Zeilen
-ok    2627-E2  25 Zeilen
-ok    2627-E3  25 Zeilen
-ok    2627-EC  49 Zeilen
-ok    2627-SC0  14 Zeilen
-ok    2627-SC1  16 Zeilen
-ok    2627-SC2  20 Zeilen
-ok    2627-SC3  21 Zeilen
-FEHLT 2627-D1  HTTP 300
-ok    2627-D2  19 Zeilen
-ok    2627-I1  11 Zeilen
-ok    2627-I2  11 Zeilen
-ok    2627-SP1  21 Zeilen
-ok    2627-SP2  23 Zeilen
-ok    2627-F1  10 Zeilen
-ok    2627-F2  28 Zeilen
-ok    2627-N1  25 Zeilen
-ok    2627-B1  25 Zeilen
-ok    2627-P1  25 Zeilen
-ok    2627-T1  19 Zeilen
-ok    2627-G1  7 Zeilen
+ok    2627-E0  21 Zeilen
+ok    2627-E1  37 Zeilen
+ok    2627-E2  36 Zeilen
+ok    2627-E3  37 Zeilen
+ok    2627-EC  60 Zeilen
+ok    2627-SC0  20 Zeilen
+ok    2627-SC1  21 Zeilen
+ok    2627-SC2  25 Zeilen
+ok    2627-SC3  26 Zeilen
+ok    2627-D1  10 Zeilen
+ok    2627-D2  28 Zeilen
+ok    2627-I1  21 Zeilen
+ok    2627-I2  21 Zeilen
+ok    2627-SP1  31 Zeilen
+ok    2627-SP2  34 Zeilen
+ok    2627-F1  19 Zeilen
+ok    2627-F2  37 Zeilen
+ok    2627-N1  34 Zeilen
+ok    2627-B1  34 Zeilen
+ok    2627-P1  34 Zeilen
+ok    2627-T1  28 Zeilen
+ok    2627-G1  14 Zeilen
 
 Ansetzungen ok, 210 Zeilen
