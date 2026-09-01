@@ -1,4 +1,4 @@
-Lauf vom 2026-09-01 09:20 UTC
+Lauf vom 2026-09-01 17:42 UTC
 
 ok    2425-E0  381 Zeilen
 ok    2425-E1  553 Zeilen
@@ -67,4 +67,4 @@ ok    2627-P1  34 Zeilen
 ok    2627-T1  28 Zeilen
 ok    2627-G1  14 Zeilen
 
-Ansetzungen ok, 210 Zeilen
+Ansetzungen ok, 49 Zeilen
