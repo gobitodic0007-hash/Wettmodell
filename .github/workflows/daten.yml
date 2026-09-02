@@ -27,6 +27,9 @@ jobs:
       - name: MLB abrufen
         run: python hole_mlb.py
 
+      - name: Tennis abrufen
+        run: python hole_tennis.py
+
       - name: Aenderungen sichern
         if: always()
         uses: stefanzweifel/git-auto-commit-action@v5
