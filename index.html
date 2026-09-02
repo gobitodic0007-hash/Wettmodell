@@ -181,7 +181,64 @@
       </select>
     </div>
     <div id="mlbStatus" style="font-size:12px;color:var(--grau);margin-bottom:12px"></div>
-    <button id="mlbKnopf" class="voll">Ansetzungen laden</button>
+    <div class="feld">
+      <label for="mlbEreignis">Ereignis</label>
+      <select id="mlbEreignis">
+        <option value="alle">Alle Märkte</option>
+        <optgroup label="Spielausgang">
+          <option value="f5_1x2">F5 Dreiweg</option>
+          <option value="nrfi">Erstes Inning · NRFI</option>
+        </optgroup>
+        <optgroup label="F5 gesamt">
+          <option value="f5tot">F5 gesamt, alle Linien</option>
+          <option value="f5tot:3.5">F5 gesamt 3,5</option>
+          <option value="f5tot:4.5">F5 gesamt 4,5</option>
+          <option value="f5tot:5.5">F5 gesamt 5,5</option>
+          <option value="f5tot:6.5">F5 gesamt 6,5</option>
+        </optgroup>
+        <optgroup label="F5 je Team">
+          <option value="f5team">Team-Totals, alle Linien</option>
+          <option value="f5team:0.5">Team 0,5</option>
+          <option value="f5team:1.5">Team 1,5</option>
+          <option value="f5team:2.5">Team 2,5</option>
+        </optgroup>
+        <optgroup label="Strikeouts">
+          <option value="k">Strikeouts, alle Linien</option>
+          <option value="k:3.5">Strikeouts 3,5</option>
+          <option value="k:4.5">Strikeouts 4,5</option>
+          <option value="k:5.5">Strikeouts 5,5</option>
+          <option value="k:6.5">Strikeouts 6,5</option>
+          <option value="k:7.5">Strikeouts 7,5</option>
+        </optgroup>
+        <optgroup label="Ganzes Spiel">
+          <option value="tot">Gesamt, alle Linien</option>
+          <option value="tot:7.5">Gesamt 7,5</option>
+          <option value="tot:8.5">Gesamt 8,5</option>
+          <option value="tot:9.5">Gesamt 9,5</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="zwei">
+      <div class="feld">
+        <label for="mlbSchwelle">Mindestens</label>
+        <select id="mlbSchwelle">
+          <option value="55">55 %</option><option value="60">60 %</option>
+          <option value="65" selected>65 %</option><option value="70">70 %</option>
+          <option value="75">75 %</option><option value="80">80 %</option>
+        </select>
+      </div>
+      <div class="feld">
+        <label for="mlbSortierung">Sortierung</label>
+        <select id="mlbSortierung">
+          <option value="zeit" selected>Anwurfzeit</option>
+          <option value="p">Wahrscheinlichkeit</option>
+        </select>
+      </div>
+    </div>
+    <div class="zwei">
+      <button id="mlbKnopf" class="voll">Ansetzungen laden</button>
+      <button id="mlbScanKnopf">Partien durchsuchen</button>
+    </div>
   </div>
 </div>
 
@@ -879,6 +936,123 @@ function mlbZeichnen(partie){
     Nicht enthalten: Bullpen-Zustand, Handedness-Splits, Wetter und Umpire.</p>`;
   ziel.innerHTML=html;
 }
+// Alle Maerkte einer Partie mit Wahrscheinlichkeit
+function mlbMaerkte(a){
+  const pa=document.getElementById("pitcherArt").value;
+  const out=[];
+  const moF5=mlbModell("F5",pa), moI1=mlbModell("I1",pa), moR=mlbModell("R",pa);
+  const km=kModell();
+  if(moF5){
+    const e=moF5.erw(a.heim,a.gast,a.park,a.hp,a.ap), ges=e.muH+e.muA;
+    const s=spielausgang(e.muH,e.muA,moF5.phiH,moF5.phiA,moF5.rho,14);
+    out.push({id:"f5_1x2",n:`${a.heim} führt nach 5`,p:s.heim},
+             {id:"f5_1x2",n:"Gleichstand nach 5",p:s.remis},
+             {id:"f5_1x2",n:`${a.gast} führt nach 5`,p:s.aus});
+    linienLeiter(ges,moF5.phiT,[3.5,4.5,5.5,6.5,7.5]).forEach(l=>{
+      out.push({id:`f5tot:${l.L}`,n:`F5 gesamt über ${f(l.L,1)}`,p:l.over});
+      out.push({id:`f5tot:${l.L}`,n:`F5 gesamt unter ${f(l.L,1)}`,p:l.under});
+    });
+    [[a.heim,e.muH,moF5.phiH],[a.gast,e.muA,moF5.phiA]].forEach(([nm,mu,phi])=>{
+      linienLeiter(mu,phi,[0.5,1.5,2.5,3.5]).forEach(l=>{
+        out.push({id:`f5team:${l.L}`,n:`${nm} F5 über ${f(l.L,1)}`,p:l.over});
+        out.push({id:`f5team:${l.L}`,n:`${nm} F5 unter ${f(l.L,1)}`,p:l.under});
+      });
+    });
+  }
+  if(moI1){
+    const i=moI1.erw(a.heim,a.gast,a.park,a.hp,a.ap);
+    const p0H=verteilung(i.muH,moI1.phiH,8)[0], p0A=verteilung(i.muA,moI1.phiA,8)[0];
+    const kein=Math.min(0.999,Math.max(0.001,p0H*p0A));
+    out.push({id:"nrfi",n:"NRFI · kein Run im ersten",p:kein},
+             {id:"nrfi",n:"YRFI · Run im ersten",p:1-kein});
+  }
+  if(km){
+    [[a.hpn,a.hp,a.gast],[a.apn,a.ap,a.heim]].forEach(([nm,pid,gegner])=>{
+      if(!pid) return;
+      const ew=km.erwarte(pid,gegner);
+      linienLeiter(ew.mu,km.phi,[3.5,4.5,5.5,6.5,7.5,8.5,9.5]).forEach(l=>{
+        out.push({id:`k:${l.L}`,n:`${nm||"Starter"} über ${f(l.L,1)} K`,p:l.over});
+        out.push({id:`k:${l.L}`,n:`${nm||"Starter"} unter ${f(l.L,1)} K`,p:l.under});
+      });
+    });
+  }
+  if(moR){
+    const r=moR.erw(a.heim,a.gast,a.park,a.hp,a.ap), ges=r.muH+r.muA;
+    linienLeiter(ges,moR.phiT,[6.5,7.5,8.5,9.5,10.5,11.5]).forEach(l=>{
+      out.push({id:`tot:${l.L}`,n:`Gesamt über ${f(l.L,1)}`,p:l.over});
+      out.push({id:`tot:${l.L}`,n:`Gesamt unter ${f(l.L,1)}`,p:l.under});
+    });
+  }
+  return out;
+}
+
+function mlbScannen(){
+  const ziel=document.getElementById("funde");
+  if(!MLB.geladen){
+    ziel.innerHTML='<div class="karte"><div class="kopf"><b>Suche</b></div>'+
+      '<div class="detail">Erst die Ansetzungen laden.</div></div>';
+    return;
+  }
+  const schwelle=Number(document.getElementById("mlbSchwelle").value)/100;
+  const filter=document.getElementById("mlbEreignis").value;
+  const sortierung=document.getElementById("mlbSortierung").value;
+  const knopf=document.getElementById("mlbScanKnopf");
+  knopf.disabled=true;
+  ziel.innerHTML='<div class="karte"><div class="kopf"><b>Suche läuft</b></div>'+
+    '<div class="detail">Rechnet …</div></div>';
+  setTimeout(()=>{
+    const jetzt=Date.now();
+    const spiele=MLB.ansetzungen.filter(a=>a.ms>jetzt-3.5*3600*1000)
+      .sort((a,b)=>a.ms-b.ms);
+    const funde=[];
+    spiele.forEach((a,i)=>{
+      mlbMaerkte(a).forEach(o=>{
+        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+          funde.push({partie:a,idx:i,...o});
+      });
+    });
+    if(sortierung==="p") funde.sort((x,y)=>y.p-x.p);
+    else funde.sort((x,y)=>x.partie.ms-y.partie.ms||y.p-x.p);
+    if(!funde.length){
+      ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
+        <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+        in ${spiele.length} anstehenden Partien.</div></div>`;
+      knopf.disabled=false; return;
+    }
+    const zeigen=funde.slice(0,MAX_FUNDE), nachZeit=sortierung==="zeit";
+    let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+      <span class="q">${funde.length} aus ${spiele.length} Partien</span></div>`;
+    let letzter="";
+    zeigen.forEach(t=>{
+      const tag=tagVonMs(t.partie.ms);
+      if(nachZeit&&tag!==letzter){html+=`<div class="tagkopf">${tag}</div>`;letzter=tag;}
+      html+=`<div class="fund" data-i="${t.idx}">
+        <div class="links">
+          <div class="liga">MLB · ${nachZeit?zeitVonMs(t.partie.ms):tag+" "+zeitVonMs(t.partie.ms)}</div>
+          <div class="partie">${t.partie.gast} bei ${t.partie.heim}</div>
+          <div class="markt">${t.n}</div></div>
+        <div class="rechts"><div class="proz">${f(t.p*100,1)} %</div>
+          <div class="q">fair ${f(1/t.p)}</div></div></div>`;
+    });
+    if(funde.length>MAX_FUNDE)
+      html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.</div>`;
+    html+=`<div class="detail"><b>Ohne Quotenabgleich.</b> Die MLB-Schnittstelle liefert
+      keine Buchmacherquoten, anders als bei Fußball. Hier steht nur, was wahrscheinlich
+      ist — nicht, was sich lohnt. Halte die faire Quote gegen das Angebot deines
+      Buchmachers.<br>
+      Bei Strikeouts gilt weiterhin: Over verliert an jedem frühen Wechsel des Werfers,
+      Under gewinnt daran. Antippen öffnet die vollständige Rechnung.</div></div>`;
+    ziel.innerHTML=html;
+    ziel.querySelectorAll(".fund").forEach(el=>{
+      el.addEventListener("click",()=>{
+        mlbZeichnen(spiele[Number(el.getAttribute("data-i"))]);
+        document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+      });
+    });
+    knopf.disabled=false;
+  },50);
+}
+
 function mlbSpieltag(){
   const ziel=document.getElementById("spieltag");
   const jetzt=Date.now();
@@ -1403,8 +1577,10 @@ document.getElementById("scanKnopf").addEventListener("click",alleLigenScannen);
 document.getElementById("liveKnopf").addEventListener("click",liveZeigen);
 document.getElementById("sportart").addEventListener("change",sportWechseln);
 document.getElementById("mlbKnopf").addEventListener("click",mlbStarten);
+document.getElementById("mlbScanKnopf").addEventListener("click",mlbScannen);
 document.getElementById("pitcherArt").addEventListener("change",()=>{
   MLB.modelle={};
+  document.getElementById("funde").innerHTML="";
   if(MLB.geladen) mlbSpieltag();
   document.getElementById("ergebnis").innerHTML=
     '<p class="hinweis">Verfahren gewechselt — Partie erneut antippen.</p>';
