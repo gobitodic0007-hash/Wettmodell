@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Holt Tennisdaten.
 
-Ergebnisse und Aufschlagstatistiken von Jeff Sackmanns Repos:
-  https://github.com/JeffSackmann/tennis_atp
-  https://github.com/JeffSackmann/tennis_wta
-  Lizenz: Creative Commons BY-NC-SA. Namensnennung gehoert in die README.
+Ergebnisse und Quoten von tennis-data.co.uk (ATP und WTA, je Satz die
+Spielstaende, dazu Belag, Runde, Best-of, Weltranglistenplaetze und Quoten).
 
-Der Zweigname wird zur Laufzeit ermittelt, weil er sich geaendert hat.
-Ansetzungen als Versuch ueber die offene Scoreboard-Schnittstelle von ESPN.
+Sackmanns Repos tennis_atp und tennis_wta gibt es nicht mehr; damit entfaellt
+die einzige freie Quelle fuer Aufschlagstatistiken je Match. Das Modell setzt
+deshalb auf gewonnenen Spielen auf, nicht auf Punkten.
+
+Ansetzungen ueber die offene Scoreboard-Schnittstelle von ESPN.
 
 Erzeugt:
   daten/tennis-atp.csv
@@ -19,26 +20,21 @@ import csv, io, json, os, time, urllib.error, urllib.request
 
 JAHRE = [2024, 2025, 2026]
 ORDNER = "daten"
-ZWEIGE = ["master", "main"]
+BASIS = "http://www.tennis-data.co.uk"
 
-REPOS = {
-    "atp": ("tennis_atp",
-            ["atp_matches_{j}.csv",
-             "atp_matches_qual_chall_{j}.csv",
-             "atp_matches_futures_{j}.csv"]),
-    "wta": ("tennis_wta",
-            ["wta_matches_{j}.csv",
-             "wta_matches_qual_itf_{j}.csv",
-             "wta_matches_itf_{j}.csv"]),
+# Die Seite bietet je nach Jahrgang csv oder xlsx an; beides wird probiert.
+MUSTER = {
+    "atp": ["{j}/{j}.csv", "{j}/{j}.xlsx"],
+    "wta": ["{j}w/{j}.csv", "{j}w/{j}.xlsx"],
 }
 
-KOPF = ["Datum","Turnier","Belag","Ebene","BestOf","Runde",
-        "SiegerId","Sieger","VerliererId","Verlierer",
-        "S_svpt","S_spw","V_svpt","V_spw","S_rank","V_rank"]
+KOPF = ["Datum","Turnier","Serie","Court","Belag","Runde","BestOf",
+        "Sieger","Verlierer","SRang","VRang",
+        "S1","V1","S2","V2","S3","V3","S4","V4","S5","V5",
+        "SSaetze","VSaetze","SSpiele","VSpiele","Status","QuoteS","QuoteV"]
 
 
 def hole(url, versuche=2):
-    """Gibt (daten, hinweis) zurueck. daten ist None, wenn es nicht klappte."""
     letzter = "unbekannt"
     for i in range(versuche):
         try:
@@ -57,76 +53,136 @@ def hole(url, versuche=2):
     return None, letzter
 
 
-def zweig_finden(repo):
-    """Probiert die bekannten Zweignamen und nimmt den ersten, der antwortet."""
-    for zweig in ZWEIGE:
-        url = f"https://raw.githubusercontent.com/JeffSackmann/{repo}/{zweig}/README.md"
-        daten, hinweis = hole(url)
-        if daten:
-            print(f"  Zweig gefunden: {zweig}")
-            return zweig
-        print(f"  Zweig {zweig}: {hinweis}")
-    return None
-
-
 def zahl(v):
     try:
-        return int(float(v))
+        x = float(str(v).strip())
+        return x
     except Exception:
         return None
 
 
-def datei_verarbeiten(rohdaten):
-    text = rohdaten.decode("utf-8", errors="replace")
-    leser = csv.DictReader(io.StringIO(text))
-    raus = []
-    for z in leser:
-        s_svpt = zahl(z.get("w_svpt"))
-        v_svpt = zahl(z.get("l_svpt"))
-        if not s_svpt or not v_svpt:
+def ganz(v):
+    x = zahl(v)
+    return int(x) if x is not None else None
+
+
+def zeilen_aus_csv(rohdaten):
+    for kodierung in ("utf-8-sig", "cp1252", "latin-1"):
+        try:
+            text = rohdaten.decode(kodierung)
+            break
+        except Exception:
             continue
-        s_1 = zahl(z.get("w_1stWon")) or 0
-        s_2 = zahl(z.get("w_2ndWon")) or 0
-        v_1 = zahl(z.get("l_1stWon")) or 0
-        v_2 = zahl(z.get("l_2ndWon")) or 0
-        if s_1 + s_2 == 0 and v_1 + v_2 == 0:
+    else:
+        return []
+    return list(csv.DictReader(io.StringIO(text)))
+
+
+def zeilen_aus_xlsx(rohdaten):
+    try:
+        from openpyxl import load_workbook
+    except ImportError:
+        print("    openpyxl fehlt, xlsx wird uebersprungen")
+        return []
+    try:
+        wb = load_workbook(io.BytesIO(rohdaten), read_only=True, data_only=True)
+        blatt = wb[wb.sheetnames[0]]
+        reihen = blatt.iter_rows(values_only=True)
+        kopf = [str(k).strip() if k is not None else "" for k in next(reihen)]
+        raus = []
+        for r in reihen:
+            if r is None or all(x is None for x in r):
+                continue
+            raus.append({kopf[i]: r[i] for i in range(min(len(kopf), len(r)))})
+        return raus
+    except Exception as e:
+        print(f"    xlsx nicht lesbar: {type(e).__name__}")
+        return []
+
+
+def datum_text(v):
+    if v is None:
+        return ""
+    s = str(v)
+    return s[:10] if "-" in s or "/" in s else s
+
+
+def erste_quote(z, felder):
+    for feld in felder:
+        x = zahl(z.get(feld))
+        if x and x > 1:
+            return x
+    return ""
+
+
+def verarbeiten(zeilen):
+    raus = []
+    for z in zeilen:
+        sieger = str(z.get("Winner") or "").strip()
+        verlierer = str(z.get("Loser") or "").strip()
+        if not sieger or not verlierer:
+            continue
+        saetze = []
+        s_spiele = v_spiele = 0
+        gueltig = False
+        for i in range(1, 6):
+            a, b = ganz(z.get(f"W{i}")), ganz(z.get(f"L{i}"))
+            saetze += [a if a is not None else "", b if b is not None else ""]
+            if a is not None and b is not None:
+                s_spiele += a
+                v_spiele += b
+                gueltig = True
+        if not gueltig:
             continue
         raus.append([
-            z.get("tourney_date",""), z.get("tourney_name",""),
-            z.get("surface",""), z.get("tourney_level",""),
-            z.get("best_of",""), z.get("round",""),
-            z.get("winner_id",""), z.get("winner_name",""),
-            z.get("loser_id",""),  z.get("loser_name",""),
-            s_svpt, s_1 + s_2, v_svpt, v_1 + v_2,
-            z.get("winner_rank",""), z.get("loser_rank",""),
+            datum_text(z.get("Date")),
+            str(z.get("Tournament") or "").strip(),
+            str(z.get("Series") or z.get("Tier") or "").strip(),
+            str(z.get("Court") or "").strip(),
+            str(z.get("Surface") or "").strip(),
+            str(z.get("Round") or "").strip(),
+            ganz(z.get("Best of")) or "",
+            sieger, verlierer,
+            ganz(z.get("WRank")) or "", ganz(z.get("LRank")) or "",
+        ] + saetze + [
+            ganz(z.get("Wsets")) or "", ganz(z.get("Lsets")) or "",
+            s_spiele, v_spiele,
+            str(z.get("Comment") or "").strip(),
+            erste_quote(z, ["AvgW", "PSW", "B365W", "MaxW"]),
+            erste_quote(z, ["AvgL", "PSL", "B365L", "MaxL"]),
         ])
     return raus
 
 
 def tour_holen(tour):
-    repo, muster = REPOS[tour]
-    zweig = zweig_finden(repo)
-    if not zweig:
-        print(f"  {repo}: kein Zweig erreichbar, ueberspringe")
-        return []
-    basis = f"https://raw.githubusercontent.com/JeffSackmann/{repo}/{zweig}/"
     alle = []
     for jahr in JAHRE:
-        for m in muster:
+        geschafft = False
+        for m in MUSTER[tour]:
             name = m.format(j=jahr)
-            roh, hinweis = hole(basis + name)
-            if not roh or len(roh) < 200:
+            roh, hinweis = hole(f"{BASIS}/{name}")
+            if not roh or len(roh) < 500:
                 print(f"  fehlt {name}  ({hinweis})")
                 continue
-            zeilen = datei_verarbeiten(roh)
-            alle += zeilen
-            print(f"  ok    {name}  {len(zeilen)} verwertbare Partien")
-            time.sleep(0.2)
+            zeilen = (zeilen_aus_xlsx(roh) if name.endswith(".xlsx")
+                      else zeilen_aus_csv(roh))
+            fertig = verarbeiten(zeilen)
+            if not fertig:
+                print(f"  leer  {name}")
+                continue
+            alle += fertig
+            print(f"  ok    {name}  {len(fertig)} Partien")
+            geschafft = True
+            break
+        if not geschafft:
+            print(f"  Jahr {jahr} fuer {tour.upper()} nicht geholt")
+        time.sleep(0.3)
     return alle
 
 
 def ansetzungen_holen():
     raus = []
+    gesehen = set()
     for tour in ("atp", "wta"):
         url = (f"https://site.api.espn.com/apis/site/v2/sports/tennis/"
                f"{tour}/scoreboard")
@@ -154,17 +210,22 @@ def ansetzungen_holen():
                     namen = []
                     for k in leute:
                         a = k.get("athlete") or {}
-                        namen.append(a.get("displayName") or a.get("shortName") or "")
+                        namen.append((a.get("displayName")
+                                      or a.get("shortName") or "").strip())
                     if not all(namen):
                         continue
+                    schluessel = (turnier, namen[0], namen[1])
+                    if schluessel in gesehen:
+                        continue
+                    gesehen.add(schluessel)
                     raus.append([
-                        tour.upper(), wett.get("date",""), turnier, "",
-                        wett.get("format",{}).get("bestOf",""),
-                        gr.get("grouping",{}).get("shortName",""),
+                        tour.upper(), wett.get("date", ""), turnier,
+                        wett.get("format", {}).get("bestOf", ""),
+                        gr.get("grouping", {}).get("shortName", ""),
                         namen[0], namen[1],
                     ])
                     anz += 1
-        print(f"  ESPN {tour}: {anz} kommende Partien")
+        print(f"  ESPN {tour}: {anz} neue Partien")
     return raus
 
 
@@ -182,9 +243,9 @@ def main():
         print(f"{tour.upper()} holen ...")
         schreiben(f"{ORDNER}/tennis-{tour}.csv", KOPF, tour_holen(tour))
 
-    print("Ansetzungen versuchen ...")
+    print("Ansetzungen holen ...")
     schreiben(f"{ORDNER}/tennis-ansetzungen.csv",
-              ["Tour","Zeit","Turnier","Belag","BestOf","Runde","Spieler1","Spieler2"],
+              ["Tour", "Zeit", "Turnier", "BestOf", "Runde", "Spieler1", "Spieler2"],
               ansetzungen_holen())
 
 
