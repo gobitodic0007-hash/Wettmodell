@@ -18,7 +18,7 @@
   .block { padding:16px; border-bottom:1px solid var(--linie); }
   label { display:block; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
           color:var(--grau); margin-bottom:4px; }
-  select, input[type=file] { width:100%; padding:9px; border:1px solid var(--linie);
+  select, input { width:100%; padding:9px; border:1px solid var(--linie);
           background:#fff; font-size:15px; font-family:inherit; color:var(--ink); }
   button { width:100%; padding:10px; border:1px solid var(--ink); background:#fff;
            font-family:inherit; font-size:14px; cursor:pointer; }
@@ -48,6 +48,12 @@
   .hinweis { padding:16px; font-size:12px; color:var(--grau); line-height:1.6; }
   .warn { margin:0 16px 14px; padding:10px 12px; border:1px solid var(--rot);
           color:var(--rot); font-size:13px; line-height:1.5; }
+  .guete { padding:8px 12px; font-size:11px; line-height:1.6; border-top:1px solid #e2e8f0; }
+  .guete b { display:block; letter-spacing:.1em; text-transform:uppercase; font-size:10px;
+             margin-bottom:2px; }
+  .gut { background:#ecfdf5; color:#065f46; }
+  .mittel { background:#fffbeb; color:#92400e; }
+  .schwach { background:#fef2f2; color:#9f1239; }
   details { border-top:1px solid var(--linie); }
   summary { padding:9px 12px; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
             color:var(--grau); cursor:pointer; }
@@ -99,6 +105,7 @@
     <select id="sportart">
       <option value="fussball">Fußball</option>
       <option value="baseball">Baseball · MLB</option>
+      <option value="tennis">Tennis</option>
     </select>
   </div>
 
@@ -112,7 +119,6 @@
       <input type="file" id="datei" accept=".csv" multiple>
     </div>
     <div id="status" style="font-size:12px;color:var(--grau);margin:8px 0 12px"></div>
-
     <div class="feld">
       <label for="ereignis">Ereignis</label>
       <select id="ereignis">
@@ -127,22 +133,17 @@
           <option value="tore:1.5">Tore 1,5</option>
           <option value="tore:2.5">Tore 2,5</option>
           <option value="tore:3.5">Tore 3,5</option>
-          <option value="tore:4.5">Tore 4,5</option>
         </optgroup>
         <optgroup label="Ecken">
           <option value="ecken">Ecken, alle Linien</option>
-          <option value="ecken:8.5">Ecken 8,5</option>
           <option value="ecken:9.5">Ecken 9,5</option>
           <option value="ecken:10.5">Ecken 10,5</option>
           <option value="ecken:11.5">Ecken 11,5</option>
-          <option value="ecken:12.5">Ecken 12,5</option>
         </optgroup>
         <optgroup label="Karten">
           <option value="karten">Karten, alle Linien</option>
-          <option value="karten:2.5">Karten 2,5</option>
           <option value="karten:3.5">Karten 3,5</option>
           <option value="karten:4.5">Karten 4,5</option>
-          <option value="karten:5.5">Karten 5,5</option>
         </optgroup>
         <optgroup label="Schüsse">
           <option value="sch">Schüsse, alle Linien</option>
@@ -150,17 +151,13 @@
         </optgroup>
       </select>
     </div>
-
     <div class="zwei">
       <div class="feld">
         <label for="schwelle">Mindestens</label>
         <select id="schwelle">
-          <option value="55">55 %</option>
-          <option value="60">60 %</option>
-          <option value="65" selected>65 %</option>
-          <option value="70">70 %</option>
-          <option value="75">75 %</option>
-          <option value="80">80 %</option>
+          <option value="55">55 %</option><option value="60">60 %</option>
+          <option value="65" selected>65 %</option><option value="70">70 %</option>
+          <option value="75">75 %</option><option value="80">80 %</option>
         </select>
       </div>
       <div class="feld">
@@ -189,6 +186,42 @@
     <div id="mlbStatus" style="font-size:12px;color:var(--grau);margin-bottom:12px"></div>
     <button id="mlbKnopf" class="voll">Ansetzungen laden</button>
   </div>
+
+  <div id="tennisTeil" style="display:none">
+    <div class="zwei">
+      <div class="feld">
+        <label for="tour">Tour</label>
+        <select id="tour"><option value="atp">ATP</option><option value="wta">WTA</option></select>
+      </div>
+      <div class="feld">
+        <label for="belag">Belag</label>
+        <select id="belag">
+          <option value="Hard">Hard</option><option value="Clay">Sand</option>
+          <option value="Grass">Rasen</option><option value="Carpet">Teppich</option>
+        </select>
+      </div>
+    </div>
+    <div class="feld">
+      <label for="bestof">Modus</label>
+      <select id="bestof"><option value="3">Best of 3</option><option value="5">Best of 5</option></select>
+    </div>
+    <div class="zwei">
+      <div class="feld">
+        <label for="sp1">Spieler 1</label>
+        <input id="sp1" list="spielerliste" placeholder="Name eintippen">
+      </div>
+      <div class="feld">
+        <label for="sp2">Spieler 2</label>
+        <input id="sp2" list="spielerliste" placeholder="Name eintippen">
+      </div>
+    </div>
+    <datalist id="spielerliste"></datalist>
+    <div id="tennisStatus" style="font-size:12px;color:var(--grau);margin-bottom:12px"></div>
+    <div class="zwei">
+      <button id="tennisKnopf" class="voll">Daten laden</button>
+      <button id="tennisRechnen">Berechnen</button>
+    </div>
+  </div>
 </div>
 
 <div id="funde"></div>
@@ -196,20 +229,11 @@
 
 <div class="block" id="auswahl" style="display:none">
   <div class="zwei">
-    <div class="feld">
-      <label for="heim">Heim</label>
-      <select id="heim"></select>
-    </div>
-    <div class="feld">
-      <label for="gast">Auswärts</label>
-      <select id="gast"></select>
-    </div>
+    <div class="feld"><label for="heim">Heim</label><select id="heim"></select></div>
+    <div class="feld"><label for="gast">Auswärts</label><select id="gast"></select></div>
   </div>
   <div class="zwei">
-    <div class="feld">
-      <label for="ref">Schiedsrichter</label>
-      <select id="ref"></select>
-    </div>
+    <div class="feld"><label for="ref">Schiedsrichter</label><select id="ref"></select></div>
     <div class="feld">
       <label for="verfahren">Verfahren</label>
       <select id="verfahren">
@@ -235,91 +259,78 @@
 <script>
 // ======== Gemeinsame Einstellungen ========
 const SAISONS = ["2425", "2526", "2627"];
-const SAISONABSCHLAG = 0.8;
-const KAPPA = 4;
-const ITER = 40;
-const KANTE_MIN = 0.04;
-const MAX_FUNDE = 150;
-const QUELLZONE = "Europe/London";
-const LIVE_FENSTER = 125;
+const SAISONABSCHLAG = 0.8, KAPPA = 4, ITER = 40;
+const KANTE_MIN = 0.04, MAX_FUNDE = 150;
+const QUELLZONE = "Europe/London", LIVE_FENSTER = 125;
 
 const LIGEN = {
   D1:"Bundesliga", D2:"2. Bundesliga",
   E0:"Premier League", E1:"Championship", E2:"League One", E3:"League Two",
-  EC:"National League",
-  SP1:"La Liga", SP2:"La Liga 2",
-  I1:"Serie A", I2:"Serie B",
-  F1:"Ligue 1", F2:"Ligue 2",
-  N1:"Eredivisie",
-  B1:"Jupiler Pro League",
-  P1:"Liga Portugal",
-  T1:"Süper Lig",
-  G1:"Super League Griechenland",
+  EC:"National League", SP1:"La Liga", SP2:"La Liga 2",
+  I1:"Serie A", I2:"Serie B", F1:"Ligue 1", F2:"Ligue 2",
+  N1:"Eredivisie", B1:"Jupiler Pro League", P1:"Liga Portugal",
+  T1:"Süper Lig", G1:"Super League Griechenland",
   SC0:"Premiership (Schottland)", SC1:"Championship (Schottland)",
   SC2:"League One (Schottland)", SC3:"League Two (Schottland)"
 };
 
 const METRIKEN = [
-  { id:"tore",  name:"Tore",             halbwert:300, ref:false,
-    leiter:[0.5,1.5,2.5,3.5,4.5],
+  { id:"tore", name:"Tore", halbwert:300, ref:false, leiter:[0.5,1.5,2.5,3.5,4.5],
     h:r=>z(r.FTHG), a:r=>z(r.FTAG) },
-  { id:"ecken", name:"Ecken",            halbwert:500, ref:false,
-    leiter:[7.5,8.5,9.5,10.5,11.5,12.5,13.5],
-    h:r=>z(r.HC),   a:r=>z(r.AC) },
-  { id:"karten",name:"Karten",           halbwert:200, ref:true,
+  { id:"ecken", name:"Ecken", halbwert:500, ref:false,
+    leiter:[7.5,8.5,9.5,10.5,11.5,12.5,13.5], h:r=>z(r.HC), a:r=>z(r.AC) },
+  { id:"karten", name:"Karten", halbwert:200, ref:true,
     leiter:[1.5,2.5,3.5,4.5,5.5,6.5,7.5],
     h:r=>z(r.HY)+z(r.HR), a:r=>z(r.AY)+z(r.AR) },
-  { id:"sch",   name:"Schüsse",          halbwert:500, ref:false,
-    leiter:[17.5,19.5,21.5,23.5,25.5,27.5,29.5],
-    h:r=>z(r.HS),   a:r=>z(r.AS) },
-  { id:"sot",   name:"Schüsse aufs Tor", halbwert:450, ref:false,
-    leiter:[5.5,6.5,7.5,8.5,9.5,10.5,11.5],
-    h:r=>z(r.HST),  a:r=>z(r.AST) }
+  { id:"sch", name:"Schüsse", halbwert:500, ref:false,
+    leiter:[17.5,19.5,21.5,23.5,25.5,27.5,29.5], h:r=>z(r.HS), a:r=>z(r.AS) },
+  { id:"sot", name:"Schüsse aufs Tor", halbwert:450, ref:false,
+    leiter:[5.5,6.5,7.5,8.5,9.5,10.5,11.5], h:r=>z(r.HST), a:r=>z(r.AST) }
 ];
 
 const QUOTEN = {
-  "Heimsieg":      ["AvgH","B365H","PSH","BWH","MaxH"],
-  "Unentschieden": ["AvgD","B365D","PSD","BWD","MaxD"],
-  "Auswärtssieg":  ["AvgA","B365A","PSA","BWA","MaxA"],
-  "Tore über 2,5": ["Avg>2.5","B365>2.5","P>2.5","Max>2.5"],
+  "Heimsieg":["AvgH","B365H","PSH","BWH","MaxH"],
+  "Unentschieden":["AvgD","B365D","PSD","BWD","MaxD"],
+  "Auswärtssieg":["AvgA","B365A","PSA","BWA","MaxA"],
+  "Tore über 2,5":["Avg>2.5","B365>2.5","P>2.5","Max>2.5"],
   "Tore unter 2,5":["Avg<2.5","B365<2.5","P<2.5","Max<2.5"]
 };
 
-// ======== Baseball-Einstellungen ========
-const MLB_HALBWERT   = 240;   // Tage; eine Saison zählt gut, zwei Saisons kaum noch
-const MLB_KAPPA      = 6;     // Dämpfung der Team- und Parkwerte, in Durchschnittsspielen
-const MLB_KAPPA_IP   = 50;    // Dämpfung des Pitcherwerts, in Innings
-const MLB_ITER       = 30;
-const STARTER_ANTEIL = 0.6;   // Anteil des Starters am ganzen Spiel; Rest ist Bullpen
-const SAISONGEWICHT  = [1, 0.6, 0.35];  // aktuelle Saison, Vorsaison, davor
+const MLB_HALBWERT=240, MLB_KAPPA=6, MLB_KAPPA_IP=50, MLB_ITER=30;
+const STARTER_ANTEIL=0.6, SAISONGEWICHT=[1,0.6,0.35];
+
+const T_HALBWERT=400;     // Tage, Halbwertszeit der Spielerform
+const T_KAPPA=100;        // Dämpfung der Stärkeschätzung, in Spielen
+const T_KAPPA_BELAG=150;  // stärkere Dämpfung der Belagabweichung
+const T_ITER=40;
 
 // ======== Hilfsmittel ========
 function z(v){ if(v===undefined||v===null||String(v).trim()==="") return NaN;
                const x=Number(v); return Number.isFinite(x)?x:NaN; }
-const f = (v,n=2) => Number.isFinite(v)
-  ? v.toLocaleString("de-DE",{minimumFractionDigits:n,maximumFractionDigits:n}) : "–";
-const saisonText = s => "20"+s.slice(0,2)+"/"+s.slice(2);
-const TAGE = ["So","Mo","Di","Mi","Do","Fr","Sa"];
-const warte = () => new Promise(r=>setTimeout(r,0));
-const zwei = n => String(n).padStart(2,"0");
+const f=(v,n=2)=>Number.isFinite(v)
+  ? v.toLocaleString("de-DE",{minimumFractionDigits:n,maximumFractionDigits:n}):"–";
+const saisonText=s=>"20"+s.slice(0,2)+"/"+s.slice(2);
+const TAGE=["So","Mo","Di","Mi","Do","Fr","Sa"];
+const warte=()=>new Promise(r=>setTimeout(r,0));
+const zwei=n=>String(n).padStart(2,"0");
 
 function zeileTeilen(l){
   const out=[]; let cur="", q=false;
   for(let i=0;i<l.length;i++){
     const c=l[i];
-    if(c==='"'){ if(q && l[i+1]==='"'){cur+='"';i++;} else q=!q; }
+    if(c==='"'){ if(q&&l[i+1]==='"'){cur+='"';i++;} else q=!q; }
     else if(c===","&&!q){ out.push(cur); cur=""; }
     else cur+=c;
   }
   out.push(cur); return out;
 }
 function csvLesen(text){
-  const zeilen = text.replace(/^\uFEFF/,"").replace(/\r/g,"")
-                     .split("\n").filter(l=>l.trim()!=="");
+  const zeilen=text.replace(/^\uFEFF/,"").replace(/\r/g,"")
+                   .split("\n").filter(l=>l.trim()!=="");
   if(!zeilen.length) return [];
-  const kopf = zeileTeilen(zeilen[0]).map(s=>s.trim());
+  const kopf=zeileTeilen(zeilen[0]).map(s=>s.trim());
   return zeilen.slice(1).map(l=>{
-    const t = zeileTeilen(l), o = {};
+    const t=zeileTeilen(l), o={};
     kopf.forEach((k,i)=>o[k]=(t[i]||"").trim());
     return o;
   });
@@ -330,61 +341,52 @@ function datum(s){
   const t=String(s).trim().split("/");
   if(t.length!==3) return null;
   let j=Number(t[2]); if(j<100) j+=2000;
-  const d=new Date(Date.UTC(j, Number(t[1])-1, Number(t[0])));
-  return isNaN(d.getTime()) ? null : d;
+  const d=new Date(Date.UTC(j,Number(t[1])-1,Number(t[0])));
+  return isNaN(d.getTime())?null:d;
 }
-
-const ZONENFORMAT = new Intl.DateTimeFormat("en-GB",{ timeZone:QUELLZONE, hour12:false,
-  year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+const ZONENFORMAT=new Intl.DateTimeFormat("en-GB",{timeZone:QUELLZONE,hour12:false,
+  year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
 function zonenversatz(ms){
   const p={};
-  ZONENFORMAT.formatToParts(new Date(ms)).forEach(x=>{ p[x.type]=x.value; });
-  const alsUTC=Date.UTC(+p.year, +p.month-1, +p.day, +p.hour%24, +p.minute);
-  return (alsUTC-ms)/60000;
+  ZONENFORMAT.formatToParts(new Date(ms)).forEach(x=>{p[x.type]=x.value;});
+  return (Date.UTC(+p.year,+p.month-1,+p.day,+p.hour%24,+p.minute)-ms)/60000;
 }
-const hatZeit = r => String(r.Time||"").includes(":");
+const hatZeit=r=>String(r.Time||"").includes(":");
 function anstoss(r){
   const d=datum(r.Date);
   if(!d) return Infinity;
   if(!hatZeit(r)) return d.getTime()+86340000;
   const t=String(r.Time).trim().split(":");
-  const roh=Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(),
-                     Number(t[0])||0, Number(t[1])||0);
+  const roh=Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),
+                     Number(t[0])||0,Number(t[1])||0);
   let ms=roh;
-  for(let i=0;i<2;i++) ms = roh - zonenversatz(ms)*60000;
+  for(let i=0;i<2;i++) ms=roh-zonenversatz(ms)*60000;
   return ms;
 }
 function zeitText(r){
   const ms=anstoss(r);
-  if(!isFinite(ms) || !hatZeit(r)) return "";
-  const d=new Date(ms);
-  return zwei(d.getHours())+":"+zwei(d.getMinutes());
+  if(!isFinite(ms)||!hatZeit(r)) return "";
+  const d=new Date(ms); return zwei(d.getHours())+":"+zwei(d.getMinutes());
 }
 function tagText(r){
   const ms=anstoss(r);
-  const d=isFinite(ms) ? new Date(ms) : datum(r.Date);
+  const d=isFinite(ms)?new Date(ms):datum(r.Date);
   return TAGE[d.getDay()]+" "+zwei(d.getDate())+"."+zwei(d.getMonth()+1)+".";
 }
-function tagVonMs(ms){
-  const d=new Date(ms);
-  return TAGE[d.getDay()]+" "+zwei(d.getDate())+"."+zwei(d.getMonth()+1)+".";
-}
-function zeitVonMs(ms){
-  const d=new Date(ms);
-  return zwei(d.getHours())+":"+zwei(d.getMinutes());
-}
+const tagVonMs=ms=>{const d=new Date(ms);
+  return TAGE[d.getDay()]+" "+zwei(d.getDate())+"."+zwei(d.getMonth()+1)+".";};
+const zeitVonMs=ms=>{const d=new Date(ms);
+  return zwei(d.getHours())+":"+zwei(d.getMinutes());};
 
-const saisonIndex = d => d.getUTCFullYear() - (d.getUTCMonth() < 6 ? 1 : 0);
-const HEUTE = new Date();
-const JETZT = HEUTE.getTime();
-const SAISON_JETZT = saisonIndex(HEUTE);
+const saisonIndex=d=>d.getUTCFullYear()-(d.getUTCMonth()<6?1:0);
+const HEUTE=new Date(), JETZT=HEUTE.getTime(), SAISON_JETZT=saisonIndex(HEUTE);
 
-function gewicht(r, halbwert, bezugMs, bezugSaison){
+function gewicht(r,halbwert,bezugMs,bezugSaison){
   const d=datum(r.Date);
   if(!d) return 0.25;
   const tage=Math.max(0,(bezugMs-d.getTime())/86400000);
-  return Math.pow(0.5, tage/halbwert)
-       * Math.pow(SAISONABSCHLAG, Math.max(0, bezugSaison - saisonIndex(d)));
+  return Math.pow(0.5,tage/halbwert)
+       * Math.pow(SAISONABSCHLAG,Math.max(0,bezugSaison-saisonIndex(d)));
 }
 
 function lnGamma(x){
@@ -397,59 +399,53 @@ function lnGamma(x){
   const t=x+g.length-0.5;
   return 0.5*Math.log(2*Math.PI)+(x+0.5)*Math.log(t)-t+Math.log(a);
 }
-function verteilung(mu, phi, max){
+function verteilung(mu,phi,max){
   const p=[];
   if(phi<=1.02){
     for(let k=0;k<=max;k++) p.push(Math.exp(-mu+k*Math.log(mu)-lnGamma(k+1)));
   } else {
     const r=mu/(phi-1);
-    for(let k=0;k<=max;k++){
+    for(let k=0;k<=max;k++)
       p.push(Math.exp(lnGamma(k+r)-lnGamma(r)-lnGamma(k+1)
-             + r*Math.log(r/(r+mu)) + k*Math.log(mu/(r+mu))));
-    }
+             +r*Math.log(r/(r+mu))+k*Math.log(mu/(r+mu))));
   }
   return p;
 }
-function summenkurve(mu, phi, max){
-  const p=verteilung(mu, phi, max);
-  const cdf=[]; let s=0;
-  p.forEach(x=>{ s+=x; cdf.push(s); });
-  return cdf;
+function summenkurve(mu,phi,max){
+  const p=verteilung(mu,phi,max); const cdf=[]; let s=0;
+  p.forEach(x=>{s+=x; cdf.push(s);}); return cdf;
 }
-function pOver(mu, phi, L){
+function pOver(mu,phi,L){
   if(!(mu>0)) return 0.5;
   const k=Math.floor(L);
-  const cdf=summenkurve(mu, phi, Math.max(k+1, Math.ceil(mu*3+30)));
-  return Math.min(0.999, Math.max(0.001, 1-cdf[k]));
+  const cdf=summenkurve(mu,phi,Math.max(k+1,Math.ceil(mu*3+30)));
+  return Math.min(0.999,Math.max(0.001,1-cdf[k]));
 }
-const daempfen=(v,n,k)=> (!Number.isFinite(v)||n<=0) ? 1 : 1+(v-1)*(n/(n+k));
+const daempfen=(v,n,k)=>(!Number.isFinite(v)||n<=0)?1:1+(v-1)*(n/(n+k));
 
-function linienFuer(mu, phi){
+function linienFuer(mu,phi){
   if(!(mu>0)) return [];
-  const cdf=summenkurve(mu, phi, Math.ceil(mu*3+30));
+  const cdf=summenkurve(mu,phi,Math.ceil(mu*3+30));
   let best=0, ab=9;
   for(let k=0;k<cdf.length-1;k++){
     const d=Math.abs((1-cdf[k])-0.5);
     if(d<ab){ab=d;best=k;}
   }
   const out=[];
-  for(let k=Math.max(0,best-1); k<=best+1; k++){
+  for(let k=Math.max(0,best-1);k<=best+1;k++){
     const over=1-cdf[k];
     if(over<0.002||over>0.998) continue;
-    out.push({ L:k+0.5, over, under:1-over, mitte:k===best });
+    out.push({L:k+0.5,over,under:1-over,mitte:k===best});
   }
   return out;
 }
-function linienLeiter(mu, phi, leiter){
+function linienLeiter(mu,phi,leiter){
   if(!(mu>0)) return [];
-  const max=Math.max(Math.ceil(mu*3+30), Math.ceil(leiter[leiter.length-1])+2);
-  const cdf=summenkurve(mu, phi, max);
-  return leiter.map(L=>{
-    const over=1-cdf[Math.floor(L)];
-    return { L, over, under:1-over };
-  }).filter(x=>x.over>0.005 && x.over<0.995);
+  const max=Math.max(Math.ceil(mu*3+30),Math.ceil(leiter[leiter.length-1])+2);
+  const cdf=summenkurve(mu,phi,max);
+  return leiter.map(L=>({L,over:1-cdf[Math.floor(L)],under:cdf[Math.floor(L)]}))
+               .filter(x=>x.over>0.005&&x.over<0.995);
 }
-
 function tau(x,y,lh,la,rho){
   if(x===0&&y===0) return 1-lh*la*rho;
   if(x===0&&y===1) return 1+lh*rho;
@@ -457,26 +453,25 @@ function tau(x,y,lh,la,rho){
   if(x===1&&y===1) return 1-rho;
   return 1;
 }
-function schaetzeRho(sp, hf, af, staerken, gew){
-  let best=0, bestLL=-Infinity;
-  for(let rho=-0.20; rho<=0.2001; rho+=0.01){
+function schaetzeRho(sp,hf,af,staerken,gew){
+  let best=0,bestLL=-Infinity;
+  for(let rho=-0.20;rho<=0.2001;rho+=0.01){
     let ll=0, ok=true;
     for(const r of sp){
       const x=hf(r), y=af(r);
       if(x>1||y>1) continue;
       const s=staerken(r);
       const t=tau(x,y,s.muH,s.muA,rho);
-      if(!(t>0)){ ok=false; break; }
-      ll += gew(r)*Math.log(t);
+      if(!(t>0)){ok=false;break;}
+      ll+=gew(r)*Math.log(t);
     }
-    if(ok && ll>bestLL){ bestLL=ll; best=rho; }
+    if(ok&&ll>bestLL){bestLL=ll;best=rho;}
   }
   return best;
 }
-
-function spielausgang(muH, muA, phiH, phiA, rho, N){
-  N = N || 12;
-  const pH=verteilung(muH, phiH, N), pA=verteilung(muA, phiA, N);
+function spielausgang(muH,muA,phiH,phiA,rho,N){
+  N=N||12;
+  const pH=verteilung(muH,phiH,N), pA=verteilung(muA,phiA,N);
   const g=[]; let summe=0;
   for(let x=0;x<=N;x++){
     g[x]=[];
@@ -485,23 +480,23 @@ function spielausgang(muH, muA, phiH, phiA, rho, N){
       g[x][y]=Math.max(0,v); summe+=g[x][y];
     }
   }
-  let heim=0, remis=0, aus=0, btts=0;
+  let heim=0,remis=0,aus=0,btts=0;
   for(let x=0;x<=N;x++) for(let y=0;y<=N;y++){
     const p=g[x][y]/summe;
     if(x>y) heim+=p; else if(x===y) remis+=p; else aus+=p;
     if(x>=1&&y>=1) btts+=p;
   }
-  return { heim, remis, aus, bttsJa:btts, bttsNein:1-btts };
+  return {heim,remis,aus,bttsJa:btts,bttsNein:1-btts};
 }
 
 // ======== Zustand ========
 const DATEN={}, MODELLE={};
 let ANSETZUNGEN=[], FIXSTATUS="", AKTIV="", SPORT="fussball";
-function rohdaten(){ return AKTIV&&DATEN[AKTIV] ? DATEN[AKTIV].alle : []; }
-function aktuelle(){ return AKTIV&&DATEN[AKTIV] ? DATEN[AKTIV].aktuelle : []; }
+const rohdaten=()=>AKTIV&&DATEN[AKTIV]?DATEN[AKTIV].alle:[];
+const aktuelle=()=>AKTIV&&DATEN[AKTIV]?DATEN[AKTIV].aktuelle:[];
 
 // ======== Fußballmodell ========
-function staerkenEinfach(sp, m, g, mitte, hvH, hvA){
+function staerkenEinfach(sp,m,g,mitte,hvH,hvA){
   const T={};
   const hol=t=>T[t]=T[t]||{fuer:0,gegen:0,basF:0,basG:0,n:0,roh:0};
   sp.forEach(r=>{
@@ -513,13 +508,12 @@ function staerkenEinfach(sp, m, g, mitte, hvH, hvA){
   const att={}, def={};
   Object.keys(T).forEach(t=>{
     const x=T[t];
-    att[t]= x.basF>0 ? daempfen(x.fuer/x.basF, x.n, KAPPA) : 1;
-    def[t]= x.basG>0 ? daempfen(x.gegen/x.basG, x.n, KAPPA) : 1;
+    att[t]=x.basF>0?daempfen(x.fuer/x.basF,x.n,KAPPA):1;
+    def[t]=x.basG>0?daempfen(x.gegen/x.basG,x.n,KAPPA):1;
   });
-  return { att, def, hvH, hvA, T };
+  return {att,def,hvH,hvA,T};
 }
-
-function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
+function staerkenRegression(sp,m,g,mitte,hvH0,hvA0){
   const T={};
   const hol=t=>T[t]=T[t]||{n:0,roh:0};
   sp.forEach(r=>{
@@ -527,30 +521,24 @@ function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
     hol(r.HomeTeam).n+=w; T[r.HomeTeam].roh++;
     hol(r.AwayTeam).n+=w; T[r.AwayTeam].roh++;
   });
-  const teams=Object.keys(T);
-  const att={}, def={};
-  teams.forEach(t=>{att[t]=1; def[t]=1;});
+  const teams=Object.keys(T), att={}, def={};
+  teams.forEach(t=>{att[t]=1;def[t]=1;});
   let hvH=hvH0, hvA=hvA0;
-  const K = KAPPA*mitte;
-  for(let it=0; it<ITER; it++){
-    const an={}, ad={}, bn={}, bd={};
+  const K=KAPPA*mitte;
+  for(let it=0;it<ITER;it++){
+    const an={},ad={},bn={},bd={};
     teams.forEach(t=>{an[t]=0;ad[t]=0;bn[t]=0;bd[t]=0;});
     sp.forEach(r=>{
-      const w=g(r), H=r.HomeTeam, A=r.AwayTeam;
-      const yH=m.h(r), yA=m.a(r);
+      const w=g(r), H=r.HomeTeam, A=r.AwayTeam, yH=m.h(r), yA=m.a(r);
       an[H]+=w*yH; ad[H]+=w*mitte*hvH*def[A];
       an[A]+=w*yA; ad[A]+=w*mitte*hvA*def[H];
       bn[A]+=w*yH; bd[A]+=w*mitte*hvH*att[H];
       bn[H]+=w*yA; bd[H]+=w*mitte*hvA*att[A];
     });
-    teams.forEach(t=>{
-      att[t]=(an[t]+K)/(ad[t]+K);
-      def[t]=(bn[t]+K)/(bd[t]+K);
-    });
-    let sa=0, sd=0;
-    teams.forEach(t=>{sa+=att[t]; sd+=def[t];});
+    teams.forEach(t=>{att[t]=(an[t]+K)/(ad[t]+K); def[t]=(bn[t]+K)/(bd[t]+K);});
+    let sa=0,sd=0; teams.forEach(t=>{sa+=att[t];sd+=def[t];});
     const ca=sa/teams.length, cd=sd/teams.length;
-    if(ca>0&&cd>0) teams.forEach(t=>{att[t]/=ca; def[t]/=cd;});
+    if(ca>0&&cd>0) teams.forEach(t=>{att[t]/=ca;def[t]/=cd;});
     let nH=0,dH=0,nA=0,dA=0;
     sp.forEach(r=>{
       const w=g(r);
@@ -560,46 +548,37 @@ function staerkenRegression(sp, m, g, mitte, hvH0, hvA0){
     if(dH>0) hvH=nH/dH;
     if(dA>0) hvA=nA/dA;
   }
-  return { att, def, hvH, hvA, T };
+  return {att,def,hvH,hvA,T};
 }
-
-function modellBauen(rows, m, verfahren, bezugMs, bezugSaison){
-  const sp = rows.filter(r=>r.HomeTeam&&r.AwayTeam
-             &&Number.isFinite(m.h(r))&&Number.isFinite(m.a(r)));
+function modellBauen(rows,m,verfahren,bezugMs,bezugSaison){
+  const sp=rows.filter(r=>r.HomeTeam&&r.AwayTeam
+           &&Number.isFinite(m.h(r))&&Number.isFinite(m.a(r)));
   if(sp.length<20) return null;
-  const bm = bezugMs===undefined ? JETZT : bezugMs;
-  const bs = bezugSaison===undefined ? SAISON_JETZT : bezugSaison;
-  const g = r => gewicht(r, m.halbwert, bm, bs);
-
-  let gs=0, sH=0, sA=0;
-  sp.forEach(r=>{ const w=g(r); gs+=w; sH+=w*m.h(r); sA+=w*m.a(r); });
+  const bm=bezugMs===undefined?JETZT:bezugMs;
+  const bs=bezugSaison===undefined?SAISON_JETZT:bezugSaison;
+  const g=r=>gewicht(r,m.halbwert,bm,bs);
+  let gs=0,sH=0,sA=0;
+  sp.forEach(r=>{const w=g(r); gs+=w; sH+=w*m.h(r); sA+=w*m.a(r);});
   if(!(gs>0)) return null;
   const ligaH=sH/gs, ligaA=sA/gs, mitte=(ligaH+ligaA)/2;
   if(!(mitte>0)) return null;
-
-  const S = verfahren==="regression"
-    ? staerkenRegression(sp, m, g, mitte, ligaH/mitte, ligaA/mitte)
-    : staerkenEinfach(sp, m, g, mitte, ligaH/mitte, ligaA/mitte);
-
-  const A = t => S.att[t]!==undefined ? S.att[t] : 1;
-  const D = t => S.def[t]!==undefined ? S.def[t] : 1;
+  const S=verfahren==="regression"
+    ? staerkenRegression(sp,m,g,mitte,ligaH/mitte,ligaA/mitte)
+    : staerkenEinfach(sp,m,g,mitte,ligaH/mitte,ligaA/mitte);
+  const A=t=>S.att[t]!==undefined?S.att[t]:1;
+  const D=t=>S.def[t]!==undefined?S.def[t]:1;
   const staerken=(heim,gast)=>({
-    muH: mitte*S.hvH*A(heim)*D(gast),
-    muA: mitte*S.hvA*A(gast)*D(heim)
-  });
-
-  let n=0, rH=0, rA=0, rT=0;
+    muH:mitte*S.hvH*A(heim)*D(gast), muA:mitte*S.hvA*A(gast)*D(heim)});
+  let n=0,rH=0,rA=0,rT=0;
   sp.forEach(r=>{
-    const s=staerken(r.HomeTeam, r.AwayTeam);
+    const s=staerken(r.HomeTeam,r.AwayTeam);
     if(!(s.muH>0)||!(s.muA>0)) return;
     n++;
-    rH += (m.h(r)-s.muH)**2 / s.muH;
-    rA += (m.a(r)-s.muA)**2 / s.muA;
+    rH+=(m.h(r)-s.muH)**2/s.muH; rA+=(m.a(r)-s.muA)**2/s.muA;
     const t=s.muH+s.muA;
-    rT += ((m.h(r)+m.a(r))-t)**2 / t;
+    rT+=((m.h(r)+m.a(r))-t)**2/t;
   });
-
-  const ligaMittel = sp.reduce((s,r)=>s+m.h(r)+m.a(r),0)/sp.length;
+  const ligaMittel=sp.reduce((s,r)=>s+m.h(r)+m.a(r),0)/sp.length;
   const R={};
   if(m.ref) sp.forEach(r=>{
     const nm=(r.Referee||"").trim(); if(!nm) return;
@@ -607,411 +586,616 @@ function modellBauen(rows, m, verfahren, bezugMs, bezugSaison){
     R[nm]=R[nm]||{s:0,n:0};
     R[nm].s+=w*(m.h(r)+m.a(r)); R[nm].n+=w;
   });
-
-  const mo = { T:S.T, staerken, angriff:A, abwehr:D, hvH:S.hvH, mitte,
-               phiH:n?rH/n:1, phiA:n?rA/n:1, phiT:n?rT/n:1,
-               ligaMittel, spiele:sp.length, R, rho:0 };
+  const mo={T:S.T,staerken,angriff:A,abwehr:D,hvH:S.hvH,mitte,
+            phiH:n?rH/n:1,phiA:n?rA/n:1,phiT:n?rT/n:1,
+            ligaMittel,spiele:sp.length,R,rho:0};
   if(m.id==="tore")
-    mo.rho = schaetzeRho(sp, m.h, m.a, r=>staerken(r.HomeTeam,r.AwayTeam), g);
+    mo.rho=schaetzeRho(sp,m.h,m.a,r=>staerken(r.HomeTeam,r.AwayTeam),g);
   return mo;
 }
-
-function holModell(code, m, verf){
+function holModell(code,m,verf){
   const k=code+":"+verf+":"+m.id;
   if(MODELLE[k]===undefined) MODELLE[k]=modellBauen(DATEN[code].alle,m,verf);
   return MODELLE[k];
 }
-
-function rechnen(mo, heim, gast, ref){
-  let {muH, muA} = mo.staerken(heim, gast);
+function rechnen(mo,heim,gast,ref){
+  let {muH,muA}=mo.staerken(heim,gast);
   let rf=1;
-  if(ref && mo.R[ref] && mo.R[ref].n>0){
-    rf = daempfen((mo.R[ref].s/mo.R[ref].n)/(mo.mitte*2), mo.R[ref].n, 8);
+  if(ref&&mo.R[ref]&&mo.R[ref].n>0){
+    rf=daempfen((mo.R[ref].s/mo.R[ref].n)/(mo.mitte*2),mo.R[ref].n,8);
     muH*=rf; muA*=rf;
   }
-  const leer={n:0,roh:0};
-  const h=mo.T[heim]||leer, a=mo.T[gast]||leer;
-  return {
-    muH, muA, mu:muH+muA, rf,
-    angH:mo.angriff(heim), abwH:mo.abwehr(heim),
-    angA:mo.angriff(gast), abwA:mo.abwehr(gast),
-    gesamt: linienFuer(muH+muA, mo.phiT),
-    heimL:  linienFuer(muH, mo.phiH),
-    gastL:  linienFuer(muA, mo.phiA),
-    hGew:h.n, aGew:a.n, hRoh:h.roh, aRoh:a.roh
-  };
+  const leer={n:0,roh:0}, h=mo.T[heim]||leer, a=mo.T[gast]||leer;
+  return {muH,muA,mu:muH+muA,rf,
+    angH:mo.angriff(heim),abwH:mo.abwehr(heim),
+    angA:mo.angriff(gast),abwA:mo.abwehr(gast),
+    gesamt:linienFuer(muH+muA,mo.phiT),
+    heimL:linienFuer(muH,mo.phiH), gastL:linienFuer(muA,mo.phiA),
+    hGew:h.n,aGew:a.n,hRoh:h.roh,aRoh:a.roh};
 }
 
 // ======== Baseball ========
-const MLB = { spiele:[], pitcher:{}, ansetzungen:[], geladen:false,
-              status:"", modelle:{} };
-
-function mlbTage(iso){
-  const d=new Date(iso+"T12:00:00Z");
-  return isNaN(d.getTime()) ? 9999 : Math.max(0,(JETZT-d.getTime())/86400000);
-}
-const mlbGewicht = s => Math.pow(0.5, mlbTage(s.datum)/MLB_HALBWERT);
+const MLB={spiele:[],pitcher:{},ansetzungen:[],geladen:false,modelle:{}};
+const mlbTage=iso=>{const d=new Date(iso+"T12:00:00Z");
+  return isNaN(d.getTime())?9999:Math.max(0,(JETZT-d.getTime())/86400000);};
+const mlbGewicht=s=>Math.pow(0.5,mlbTage(s.datum)/MLB_HALBWERT);
 
 async function mlbLaden(){
   if(MLB.geladen) return true;
-  const setz=t=>{ document.getElementById("mlbStatus").innerHTML=t; };
+  const setz=t=>{document.getElementById("mlbStatus").innerHTML=t;};
   setz("Lade …");
   try{
-    const [rs, rp, ra] = await Promise.all([
-      fetch("./daten/mlb-spiele.csv"),
-      fetch("./daten/mlb-pitcher.csv"),
-      fetch("./daten/mlb-ansetzungen.csv")
-    ]);
-    if(!rs.ok){ setz("daten/mlb-spiele.csv fehlt. Ist der MLB-Schritt der Automatik gelaufen?"); return false; }
-    MLB.spiele = csvLesen(await rs.text()).map(r=>({
-      datum:r.Datum, park:r.Park, heim:r.Heim, gast:r.Gast,
-      F5H:z(r.HeimF5), F5A:z(r.GastF5),
-      I1H:z(r.HeimI1), I1A:z(r.GastI1),
-      RH:z(r.HeimR),   RA:z(r.GastR),
-      hp:r.HeimStarterId, ap:r.GastStarterId,
-      hpn:r.HeimStarter, apn:r.GastStarter
+    const [rs,rp,ra]=await Promise.all([
+      fetch("./daten/mlb-spiele.csv"), fetch("./daten/mlb-pitcher.csv"),
+      fetch("./daten/mlb-ansetzungen.csv")]);
+    if(!rs.ok){setz("daten/mlb-spiele.csv fehlt.");return false;}
+    MLB.spiele=csvLesen(await rs.text()).map(r=>({
+      datum:r.Datum,park:r.Park,heim:r.Heim,gast:r.Gast,
+      F5H:z(r.HeimF5),F5A:z(r.GastF5),I1H:z(r.HeimI1),I1A:z(r.GastI1),
+      RH:z(r.HeimR),RA:z(r.GastR),
+      hp:r.HeimStarterId,ap:r.GastStarterId,hpn:r.HeimStarter,apn:r.GastStarter
     })).filter(s=>s.heim&&s.gast&&Number.isFinite(s.F5H)&&Number.isFinite(s.F5A));
-
     if(rp.ok){
-      // Saisonwerte je Pitcher zusammenfassen, neuere Saisons zählen mehr
       const roh=csvLesen(await rp.text());
       const jahre=[...new Set(roh.map(p=>Number(p.Saison)))].sort((a,b)=>b-a);
       roh.forEach(p=>{
         const rang=jahre.indexOf(Number(p.Saison));
-        const w=SAISONGEWICHT[rang]!==undefined ? SAISONGEWICHT[rang] : 0.2;
+        const w=SAISONGEWICHT[rang]!==undefined?SAISONGEWICHT[rang]:0.2;
         const id=String(p.Id);
-        const x=MLB.pitcher[id]=MLB.pitcher[id]||{name:p.Name,IP:0,R:0,ER:0,SO:0,BB:0,HBP:0,HR:0};
+        const x=MLB.pitcher[id]=MLB.pitcher[id]||
+          {name:p.Name,IP:0,R:0,ER:0,SO:0,BB:0,HBP:0,HR:0};
         x.name=p.Name||x.name;
         x.IP+=w*(z(p.IP)||0); x.R+=w*(z(p.R)||0); x.ER+=w*(z(p.ER)||0);
         x.SO+=w*(z(p.SO)||0); x.BB+=w*(z(p.BB)||0);
         x.HBP+=w*(z(p.HBP)||0); x.HR+=w*(z(p.HR)||0);
       });
     }
-    if(ra.ok){
-      MLB.ansetzungen = csvLesen(await ra.text()).map(r=>({
-        ms: Date.parse(r.Zeit), park:r.Park, heim:r.Heim, gast:r.Gast,
-        hp:r.HeimStarterId, hpn:r.HeimStarter,
-        ap:r.GastStarterId, apn:r.GastStarter
-      })).filter(r=>r.heim&&r.gast&&Number.isFinite(r.ms));
-    }
+    if(ra.ok) MLB.ansetzungen=csvLesen(await ra.text()).map(r=>({
+      ms:Date.parse(r.Zeit),park:r.Park,heim:r.Heim,gast:r.Gast,
+      hp:r.HeimStarterId,hpn:r.HeimStarter,ap:r.GastStarterId,apn:r.GastStarter
+    })).filter(r=>r.heim&&r.gast&&Number.isFinite(r.ms));
     MLB.geladen=true;
     setz(`${MLB.spiele.length} Spiele, ${Object.keys(MLB.pitcher).length} Pitcher, `+
          `${MLB.ansetzungen.length} Ansetzungen.`);
     return true;
-  }catch(e){ setz("MLB-Daten konnten nicht geladen werden."); return false; }
+  }catch(e){setz("MLB-Daten konnten nicht geladen werden.");return false;}
 }
-
-// Pitcherfaktoren aus K, BB und HR — je kleiner, desto besser der Werfer
 function mlbFipFaktoren(){
   let IP=0,HR=0,BB=0,HBP=0,SO=0,ER=0;
   Object.values(MLB.pitcher).forEach(p=>{
-    IP+=p.IP; HR+=p.HR; BB+=p.BB; HBP+=p.HBP; SO+=p.SO; ER+=p.ER;
-  });
+    IP+=p.IP;HR+=p.HR;BB+=p.BB;HBP+=p.HBP;SO+=p.SO;ER+=p.ER;});
   if(!(IP>0)) return {};
-  const lgERA = 9*ER/IP;
-  const C = lgERA - (13*HR + 3*(BB+HBP) - 2*SO)/IP;
-  const out={};
+  const lgERA=9*ER/IP, C=lgERA-(13*HR+3*(BB+HBP)-2*SO)/IP, out={};
   Object.entries(MLB.pitcher).forEach(([id,p])=>{
     if(!(p.IP>3)) return;
-    const fip = (13*p.HR + 3*(p.BB+p.HBP) - 2*p.SO)/p.IP + C;
-    out[id] = daempfen(fip/lgERA, p.IP, MLB_KAPPA_IP);
+    const fip=(13*p.HR+3*(p.BB+p.HBP)-2*p.SO)/p.IP+C;
+    out[id]=daempfen(fip/lgERA,p.IP,MLB_KAPPA_IP);
   });
   return out;
 }
-
-// art: "F5" (erste fünf Innings), "I1" (erstes Inning), "R" (ganzes Spiel)
-function mlbBauen(art, pitcherArt){
-  const hf = s => s[art+"H"], af = s => s[art+"A"];
-  const sp = MLB.spiele.filter(s=>Number.isFinite(hf(s))&&Number.isFinite(af(s)));
+function mlbBauen(art,pitcherArt){
+  const hf=s=>s[art+"H"], af=s=>s[art+"A"];
+  const sp=MLB.spiele.filter(s=>Number.isFinite(hf(s))&&Number.isFinite(af(s)));
   if(sp.length<200) return null;
-  const g = mlbGewicht;
-  const anteil = art==="R" ? STARTER_ANTEIL : 1;
-
-  let gs=0, sH=0, sA=0;
-  sp.forEach(s=>{ const w=g(s); gs+=w; sH+=w*hf(s); sA+=w*af(s); });
+  const g=mlbGewicht, anteil=art==="R"?STARTER_ANTEIL:1;
+  let gs=0,sH=0,sA=0;
+  sp.forEach(s=>{const w=g(s); gs+=w; sH+=w*hf(s); sA+=w*af(s);});
   const ligaH=sH/gs, ligaA=sA/gs, liga=(ligaH+ligaA)/2;
   if(!(liga>0)) return null;
   let hvH=ligaH/liga, hvA=ligaA/liga;
-
   const teams=[...new Set(sp.flatMap(s=>[s.heim,s.gast]))];
   const parks=[...new Set(sp.map(s=>s.park))];
   const werfer=[...new Set(sp.flatMap(s=>[s.hp,s.ap]).filter(Boolean))];
-
-  const off={}, pit={}, park={}, nTeam={}, nPit={}, nPark={};
-  teams.forEach(t=>{off[t]=1; nTeam[t]=0;});
-  parks.forEach(p=>{park[p]=1; nPark[p]=0;});
-  werfer.forEach(p=>{pit[p]=1; nPit[p]=0;});
-  sp.forEach(s=>{
-    const w=g(s);
-    nTeam[s.heim]+=w; nTeam[s.gast]+=w; nPark[s.park]+=w;
-    if(s.hp) nPit[s.hp]+=w;
-    if(s.ap) nPit[s.ap]+=w;
-  });
-
-  const fest = pitcherArt==="komponenten" ? mlbFipFaktoren() : null;
-  if(fest) werfer.forEach(p=>{ pit[p]= fest[p]!==undefined ? fest[p] : 1; });
-
-  const K = MLB_KAPPA*liga;
-  const P = p => Math.pow(pit[p]!==undefined?pit[p]:1, anteil);
-
-  for(let it=0; it<MLB_ITER; it++){
-    // Offensive
-    const on={}, od={};
-    teams.forEach(t=>{on[t]=0; od[t]=0;});
-    sp.forEach(s=>{
-      const w=g(s), pk=park[s.park];
+  const off={},pit={},park={},nTeam={},nPit={};
+  teams.forEach(t=>{off[t]=1;nTeam[t]=0;});
+  parks.forEach(p=>park[p]=1);
+  werfer.forEach(p=>{pit[p]=1;nPit[p]=0;});
+  sp.forEach(s=>{const w=g(s);
+    nTeam[s.heim]+=w;nTeam[s.gast]+=w;
+    if(s.hp)nPit[s.hp]+=w; if(s.ap)nPit[s.ap]+=w;});
+  const fest=pitcherArt==="komponenten"?mlbFipFaktoren():null;
+  if(fest) werfer.forEach(p=>{pit[p]=fest[p]!==undefined?fest[p]:1;});
+  const K=MLB_KAPPA*liga;
+  const P=p=>Math.pow(pit[p]!==undefined?pit[p]:1,anteil);
+  for(let it=0;it<MLB_ITER;it++){
+    const on={},od={};
+    teams.forEach(t=>{on[t]=0;od[t]=0;});
+    sp.forEach(s=>{const w=g(s),pk=park[s.park];
       on[s.heim]+=w*hf(s); od[s.heim]+=w*liga*hvH*P(s.ap)*pk;
-      on[s.gast]+=w*af(s); od[s.gast]+=w*liga*hvA*P(s.hp)*pk;
-    });
-    teams.forEach(t=>{ off[t]=(on[t]+K)/(od[t]+K); });
+      on[s.gast]+=w*af(s); od[s.gast]+=w*liga*hvA*P(s.hp)*pk;});
+    teams.forEach(t=>{off[t]=(on[t]+K)/(od[t]+K);});
     let so=0; teams.forEach(t=>so+=off[t]);
     if(so>0) teams.forEach(t=>off[t]/=so/teams.length);
-
-    // Werfer, nur im ergebnisbasierten Verfahren
     if(!fest){
-      const pn={}, pd={};
-      werfer.forEach(p=>{pn[p]=0; pd[p]=0;});
-      sp.forEach(s=>{
-        const w=g(s), pk=park[s.park];
-        if(s.hp){ pn[s.hp]+=w*af(s); pd[s.hp]+=w*liga*hvA*off[s.gast]*pk; }
-        if(s.ap){ pn[s.ap]+=w*hf(s); pd[s.ap]+=w*liga*hvH*off[s.heim]*pk; }
-      });
-      werfer.forEach(p=>{ pit[p]=(pn[p]+K)/(pd[p]+K); });
-      let sp2=0; werfer.forEach(p=>sp2+=pit[p]);
-      if(sp2>0) werfer.forEach(p=>pit[p]/=sp2/werfer.length);
+      const pn={},pd={};
+      werfer.forEach(p=>{pn[p]=0;pd[p]=0;});
+      sp.forEach(s=>{const w=g(s),pk=park[s.park];
+        if(s.hp){pn[s.hp]+=w*af(s); pd[s.hp]+=w*liga*hvA*off[s.gast]*pk;}
+        if(s.ap){pn[s.ap]+=w*hf(s); pd[s.ap]+=w*liga*hvH*off[s.heim]*pk;}});
+      werfer.forEach(p=>{pit[p]=(pn[p]+K)/(pd[p]+K);});
+      let s2=0; werfer.forEach(p=>s2+=pit[p]);
+      if(s2>0) werfer.forEach(p=>pit[p]/=s2/werfer.length);
     }
-
-    // Park
-    const kn={}, kd={};
-    parks.forEach(p=>{kn[p]=0; kd[p]=0;});
-    sp.forEach(s=>{
-      const w=g(s);
+    const kn={},kd={};
+    parks.forEach(p=>{kn[p]=0;kd[p]=0;});
+    sp.forEach(s=>{const w=g(s);
       kn[s.park]+=w*(hf(s)+af(s));
-      kd[s.park]+=w*liga*(hvH*off[s.heim]*P(s.ap) + hvA*off[s.gast]*P(s.hp));
-    });
-    parks.forEach(p=>{ park[p]=(kn[p]+2*K)/(kd[p]+2*K); });
+      kd[s.park]+=w*liga*(hvH*off[s.heim]*P(s.ap)+hvA*off[s.gast]*P(s.hp));});
+    parks.forEach(p=>{park[p]=(kn[p]+2*K)/(kd[p]+2*K);});
     let sk=0; parks.forEach(p=>sk+=park[p]);
     if(sk>0) parks.forEach(p=>park[p]/=sk/parks.length);
-
-    // Heimvorteil
     let nH=0,dH=0,nA=0,dA=0;
-    sp.forEach(s=>{
-      const w=g(s), pk=park[s.park];
+    sp.forEach(s=>{const w=g(s),pk=park[s.park];
       nH+=w*hf(s); dH+=w*liga*off[s.heim]*P(s.ap)*pk;
-      nA+=w*af(s); dA+=w*liga*off[s.gast]*P(s.hp)*pk;
-    });
+      nA+=w*af(s); dA+=w*liga*off[s.gast]*P(s.hp)*pk;});
     if(dH>0) hvH=nH/dH;
     if(dA>0) hvA=nA/dA;
   }
-
-  const erw = (heim,gast,pk,hpid,apid) => ({
-    muH: liga*hvH*(off[heim]||1)*P(apid)*(park[pk]||1),
-    muA: liga*hvA*(off[gast]||1)*P(hpid)*(park[pk]||1)
-  });
-
-  let n=0, rH=0, rA=0, rT=0;
+  const erw=(heim,gast,pk,hpid,apid)=>({
+    muH:liga*hvH*(off[heim]||1)*P(apid)*(park[pk]||1),
+    muA:liga*hvA*(off[gast]||1)*P(hpid)*(park[pk]||1)});
+  let n=0,rH=0,rA=0,rT=0;
   sp.forEach(s=>{
     const e=erw(s.heim,s.gast,s.park,s.hp,s.ap);
     if(!(e.muH>0)||!(e.muA>0)) return;
     n++;
-    rH += (hf(s)-e.muH)**2/e.muH;
-    rA += (af(s)-e.muA)**2/e.muA;
+    rH+=(hf(s)-e.muH)**2/e.muH; rA+=(af(s)-e.muA)**2/e.muA;
     const t=e.muH+e.muA;
-    rT += ((hf(s)+af(s))-t)**2/t;
+    rT+=((hf(s)+af(s))-t)**2/t;
   });
-
-  const mo = { art, erw, off, pit, park, hvH, hvA, liga, nTeam, nPit, nPark,
-               phiH:n?rH/n:1, phiA:n?rA/n:1, phiT:n?rT/n:1,
-               spiele:sp.length, komponenten:!!fest, rho:0,
-               mittel: sp.reduce((a,s)=>a+hf(s)+af(s),0)/sp.length };
-  if(art!=="R")
-    mo.rho = schaetzeRho(sp, hf, af,
-      s=>erw(s.heim,s.gast,s.park,s.hp,s.ap), g);
+  const mo={art,erw,off,pit,park,hvH,hvA,liga,nTeam,nPit,
+    phiH:n?rH/n:1,phiA:n?rA/n:1,phiT:n?rT/n:1,
+    spiele:sp.length,komponenten:!!fest,rho:0,
+    mittel:sp.reduce((a,s)=>a+hf(s)+af(s),0)/sp.length};
+  if(art!=="R") mo.rho=schaetzeRho(sp,hf,af,
+    s=>erw(s.heim,s.gast,s.park,s.hp,s.ap),g);
   return mo;
 }
-
-function mlbModell(art, pitcherArt){
+function mlbModell(art,pitcherArt){
   const k=art+":"+pitcherArt;
-  if(MLB.modelle[k]===undefined) MLB.modelle[k]=mlbBauen(art, pitcherArt);
+  if(MLB.modelle[k]===undefined) MLB.modelle[k]=mlbBauen(art,pitcherArt);
   return MLB.modelle[k];
 }
 
-function mlbZeichnen(partie){
-  const pa=document.getElementById("pitcherArt").value;
+// ======== Tennis ========
+const TENNIS={atp:null,wta:null,ansetzungen:[],modelle:{},status:""};
+
+function namensschluessel(name){
+  const s=String(name||"").trim().toLowerCase()
+    .replace(/\./g," ").replace(/\s+/g," ").trim();
+  if(!s) return "";
+  const teile=s.split(" ");
+  // tennis-data schreibt "Alcaraz C.", ESPN schreibt "Carlos Alcaraz"
+  const letzte=teile[teile.length-1];
+  if(letzte.length<=2 && teile.length>=2)
+    return teile.slice(0,-1).join(" ")+"|"+letzte[0];
+  return teile.slice(1).join(" ")+"|"+teile[0][0];
+}
+
+async function tennisLaden(){
+  const tour=document.getElementById("tour").value;
+  const setz=t=>{document.getElementById("tennisStatus").innerHTML=t;};
+  if(TENNIS[tour]){ tennisListeFuellen(); return true; }
+  setz("Lade …");
+  try{
+    const r=await fetch(`./daten/tennis-${tour}.csv`);
+    if(!r.ok){ setz(`daten/tennis-${tour}.csv fehlt.`); return false; }
+    const roh=csvLesen(await r.text());
+    const sp=roh.map(x=>({
+      datum:x.Datum, belag:(x.Belag||"").trim(), runde:x.Runde,
+      bestOf:z(x.BestOf)||3, s:x.Sieger, v:x.Verlierer,
+      sg:z(x.SSpiele), vg:z(x.VSpiele),
+      status:(x.Status||"").trim(),
+      qs:z(x.QuoteS), qv:z(x.QuoteV)
+    })).filter(x=>x.s&&x.v&&Number.isFinite(x.sg)&&Number.isFinite(x.vg)
+                 &&(x.sg+x.vg)>=10);
+    TENNIS[tour]={spiele:sp};
+    try{
+      const ra=await fetch("./daten/tennis-ansetzungen.csv");
+      if(ra.ok) TENNIS.ansetzungen=csvLesen(await ra.text()).map(x=>({
+        tour:(x.Tour||"").toLowerCase(), ms:Date.parse(x.Zeit),
+        turnier:x.Turnier, bestOf:z(x.BestOf)||3, runde:x.Runde,
+        s1:x.Spieler1, s2:x.Spieler2
+      })).filter(x=>x.s1&&x.s2);
+    }catch(e){}
+    const fertig=sp.filter(x=>/complet/i.test(x.status)).length;
+    setz(`${sp.length} Partien, davon ${fertig} regulär beendet. `+
+         `${TENNIS.ansetzungen.length} Ansetzungen.`);
+    tennisListeFuellen();
+    return true;
+  }catch(e){ setz("Tennisdaten konnten nicht geladen werden."); return false; }
+}
+
+function tennisListeFuellen(){
+  const tour=document.getElementById("tour").value;
+  const d=TENNIS[tour];
+  if(!d) return;
+  const zaehl={};
+  d.spiele.forEach(x=>{zaehl[x.s]=(zaehl[x.s]||0)+1; zaehl[x.v]=(zaehl[x.v]||0)+1;});
+  const namen=Object.keys(zaehl).filter(n=>zaehl[n]>=5)
+    .sort((a,b)=>a.localeCompare(b,"de"));
+  document.getElementById("spielerliste").innerHTML=
+    namen.map(n=>`<option value="${n}">`).join("");
+}
+
+// Aufschlagspiel gewinnen bei Punktwahrscheinlichkeit p
+function spielGewinn(p){
+  const g=(a,b)=>{
+    if(a>=4&&a-b>=2) return 1;
+    if(b>=4&&b-a>=2) return 0;
+    if(a>=3&&b>=3) return p*p/(p*p+(1-p)*(1-p));
+    return p*g(a+1,b)+(1-p)*g(a,b+1);
+  };
+  return g(0,0);
+}
+// Tiebreak, A schlägt den ersten Punkt auf
+function tiebreakGewinn(pA,pB){
+  const aDran=i=>Math.floor((i+1)/2)%2===0;
+  const memo={};
+  const f2=(a,b)=>{
+    if(a>=7&&a-b>=2) return 1;
+    if(b>=7&&b-a>=2) return 0;
+    if(a>=6&&b>=6){
+      const beide=pA*(1-pB), keins=(1-pA)*pB;
+      return (beide+keins)>0 ? beide/(beide+keins) : 0.5;
+    }
+    const k=a+"-"+b;
+    if(memo[k]!==undefined) return memo[k];
+    const p=aDran(a+b)?pA:1-pB;
+    return memo[k]=p*f2(a+1,b)+(1-p)*f2(a,b+1);
+  };
+  return f2(0,0);
+}
+// Verteilung der Satzausgänge
+function satzVerteilung(pA,pB,aBeginnt){
+  const hA=spielGewinn(pA), hB=spielGewinn(pB);
+  const tb=aBeginnt?tiebreakGewinn(pA,pB):1-tiebreakGewinn(pB,pA);
+  const out=[];
+  const rek=(a,b,p)=>{
+    if(p<1e-12) return;
+    if(a>=6&&a-b>=2){out.push({a:true,g:a+b,p});return;}
+    if(b>=6&&b-a>=2){out.push({a:false,g:a+b,p});return;}
+    if(a===6&&b===6){
+      out.push({a:true,g:13,p:p*tb});
+      out.push({a:false,g:13,p:p*(1-tb)});
+      return;
+    }
+    const aServiert=((a+b)%2===0)===aBeginnt;
+    const g=aServiert?hA:1-hB;
+    rek(a+1,b,p*g); rek(a,b+1,p*(1-g));
+  };
+  rek(0,0,1);
+  return out;
+}
+function satzErwartung(pA,pB){
+  let gA=0,gB=0;
+  [true,false].forEach(erst=>{
+    satzVerteilung(pA,pB,erst).forEach(s=>{
+      // Spiele des Gewinners und Verlierers aus Gesamtzahl herleiten
+      const sieger=s.g===13?7:(s.g>=11?7:6);
+      const verlierer=s.g-sieger;
+      gA+=0.5*s.p*(s.a?sieger:verlierer);
+      gB+=0.5*s.p*(s.a?verlierer:sieger);
+    });
+  });
+  return {gA,gB,anteil:gA/(gA+gB)};
+}
+function matchVerteilung(pA,pB,bestOf){
+  const noetig=Math.ceil(bestOf/2);
+  const satz={true:satzVerteilung(pA,pB,true), false:satzVerteilung(pA,pB,false)};
+  let zustaende=[{sa:0,sb:0,g:0,erst:true,p:1}];
+  const fertig=[];
+  for(let runde=0;runde<bestOf;runde++){
+    const naechste=new Map();
+    zustaende.forEach(zz=>{
+      satz[zz.erst].forEach(s=>{
+        const p=zz.p*s.p;
+        if(p<1e-12) return;
+        const sa=zz.sa+(s.a?1:0), sb=zz.sb+(s.a?0:1), g=zz.g+s.g;
+        if(sa>=noetig||sb>=noetig){ fertig.push({a:sa>=noetig,sa,sb,g,p}); return; }
+        const erst=zz.erst===(s.g%2===0);
+        const k=sa+"|"+sb+"|"+g+"|"+erst;
+        const alt=naechste.get(k);
+        if(alt) alt.p+=p; else naechste.set(k,{sa,sb,g,erst,p});
+      });
+    });
+    zustaende=[...naechste.values()];
+    if(!zustaende.length) break;
+  }
+  let sieg=0; const spiele={}, saetze={};
+  fertig.forEach(x=>{
+    if(x.a) sieg+=x.p;
+    spiele[x.g]=(spiele[x.g]||0)+x.p;
+    const k=x.sa+":"+x.sb;
+    saetze[k]=(saetze[k]||0)+x.p;
+  });
+  return {sieg,spiele,saetze};
+}
+// Punktwahrscheinlichkeit suchen, die einen gegebenen Spielanteil erzeugt
+function punktSuche(ziel,f0){
+  let lo=-0.2, hi=0.2;
+  for(let i=0;i<26;i++){
+    const d=(lo+hi)/2;
+    const a=satzErwartung(
+      Math.min(0.92,Math.max(0.35,f0+d)),
+      Math.min(0.92,Math.max(0.35,f0-d))).anteil;
+    if(a<ziel) lo=d; else hi=d;
+  }
+  return (lo+hi)/2;
+}
+// Grundniveau des Aufschlags so wählen, dass die Spielanzahl stimmt
+function grundniveau(zielSpiele,bestOf){
+  let lo=0.50, hi=0.75;
+  for(let i=0;i<22;i++){
+    const f0=(lo+hi)/2;
+    const m=matchVerteilung(f0,f0,bestOf);
+    let erw=0;
+    Object.entries(m.spiele).forEach(([g,p])=>erw+=Number(g)*p);
+    if(erw<zielSpiele) lo=f0; else hi=f0;
+  }
+  return (lo+hi)/2;
+}
+
+function tennisBauen(tour,belag){
+  const d=TENNIS[tour];
+  if(!d) return null;
+  const alle=d.spiele.filter(x=>/complet/i.test(x.status));
+  const sp=alle.filter(x=>x.belag===belag);
+  if(sp.length<150) return null;
+  const tage=x=>{
+    const t=String(x.datum).split(/[-\/]/);
+    let dd;
+    if(t.length===3 && t[0].length===4) dd=new Date(Date.UTC(+t[0],+t[1]-1,+t[2]));
+    else if(t.length===3) dd=new Date(Date.UTC(+t[2],+t[1]-1,+t[0]));
+    else return 900;
+    return isNaN(dd.getTime())?900:Math.max(0,(JETZT-dd.getTime())/86400000);
+  };
+  const g=x=>Math.pow(0.5,tage(x)/T_HALBWERT);
+
+  // Gesamtstärke über alle Beläge, danach Abweichung je Belag
+  const fit=(menge)=>{
+    const r={}, n={};
+    menge.forEach(x=>{ r[x.s]=r[x.s]||0; r[x.v]=r[x.v]||0;
+                       n[x.s]=(n[x.s]||0); n[x.v]=(n[x.v]||0); });
+    for(let it=0;it<T_ITER;it++){
+      const num={}, den={};
+      Object.keys(r).forEach(k=>{num[k]=0;den[k]=0;});
+      menge.forEach(x=>{
+        const w=g(x)*(x.sg+x.vg);
+        const y=x.sg/(x.sg+x.vg);
+        const yh=1/(1+Math.exp(-(r[x.s]-r[x.v])));
+        const abl=yh*(1-yh);
+        num[x.s]+=w*(y-yh);      den[x.s]+=w*abl;
+        num[x.v]-=w*(y-yh);      den[x.v]+=w*abl;
+      });
+      Object.keys(r).forEach(k=>{ r[k]+=num[k]/(den[k]+T_KAPPA*0.25); });
+      const werte=Object.values(r), mw=werte.reduce((a,b)=>a+b,0)/werte.length;
+      Object.keys(r).forEach(k=>r[k]-=mw);
+    }
+    menge.forEach(x=>{ const w=g(x); n[x.s]+=w; n[x.v]+=w; });
+    return {r,n};
+  };
+  const gesamt=fit(alle);
+  const aufBelag=fit(sp);
+  // Belagwert Richtung Gesamtwert daempfen
+  const staerke={};
+  Object.keys(gesamt.r).forEach(k=>{
+    const nb=aufBelag.n[k]||0;
+    const rb=aufBelag.r[k]!==undefined?aufBelag.r[k]:gesamt.r[k];
+    staerke[k]=gesamt.r[k]+(rb-gesamt.r[k])*(nb/(nb+T_KAPPA_BELAG/20));
+  });
+
+  const nach={};
+  sp.forEach(x=>{const w=g(x); nach[x.s]=(nach[x.s]||0)+w; nach[x.v]=(nach[x.v]||0)+w;});
+
+  const f0={};
+  [3,5].forEach(bo=>{
+    const teil=sp.filter(x=>x.bestOf===bo);
+    if(teil.length<40){ f0[bo]=bo===3?(tour==="atp"?0.645:0.575):(tour==="atp"?0.645:0.575); return; }
+    const mittel=teil.reduce((a,x)=>a+x.sg+x.vg,0)/teil.length;
+    f0[bo]=grundniveau(mittel,bo);
+  });
+
+  return {tour,belag,staerke,nach,f0,spiele:sp.length,gesamtSpiele:alle.length,
+          mittel3:sp.filter(x=>x.bestOf===3).length};
+}
+function tennisModell(tour,belag){
+  const k=tour+":"+belag;
+  if(TENNIS.modelle[k]===undefined) TENNIS.modelle[k]=tennisBauen(tour,belag);
+  return TENNIS.modelle[k];
+}
+
+function tennisRechnung(mo,n1,n2,bestOf){
+  const r1=mo.staerke[n1], r2=mo.staerke[n2];
+  if(r1===undefined||r2===undefined) return null;
+  const f0=mo.f0[bestOf]||0.64;
+  const ziel=1/(1+Math.exp(-(r1-r2)));
+  const d=punktSuche(ziel,f0);
+  const p1=Math.min(0.92,Math.max(0.35,f0+d));
+  const p2=Math.min(0.92,Math.max(0.35,f0-d));
+  const m=matchVerteilung(p1,p2,bestOf);
+  let erwSpiele=0;
+  Object.entries(m.spiele).forEach(([g,p])=>erwSpiele+=Number(g)*p);
+  return {p1,p2,f0,ziel,sieg:m.sieg,spiele:m.spiele,saetze:m.saetze,erwSpiele,
+          n1:mo.nach[n1]||0, n2:mo.nach[n2]||0};
+}
+
+function tennisZeichnen(){
   const ziel=document.getElementById("ergebnis");
-  const {heim,gast,park,hp,ap,hpn,apn}=partie;
+  const tour=document.getElementById("tour").value;
+  const belag=document.getElementById("belag").value;
+  const bestOf=Number(document.getElementById("bestof").value);
+  const n1=document.getElementById("sp1").value.trim();
+  const n2=document.getElementById("sp2").value.trim();
+  if(!n1||!n2||n1===n2){
+    ziel.innerHTML='<p class="hinweis">Zwei verschiedene Spieler eintragen.</p>'; return;
+  }
+  const mo=tennisModell(tour,belag);
+  if(!mo){
+    ziel.innerHTML=`<p class="hinweis">Für ${belag} liegen zu wenige Partien vor.</p>`; return;
+  }
+  const e=tennisRechnung(mo,n1,n2,bestOf);
+  if(!e){
+    const fehlt=[mo.staerke[n1]===undefined?n1:null,
+                 mo.staerke[n2]===undefined?n2:null].filter(Boolean);
+    ziel.innerHTML=`<p class="hinweis">Unbekannt: ${fehlt.join(", ")}.
+      Schreibweise beachten — die Datei nutzt die Form „Alcaraz C.".</p>`;
+    return;
+  }
 
-  const moF5=mlbModell("F5",pa), moI1=mlbModell("I1",pa), moR=mlbModell("R",pa);
-  if(!moF5){ ziel.innerHTML='<p class="hinweis">Zu wenige Spiele für ein Modell.</p>'; return; }
-
-  const e=moF5.erw(heim,gast,park,hp,ap);
-  const gesamt=e.muH+e.muA;
-  const aus=spielausgang(e.muH,e.muA,moF5.phiH,moF5.phiA,moF5.rho,14);
-
-  const pf = id => moF5.pit[id]!==undefined ? moF5.pit[id] : 1;
   const zeile=(n,p)=>`<tr><td>${n}</td><td>${f(p*100,1)} %</td>
     <td class="q">${f(1/p)}</td></tr>`;
   const kopfTab='<table><thead><tr><th>Auswahl</th><th>Wahrsch.</th>'+
                 '<th>faire Quote</th></tr></thead><tbody>';
 
-  let html=`<div class="karte">
-    <div class="kopf"><b>F5 · erste fünf Innings</b>
-      <div class="erw">${f(gesamt)} <span>Runs erwartet</span></div></div>
-    <div class="trenner">Gesamt</div>
-    ${(()=>{ let t='<table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th>'+
-        '<th>Under</th><th>faire Q.</th></tr></thead><tbody>';
-      linienLeiter(gesamt, moF5.phiT, [3.5,4.5,5.5,6.5,7.5]).forEach(l=>{
-        t+=`<tr><td>${f(l.L,1)}</td>
-          <td>${f(l.over*100,1)} %</td><td class="q">${f(1/l.over)}</td>
-          <td>${f(l.under*100,1)} %</td><td class="q">${f(1/l.under)}</td></tr>`;
-      });
-      return t+"</tbody></table>"; })()}
-    <div class="trenner">Dreiweg nach fünf Innings</div>
-    ${kopfTab}${zeile(heim,aus.heim)}${zeile("Unentschieden",aus.remis)}
-    ${zeile(gast,aus.aus)}</tbody></table>
-    <details><summary>Team-Totals F5</summary>
-      <div class="teamzeile">${heim} · ${f(e.muH)} erwartet</div>
-      ${(()=>{ let t=kopfTab;
-        linienLeiter(e.muH, moF5.phiH, [0.5,1.5,2.5,3.5]).forEach(l=>{
-          t+=zeile("über "+f(l.L,1), l.over)+zeile("unter "+f(l.L,1), l.under); });
-        return t+"</tbody></table>"; })()}
-      <div class="teamzeile">${gast} · ${f(e.muA)} erwartet</div>
-      ${(()=>{ let t=kopfTab;
-        linienLeiter(e.muA, moF5.phiA, [0.5,1.5,2.5,3.5]).forEach(l=>{
-          t+=zeile("über "+f(l.L,1), l.over)+zeile("unter "+f(l.L,1), l.under); });
-        return t+"</tbody></table>"; })()}
-    </details>
+  // Spielanzahl in kumulierte Linien umrechnen
+  const gs=Object.keys(e.spiele).map(Number).sort((a,b)=>a-b);
+  const linien=[];
+  const basis=Math.round(e.erwSpiele);
+  for(let L=basis-3.5;L<=basis+3.5;L+=1){
+    if(L<10) continue;
+    let ueber=0;
+    gs.forEach(g=>{ if(g>L) ueber+=e.spiele[g]; });
+    if(ueber>0.02&&ueber<0.98) linien.push({L,ueber});
+  }
+  const satzListe=Object.entries(e.saetze).sort((a,b)=>b[1]-a[1]);
+
+  const duenn=Math.min(e.n1,e.n2)<8;
+
+  let html="";
+  if(duenn) html+=`<div class="warn"><b>Dünne Datenbasis:</b>
+    gewichtet ${f(e.n1,1)} und ${f(e.n2,1)} Partien auf diesem Belag.
+    Unter etwa acht Partien ist die Stärkeschätzung kaum belastbar.</div>`;
+
+  html+=`<div class="karte">
+    <div class="kopf"><b>Matchsieger</b>
+      <div class="erw">${f(e.erwSpiele,1)} <span>Spiele erwartet</span></div></div>
+    ${kopfTab}${zeile(n1,e.sieg)}${zeile(n2,1-e.sieg)}</tbody></table>
+    <div class="guete gut"><b>Belastbarkeit: gut</b>
+      Der Matchsieger hängt fast nur vom Stärkeunterschied ab, und den messen die
+      Spieldaten zuverlässig. Ob ein Spieler seinen Vorsprung über Aufschlag oder
+      Rückschlag holt, ändert hier wenig.</div>
     <div class="detail">
-      Offensive ${heim} ${f(moF5.off[heim]||1)} · ${gast} ${f(moF5.off[gast]||1)}<br>
-      Werfer ${hpn||"unbekannt"} ${f(pf(hp))} · ${apn||"unbekannt"} ${f(pf(ap))}
-      <span class="q">(unter 1,00 ist besser als Schnitt)</span><br>
-      Park ${park||"?"} ${f(moF5.park[park]||1)} · Heimvorteil ${f(moF5.hvH)} ·
-      Streuung ${f(moF5.phiT)} · Ligaschnitt ${f(moF5.mittel)} aus ${moF5.spiele} Spielen
+      Stärke ${n1} ${f(mo.staerke[n1],3)} · ${n2} ${f(mo.staerke[n2],3)}
+      <span class="q">(Abstand entscheidet, nicht der Betrag)</span><br>
+      Abgeleitete Aufschlagpunkt-Wahrscheinlichkeit ${f(e.p1*100,1)} % gegen
+      ${f(e.p2*100,1)} %, Grundniveau ${f(e.f0*100,1)} %<br>
+      Datenbasis: ${mo.spiele} Partien auf ${belag}, ${mo.gesamtSpiele} insgesamt ·
+      gewichtet ${f(e.n1,1)} und ${f(e.n2,1)} Partien
     </div></div>`;
 
-  if(moI1){
-    const i=moI1.erw(heim,gast,park,hp,ap);
-    const a1=spielausgang(i.muH,i.muA,moI1.phiH,moI1.phiA,moI1.rho,8);
-    const nrfi=(1-a1.bttsJa) - 0; // beide null berechnen wir direkt
-    const p0H=verteilung(i.muH,moI1.phiH,8)[0];
-    const p0A=verteilung(i.muA,moI1.phiA,8)[0];
-    const keinRun=Math.min(0.999,Math.max(0.001,p0H*p0A));
-    html+=`<div class="karte">
-      <div class="kopf"><b>Erstes Inning</b>
-        <div class="erw">${f(i.muH+i.muA)} <span>Runs erwartet</span></div></div>
-      ${kopfTab}${zeile("NRFI · kein Run",keinRun)}${zeile("YRFI · mindestens ein Run",1-keinRun)}
-      </tbody></table>
-      <div class="detail">Beide Hälften getrennt gerechnet und multipliziert.
-        Der Effekt der Schlagreihenfolge steckt nur im Ligaschnitt, nicht teamspezifisch —
-        das obere Drittel der Order schlägt hier häufiger als im Durchschnitt.</div></div>`;
-  }
+  html+=`<div class="karte">
+    <div class="kopf"><b>Satzstand</b></div>
+    ${kopfTab}${satzListe.map(([k,p])=>{
+      const [a,b]=k.split(":");
+      return zeile(`${n1} ${a}:${b}`,p);
+    }).join("")}</tbody></table>
+    <div class="guete mittel"><b>Belastbarkeit: mittel</b>
+      Der Satzstand folgt aus derselben Rechnung, reagiert aber empfindlicher auf
+      die Frage, wie eng die einzelnen Sätze verlaufen — und genau die hängt an der
+      Aufschlag-Rückschlag-Aufteilung, die hier fehlt.</div></div>`;
 
-  if(moR){
-    const r=moR.erw(heim,gast,park,hp,ap);
-    const ges=r.muH+r.muA;
-    html+=`<div class="karte">
-      <div class="kopf"><b>Ganzes Spiel</b>
-        <div class="erw">${f(ges)} <span>Runs erwartet</span></div></div>
-      ${(()=>{ let t='<table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th>'+
-          '<th>Under</th><th>faire Q.</th></tr></thead><tbody>';
-        linienLeiter(ges, moR.phiT, [6.5,7.5,8.5,9.5,10.5,11.5]).forEach(l=>{
-          t+=`<tr><td>${f(l.L,1)}</td>
-            <td>${f(l.over*100,1)} %</td><td class="q">${f(1/l.over)}</td>
-            <td>${f(l.under*100,1)} %</td><td class="q">${f(1/l.under)}</td></tr>`;
-        });
-        return t+"</tbody></table>"; })()}
-      <div class="detail">
-        Schwächer als F5. Der Starter geht nur mit Anteil ${f(STARTER_ANTEIL,1)} ein,
-        der Rest ist Bullpen zum Ligaschnitt — ein grober Ersatz für ein echtes Bullpen-Modell.
-        Außerdem schlägt das Heimteam bei Führung im neunten Inning nicht mehr; dieser Effekt
-        steckt im Heimwert ${f(moR.hvH)}, der deshalb unter dem der F5-Rechnung liegt.
-      </div></div>`;
-  }
+  html+=`<div class="karte">
+    <div class="kopf"><b>Spielanzahl</b>
+      <div class="erw">${f(e.erwSpiele,1)} <span>erwartet</span></div></div>
+    <table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th>
+      <th>Under</th><th>faire Q.</th></tr></thead><tbody>
+    ${linien.map(l=>`<tr><td>${f(l.L,1)}</td>
+      <td>${f(l.ueber*100,1)} %</td><td class="q">${f(1/l.ueber)}</td>
+      <td>${f((1-l.ueber)*100,1)} %</td><td class="q">${f(1/(1-l.ueber))}</td></tr>`).join("")}
+    </tbody></table>
+    <div class="guete schwach"><b>Belastbarkeit: schwach</b>
+      Hier liegt die eigentliche Schwäche. Ohne Punktdaten kann das Modell nicht
+      unterscheiden, ob ein Spielanteil über harte Aufschläge oder über starken
+      Rückschlag zustande kommt. Zwei Aufschlaggiganten halten fast alles durch und
+      spielen lange Sätze mit Tiebreaks; zwei Rückschlagspezialisten mit demselben
+      Spielanteil brechen sich gegenseitig und sind schnell fertig. Beide Fälle
+      sehen für das Modell gleich aus. Es zieht die Verteilung deshalb zur Mitte —
+      sehr lange und sehr kurze Matches werden unterschätzt. Nutze diese Zahlen
+      allenfalls als groben Anhaltspunkt.</div></div>`;
 
   html+=`<p class="hinweis">
-    Bewertung des Werfers: ${moF5.komponenten
-      ? "komponentenbasiert aus Strikeouts, Walks und Home Runs (FIP-artig), gedämpft über die Innings"
-      : "ergebnisbasiert aus den zugelassenen Runs, bereinigt um Gegner und Park"}.
-    Umschalten über das Feld oben — die Werte verschieben sich teils deutlich, besonders bei
-    Werfern mit wenigen Starts.<br>
-    Nicht enthalten: Bullpen-Zustand, Handedness-Splits, Wetter und Umpire.
-    Angekündigte Starter werden gelegentlich kurzfristig getauscht; das Modell rechnet mit
-    dem, was in der Ansetzung steht.</p>`;
+    Grundlage: tennis-data.co.uk, Spielstände je Satz, keine Punktdaten.
+    Jeff Sackmanns Datensätze mit Aufschlagstatistiken sind seit 2026 nicht mehr
+    verfügbar; damit fehlt die einzige freie Quelle für ein punktbasiertes Modell.<br>
+    Nicht enthalten: direkter Vergleich beider Spieler, Verletzungen, Reisebelastung,
+    Höhenlage, Hallenbedingungen und die Sonderrolle von Grand-Slam-Runden.
+    Der Belag wird berücksichtigt, Indoor gegen Outdoor nicht.</p>`;
   ziel.innerHTML=html;
 }
 
-function mlbSpieltag(){
+function tennisSpieltag(){
   const ziel=document.getElementById("spieltag");
+  const tour=document.getElementById("tour").value;
   const jetzt=Date.now();
-  const spiele=MLB.ansetzungen.filter(a=>a.ms>jetzt-3.5*3600*1000)
-    .sort((a,b)=>a.ms-b.ms);
-  if(!spiele.length){
-    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Ansetzungen</b></div>
-      <div class="detail">Keine kommenden Partien in der Datei.</div></div>`;
-    return;
-  }
-  const pa=document.getElementById("pitcherArt").value;
-  const mo=mlbModell("F5",pa);
-  let html=`<div class="karte"><div class="kopf"><b>MLB</b>
-    <span class="q">${spiele.length} Partien</span></div>`;
-  let letzter="";
-  spiele.forEach((a,i)=>{
-    const tag=tagVonMs(a.ms);
-    if(tag!==letzter){ html+=`<div class="tagkopf">${tag}</div>`; letzter=tag; }
-    let zahlen="";
-    if(mo){
-      const e=mo.erw(a.heim,a.gast,a.park,a.hp,a.ap);
-      zahlen=`F5 gesamt ${f(e.muH+e.muA)} · ${a.gast} ${f(e.muA)} bei ${a.heim} ${f(e.muH)}`;
-    }
-    html+=`<div class="spiel" data-i="${i}">
-      <div class="zeit">${zeitVonMs(a.ms)} · ${a.park||""}</div>
-      <div class="paar">${a.gast} bei ${a.heim}</div>
-      <div class="zahlen">${zahlen}</div>
-      <div class="werfer">${a.apn||"Starter offen"} gegen ${a.hpn||"Starter offen"}</div>
-    </div>`;
+  const liste=TENNIS.ansetzungen
+    .filter(a=>!a.ms||a.ms>jetzt-3*3600*1000)
+    .sort((a,b)=>(a.ms||0)-(b.ms||0));
+  if(!liste.length){ ziel.innerHTML=""; return; }
+  const mo=tennisModell(tour,document.getElementById("belag").value);
+  let html=`<div class="karte"><div class="kopf"><b>Ansetzungen</b>
+    <span class="q">${liste.length}</span></div>`;
+  const namen=mo?Object.keys(mo.staerke):[];
+  const karte={};
+  namen.forEach(n=>karte[namensschluessel(n)]=n);
+  liste.slice(0,60).forEach((a,i)=>{
+    const t1=karte[namensschluessel(a.s1)], t2=karte[namensschluessel(a.s2)];
+    let zusatz="";
+    if(mo&&t1&&t2){
+      const e=tennisRechnung(mo,t1,t2,a.bestOf);
+      if(e) zusatz=`${f(e.sieg*100,0)} % · ${f(e.erwSpiele,1)} Spiele`;
+    } else zusatz="<span class='q'>nicht zuordenbar</span>";
+    html+=`<div class="spiel" data-a="${t1||""}" data-b="${t2||""}" data-bo="${a.bestOf}">
+      <div class="zeit">${a.ms?zeitVonMs(a.ms)+" · ":""}${a.turnier||""} ${a.runde||""}</div>
+      <div class="paar">${a.s1} – ${a.s2}</div>
+      <div class="zahlen">${zusatz}</div></div>`;
   });
-  html+=`<div class="detail">Auswärtsteam zuerst, wie in Nordamerika üblich.
-    Zeiten in deiner Ortszeit. Antippen öffnet die Rechnung.</div></div>`;
+  html+=`<div class="detail">Ansetzungen von ESPN, Spielerwerte aus tennis-data.
+    Die Namensschreibweisen unterscheiden sich; nicht jede Partie lässt sich zuordnen.
+    Der Belag wird oben eingestellt, er steht nicht in den Ansetzungen.</div></div>`;
   ziel.innerHTML=html;
   ziel.querySelectorAll(".spiel").forEach(el=>{
     el.addEventListener("click",()=>{
-      mlbZeichnen(spiele[Number(el.getAttribute("data-i"))]);
+      const a=el.getAttribute("data-a"), b=el.getAttribute("data-b");
+      if(!a||!b) return;
+      document.getElementById("sp1").value=a;
+      document.getElementById("sp2").value=b;
+      document.getElementById("bestof").value=el.getAttribute("data-bo")||"3";
+      tennisZeichnen();
       document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
     });
   });
 }
 
-async function mlbStarten(){
-  const k=document.getElementById("mlbKnopf");
+async function tennisStarten(){
+  const k=document.getElementById("tennisKnopf");
   k.disabled=true;
-  if(await mlbLaden()) mlbSpieltag();
+  if(await tennisLaden()) tennisSpieltag();
   k.disabled=false;
 }
 
 // ======== Rückvergleich Fußball ========
-function rueckvergleich(rows, m){
-  const sp = rows.filter(r=>r.HomeTeam&&r.AwayTeam
-             &&Number.isFinite(m.h(r))&&Number.isFinite(m.a(r))&&datum(r.Date))
+function rueckvergleich(rows,m){
+  const sp=rows.filter(r=>r.HomeTeam&&r.AwayTeam
+    &&Number.isFinite(m.h(r))&&Number.isFinite(m.a(r))&&datum(r.Date))
     .sort((a,b)=>datum(a.Date)-datum(b.Date));
   if(sp.length<300) return null;
-  const testN = Math.min(300, Math.floor(sp.length*0.3));
-  const start = sp.length - testN;
-  const basisMittel = sp.slice(0,start).reduce((s,r)=>s+m.h(r)+m.a(r),0)/start;
-  const L = Math.max(0.5, Math.round(basisMittel)-0.5);
-  const llE=[], llR=[], llB=[];
-  const BLOCK=10;
-  for(let b=start; b<sp.length; b+=BLOCK){
-    const bis=sp.slice(0,b);
-    const bezug=datum(sp[b].Date);
-    const moE=modellBauen(bis,m,"einfach",bezug.getTime(),saisonIndex(bezug));
-    const moR=modellBauen(bis,m,"regression",bezug.getTime(),saisonIndex(bezug));
+  const testN=Math.min(300,Math.floor(sp.length*0.3));
+  const start=sp.length-testN;
+  const bm=sp.slice(0,start).reduce((s,r)=>s+m.h(r)+m.a(r),0)/start;
+  const L=Math.max(0.5,Math.round(bm)-0.5);
+  const llE=[],llR=[],llB=[];
+  for(let b=start;b<sp.length;b+=10){
+    const bis=sp.slice(0,b), bez=datum(sp[b].Date);
+    const moE=modellBauen(bis,m,"einfach",bez.getTime(),saisonIndex(bez));
+    const moR=modellBauen(bis,m,"regression",bez.getTime(),saisonIndex(bez));
     if(!moE||!moR) continue;
-    const pB=pOver(moE.ligaMittel, moE.phiT, L);
-    for(let i=b; i<Math.min(b+BLOCK, sp.length); i++){
+    const pB=pOver(moE.ligaMittel,moE.phiT,L);
+    for(let i=b;i<Math.min(b+10,sp.length);i++){
       const r=sp[i], ist=m.h(r)+m.a(r), y=ist>L?1:0;
       const sE=moE.staerken(r.HomeTeam,r.AwayTeam);
       const sR=moR.staerken(r.HomeTeam,r.AwayTeam);
-      const v=(p)=>-(y*Math.log(p)+(1-y)*Math.log(1-p));
+      const v=p=>-(y*Math.log(p)+(1-y)*Math.log(1-p));
       llE.push(v(pOver(sE.muH+sE.muA,moE.phiT,L)));
       llR.push(v(pOver(sR.muH+sR.muA,moR.phiT,L)));
       llB.push(v(pB));
@@ -1022,56 +1206,50 @@ function rueckvergleich(rows, m){
   const paar=(a,b)=>{
     const d=a.map((x,i)=>x-b[i]), dm=mw(d);
     const sd=Math.sqrt(d.reduce((s,x)=>s+(x-dm)**2,0)/(d.length-1));
-    return { d:dm, se:sd/Math.sqrt(d.length) };
+    return {d:dm,se:sd/Math.sqrt(d.length)};
   };
-  const rVsE=paar(llR,llE);
-  const besserIstR = rVsE.d < 0;
-  const vsBasis=paar(besserIstR?llR:llE, llB);
-  return { L, n:llE.length,
-    sieger: Math.abs(rVsE.d) > 2*rVsE.se ? (besserIstR?"Regression":"Einfach") : "gleichwertig",
-    brauchbar: vsBasis.d < -2*vsBasis.se };
+  const rVsE=paar(llR,llE), besserR=rVsE.d<0;
+  const vsB=paar(besserR?llR:llE,llB);
+  return {L,n:llE.length,
+    sieger:Math.abs(rVsE.d)>2*rVsE.se?(besserR?"Regression":"Einfach"):"gleichwertig",
+    brauchbar:vsB.d<-2*vsB.se};
 }
-
 function vergleichStarten(){
   const ziel=document.getElementById("vergleich");
-  ziel.innerHTML='<p class="hinweis">Rechnet … das dauert einen Moment.</p>';
+  ziel.innerHTML='<p class="hinweis">Rechnet …</p>';
   setTimeout(()=>{
     let html=`<div class="karte"><div class="kopf"><b>Prüfung am Rückvergleich</b></div>
       <table><thead><tr><th>Kennzahl</th><th>Urteil</th><th>Verfahren</th></tr></thead><tbody>`;
-    let irgendwas=false;
+    let was=false;
     METRIKEN.forEach(m=>{
       const v=rueckvergleich(rohdaten(),m);
-      if(!v){ html+=`<tr><td>${m.name}</td><td colspan="2" class="q">zu wenig Spiele</td></tr>`; return; }
-      irgendwas=true;
-      html+=`<tr>
-        <td>${m.name}<br><span class="q" style="font-weight:400">Linie ${f(v.L,1)} · ${v.n} Spiele</span></td>
+      if(!v){html+=`<tr><td>${m.name}</td><td colspan="2" class="q">zu wenig Spiele</td></tr>`;return;}
+      was=true;
+      html+=`<tr><td>${m.name}<br><span class="q" style="font-weight:400">Linie ${f(v.L,1)} · ${v.n} Spiele</span></td>
         <td class="${v.brauchbar?"ja":"nein"}">${v.brauchbar?"passt":"passt nicht"}</td>
         <td class="q">${v.sieger}</td></tr>`;
     });
-    html+=`</tbody></table><div class="detail">
-      „Passt" heißt: das Modell schlägt an dieser Linie den reinen Ligaschnitt deutlich genug,
-      dass es nicht am Zufall liegt.</div></div>`;
-    if(!irgendwas) html=`<p class="hinweis">Für die Prüfung werden mindestens 300 Spiele gebraucht.</p>`;
+    html+=`</tbody></table><div class="detail">„Passt" heißt: das Modell schlägt an dieser
+      Linie den reinen Ligaschnitt deutlich genug, dass es nicht am Zufall liegt.</div></div>`;
+    if(!was) html='<p class="hinweis">Für die Prüfung werden mindestens 300 Spiele gebraucht.</p>';
     ziel.innerHTML=html;
   },50);
 }
 
 // ======== Fußball: Daten und Listen ========
 async function ansetzungenLaden(){
-  if(ANSETZUNGEN.length || FIXSTATUS) return;
+  if(ANSETZUNGEN.length||FIXSTATUS) return;
   try{
     const r=await fetch("./daten/fixtures.csv");
-    if(!r.ok){ FIXSTATUS=`Die Datei daten/fixtures.csv fehlt (Code ${r.status}).`; return; }
+    if(!r.ok){FIXSTATUS=`daten/fixtures.csv fehlt (Code ${r.status}).`;return;}
     const txt=await r.text();
-    if(/^\s*</.test(txt)){ FIXSTATUS="Die Datei enthält kein CSV, sondern eine Webseite."; return; }
+    if(/^\s*</.test(txt)){FIXSTATUS="Die Datei enthält kein CSV.";return;}
     const rows=csvLesen(txt);
-    if(!rows.length || !("HomeTeam" in rows[0])){
-      FIXSTATUS="Die Datei hat keine Spalte HomeTeam."; return;
-    }
+    if(!rows.length||!("HomeTeam" in rows[0])){
+      FIXSTATUS="Die Datei hat keine Spalte HomeTeam.";return;}
     ANSETZUNGEN=rows;
-  }catch(e){ FIXSTATUS="Ansetzungsdatei konnte nicht geladen werden."; }
+  }catch(e){FIXSTATUS="Ansetzungsdatei konnte nicht geladen werden.";}
 }
-
 async function ligaDatenHolen(code){
   if(DATEN[code]) return DATEN[code];
   const teile=await Promise.all(SAISONS.map(async s=>{
@@ -1079,86 +1257,74 @@ async function ligaDatenHolen(code){
       const r=await fetch(`./daten/${s}-${code}.csv`);
       if(!r.ok) return [];
       return csvLesen(await r.text()).filter(x=>x.HomeTeam&&x.AwayTeam);
-    }catch(e){ return []; }
+    }catch(e){return [];}
   }));
   const alle=teile.flat();
   let i=teile.length-1;
-  while(i>=0 && !teile[i].length) i--;
-  DATEN[code]={ alle, aktuelle: i>=0?teile[i]:[], label: i>=0?saisonText(SAISONS[i]):"" };
+  while(i>=0&&!teile[i].length) i--;
+  DATEN[code]={alle,aktuelle:i>=0?teile[i]:[],label:i>=0?saisonText(SAISONS[i]):""};
   return DATEN[code];
 }
-
-function zugeordnet(code, d, passt){
+function zugeordnet(code,d,passt){
   const bekannt=new Set((d.aktuelle.length?d.aktuelle:d.alle)
     .flatMap(r=>[r.HomeTeam,r.AwayTeam]));
   const kand=ANSETZUNGEN.filter(r=>{
     if(!r.HomeTeam||!r.AwayTeam||!datum(r.Date)) return false;
-    return passt(anstoss(r), r);
+    return passt(anstoss(r),r);
   });
-  let s=kand.filter(r=>r.Div===code);
-  let weg="Ligacode";
-  if(!s.length){ s=kand.filter(r=>bekannt.has(r.HomeTeam)&&bekannt.has(r.AwayTeam)); weg="Namen"; }
+  let s=kand.filter(r=>r.Div===code), weg="Ligacode";
+  if(!s.length){s=kand.filter(r=>bekannt.has(r.HomeTeam)&&bekannt.has(r.AwayTeam));weg="Namen";}
   s.sort((a,b)=>anstoss(a)-anstoss(b));
-  return { spiele:s, weg, kand };
+  return {spiele:s,weg,kand};
 }
-const partienFuer  = (code,d) => zugeordnet(code,d, ms => ms > Date.now());
-const laufendeFuer = (code,d) => zugeordnet(code,d, (ms,r) => {
+const partienFuer=(c,d)=>zugeordnet(c,d,ms=>ms>Date.now());
+const laufendeFuer=(c,d)=>zugeordnet(c,d,(ms,r)=>{
   const n=Date.now();
-  return hatZeit(r) && ms<=n && ms > n - LIVE_FENSTER*60000;
-});
-
-function quote(zeile, name){
+  return hatZeit(r)&&ms<=n&&ms>n-LIVE_FENSTER*60000;});
+function quote(zeile,name){
   if(!QUOTEN[name]) return null;
-  for(const sp of QUOTEN[name]){
-    const v=z(zeile[sp]);
-    if(v>1) return v;
-  }
+  for(const sp of QUOTEN[name]){const v=z(zeile[sp]); if(v>1) return v;}
   return null;
 }
-
-function maerkte(code, r, verf){
+function maerkte(code,r,verf){
   const out=[];
-  const moT=holModell(code, METRIKEN[0], verf);
+  const moT=holModell(code,METRIKEN[0],verf);
   if(moT){
     const e=rechnen(moT,r.HomeTeam,r.AwayTeam,"");
     const s=spielausgang(e.muH,e.muA,moT.phiH,moT.phiA,moT.rho);
-    out.push({id:"1x2", n:"Heimsieg", p:s.heim},
-             {id:"1x2", n:"Unentschieden", p:s.remis},
-             {id:"1x2", n:"Auswärtssieg", p:s.aus},
-             {id:"btts", n:"Beide treffen: ja", p:s.bttsJa},
-             {id:"btts", n:"Beide treffen: nein", p:s.bttsNein});
+    out.push({id:"1x2",n:"Heimsieg",p:s.heim},{id:"1x2",n:"Unentschieden",p:s.remis},
+             {id:"1x2",n:"Auswärtssieg",p:s.aus},
+             {id:"btts",n:"Beide treffen: ja",p:s.bttsJa},
+             {id:"btts",n:"Beide treffen: nein",p:s.bttsNein});
   }
   METRIKEN.forEach(m=>{
-    const mo=holModell(code, m, verf);
+    const mo=holModell(code,m,verf);
     if(!mo) return;
     const e=rechnen(mo,r.HomeTeam,r.AwayTeam,"");
-    linienLeiter(e.mu, mo.phiT, m.leiter).forEach(l=>{
+    linienLeiter(e.mu,mo.phiT,m.leiter).forEach(l=>{
       const id=`${m.id}:${l.L}`;
-      out.push({id, n:`${m.name} über ${f(l.L,1)}`, p:l.over});
-      out.push({id, n:`${m.name} unter ${f(l.L,1)}`, p:l.under});
+      out.push({id,n:`${m.name} über ${f(l.L,1)}`,p:l.over});
+      out.push({id,n:`${m.name} unter ${f(l.L,1)}`,p:l.under});
     });
   });
-  out.forEach(o=>{ o.q=quote(r,o.n); o.v = o.q ? o.p*o.q-1 : null; });
+  out.forEach(o=>{o.q=quote(r,o.n); o.v=o.q?o.p*o.q-1:null;});
   return out;
 }
-
-function passtZumFilter(id, filter){
+function passtZumFilter(id,filter){
   if(filter==="alle") return true;
   if(filter.includes(":")) return id===filter;
   return id.split(":")[0]===filter;
 }
-
 async function liveZeigen(){
   const ziel=document.getElementById("funde");
   const verf=document.getElementById("verfahren").value;
   const knopf=document.getElementById("liveKnopf");
   knopf.disabled=true;
-  ziel.innerHTML='<div class="karte"><div class="kopf"><b>Laufende Partien</b></div>'+
-                 '<div class="detail">Suche …</div></div>';
+  ziel.innerHTML='<div class="karte"><div class="kopf"><b>Laufende Partien</b></div><div class="detail">Suche …</div></div>';
   await ansetzungenLaden();
   if(!ANSETZUNGEN.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Laufende Partien</b></div>
-      <div class="detail">${FIXSTATUS||"Keine Ansetzungen verfügbar."}</div></div>`;
+      <div class="detail">${FIXSTATUS||"Keine Ansetzungen."}</div></div>`;
     knopf.disabled=false; return;
   }
   const treffer=[];
@@ -1182,7 +1348,7 @@ async function liveZeigen(){
     const teile=[];
     METRIKEN.slice(0,3).forEach(m=>{
       const mo=holModell(code,m,verf);
-      if(mo) teile.push(`${m.name} ${f(rechnen(mo,r.HomeTeam,r.AwayTeam,"").mu, m.id==="tore"?2:1)}`);
+      if(mo) teile.push(`${m.name} ${f(rechnen(mo,r.HomeTeam,r.AwayTeam,"").mu,m.id==="tore"?2:1)}`);
     });
     html+=`<div class="spiel" data-code="${code}" data-h="${r.HomeTeam}" data-g="${r.AwayTeam}">
       <div class="zeit"><span class="minute">${min}'</span> &nbsp;${LIGEN[code]} · Anpfiff ${zeitText(r)}</div>
@@ -1190,25 +1356,23 @@ async function liveZeigen(){
       <div class="zahlen">${teile.join(" · ")}</div></div>`;
   });
   html+=`<div class="detail"><b>Ohne Spielstand.</b> Die Quelle liefert keine Livedaten.
-    Die Zahlen gelten für den Anpfiff und taugen nicht für Livewetten.</div></div>`;
+    Die Zahlen gelten für den Anpfiff.</div></div>`;
   ziel.innerHTML=html;
   ziel.querySelectorAll(".spiel").forEach(el=>{
-    el.addEventListener("click",async ()=>{
+    el.addEventListener("click",async()=>{
       const c=el.getAttribute("data-code");
       document.getElementById("liga").value=c;
       await ligaLaden(c);
       const sh=document.getElementById("heim"), sg=document.getElementById("gast");
       const h=el.getAttribute("data-h"), g=el.getAttribute("data-g");
       if(![...sh.options].some(o=>o.value===h)){
-        document.getElementById("alleTeams").checked=true; listenFuellen();
-      }
+        document.getElementById("alleTeams").checked=true; listenFuellen();}
       sh.value=h; sg.value=g; zeichnen();
       document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
     });
   });
   knopf.disabled=false;
 }
-
 async function alleLigenScannen(){
   const ziel=document.getElementById("funde");
   const schwelle=Number(document.getElementById("schwelle").value)/100;
@@ -1220,11 +1384,10 @@ async function alleLigenScannen(){
   await ansetzungenLaden();
   if(!ANSETZUNGEN.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
-      <div class="detail">${FIXSTATUS||"Keine Ansetzungen verfügbar."}</div></div>`;
+      <div class="detail">${FIXSTATUS||"Keine Ansetzungen."}</div></div>`;
     knopf.disabled=false; return;
   }
-  const codes=Object.keys(LIGEN);
-  const funde=[]; let partien=0;
+  const codes=Object.keys(LIGEN), funde=[]; let partien=0;
   for(let i=0;i<codes.length;i++){
     const code=codes[i];
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche läuft</b>
@@ -1237,75 +1400,71 @@ async function alleLigenScannen(){
     partien+=spiele.length;
     spiele.forEach(r=>{
       maerkte(code,r,verf).forEach(o=>{
-        if(o.p>=schwelle && passtZumFilter(o.id, filter))
-          funde.push({code, r, zeit:anstoss(r), ...o});
+        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+          funde.push({code,r,zeit:anstoss(r),...o});
       });
     });
     await warte();
   }
   if(sortierung==="v") funde.sort((a,b)=>(b.v===null?-9:b.v)-(a.v===null?-9:a.v)||b.p-a.p);
   else if(sortierung==="p") funde.sort((a,b)=>b.p-a.p);
-  else funde.sort((a,b)=>a.zeit-b.zeit || b.p-a.p);
+  else funde.sort((a,b)=>a.zeit-b.zeit||b.p-a.p);
   if(!funde.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
       <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
       in ${partien} anstehenden Partien.</div></div>`;
     knopf.disabled=false; return;
   }
-  const zeigen=funde.slice(0,MAX_FUNDE);
-  const nachZeit = sortierung==="zeit";
+  const zeigen=funde.slice(0,MAX_FUNDE), nachZeit=sortierung==="zeit";
   let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
     <span class="q">${funde.length} aus ${partien} Partien</span></div>`;
   let letzterTag="";
   zeigen.forEach(t=>{
     const tag=tagText(t.r), zeit=zeitText(t.r);
-    if(nachZeit && tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
+    if(nachZeit&&tag!==letzterTag){html+=`<div class="tagkopf">${tag}</div>`;letzterTag=tag;}
     html+=`<div class="fund" data-code="${t.code}" data-h="${t.r.HomeTeam}" data-g="${t.r.AwayTeam}">
       <div class="links">
         <div class="liga">${LIGEN[t.code]} · ${nachZeit?zeit:tag+" "+zeit}</div>
         <div class="partie">${t.r.HomeTeam} – ${t.r.AwayTeam}</div>
         <div class="markt">${t.n}</div></div>
-      <div class="rechts">
-        <div class="proz">${f(t.p*100,1)} %</div>
+      <div class="rechts"><div class="proz">${f(t.p*100,1)} %</div>
         <div class="q">fair ${f(1/t.p)}</div>
-        ${t.q ? (t.v>KANTE_MIN
-            ? `<div class="vorteil">@ ${f(t.q)} · +${f(t.v*100,1)} %</div>`
-            : `<div class="kein">@ ${f(t.q)} · ${t.v>0?"+":""}${f(t.v*100,1)} %</div>`)
-          : `<div class="kein">keine Quote</div>`}
+        ${t.q?(t.v>KANTE_MIN
+          ?`<div class="vorteil">@ ${f(t.q)} · +${f(t.v*100,1)} %</div>`
+          :`<div class="kein">@ ${f(t.q)} · ${t.v>0?"+":""}${f(t.v*100,1)} %</div>`)
+          :`<div class="kein">keine Quote</div>`}
       </div></div>`;
   });
   if(funde.length>MAX_FUNDE)
     html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.</div>`;
   html+=`<div class="detail"><b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil.
-    Entscheidend ist die dritte Zeile rechts, der Vergleich mit der Quote.</div></div>`;
+    Entscheidend ist die dritte Zeile rechts.</div></div>`;
   ziel.innerHTML=html;
   ziel.querySelectorAll(".fund").forEach(el=>{
-    el.addEventListener("click",async ()=>{
+    el.addEventListener("click",async()=>{
       const c=el.getAttribute("data-code");
       document.getElementById("liga").value=c;
       await ligaLaden(c);
       const sh=document.getElementById("heim"), sg=document.getElementById("gast");
       const h=el.getAttribute("data-h"), g=el.getAttribute("data-g");
       if(![...sh.options].some(o=>o.value===h)){
-        document.getElementById("alleTeams").checked=true; listenFuellen();
-      }
+        document.getElementById("alleTeams").checked=true; listenFuellen();}
       sh.value=h; sg.value=g; zeichnen();
       document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
     });
   });
   knopf.disabled=false;
 }
-
 function spieltagZeichnen(){
   const ziel=document.getElementById("spieltag");
   const code=AKTIV, verf=document.getElementById("verfahren").value;
-  if(!code || !DATEN[code]){ ziel.innerHTML=""; return; }
+  if(!code||!DATEN[code]){ziel.innerHTML="";return;}
   if(!ANSETZUNGEN.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
       <div class="detail">${FIXSTATUS||"Ansetzungsdatei nicht geladen."}</div></div>`;
     return;
   }
-  const {spiele, weg, kand}=partienFuer(code, DATEN[code]);
+  const {spiele,weg,kand}=partienFuer(code,DATEN[code]);
   if(!spiele.length){
     const divs=[...new Set(ANSETZUNGEN.map(r=>r.Div).filter(Boolean))].slice(0,30);
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Spieltag</b></div>
@@ -1322,7 +1481,7 @@ function spieltagZeichnen(){
   let letzterTag="";
   spiele.forEach(r=>{
     const tag=tagText(r);
-    if(tag!==letzterTag){ html+=`<div class="tagkopf">${tag}</div>`; letzterTag=tag; }
+    if(tag!==letzterTag){html+=`<div class="tagkopf">${tag}</div>`;letzterTag=tag;}
     const teile=[]; let kante=null;
     if(moT){
       const e=rechnen(moT,r.HomeTeam,r.AwayTeam,"");
@@ -1333,7 +1492,7 @@ function spieltagZeichnen(){
        ["Tore über 2,5",p25],["Tore unter 2,5",1-p25]].forEach(([nm,p])=>{
         const q=quote(r,nm); if(!q) return;
         const v=p*q-1;
-        if(v>KANTE_MIN && (!kante || v>kante.v)) kante={nm,q,v};
+        if(v>KANTE_MIN&&(!kante||v>kante.v)) kante={nm,q,v};
       });
     }
     if(moE) teile.push(`Ecken ${f(rechnen(moE,r.HomeTeam,r.AwayTeam,"").mu,1)}`);
@@ -1352,21 +1511,18 @@ function spieltagZeichnen(){
       const h=el.getAttribute("data-h"), g=el.getAttribute("data-g");
       const sh=document.getElementById("heim"), sg=document.getElementById("gast");
       if(![...sh.options].some(o=>o.value===h)){
-        document.getElementById("alleTeams").checked=true; listenFuellen();
-      }
+        document.getElementById("alleTeams").checked=true; listenFuellen();}
       sh.value=h; sg.value=g; zeichnen();
       document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
     });
   });
 }
-
-function tabelle(linien, klasse){
-  if(!linien.length) return '<div class="detail">Zu wenig Erwartungswert für sinnvolle Linien.</div>';
+function tabelle(linien,klasse){
+  if(!linien.length) return '<div class="detail">Zu wenig Erwartungswert.</div>';
   let h=`<table class="${klasse||""}"><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th>
     <th>Under</th><th>faire Q.</th></tr></thead><tbody>`;
   linien.forEach(l=>{
-    h+=`<tr class="${l.mitte?"mitte":""}">
-      <td>${f(l.L,1)}</td>
+    h+=`<tr class="${l.mitte?"mitte":""}"><td>${f(l.L,1)}</td>
       <td>${f(l.over*100,1)} %</td><td class="q">${f(1/l.over)}</td>
       <td>${f(l.under*100,1)} %</td><td class="q">${f(1/l.under)}</td></tr>`;
   });
@@ -1374,12 +1530,9 @@ function tabelle(linien, klasse){
 }
 function zeilen(paare){
   let h='<table><thead><tr><th>Ausgang</th><th>Wahrsch.</th><th>faire Quote</th></tr></thead><tbody>';
-  paare.forEach(([n,p])=>{
-    h+=`<tr><td>${n}</td><td>${f(p*100,1)} %</td><td class="q">${f(1/p)}</td></tr>`;
-  });
+  paare.forEach(([n,p])=>{h+=`<tr><td>${n}</td><td>${f(p*100,1)} %</td><td class="q">${f(1/p)}</td></tr>`;});
   return h+"</tbody></table>";
 }
-
 function zeichnen(){
   const heim=document.getElementById("heim").value;
   const gast=document.getElementById("gast").value;
@@ -1387,66 +1540,51 @@ function zeichnen(){
   const verf=document.getElementById("verfahren").value;
   const ziel=document.getElementById("ergebnis");
   if(!AKTIV||!heim||!gast||heim===gast){
-    ziel.innerHTML='<p class="hinweis">Wähle zwei verschiedene Mannschaften.</p>'; return;
-  }
+    ziel.innerHTML='<p class="hinweis">Wähle zwei verschiedene Mannschaften.</p>';return;}
   let html="", basis=null;
   METRIKEN.forEach(m=>{
     const mo=holModell(AKTIV,m,verf);
-    if(!mo){
-      html+=`<div class="karte"><div class="detail">${m.name}: in diesen Dateien nicht enthalten.</div></div>`;
-      return;
-    }
+    if(!mo){html+=`<div class="karte"><div class="detail">${m.name}: nicht enthalten.</div></div>`;return;}
     const e=rechnen(mo,heim,gast,m.ref?ref:"");
     if(!basis) basis=e;
     if(m.id==="tore"){
-      const s=spielausgang(e.muH, e.muA, mo.phiH, mo.phiA, mo.rho);
-      html+=`<div class="karte">
-        <div class="kopf"><b>Spielausgang</b>
-          <div class="erw">${f(e.muH,1)}:${f(e.muA,1)} <span>erwartet</span></div></div>
+      const s=spielausgang(e.muH,e.muA,mo.phiH,mo.phiA,mo.rho);
+      html+=`<div class="karte"><div class="kopf"><b>Spielausgang</b>
+        <div class="erw">${f(e.muH,1)}:${f(e.muA,1)} <span>erwartet</span></div></div>
         <div class="trenner">Dreiweg</div>
         ${zeilen([[heim+" gewinnt",s.heim],["Unentschieden",s.remis],[gast+" gewinnt",s.aus]])}
         <div class="trenner">Beide treffen</div>
         ${zeilen([["Ja",s.bttsJa],["Nein",s.bttsNein]])}
         <div class="detail">Unentschieden-Korrektur ${f(mo.rho,3)}.</div></div>`;
     }
-    html+=`<div class="karte">
-      <div class="kopf"><b>${m.name}</b>
-        <div class="erw">${f(e.mu)} <span>erwartet</span></div></div>
+    html+=`<div class="karte"><div class="kopf"><b>${m.name}</b>
+      <div class="erw">${f(e.mu)} <span>erwartet</span></div></div>
       ${tabelle(e.gesamt)}
-      <details>
-        <summary>Pro Mannschaft anzeigen</summary>
-        <div class="teamzeile">${heim} · ${f(e.muH)} erwartet</div>
-        ${tabelle(e.heimL,"mini")}
-        <div class="teamzeile">${gast} · ${f(e.muA)} erwartet</div>
-        ${tabelle(e.gastL,"mini")}
+      <details><summary>Pro Mannschaft anzeigen</summary>
+        <div class="teamzeile">${heim} · ${f(e.muH)} erwartet</div>${tabelle(e.heimL,"mini")}
+        <div class="teamzeile">${gast} · ${f(e.muA)} erwartet</div>${tabelle(e.gastL,"mini")}
       </details>
-      <div class="detail">
-        ${heim}: Angriff ${f(e.angH)} · Abwehr ${f(e.abwH)}<br>
+      <div class="detail">${heim}: Angriff ${f(e.angH)} · Abwehr ${f(e.abwH)}<br>
         ${gast}: Angriff ${f(e.angA)} · Abwehr ${f(e.abwA)}<br>
         Heimvorteil ${f(mo.hvH)} · Halbwertszeit ${m.halbwert} Tage${e.rf!==1?` · Ref-Faktor ${f(e.rf)}`:""}<br>
-        Streuung gesamt ${f(mo.phiT)} · Ligaschnitt ${f(mo.ligaMittel)} aus ${mo.spiele} Spielen</div></div>`;
+        Streuung ${f(mo.phiT)} · Ligaschnitt ${f(mo.ligaMittel)} aus ${mo.spiele} Spielen</div></div>`;
   });
   if(basis){
     const duenn=[];
     if(basis.hGew<5) duenn.push(`${heim} (${basis.hRoh} Spiele)`);
     if(basis.aGew<5) duenn.push(`${gast} (${basis.aRoh} Spiele)`);
-    if(duenn.length){
-      html=`<div class="warn"><b>Dünne Datenbasis:</b> ${duenn.join(", ")}.
-        Das Modell setzt diese Mannschaft nahe dem Ligamittel an.</div>`+html;
-    }
-    html+=`<p class="hinweis">
-      Ein Angriffs- oder Abwehrwert von 1,00 entspricht dem Ligadurchschnitt.
-      Was fehlt: Aufstellungen, Trainerwechsel und Spielverlauf.
-      Bei Ecken und Karten liegt die Buchmachermarge meist bei 6–10 statt 3–5 Prozent;
-      ein rechnerischer Vorteil unter 4 Prozent ist dort in der Regel Rauschen.</p>`;
+    if(duenn.length) html=`<div class="warn"><b>Dünne Datenbasis:</b> ${duenn.join(", ")}.</div>`+html;
+    html+=`<p class="hinweis">Ein Angriffs- oder Abwehrwert von 1,00 entspricht dem
+      Ligadurchschnitt. Was fehlt: Aufstellungen, Trainerwechsel und Spielverlauf.
+      Bei Ecken und Karten liegt die Marge bei 6–10 statt 3–5 Prozent; ein Vorteil
+      unter 4 Prozent ist dort meist Rauschen.</p>`;
   }
   ziel.innerHTML=html;
 }
-
 function listenFuellen(){
   const alle=document.getElementById("alleTeams").checked;
   const akt=aktuelle();
-  const quelle = (alle || !akt.length) ? rohdaten() : akt;
+  const quelle=(alle||!akt.length)?rohdaten():akt;
   const teams=[...new Set(quelle.flatMap(r=>[r.HomeTeam,r.AwayTeam]))]
     .filter(Boolean).sort((a,b)=>a.localeCompare(b,"de"));
   ["heim","gast"].forEach(id=>{
@@ -1455,17 +1593,14 @@ function listenFuellen(){
       teams.map(t=>`<option${t===alt?" selected":""}>${t}</option>`).join("");
   });
 }
-
 async function ligaLaden(code){
   if(!code) return;
   document.getElementById("status").textContent="Lade …";
   await ansetzungenLaden();
   const d=await ligaDatenHolen(code);
   if(!d.alle.length){
-    document.getElementById("status").innerHTML=
-      "Für diese Liga wurden keine Dateien gefunden.";
-    document.getElementById("uploadbereich").style.display="block";
-    return;
+    document.getElementById("status").innerHTML="Für diese Liga wurden keine Dateien gefunden.";
+    document.getElementById("uploadbereich").style.display="block"; return;
   }
   AKTIV=code;
   document.getElementById("vergleich").innerHTML="";
@@ -1476,33 +1611,149 @@ async function ligaLaden(code){
     Object.entries(refs).filter(([,c])=>c>=3).sort((a,b)=>a[0].localeCompare(b[0],"de"))
       .map(([n,c])=>`<option value="${n}">${n} (${c})</option>`).join("");
   document.getElementById("auswahl").style.display="block";
-  const anzTeams=new Set(d.aktuelle.flatMap(r=>[r.HomeTeam,r.AwayTeam])).size;
-  document.getElementById("status").innerHTML = d.aktuelle.length
-    ? `${d.alle.length} Spiele als Datenbasis. Teamliste: ${anzTeams} Mannschaften
+  const anz=new Set(d.aktuelle.flatMap(r=>[r.HomeTeam,r.AwayTeam])).size;
+  document.getElementById("status").innerHTML=d.aktuelle.length
+    ? `${d.alle.length} Spiele als Datenbasis. Teamliste: ${anz} Mannschaften
        aus Saison ${d.label} (${d.aktuelle.length} Spiele gespielt).`
-    : `${d.alle.length} Spiele geladen. Teamliste aus allen Saisons.`;
+    : `${d.alle.length} Spiele geladen.`;
   document.getElementById("ergebnis").innerHTML=
     '<p class="hinweis">Wähle eine Partie aus der Liste oder zwei Mannschaften.</p>';
   spieltagZeichnen();
 }
 
+// ======== Baseballanzeige ========
+function mlbZeichnen(partie){
+  const pa=document.getElementById("pitcherArt").value;
+  const ziel=document.getElementById("ergebnis");
+  const {heim,gast,park,hp,ap,hpn,apn}=partie;
+  const moF5=mlbModell("F5",pa), moI1=mlbModell("I1",pa), moR=mlbModell("R",pa);
+  if(!moF5){ziel.innerHTML='<p class="hinweis">Zu wenige Spiele.</p>';return;}
+  const e=moF5.erw(heim,gast,park,hp,ap), gesamt=e.muH+e.muA;
+  const aus=spielausgang(e.muH,e.muA,moF5.phiH,moF5.phiA,moF5.rho,14);
+  const pf=id=>moF5.pit[id]!==undefined?moF5.pit[id]:1;
+  const zeile=(n,p)=>`<tr><td>${n}</td><td>${f(p*100,1)} %</td><td class="q">${f(1/p)}</td></tr>`;
+  const kopfTab='<table><thead><tr><th>Auswahl</th><th>Wahrsch.</th><th>faire Quote</th></tr></thead><tbody>';
+  let html=`<div class="karte">
+    <div class="kopf"><b>F5 · erste fünf Innings</b>
+      <div class="erw">${f(gesamt)} <span>Runs erwartet</span></div></div>
+    <div class="trenner">Gesamt</div>
+    ${(()=>{let t='<table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th><th>Under</th><th>faire Q.</th></tr></thead><tbody>';
+      linienLeiter(gesamt,moF5.phiT,[3.5,4.5,5.5,6.5,7.5]).forEach(l=>{
+        t+=`<tr><td>${f(l.L,1)}</td><td>${f(l.over*100,1)} %</td><td class="q">${f(1/l.over)}</td>
+          <td>${f(l.under*100,1)} %</td><td class="q">${f(1/l.under)}</td></tr>`;});
+      return t+"</tbody></table>";})()}
+    <div class="trenner">Dreiweg nach fünf Innings</div>
+    ${kopfTab}${zeile(heim,aus.heim)}${zeile("Unentschieden",aus.remis)}${zeile(gast,aus.aus)}</tbody></table>
+    <details><summary>Team-Totals F5</summary>
+      <div class="teamzeile">${heim} · ${f(e.muH)} erwartet</div>
+      ${(()=>{let t=kopfTab;
+        linienLeiter(e.muH,moF5.phiH,[0.5,1.5,2.5,3.5]).forEach(l=>{
+          t+=zeile("über "+f(l.L,1),l.over)+zeile("unter "+f(l.L,1),l.under);});
+        return t+"</tbody></table>";})()}
+      <div class="teamzeile">${gast} · ${f(e.muA)} erwartet</div>
+      ${(()=>{let t=kopfTab;
+        linienLeiter(e.muA,moF5.phiA,[0.5,1.5,2.5,3.5]).forEach(l=>{
+          t+=zeile("über "+f(l.L,1),l.over)+zeile("unter "+f(l.L,1),l.under);});
+        return t+"</tbody></table>";})()}
+    </details>
+    <div class="detail">
+      Offensive ${heim} ${f(moF5.off[heim]||1)} · ${gast} ${f(moF5.off[gast]||1)}<br>
+      Werfer ${hpn||"unbekannt"} ${f(pf(hp))} · ${apn||"unbekannt"} ${f(pf(ap))}
+      <span class="q">(unter 1,00 besser als Schnitt)</span><br>
+      Park ${park||"?"} ${f(moF5.park[park]||1)} · Heimvorteil ${f(moF5.hvH)} ·
+      Streuung ${f(moF5.phiT)} · Ligaschnitt ${f(moF5.mittel)} aus ${moF5.spiele} Spielen
+    </div></div>`;
+  if(moI1){
+    const i=moI1.erw(heim,gast,park,hp,ap);
+    const p0H=verteilung(i.muH,moI1.phiH,8)[0], p0A=verteilung(i.muA,moI1.phiA,8)[0];
+    const kein=Math.min(0.999,Math.max(0.001,p0H*p0A));
+    html+=`<div class="karte"><div class="kopf"><b>Erstes Inning</b>
+      <div class="erw">${f(i.muH+i.muA)} <span>Runs erwartet</span></div></div>
+      ${kopfTab}${zeile("NRFI · kein Run",kein)}${zeile("YRFI · mindestens ein Run",1-kein)}</tbody></table>
+      <div class="detail">Beide Hälften getrennt gerechnet und multipliziert.</div></div>`;
+  }
+  if(moR){
+    const r=moR.erw(heim,gast,park,hp,ap), ges=r.muH+r.muA;
+    html+=`<div class="karte"><div class="kopf"><b>Ganzes Spiel</b>
+      <div class="erw">${f(ges)} <span>Runs erwartet</span></div></div>
+      ${(()=>{let t='<table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th><th>Under</th><th>faire Q.</th></tr></thead><tbody>';
+        linienLeiter(ges,moR.phiT,[6.5,7.5,8.5,9.5,10.5,11.5]).forEach(l=>{
+          t+=`<tr><td>${f(l.L,1)}</td><td>${f(l.over*100,1)} %</td><td class="q">${f(1/l.over)}</td>
+            <td>${f(l.under*100,1)} %</td><td class="q">${f(1/l.under)}</td></tr>`;});
+        return t+"</tbody></table>";})()}
+      <div class="detail">Schwächer als F5. Der Starter geht nur mit Anteil
+        ${f(STARTER_ANTEIL,1)} ein, der Rest ist Bullpen zum Ligaschnitt.</div></div>`;
+  }
+  html+=`<p class="hinweis">Bewertung des Werfers: ${moF5.komponenten
+    ?"komponentenbasiert aus Strikeouts, Walks und Home Runs"
+    :"ergebnisbasiert aus den zugelassenen Runs, bereinigt um Gegner und Park"}.
+    Nicht enthalten: Bullpen-Zustand, Handedness-Splits, Wetter und Umpire.</p>`;
+  ziel.innerHTML=html;
+}
+function mlbSpieltag(){
+  const ziel=document.getElementById("spieltag");
+  const jetzt=Date.now();
+  const spiele=MLB.ansetzungen.filter(a=>a.ms>jetzt-3.5*3600*1000).sort((a,b)=>a.ms-b.ms);
+  if(!spiele.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Ansetzungen</b></div>
+      <div class="detail">Keine kommenden Partien.</div></div>`; return;
+  }
+  const pa=document.getElementById("pitcherArt").value;
+  const mo=mlbModell("F5",pa);
+  let html=`<div class="karte"><div class="kopf"><b>MLB</b>
+    <span class="q">${spiele.length} Partien</span></div>`;
+  let letzter="";
+  spiele.forEach((a,i)=>{
+    const tag=tagVonMs(a.ms);
+    if(tag!==letzter){html+=`<div class="tagkopf">${tag}</div>`;letzter=tag;}
+    let zahlen="";
+    if(mo){
+      const e=mo.erw(a.heim,a.gast,a.park,a.hp,a.ap);
+      zahlen=`F5 gesamt ${f(e.muH+e.muA)} · ${a.gast} ${f(e.muA)} bei ${a.heim} ${f(e.muH)}`;
+    }
+    html+=`<div class="spiel" data-i="${i}">
+      <div class="zeit">${zeitVonMs(a.ms)} · ${a.park||""}</div>
+      <div class="paar">${a.gast} bei ${a.heim}</div>
+      <div class="zahlen">${zahlen}</div>
+      <div class="werfer">${a.apn||"Starter offen"} gegen ${a.hpn||"Starter offen"}</div>
+    </div>`;
+  });
+  html+=`<div class="detail">Auswärtsteam zuerst. Zeiten in deiner Ortszeit.</div></div>`;
+  ziel.innerHTML=html;
+  ziel.querySelectorAll(".spiel").forEach(el=>{
+    el.addEventListener("click",()=>{
+      mlbZeichnen(spiele[Number(el.getAttribute("data-i"))]);
+      document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+    });
+  });
+}
+async function mlbStarten(){
+  const k=document.getElementById("mlbKnopf");
+  k.disabled=true;
+  if(await mlbLaden()) mlbSpieltag();
+  k.disabled=false;
+}
+
 // ======== Sportartenwechsel ========
 function sportWechseln(){
   SPORT=document.getElementById("sportart").value;
-  const fb=SPORT==="fussball";
-  document.getElementById("fussballTeil").style.display = fb ? "block" : "none";
-  document.getElementById("baseballTeil").style.display = fb ? "none" : "block";
-  document.getElementById("auswahl").style.display =
-    (fb && AKTIV) ? "block" : "none";
-  document.getElementById("unterzeile").textContent = fb
-    ? "Dreiweg · Beide treffen · Tore · Ecken · Karten · Schüsse"
-    : "F5 · Dreiweg · NRFI · Ganzes Spiel";
+  const zeig=(id,an)=>document.getElementById(id).style.display=an?"block":"none";
+  zeig("fussballTeil",SPORT==="fussball");
+  zeig("baseballTeil",SPORT==="baseball");
+  zeig("tennisTeil",SPORT==="tennis");
+  zeig("auswahl",SPORT==="fussball"&&!!AKTIV);
+  document.getElementById("unterzeile").textContent=
+    SPORT==="fussball" ? "Dreiweg · Beide treffen · Tore · Ecken · Karten · Schüsse"
+    : SPORT==="baseball" ? "F5 · Dreiweg · NRFI · Ganzes Spiel"
+    : "Matchsieger · Satzstand · Spielanzahl";
   document.getElementById("funde").innerHTML="";
   document.getElementById("vergleich").innerHTML="";
   document.getElementById("spieltag").innerHTML="";
-  document.getElementById("ergebnis").innerHTML= fb ? "" :
-    '<p class="hinweis">Ansetzungen laden, dann eine Partie antippen.</p>';
-  if(!fb && MLB.geladen) mlbSpieltag();
+  document.getElementById("ergebnis").innerHTML =
+    SPORT==="fussball" ? "" :
+    '<p class="hinweis">Daten laden, dann eine Partie antippen.</p>';
+  if(SPORT==="baseball"&&MLB.geladen) mlbSpieltag();
+  if(SPORT==="tennis"&&TENNIS[document.getElementById("tour").value]) tennisSpieltag();
 }
 
 // ======== Start ========
@@ -1511,8 +1762,8 @@ document.getElementById("liga").innerHTML='<option value="">– wählen –</opt
 document.getElementById("liga").addEventListener("change",e=>ligaLaden(e.target.value));
 ["heim","gast","ref"].forEach(id=>
   document.getElementById(id).addEventListener("change",zeichnen));
-document.getElementById("verfahren").addEventListener("change",()=>{ zeichnen(); spieltagZeichnen(); });
-document.getElementById("alleTeams").addEventListener("change",()=>{ listenFuellen(); zeichnen(); });
+document.getElementById("verfahren").addEventListener("change",()=>{zeichnen();spieltagZeichnen();});
+document.getElementById("alleTeams").addEventListener("change",()=>{listenFuellen();zeichnen();});
 document.getElementById("testKnopf").addEventListener("click",vergleichStarten);
 document.getElementById("scanKnopf").addEventListener("click",alleLigenScannen);
 document.getElementById("liveKnopf").addEventListener("click",liveZeigen);
@@ -1524,18 +1775,29 @@ document.getElementById("pitcherArt").addEventListener("change",()=>{
   document.getElementById("ergebnis").innerHTML=
     '<p class="hinweis">Verfahren gewechselt — Partie erneut antippen.</p>';
 });
+document.getElementById("tennisKnopf").addEventListener("click",tennisStarten);
+document.getElementById("tennisRechnen").addEventListener("click",tennisZeichnen);
+document.getElementById("tour").addEventListener("change",()=>{
+  TENNIS.modelle={};
+  document.getElementById("spieltag").innerHTML="";
+  document.getElementById("ergebnis").innerHTML=
+    '<p class="hinweis">Tour gewechselt — Daten laden.</p>';
+});
+document.getElementById("belag").addEventListener("change",()=>{
+  if(TENNIS[document.getElementById("tour").value]) tennisSpieltag();
+});
 document.getElementById("datei").addEventListener("change",async e=>{
   const texte=await Promise.all([...e.target.files].map(f=>f.text()));
   const rows=texte.flatMap(csvLesen).filter(r=>r.HomeTeam&&r.AwayTeam);
-  DATEN["UPLOAD"]={alle:rows, aktuelle:[], label:""};
+  DATEN["UPLOAD"]={alle:rows,aktuelle:[],label:""};
   AKTIV="UPLOAD";
   listenFuellen();
   document.getElementById("auswahl").style.display="block";
   document.getElementById("status").textContent=`${rows.length} Spiele geladen.`;
 });
 fetch(`./daten/${SAISONS[SAISONS.length-1]}-D1.csv`,{method:"HEAD"})
-  .then(r=>{ if(!r.ok) throw 0; })
-  .catch(()=>{ document.getElementById("uploadbereich").style.display="block"; });
+  .then(r=>{if(!r.ok) throw 0;})
+  .catch(()=>{document.getElementById("uploadbereich").style.display="block";});
 </script>
 </body>
 </html>
