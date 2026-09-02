@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Excel-Leser installieren
+        run: pip install openpyxl
+
       - name: Fussball abrufen
         run: python hole_fussball.py
 
