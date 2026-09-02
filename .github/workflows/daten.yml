@@ -17,11 +17,19 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: CSVs abrufen
-        run: |
-          mkdir -p daten
-          for SAISON in 2425 2526 2627; do
-            for LIGA in E0 E1 E2 E3 EC SC0 SC1 SC2 SC3 D1 D2 I1 I2 SP1 SP2 F1 F2 N1 B1 P1 T1 G1; do
-              URL=https://www.football-data.co.uk/mmz4281/$SAISON/$LIGA.csv
-              if curl -sfL --retry 3 -o roh.tmp $URL; then
-                if iconv -c -f
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fussball abrufen
+        run: python hole_fussball.py
+
+      - name: MLB abrufen
+        run: python hole_mlb.py
+
+      - name: Aenderungen sichern
+        if: always()
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Daten aktualisiert
+          file_pattern: daten/*
