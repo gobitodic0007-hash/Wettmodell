@@ -1,23 +1,31 @@
 #!/usr/bin/env python3
-"""Holt MLB-Daten von statsapi.mlb.com und legt sie als CSV im Ordner daten ab.
+"""Holt MLB-Daten von statsapi.mlb.com.
 
 Erzeugt:
   daten/mlb-spiele.csv       abgeschlossene Spiele mit F5-Runs und Startern
   daten/mlb-pitcher.csv      Saisonwerte der Starter
+  daten/mlb-starts.csv       je Start: Batters Faced, Strikeouts, Innings
+  daten/mlb-teams.csv        Strikeout-Anfaelligkeit der Offensiven
   daten/mlb-ansetzungen.csv  kommende Spiele mit angekuendigten Startern
+
+Listet ausserdem auf, welche Ligen die Schnittstelle fuehrt.
 """
 
 import json, os, csv, time, urllib.request
 from datetime import date, timedelta
 
 BASIS   = "https://statsapi.mlb.com/api/v1"
-SAISONS = [2024, 2025, 2026]        # im Frühjahr die neue Saison anhängen
+SAISONS = [2024, 2025, 2026]
+LOG_SAISONS = [2025, 2026]      # Startprotokolle nur fuer die juengsten Jahre
+MIN_IP  = 20                    # ab wie vielen Innings ein Werfer protokolliert wird
 ORDNER  = "daten"
 
 KOPF_SPIELE = ["Datum","GamePk","Park","Heim","Gast",
                "HeimF5","GastF5","HeimI1","GastI1","HeimR","GastR",
                "HeimStarterId","HeimStarter","GastStarterId","GastStarter"]
-KOPF_PITCH  = ["Id","Name","Saison","IP","R","ER","SO","BB","HBP","HR","BF"]
+KOPF_PITCH  = ["Id","Name","Saison","IP","R","ER","SO","BB","HBP","HR","BF","GS"]
+KOPF_STARTS = ["Datum","PitcherId","Gegner","BF","SO","IP","Heim"]
+KOPF_TEAMS  = ["Team","Saison","PA","SO"]
 KOPF_ANS    = ["Zeit","GamePk","Park","Heim","Gast",
                "HeimStarterId","HeimStarter","GastStarterId","GastStarter"]
 
@@ -37,7 +45,6 @@ def hole(url, versuche=3):
 
 
 def ip_zahl(s):
-    """MLB schreibt Innings als 145.2 und meint 145 und zwei Drittel."""
     try:
         ganz, rest = str(s).split(".")
         return int(ganz) + int(rest) / 3.0
@@ -52,8 +59,16 @@ def runs(halb):
     return (halb or {}).get("runs") or 0
 
 
+def ligen_auflisten():
+    d = hole(f"{BASIS}/sports")
+    if not d:
+        print("  Ligenliste nicht abrufbar")
+        return
+    for s in d.get("sports", []):
+        print(f"  sportId {s.get('id')}: {s.get('name')} ({s.get('code')})")
+
+
 def starter_aus_boxscore(pk):
-    """Nur nötig, wenn im Spielplan kein Pitcher hinterlegt ist."""
     d = hole(f"{BASIS}/game/{pk}/boxscore")
     if not d:
         return (None, "", None, "")
@@ -91,24 +106,20 @@ def spiele_holen():
                     if g.get("status", {}).get("abstractGameState") != "Final":
                         continue
                     inn = g.get("linescore", {}).get("innings", [])
-                    if len(inn) < 5:          # Abbruch oder verkuerztes Spiel
+                    if len(inn) < 5:
                         continue
-                    heim = g["teams"]["home"]
-                    gast = g["teams"]["away"]
-
+                    heim, gast = g["teams"]["home"], g["teams"]["away"]
                     hp = heim.get("probablePitcher") or {}
                     gp = gast.get("probablePitcher") or {}
                     hid, hnm = hp.get("id"), hp.get("fullName", "")
                     gid, gnm = gp.get("id"), gp.get("fullName", "")
                     if not hid or not gid:
-                        hid2, hnm2, gid2, gnm2 = starter_aus_boxscore(g["gamePk"])
-                        hid, hnm = hid or hid2, hnm or hnm2
-                        gid, gnm = gid or gid2, gnm or gnm2
+                        h2, hn2, g2, gn2 = starter_aus_boxscore(g["gamePk"])
+                        hid, hnm = hid or h2, hnm or hn2
+                        gid, gnm = gid or g2, gnm or gn2
                         time.sleep(0.1)
-
                     if hid: pitcher_ids.add((hid, jahr))
                     if gid: pitcher_ids.add((gid, jahr))
-
                     zeilen.append([
                         g.get("officialDate", ""), g["gamePk"],
                         g.get("venue", {}).get("name", ""),
@@ -126,7 +137,7 @@ def spiele_holen():
 
 
 def pitcher_holen(ids):
-    zeilen = []
+    zeilen, viel = [], set()
     for n, (pid, jahr) in enumerate(sorted(ids), 1):
         url = (f"{BASIS}/people/{pid}"
                f"?hydrate=stats(group=[pitching],type=[season],season={jahr})")
@@ -140,17 +151,71 @@ def pitcher_holen(ids):
                 st = split.get("stat")
         if not st:
             continue
+        ip = ip_zahl(st.get("inningsPitched", 0))
         zeilen.append([
-            pid, p.get("fullName", ""), jahr,
-            round(ip_zahl(st.get("inningsPitched", 0)), 2),
+            pid, p.get("fullName", ""), jahr, round(ip, 2),
             st.get("runs", 0), st.get("earnedRuns", 0),
             st.get("strikeOuts", 0), st.get("baseOnBalls", 0),
             st.get("hitByPitch", 0), st.get("homeRuns", 0),
-            st.get("battersFaced", 0),
+            st.get("battersFaced", 0), st.get("gamesStarted", 0),
         ])
+        if ip >= MIN_IP and jahr in LOG_SAISONS:
+            viel.add((pid, jahr))
         if n % 50 == 0:
             print(f"  {n} von {len(ids)} Pitchern")
         time.sleep(0.12)
+    return zeilen, viel
+
+
+def starts_holen(viel):
+    """Je Start: Batters Faced, Strikeouts, Innings, Gegner."""
+    zeilen = []
+    for n, (pid, jahr) in enumerate(sorted(viel), 1):
+        url = (f"{BASIS}/people/{pid}/stats"
+               f"?stats=gameLog&group=pitching&season={jahr}")
+        d = hole(url)
+        if not d:
+            continue
+        for block in d.get("stats", []):
+            for sp in block.get("splits", []):
+                st = sp.get("stat", {})
+                if not st.get("gamesStarted"):
+                    continue
+                bf = st.get("battersFaced")
+                if not bf:
+                    continue
+                zeilen.append([
+                    sp.get("date", ""), pid,
+                    (sp.get("opponent") or {}).get("name", ""),
+                    bf, st.get("strikeOuts", 0),
+                    round(ip_zahl(st.get("inningsPitched", 0)), 2),
+                    1 if sp.get("isHome") else 0,
+                ])
+        if n % 50 == 0:
+            print(f"  {n} von {len(viel)} Startprotokollen")
+        time.sleep(0.12)
+    return zeilen
+
+
+def teams_holen():
+    """Strikeout-Anfaelligkeit der Offensiven."""
+    zeilen = []
+    for jahr in LOG_SAISONS:
+        url = (f"{BASIS}/teams/stats?stats=season&group=hitting"
+               f"&season={jahr}&sportIds=1")
+        d = hole(url)
+        if not d:
+            continue
+        for block in d.get("stats", []):
+            for sp in block.get("splits", []):
+                st = sp.get("stat", {})
+                team = (sp.get("team") or {}).get("name", "")
+                if not team:
+                    continue
+                zeilen.append([team, jahr,
+                               st.get("plateAppearances", 0),
+                               st.get("strikeOuts", 0)])
+        time.sleep(0.3)
     return zeilen
 
 
@@ -190,12 +255,23 @@ def schreiben(pfad, kopf, zeilen):
 
 def main():
     os.makedirs(ORDNER, exist_ok=True)
+
+    print("Verfuegbare Ligen der Schnittstelle:")
+    ligen_auflisten()
+
     print("Spiele holen ...")
     spiele, ids = spiele_holen()
     schreiben(f"{ORDNER}/mlb-spiele.csv", KOPF_SPIELE, spiele)
 
     print(f"Pitcher holen ({len(ids)}) ...")
-    schreiben(f"{ORDNER}/mlb-pitcher.csv", KOPF_PITCH, pitcher_holen(ids))
+    pitcher, viel = pitcher_holen(ids)
+    schreiben(f"{ORDNER}/mlb-pitcher.csv", KOPF_PITCH, pitcher)
+
+    print(f"Startprotokolle holen ({len(viel)}) ...")
+    schreiben(f"{ORDNER}/mlb-starts.csv", KOPF_STARTS, starts_holen(viel))
+
+    print("Offensivwerte holen ...")
+    schreiben(f"{ORDNER}/mlb-teams.csv", KOPF_TEAMS, teams_holen())
 
     print("Ansetzungen holen ...")
     schreiben(f"{ORDNER}/mlb-ansetzungen.csv", KOPF_ANS, ansetzungen_holen())
