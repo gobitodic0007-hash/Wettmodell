@@ -21,17 +21,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Excel-Leser installieren
-        run: pip install openpyxl
-
       - name: Fussball abrufen
         run: python hole_fussball.py
 
       - name: MLB abrufen
         run: python hole_mlb.py
-
-      - name: Tennis abrufen
-        run: python hole_tennis.py
 
       - name: Aenderungen sichern
         if: always()
