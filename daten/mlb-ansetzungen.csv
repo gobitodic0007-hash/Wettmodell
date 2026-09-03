@@ -10,7 +10,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-04T02:10:00Z,823907,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,St. Louis Cardinals,669373,Tarik Skubal,687273,Quinn Mathews
 2026-09-04T18:10:00Z,824424,Progressive Field,Cleveland Guardians,Detroit Tigers,,,672456,Keider Montero
 2026-09-04T23:15:00Z,824387,Progressive Field,Cleveland Guardians,Detroit Tigers,,,808825,Andrew Sears
-2026-09-04T22:10:00Z,824471,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,695076,Rhett Lowder,,
+2026-09-04T22:10:00Z,824471,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,695076,Rhett Lowder,675660,Shane Drohan
 2026-09-04T22:40:00Z,823418,Citizens Bank Park,Philadelphia Phillies,Atlanta Braves,650911,Cristopher Sánchez,519242,Chris Sale
 2026-09-04T22:45:00Z,823338,PNC Park,Pittsburgh Pirates,Los Angeles Angels,683003,Jared Jones,696270,Ryan Johnson
 2026-09-04T23:05:00Z,824797,Oriole Park at Camden Yards,Baltimore Orioles,Boston Red Sox,669358,Shane Baz,624133,Ranger Suarez
@@ -29,7 +29,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-05T22:05:00Z,823419,Citizens Bank Park,Philadelphia Phillies,Atlanta Braves,554430,Zack Wheeler,527048,Martín Pérez
 2026-09-05T22:10:00Z,824389,Progressive Field,Cleveland Guardians,Detroit Tigers,800048,Parker Messick,664285,Framber Valdez
 2026-09-05T22:40:00Z,823335,PNC Park,Pittsburgh Pirates,Los Angeles Angels,677952,Braxton Ashcraft,579328,Yusei Kikuchi
-2026-09-05T22:40:00Z,824468,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,671096,Andrew Abbott,,
+2026-09-05T22:40:00Z,824468,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,671096,Andrew Abbott,669160,Dustin May
 2026-09-05T23:05:00Z,824795,Oriole Park at Camden Yards,Baltimore Orioles,Boston Red Sox,605135,Chris Bassitt,543243,Sonny Gray
 2026-09-05T23:05:00Z,822850,Globe Life Field,Texas Rangers,Tampa Bay Rays,594798,Jacob deGrom,656876,Drew Rasmussen
 2026-09-05T23:10:00Z,824066,Kauffman Stadium,Kansas City Royals,Toronto Blue Jays,,,453286,Max Scherzer
@@ -39,7 +39,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-06T00:10:00Z,824310,Coors Field,Colorado Rockies,St. Louis Cardinals,690279,Mason Adams,,
 2026-09-06T01:10:00Z,823904,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,Washington Nationals,,,676917,Cade Cavalli
 2026-09-06T01:40:00Z,823094,T-Mobile Park,Seattle Mariners,Athletics,669923,George Kirby,,
-2026-09-06T16:10:00Z,824469,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,663903,Brady Singer,,
+2026-09-06T16:10:00Z,824469,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,663903,Brady Singer,690986,Kyle Harrison
 2026-09-06T17:10:00Z,823417,Citizens Bank Park,Philadelphia Phillies,Atlanta Braves,605400,Aaron Nola,641816,Tyler Mahle
 2026-09-06T17:35:00Z,824794,Oriole Park at Camden Yards,Baltimore Orioles,Boston Red Sox,680694,Kyle Bradish,801139,Payton Tolle
 2026-09-06T17:35:00Z,823336,PNC Park,Pittsburgh Pirates,Los Angeles Angels,694973,Paul Skenes,700712,Walbert Ureña

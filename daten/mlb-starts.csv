@@ -2104,6 +2104,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-17,622491,Chicago Cubs,24,1,4.67,0
 2026-08-22,622491,New York Mets,17,3,2.67,1
 2026-08-28,622491,Minnesota Twins,21,1,4.0,0
+2026-09-03,622491,Houston Astros,8,2,2.0,0
 2025-08-17,622503,Colorado Rockies,19,5,5.0,0
 2025-08-28,622503,Milwaukee Brewers,27,2,5.67,0
 2025-09-02,622503,Texas Rangers,24,3,6.33,1
@@ -4285,7 +4286,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-18,667755,Tampa Bay Rays,25,2,5.67,0
 2026-08-23,667755,New York Yankees,25,7,5.0,0
 2026-08-29,667755,Seattle Mariners,27,6,7.0,1
-2026-09-03,667755,Cleveland Guardians,5,1,1.0,0
+2026-09-03,667755,Cleveland Guardians,21,2,4.33,0
 2026-07-30,668390,Tampa Bay Rays,3,0,1.0,0
 2025-03-27,668678,Chicago Cubs,21,4,4.0,1
 2025-04-02,668678,New York Yankees,24,13,6.67,0
@@ -5658,7 +5659,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-16,676440,San Diego Padres,27,3,6.0,1
 2026-08-22,676440,Colorado Rockies,24,6,6.0,0
 2026-08-28,676440,Kansas City Royals,27,5,6.0,1
-2026-09-03,676440,Toronto Blue Jays,3,1,1.0,1
+2026-09-03,676440,Toronto Blue Jays,20,4,4.0,1
 2025-05-14,676467,Kansas City Royals,22,3,4.33,1
 2025-05-19,676467,Tampa Bay Rays,21,7,5.33,0
 2025-05-25,676467,Seattle Mariners,23,4,5.0,1
@@ -6892,6 +6893,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-16,686613,Seattle Mariners,22,5,5.0,1
 2026-08-22,686613,Athletics,24,4,5.67,1
 2026-08-28,686613,New York Mets,25,10,6.67,0
+2026-09-03,686613,Chicago White Sox,16,5,3.0,1
 2025-06-03,686701,San Francisco Giants,21,2,5.0,0
 2025-06-08,686701,Milwaukee Brewers,20,4,5.33,0
 2025-06-14,686701,Arizona Diamondbacks,20,8,5.0,0
@@ -7814,7 +7816,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-16,694918,Colorado Rockies,19,1,4.33,1
 2026-08-22,694918,Boston Red Sox,21,7,5.67,0
 2026-08-28,694918,Arizona Diamondbacks,23,4,5.0,1
-2026-09-03,694918,Pittsburgh Pirates,13,3,2.67,0
+2026-09-03,694918,Pittsburgh Pirates,22,5,5.0,0
 2025-03-27,694973,Miami Marlins,20,7,5.33,0
 2025-04-02,694973,Tampa Bay Rays,24,6,7.0,0
 2025-04-08,694973,St. Louis Cardinals,26,7,6.0,1
