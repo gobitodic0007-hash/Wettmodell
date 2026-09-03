@@ -222,6 +222,16 @@
           <option value="teamtot:4.5">Team gesamt 4,5</option>
           <option value="teamtot:5.5">Team gesamt 5,5</option>
         </optgroup>
+        <optgroup label="Hits">
+          <option value="hits">Hits gesamt, alle Linien</option>
+          <option value="hits:15.5">Hits 15,5</option>
+          <option value="hits:16.5">Hits 16,5</option>
+          <option value="hits:17.5">Hits 17,5</option>
+          <option value="hitsteam">Hits je Team, alle Linien</option>
+          <option value="hitsteam:6.5">Team Hits 6,5</option>
+          <option value="hitsteam:7.5">Team Hits 7,5</option>
+          <option value="hitsteam:8.5">Team Hits 8,5</option>
+        </optgroup>
       </select>
     </div>
     <div class="zwei">
@@ -730,6 +740,9 @@ async function mlbLaden(){
       F5H:z(r.HeimF5),F5A:z(r.GastF5),I1H:z(r.HeimI1),I1A:z(r.GastI1),
       RH:z(r.HeimR),RA:z(r.GastR),
       LH:z(r.HeimR)-z(r.HeimF5),LA:z(r.GastR)-z(r.GastF5),
+      HH:z(r.HeimHits),HA:z(r.GastHits),
+      HF5H:z(r.HeimHitsF5),HF5A:z(r.GastHitsF5),
+      HLH:z(r.HeimHits)-z(r.HeimHitsF5),HLA:z(r.GastHits)-z(r.GastHitsF5),
       hp:r.HeimStarterId,ap:r.GastStarterId,hpn:r.HeimStarter,apn:r.GastStarter
     })).filter(s=>s.heim&&s.gast&&Number.isFinite(s.F5H)&&Number.isFinite(s.F5A));
     if(rp.ok){
@@ -853,7 +866,7 @@ function mlbFipFaktoren(){
 function mlbBauen(art,pitcherArt){
   // art: F5 = erste fuenf Innings, I1 = erstes Inning, L = ab dem sechsten.
   // Bei L wird nicht dem Starter zugerechnet, sondern dem Bullpen des Teams.
-  const bullpen = art==="L";
+  const bullpen = (art==="L"||art==="HL");
   const hf=s=>s[art+"H"], af=s=>s[art+"A"];
   const gegenHeim = s => bullpen ? s.gast : s.ap;
   const gegenGast = s => bullpen ? s.heim : s.hp;
@@ -941,6 +954,30 @@ function mlbModell(art,pitcherArt){
   const k=art+":"+pitcherArt;
   if(MLB.modelle[k]===undefined) MLB.modelle[k]=mlbBauen(art,pitcherArt);
   return MLB.modelle[k];
+}
+// Hits im ganzen Spiel: F5 gegen den Starter plus Spaetphase gegen das Bullpen
+function mlbHitsGesamt(pitcherArt){
+  const k="HGES:"+pitcherArt;
+  if(MLB.modelle[k]!==undefined) return MLB.modelle[k];
+  const f5=mlbModell("HF5",pitcherArt), sp=mlbModell("HL",pitcherArt);
+  if(!f5||!sp){ MLB.modelle[k]=null; return null; }
+  const erw=(heim,gast,pk,hpid,apid)=>{
+    const a=f5.erw(heim,gast,pk,hpid,apid), b=sp.erw(heim,gast,pk,hpid,apid);
+    return {muH:a.muH+b.muH, muA:a.muA+b.muA, f5:a.muH+a.muA, spaet:b.muH+b.muA};
+  };
+  let n=0,rT=0,rH=0,rA=0;
+  MLB.spiele.forEach(s=>{
+    if(!Number.isFinite(s.HH)||!Number.isFinite(s.HA)) return;
+    const e=erw(s.heim,s.gast,s.park,s.hp,s.ap);
+    const t=e.muH+e.muA;
+    if(!(t>0)) return;
+    n++;
+    rT+=((s.HH+s.HA)-t)**2/t;
+    rH+=(s.HH-e.muH)**2/e.muH; rA+=(s.HA-e.muA)**2/e.muA;
+  });
+  const mo={erw, phiT:n?rT/n:1, phiH:n?rH/n:1, phiA:n?rA/n:1, f5, bull:sp, spiele:n};
+  MLB.modelle[k]=mo;
+  return mo;
 }
 // Ganzes Spiel = F5 plus Spaetphase, Streuung an den echten Endstaenden gemessen
 function mlbGesamt(pitcherArt){
@@ -1068,6 +1105,25 @@ function mlbZeichnen(partie){
         schlägt.<br>
         Streuung ${f(moR.phiT)} aus ${moR.spiele} Endständen</div></div>`;
   }
+  const moHit=mlbHitsGesamt(pa);
+  if(moHit){
+    const h=moHit.erw(heim,gast,park,hp,ap), gh=h.muH+h.muA;
+    html+=`<div class="karte"><div class="kopf"><b>Hits</b>
+      <div class="erw">${f(gh,1)} <span>im ganzen Spiel</span></div></div>
+      ${linTab(gh,moHit.phiT,[14.5,15.5,16.5,17.5,18.5,19.5])}
+      <details><summary>Hits je Team</summary>
+        <div class="teamzeile">${heim} · ${f(h.muH,1)} erwartet</div>
+        ${linTab(h.muH,moHit.phiH,[5.5,6.5,7.5,8.5,9.5,10.5])}
+        <div class="teamzeile">${gast} · ${f(h.muA,1)} erwartet</div>
+        ${linTab(h.muA,moHit.phiA,[5.5,6.5,7.5,8.5,9.5,10.5])}
+      </details>
+      <div class="detail">
+        Aufteilung: ${f(h.f5,1)} in den ersten fünf Innings, ${f(h.spaet,1)} danach ·
+        Streuung ${f(moHit.phiT)} aus ${moHit.spiele} Spielen.<br>
+        Hits sind gleichmäßiger verteilt als Runs, weil kein Zusammenspiel nötig ist —
+        die Streuung liegt deshalb näher an eins. Für Über-Wetten ist das eher
+        ungünstig: Die Ränder sind dünner besetzt als bei Runs.</div></div>`;
+  }
   html+=`<p class="hinweis">Bewertung des Werfers bei Runs: ${moF5.komponenten
     ?"komponentenbasiert aus Strikeouts, Walks und Home Runs"
     :"ergebnisbasiert aus den zugelassenen Runs, bereinigt um Gegner und Park"}.
@@ -1130,6 +1186,20 @@ function mlbMaerkte(a){
       linienLeiter(mu,phi,[2.5,3.5,4.5,5.5,6.5]).forEach(l=>{
         out.push({id:`teamtot:${l.L}`,n:`${nm} gesamt über ${f(l.L,1)}`,p:l.over});
         out.push({id:`teamtot:${l.L}`,n:`${nm} gesamt unter ${f(l.L,1)}`,p:l.under});
+      });
+    });
+  }
+  const moHit=mlbHitsGesamt(pa);
+  if(moHit){
+    const h=moHit.erw(a.heim,a.gast,a.park,a.hp,a.ap), gh=h.muH+h.muA;
+    linienLeiter(gh,moHit.phiT,[13.5,14.5,15.5,16.5,17.5,18.5,19.5]).forEach(l=>{
+      out.push({id:`hits:${l.L}`,n:`Hits über ${f(l.L,1)}`,p:l.over});
+      out.push({id:`hits:${l.L}`,n:`Hits unter ${f(l.L,1)}`,p:l.under});
+    });
+    [[a.heim,h.muH,moHit.phiH],[a.gast,h.muA,moHit.phiA]].forEach(([nm,mu,phi])=>{
+      linienLeiter(mu,phi,[4.5,5.5,6.5,7.5,8.5,9.5,10.5]).forEach(l=>{
+        out.push({id:`hitsteam:${l.L}`,n:`${nm} Hits über ${f(l.L,1)}`,p:l.over});
+        out.push({id:`hitsteam:${l.L}`,n:`${nm} Hits unter ${f(l.L,1)}`,p:l.under});
       });
     });
   }
