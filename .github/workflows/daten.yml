@@ -30,6 +30,9 @@ jobs:
       - name: NHL abrufen
         run: python hole_nhl.py
 
+      - name: NFL abrufen
+        run: python hole_nfl.py
+
       - name: Aenderungen sichern
         if: always()
         uses: stefanzweifel/git-auto-commit-action@v5
