@@ -103,6 +103,7 @@
     <select id="sportart">
       <option value="fussball">Fußball</option>
       <option value="baseball">Baseball · MLB</option>
+      <option value="nhl">Eishockey · NHL</option>
     </select>
   </div>
 
@@ -238,6 +239,53 @@
     <div class="zwei">
       <button id="mlbKnopf" class="voll">Ansetzungen laden</button>
       <button id="mlbScanKnopf">Partien durchsuchen</button>
+    </div>
+  </div>
+  </div>
+
+  <div id="nhlTeil" style="display:none">
+    <div id="nhlStatus" style="font-size:12px;color:var(--grau);margin-bottom:12px"></div>
+    <div class="feld">
+      <label for="nhlEreignis">Ereignis</label>
+      <select id="nhlEreignis">
+        <option value="alle">Alle Märkte</option>
+        <optgroup label="Spielausgang">
+          <option value="reg3">Dreiweg nach 60 Minuten</option>
+          <option value="sieg">Sieger inklusive Verlängerung</option>
+        </optgroup>
+        <optgroup label="Tore">
+          <option value="tot">Tore gesamt, alle Linien</option>
+          <option value="tot:4.5">Tore 4,5</option>
+          <option value="tot:5.5">Tore 5,5</option>
+          <option value="tot:6.5">Tore 6,5</option>
+          <option value="team">Team-Totals</option>
+        </optgroup>
+        <optgroup label="Weitere">
+          <option value="sog">Schüsse aufs Tor</option>
+          <option value="pim">Strafminuten</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="zwei">
+      <div class="feld">
+        <label for="nhlSchwelle">Mindestens</label>
+        <select id="nhlSchwelle">
+          <option value="55">55 %</option><option value="60">60 %</option>
+          <option value="65" selected>65 %</option><option value="70">70 %</option>
+          <option value="75">75 %</option><option value="80">80 %</option>
+        </select>
+      </div>
+      <div class="feld">
+        <label for="nhlSortierung">Sortierung</label>
+        <select id="nhlSortierung">
+          <option value="zeit" selected>Anspielzeit</option>
+          <option value="p">Wahrscheinlichkeit</option>
+        </select>
+      </div>
+    </div>
+    <div class="zwei">
+      <button id="nhlKnopf" class="voll">Ansetzungen laden</button>
+      <button id="nhlScanKnopf">Partien durchsuchen</button>
     </div>
   </div>
 </div>
@@ -1596,22 +1644,428 @@ async function ligaLaden(code){
   spieltagZeichnen();
 }
 
+
+// ======== Eishockey ========
+const NHL_HALBWERT=350, NHL_KAPPA=6, NHL_ITER=30;
+const NHL={spiele:[],ansetzungen:[],torhueter:{},geladen:false,modelle:{},otHeim:0.55};
+const NHL_NAMEN={ANA:"Anaheim",BOS:"Boston",BUF:"Buffalo",CGY:"Calgary",CAR:"Carolina",
+ CHI:"Chicago",COL:"Colorado",CBJ:"Columbus",DAL:"Dallas",DET:"Detroit",EDM:"Edmonton",
+ FLA:"Florida",LAK:"Los Angeles",MIN:"Minnesota",MTL:"Montreal",NSH:"Nashville",
+ NJD:"New Jersey",NYI:"NY Islanders",NYR:"NY Rangers",OTT:"Ottawa",PHI:"Philadelphia",
+ PIT:"Pittsburgh",SJS:"San Jose",SEA:"Seattle",STL:"St. Louis",TBL:"Tampa Bay",
+ TOR:"Toronto",UTA:"Utah",VAN:"Vancouver",VGK:"Vegas",WSH:"Washington",WPG:"Winnipeg"};
+const nhlName=t=>NHL_NAMEN[t]||t;
+const nhlTage=iso=>{const d=new Date(String(iso).slice(0,10)+"T12:00:00Z");
+  return isNaN(d.getTime())?9999:Math.max(0,(JETZT-d.getTime())/86400000);};
+const nhlGewicht=s=>Math.pow(0.5,nhlTage(s.datum)/NHL_HALBWERT);
+
+const NHL_ARTEN={
+  REG:{h:s=>s.regH,a:s=>s.regA,tw:true,  leiter:[3.5,4.5,5.5,6.5],name:"Tore in 60 Minuten"},
+  TOR:{h:s=>s.torH,a:s=>s.torA,tw:true,  leiter:[3.5,4.5,5.5,6.5,7.5],name:"Tore gesamt"},
+  SOG:{h:s=>s.sogH,a:s=>s.sogA,tw:false, leiter:[51.5,55.5,59.5,63.5,67.5],name:"Schüsse aufs Tor"},
+  PIM:{h:s=>s.pimH,a:s=>s.pimA,tw:false, leiter:[7.5,9.5,11.5,13.5,15.5,17.5],name:"Strafminuten"}
+};
+
+async function nhlLaden(){
+  if(NHL.geladen) return true;
+  const setz=t=>{document.getElementById("nhlStatus").innerHTML=t;};
+  setz("Lade …");
+  try{
+    const [rs,ra]=await Promise.all([
+      fetch("./daten/nhl-spiele.csv"), fetch("./daten/nhl-ansetzungen.csv")]);
+    if(!rs.ok){setz("daten/nhl-spiele.csv fehlt.");return false;}
+    NHL.spiele=csvLesen(await rs.text()).map(r=>({
+      datum:r.Datum, heim:r.Heim, gast:r.Gast,
+      torH:z(r.HeimTore), torA:z(r.GastTore),
+      regH:z(r.HeimReg), regA:z(r.GastReg), ende:r.Ende,
+      sogH:z(r.HeimSOG), sogA:z(r.GastSOG),
+      pimH:z(r.HeimPIM), pimA:z(r.GastPIM),
+      twH:r.HeimTwId, twHn:r.HeimTw, twA:r.GastTwId, twAn:r.GastTw
+    })).filter(s=>s.heim&&s.gast&&Number.isFinite(s.torH)&&Number.isFinite(s.torA));
+    // Torhueter je Team sammeln, juengster Einsatz zuerst
+    NHL.spiele.slice().sort((a,b)=>String(a.datum).localeCompare(String(b.datum)))
+      .forEach(s=>{
+        [[s.heim,s.twH,s.twHn],[s.gast,s.twA,s.twAn]].forEach(([t,id,nm])=>{
+          if(!id) return;
+          const x=NHL.torhueter[t]=NHL.torhueter[t]||{};
+          x[id]=x[id]||{name:nm,n:0,letzte:""};
+          x[id].n++; x[id].letzte=s.datum; x[id].name=nm||x[id].name;
+        });
+      });
+    const ot=NHL.spiele.filter(s=>s.ende==="OT"||s.ende==="SO");
+    NHL.otHeim = ot.length ? ot.filter(s=>s.torH>s.torA).length/ot.length : 0.55;
+    if(ra.ok) NHL.ansetzungen=csvLesen(await ra.text()).map(r=>({
+      ms:Date.parse(r.Zeit), heim:r.Heim, gast:r.Gast
+    })).filter(r=>r.heim&&r.gast&&Number.isFinite(r.ms));
+    NHL.geladen=true;
+    setz(`${NHL.spiele.length} Spiele, ${NHL.ansetzungen.length} Ansetzungen. `+
+         `Heimquote in der Verlängerung ${f(NHL.otHeim*100,1)} Prozent.`);
+    return true;
+  }catch(e){setz("NHL-Daten konnten nicht geladen werden.");return false;}
+}
+
+// Meistgenutzter Torhueter eines Teams in den letzten Wochen
+function nhlStandardTw(team){
+  const x=NHL.torhueter[team];
+  if(!x) return null;
+  let best=null;
+  Object.entries(x).forEach(([id,d])=>{
+    const pkt=d.n+ (nhlTage(d.letzte)<40 ? 100 : 0);
+    if(!best||pkt>best.pkt) best={id,name:d.name,pkt};
+  });
+  return best;
+}
+
+function nhlBauen(art){
+  const A=NHL_ARTEN[art];
+  const sp=NHL.spiele.filter(s=>Number.isFinite(A.h(s))&&Number.isFinite(A.a(s)));
+  if(sp.length<200) return null;
+  const g=nhlGewicht;
+  let gs=0,sH=0,sA=0;
+  sp.forEach(s=>{const w=g(s); gs+=w; sH+=w*A.h(s); sA+=w*A.a(s);});
+  const ligaH=sH/gs, ligaA=sA/gs, liga=(ligaH+ligaA)/2;
+  if(!(liga>0)) return null;
+  let hvH=ligaH/liga, hvA=ligaA/liga;
+  const teams=[...new Set(sp.flatMap(s=>[s.heim,s.gast]))];
+  const twListe=A.tw?[...new Set(sp.flatMap(s=>[s.twH,s.twA]).filter(Boolean))]:[];
+  const off={},def={},tw={};
+  teams.forEach(t=>{off[t]=1;def[t]=1;});
+  twListe.forEach(p=>tw[p]=1);
+  const K=NHL_KAPPA*liga;
+  const T=p=>(A.tw&&tw[p]!==undefined)?tw[p]:1;
+  for(let it=0;it<NHL_ITER;it++){
+    const on={},od={},dn={},dd={};
+    teams.forEach(t=>{on[t]=0;od[t]=0;dn[t]=0;dd[t]=0;});
+    sp.forEach(s=>{const w=g(s);
+      on[s.heim]+=w*A.h(s); od[s.heim]+=w*liga*hvH*def[s.gast]*T(s.twA);
+      on[s.gast]+=w*A.a(s); od[s.gast]+=w*liga*hvA*def[s.heim]*T(s.twH);
+      dn[s.gast]+=w*A.h(s); dd[s.gast]+=w*liga*hvH*off[s.heim]*T(s.twA);
+      dn[s.heim]+=w*A.a(s); dd[s.heim]+=w*liga*hvA*off[s.gast]*T(s.twH);});
+    teams.forEach(t=>{off[t]=(on[t]+K)/(od[t]+K); def[t]=(dn[t]+K)/(dd[t]+K);});
+    let so=0,sd=0; teams.forEach(t=>{so+=off[t];sd+=def[t];});
+    if(so>0&&sd>0) teams.forEach(t=>{off[t]/=so/teams.length; def[t]/=sd/teams.length;});
+    if(A.tw){
+      const tn={},td={};
+      twListe.forEach(p=>{tn[p]=0;td[p]=0;});
+      sp.forEach(s=>{const w=g(s);
+        if(s.twA){tn[s.twA]+=w*A.h(s); td[s.twA]+=w*liga*hvH*off[s.heim]*def[s.gast];}
+        if(s.twH){tn[s.twH]+=w*A.a(s); td[s.twH]+=w*liga*hvA*off[s.gast]*def[s.heim];}});
+      twListe.forEach(p=>{tw[p]=(tn[p]+K)/(td[p]+K);});
+      let st=0; twListe.forEach(p=>st+=tw[p]);
+      if(st>0) twListe.forEach(p=>tw[p]/=st/twListe.length);
+    }
+    let nH=0,dH=0,nA=0,dA=0;
+    sp.forEach(s=>{const w=g(s);
+      nH+=w*A.h(s); dH+=w*liga*off[s.heim]*def[s.gast]*T(s.twA);
+      nA+=w*A.a(s); dA+=w*liga*off[s.gast]*def[s.heim]*T(s.twH);});
+    if(dH>0) hvH=nH/dH;
+    if(dA>0) hvA=nA/dA;
+  }
+  const erw=(heim,gast,twHeim,twGast)=>({
+    muH:liga*hvH*(off[heim]||1)*(def[gast]||1)*T(twGast),
+    muA:liga*hvA*(off[gast]||1)*(def[heim]||1)*T(twHeim)});
+  let n=0,rH=0,rA=0,rT=0;
+  sp.forEach(s=>{
+    const e=erw(s.heim,s.gast,s.twH,s.twA);
+    if(!(e.muH>0)||!(e.muA>0)) return;
+    n++;
+    rH+=(A.h(s)-e.muH)**2/e.muH; rA+=(A.a(s)-e.muA)**2/e.muA;
+    const t=e.muH+e.muA;
+    rT+=((A.h(s)+A.a(s))-t)**2/t;
+  });
+  const mo={art,erw,off,def,tw,hvH,hvA,liga,leiter:A.leiter,name:A.name,
+    phiH:n?rH/n:1,phiA:n?rA/n:1,phiT:n?rT/n:1,spiele:sp.length,rho:0,
+    mittel:sp.reduce((a,s)=>a+A.h(s)+A.a(s),0)/sp.length};
+  if(art==="REG") mo.rho=schaetzeRho(sp,A.h,A.a,s=>erw(s.heim,s.gast,s.twH,s.twA),g);
+  return mo;
+}
+function nhlModell(art){
+  if(NHL.modelle[art]===undefined) NHL.modelle[art]=nhlBauen(art);
+  return NHL.modelle[art];
+}
+
+function nhlMaerkte(a,twH,twA){
+  const out=[];
+  const moR=nhlModell("REG"), moT=nhlModell("TOR");
+  if(moR){
+    const e=moR.erw(a.heim,a.gast,twH,twA);
+    const s=spielausgang(e.muH,e.muA,moR.phiH,moR.phiA,moR.rho,14);
+    out.push({id:"reg3",n:`${nhlName(a.heim)} nach 60`,p:s.heim},
+             {id:"reg3",n:"Unentschieden nach 60",p:s.remis},
+             {id:"reg3",n:`${nhlName(a.gast)} nach 60`,p:s.aus});
+    const heimSieg=s.heim+s.remis*NHL.otHeim;
+    out.push({id:"sieg",n:`${nhlName(a.heim)} gewinnt`,p:heimSieg},
+             {id:"sieg",n:`${nhlName(a.gast)} gewinnt`,p:1-heimSieg});
+  }
+  if(moT){
+    const e=moT.erw(a.heim,a.gast,twH,twA), ges=e.muH+e.muA;
+    linienLeiter(ges,moT.phiT,moT.leiter).forEach(l=>{
+      out.push({id:`tot:${l.L}`,n:`Tore über ${f(l.L,1)}`,p:l.over});
+      out.push({id:`tot:${l.L}`,n:`Tore unter ${f(l.L,1)}`,p:l.under});
+    });
+    [[a.heim,e.muH,moT.phiH],[a.gast,e.muA,moT.phiA]].forEach(([t,mu,phi])=>{
+      linienLeiter(mu,phi,[1.5,2.5,3.5,4.5]).forEach(l=>{
+        out.push({id:"team",n:`${nhlName(t)} über ${f(l.L,1)}`,p:l.over});
+        out.push({id:"team",n:`${nhlName(t)} unter ${f(l.L,1)}`,p:l.under});
+      });
+    });
+  }
+  [["SOG","sog"],["PIM","pim"]].forEach(([art,id])=>{
+    const mo=nhlModell(art);
+    if(!mo) return;
+    const e=mo.erw(a.heim,a.gast,twH,twA), ges=e.muH+e.muA;
+    linienLeiter(ges,mo.phiT,mo.leiter).forEach(l=>{
+      out.push({id,n:`${mo.name} über ${f(l.L,1)}`,p:l.over});
+      out.push({id,n:`${mo.name} unter ${f(l.L,1)}`,p:l.under});
+    });
+  });
+  return out;
+}
+
+function nhlZeichnen(a,twH,twA){
+  const ziel=document.getElementById("ergebnis");
+  const moR=nhlModell("REG"), moT=nhlModell("TOR");
+  if(!moR||!moT){ziel.innerHTML='<p class="hinweis">Zu wenige Spiele.</p>';return;}
+  const sH=twH||(nhlStandardTw(a.heim)||{}).id;
+  const sA=twA||(nhlStandardTw(a.gast)||{}).id;
+  const zeile=(n,p)=>`<tr><td>${n}</td><td>${f(p*100,1)} %</td><td class="q">${f(1/p)}</td></tr>`;
+  const kopfTab='<table><thead><tr><th>Auswahl</th><th>Wahrsch.</th><th>faire Quote</th></tr></thead><tbody>';
+  const linTab=(mu,phi,leiter)=>{
+    let t='<table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th><th>Under</th><th>faire Q.</th></tr></thead><tbody>';
+    linienLeiter(mu,phi,leiter).forEach(l=>{
+      t+=`<tr><td>${f(l.L,1)}</td><td>${f(l.over*100,1)} %</td><td class="q">${f(1/l.over)}</td>
+        <td>${f(l.under*100,1)} %</td><td class="q">${f(1/l.under)}</td></tr>`;});
+    return t+"</tbody></table>";
+  };
+  const twWahl=(team,gewaehlt,feld)=>{
+    const x=NHL.torhueter[team]||{};
+    const eintraege=Object.entries(x).filter(([,d])=>d.n>=3)
+      .sort((p,q)=>q[1].n-p[1].n);
+    return `<select id="${feld}" style="font-size:13px;padding:5px">`+
+      eintraege.map(([id,d])=>
+        `<option value="${id}"${id===gewaehlt?" selected":""}>${d.name} (${d.n})</option>`
+      ).join("")+"</select>";
+  };
+  const e=moR.erw(a.heim,a.gast,sH,sA);
+  const aus=spielausgang(e.muH,e.muA,moR.phiH,moR.phiA,moR.rho,14);
+  const heimSieg=aus.heim+aus.remis*NHL.otHeim;
+  const et=moT.erw(a.heim,a.gast,sH,sA), ges=et.muH+et.muA;
+
+  let html=`<div class="karte">
+    <div class="kopf"><b>Torhüter</b></div>
+    <div style="padding:10px 12px" class="zwei">
+      <div><div class="teamzeile" style="padding:0 0 4px">${nhlName(a.heim)}</div>
+        ${twWahl(a.heim,sH,"twHeimWahl")}</div>
+      <div><div class="teamzeile" style="padding:0 0 4px">${nhlName(a.gast)}</div>
+        ${twWahl(a.gast,sA,"twGastWahl")}</div>
+    </div>
+    <div class="detail">Werte ${f(moR.tw[sH]||1)} und ${f(moR.tw[sA]||1)}
+      <span class="q">(unter 1,00 hält besser als der Schnitt)</span>.
+      Die Vorauswahl ist der zuletzt am häufigsten eingesetzte Torhüter — die NHL
+      gibt Starter nicht über die Schnittstelle bekannt. Wenn du es besser weißt,
+      hier umstellen.</div></div>`;
+
+  html+=`<div class="karte">
+    <div class="kopf"><b>Spielausgang</b>
+      <div class="erw">${f(e.muH,1)}:${f(e.muA,1)} <span>nach 60 Min</span></div></div>
+    <div class="trenner">Dreiweg nach 60 Minuten</div>
+    ${kopfTab}${zeile(nhlName(a.heim),aus.heim)}${zeile("Unentschieden",aus.remis)}
+    ${zeile(nhlName(a.gast),aus.aus)}</tbody></table>
+    <div class="trenner">Sieger inklusive Verlängerung</div>
+    ${kopfTab}${zeile(nhlName(a.heim),heimSieg)}${zeile(nhlName(a.gast),1-heimSieg)}</tbody></table>
+    <div class="detail">
+      Angriff ${nhlName(a.heim)} ${f(moR.off[a.heim]||1)} · Abwehr ${f(moR.def[a.heim]||1)}<br>
+      Angriff ${nhlName(a.gast)} ${f(moR.off[a.gast]||1)} · Abwehr ${f(moR.def[a.gast]||1)}<br>
+      Heimvorteil ${f(moR.hvH)} · Unentschieden-Korrektur ${f(moR.rho,3)}<br>
+      Der Sieger inklusive Verlängerung entsteht daraus, dass ein Unentschieden nach
+      60 Minuten zu ${f(NHL.otHeim*100,1)} Prozent ans Heimteam geht — gemessen an
+      allen Spielen mit Verlängerung oder Penaltyschießen.</div></div>`;
+
+  html+=`<div class="karte">
+    <div class="kopf"><b>Tore gesamt</b>
+      <div class="erw">${f(ges)} <span>inklusive Verlängerung</span></div></div>
+    ${linTab(ges,moT.phiT,moT.leiter)}
+    <details><summary>Team-Totals</summary>
+      <div class="teamzeile">${nhlName(a.heim)} · ${f(et.muH)} erwartet</div>
+      ${linTab(et.muH,moT.phiH,[1.5,2.5,3.5,4.5])}
+      <div class="teamzeile">${nhlName(a.gast)} · ${f(et.muA)} erwartet</div>
+      ${linTab(et.muA,moT.phiA,[1.5,2.5,3.5,4.5])}
+    </details>
+    <div class="detail">Streuung ${f(moT.phiT)} · Ligaschnitt ${f(moT.mittel)}
+      aus ${moT.spiele} Spielen. Die Überstreuung stammt vor allem aus Empty-Net-Toren:
+      Ein zurückliegendes Team nimmt den Torhüter vom Eis, was in den letzten zwei
+      Minuten überproportional viele Tore erzeugt.</div></div>`;
+
+  [["SOG","Schüsse aufs Tor"],["PIM","Strafminuten"]].forEach(([art,titel])=>{
+    const mo=nhlModell(art);
+    if(!mo) return;
+    const x=mo.erw(a.heim,a.gast,sH,sA), g2=x.muH+x.muA;
+    html+=`<div class="karte"><div class="kopf"><b>${titel}</b>
+      <div class="erw">${f(g2,1)} <span>erwartet</span></div></div>
+      ${linTab(g2,mo.phiT,mo.leiter)}
+      <details><summary>Pro Mannschaft</summary>
+        <div class="teamzeile">${nhlName(a.heim)} · ${f(x.muH,1)}</div>
+        ${linTab(x.muH,mo.phiH,art==="SOG"?[25.5,28.5,31.5,34.5]:[3.5,5.5,7.5,9.5])}
+        <div class="teamzeile">${nhlName(a.gast)} · ${f(x.muA,1)}</div>
+        ${linTab(x.muA,mo.phiA,art==="SOG"?[25.5,28.5,31.5,34.5]:[3.5,5.5,7.5,9.5])}
+      </details>
+      <div class="detail">Streuung ${f(mo.phiT)} · Ligaschnitt ${f(mo.mittel,1)}${
+        art==="PIM"?". Strafminuten hängen stark am Schiedsrichtergespann, das hier "+
+        "nicht bekannt ist — die Streuung ist entsprechend hoch.":""}</div></div>`;
+  });
+
+  html+=`<p class="hinweis">
+    Der Dreiweg-Markt läuft über 60 Minuten, die Over/Under-Märkte in der Regel
+    inklusive Verlängerung. Beides wird getrennt gerechnet: Bei einem Sieg nach
+    Verlängerung oder Penaltyschießen fällt genau ein Tor weg, das nicht zur regulären
+    Spielzeit gehört.<br>
+    Nicht enthalten: Verletzungen, Rückreisen nach Auswärtsspielen, das dritte Spiel
+    in vier Tagen und das Schiedsrichtergespann.</p>`;
+  ziel.innerHTML=html;
+
+  ["twHeimWahl","twGastWahl"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener("change",()=>{
+      nhlZeichnen(a, document.getElementById("twHeimWahl").value,
+                     document.getElementById("twGastWahl").value);
+    });
+  });
+}
+
+function nhlSpieltag(){
+  const ziel=document.getElementById("spieltag");
+  const jetzt=Date.now();
+  const spiele=NHL.ansetzungen.filter(a=>a.ms>jetzt-3*3600*1000).sort((a,b)=>a.ms-b.ms);
+  if(!spiele.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Ansetzungen</b></div>
+      <div class="detail">Keine kommenden Partien in der Datei. Die NHL-Saison läuft
+      von Oktober bis April.</div></div>`;
+    return;
+  }
+  const moR=nhlModell("REG"), moT=nhlModell("TOR");
+  let html=`<div class="karte"><div class="kopf"><b>NHL</b>
+    <span class="q">${spiele.length} Partien</span></div>`;
+  let letzter="";
+  spiele.forEach((a,i)=>{
+    const tag=tagVonMs(a.ms);
+    if(tag!==letzter){html+=`<div class="tagkopf">${tag}</div>`;letzter=tag;}
+    const tH=(nhlStandardTw(a.heim)||{}), tA=(nhlStandardTw(a.gast)||{});
+    let zahlen="";
+    if(moR&&moT){
+      const e=moR.erw(a.heim,a.gast,tH.id,tA.id);
+      const s=spielausgang(e.muH,e.muA,moR.phiH,moR.phiA,moR.rho,14);
+      const et=moT.erw(a.heim,a.gast,tH.id,tA.id);
+      zahlen=`Sieg ${f((s.heim+s.remis*NHL.otHeim)*100,0)} % · `+
+             `Tore ${f(et.muH+et.muA)}`;
+    }
+    html+=`<div class="spiel" data-i="${i}">
+      <div class="zeit">${zeitVonMs(a.ms)}</div>
+      <div class="paar">${nhlName(a.gast)} bei ${nhlName(a.heim)}</div>
+      <div class="zahlen">${zahlen}</div>
+      <div class="werfer">${tA.name||"Torhüter offen"} gegen ${tH.name||"Torhüter offen"}</div>
+    </div>`;
+  });
+  html+=`<div class="detail">Gastteam zuerst. Die Torhüter sind eine Annahme aus dem
+    jüngsten Einsatz, keine offizielle Ansetzung.</div></div>`;
+  ziel.innerHTML=html;
+  ziel.querySelectorAll(".spiel").forEach(el=>{
+    el.addEventListener("click",()=>{
+      nhlZeichnen(spiele[Number(el.getAttribute("data-i"))]);
+      document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+    });
+  });
+}
+
+function nhlScannen(){
+  const ziel=document.getElementById("funde");
+  if(!NHL.geladen){
+    ziel.innerHTML='<div class="karte"><div class="kopf"><b>Suche</b></div>'+
+      '<div class="detail">Erst die Ansetzungen laden.</div></div>';
+    return;
+  }
+  const schwelle=Number(document.getElementById("nhlSchwelle").value)/100;
+  const filter=document.getElementById("nhlEreignis").value;
+  const sortierung=document.getElementById("nhlSortierung").value;
+  const knopf=document.getElementById("nhlScanKnopf");
+  knopf.disabled=true;
+  ziel.innerHTML='<div class="karte"><div class="kopf"><b>Suche läuft</b></div>'+
+    '<div class="detail">Rechnet …</div></div>';
+  setTimeout(()=>{
+    const jetzt=Date.now();
+    const spiele=NHL.ansetzungen.filter(a=>a.ms>jetzt-3*3600*1000).sort((a,b)=>a.ms-b.ms);
+    const funde=[];
+    spiele.forEach((a,i)=>{
+      const tH=(nhlStandardTw(a.heim)||{}).id, tA=(nhlStandardTw(a.gast)||{}).id;
+      nhlMaerkte(a,tH,tA).forEach(o=>{
+        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+          funde.push({partie:a,idx:i,...o});
+      });
+    });
+    if(sortierung==="p") funde.sort((x,y)=>y.p-x.p);
+    else funde.sort((x,y)=>x.partie.ms-y.partie.ms||y.p-x.p);
+    if(!funde.length){
+      ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
+        <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+        in ${spiele.length} anstehenden Partien.</div></div>`;
+      knopf.disabled=false; return;
+    }
+    const zeigen=funde.slice(0,MAX_FUNDE), nachZeit=sortierung==="zeit";
+    let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+      <span class="q">${funde.length} aus ${spiele.length} Partien</span></div>`;
+    let letzter="";
+    zeigen.forEach(t=>{
+      const tag=tagVonMs(t.partie.ms);
+      if(nachZeit&&tag!==letzter){html+=`<div class="tagkopf">${tag}</div>`;letzter=tag;}
+      html+=`<div class="fund" data-i="${t.idx}">
+        <div class="links">
+          <div class="liga">NHL · ${nachZeit?zeitVonMs(t.partie.ms):tag+" "+zeitVonMs(t.partie.ms)}</div>
+          <div class="partie">${nhlName(t.partie.gast)} bei ${nhlName(t.partie.heim)}</div>
+          <div class="markt">${t.n}</div></div>
+        <div class="rechts"><div class="proz">${f(t.p*100,1)} %</div>
+          <div class="q">fair ${f(1/t.p)}</div></div></div>`;
+    });
+    if(funde.length>MAX_FUNDE)
+      html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.</div>`;
+    html+=`<div class="detail"><b>Ohne Quotenabgleich.</b> Die NHL-Schnittstelle liefert
+      keine Buchmacherquoten. Halte die faire Quote gegen das Angebot deines Anbieters.<br>
+      Die Torhüter sind angenommen, nicht bestätigt — bei einem Wechsel verschieben
+      sich vor allem die Torlinien.</div></div>`;
+    ziel.innerHTML=html;
+    ziel.querySelectorAll(".fund").forEach(el=>{
+      el.addEventListener("click",()=>{
+        nhlZeichnen(spiele[Number(el.getAttribute("data-i"))]);
+        document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+      });
+    });
+    knopf.disabled=false;
+  },50);
+}
+async function nhlStarten(){
+  const k=document.getElementById("nhlKnopf");
+  k.disabled=true;
+  if(await nhlLaden()) nhlSpieltag();
+  k.disabled=false;
+}
+
 // ======== Sportartenwechsel ========
 function sportWechseln(){
   SPORT=document.getElementById("sportart").value;
   const zeig=(id,an)=>document.getElementById(id).style.display=an?"block":"none";
   zeig("fussballTeil",SPORT==="fussball");
   zeig("baseballTeil",SPORT==="baseball");
+  zeig("nhlTeil",SPORT==="nhl");
   zeig("auswahl",SPORT==="fussball"&&!!AKTIV);
   document.getElementById("unterzeile").textContent=
     SPORT==="fussball" ? "Dreiweg · Beide treffen · Tore · Ecken · Karten · Schüsse"
-    : "F5 · Dreiweg · Strikeouts · NRFI · Ganzes Spiel";
+    : SPORT==="baseball" ? "F5 · Dreiweg · Strikeouts · NRFI · Ganzes Spiel"
+    : "Dreiweg · Tore · Schüsse · Strafminuten";
   document.getElementById("funde").innerHTML="";
   document.getElementById("vergleich").innerHTML="";
   document.getElementById("spieltag").innerHTML="";
   document.getElementById("ergebnis").innerHTML=
     SPORT==="fussball" ? "" : '<p class="hinweis">Ansetzungen laden, dann eine Partie antippen.</p>';
   if(SPORT==="baseball"&&MLB.geladen) mlbSpieltag();
+  if(SPORT==="nhl"&&NHL.geladen) nhlSpieltag();
 }
 
 // ======== Start ========
@@ -1628,6 +2082,8 @@ document.getElementById("liveKnopf").addEventListener("click",liveZeigen);
 document.getElementById("sportart").addEventListener("change",sportWechseln);
 document.getElementById("mlbKnopf").addEventListener("click",mlbStarten);
 document.getElementById("mlbScanKnopf").addEventListener("click",mlbScannen);
+document.getElementById("nhlKnopf").addEventListener("click",nhlStarten);
+document.getElementById("nhlScanKnopf").addEventListener("click",nhlScannen);
 document.getElementById("pitcherArt").addEventListener("change",()=>{
   MLB.modelle={};
   document.getElementById("funde").innerHTML="";
