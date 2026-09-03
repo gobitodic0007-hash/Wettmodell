@@ -104,6 +104,7 @@
       <option value="fussball">Fußball</option>
       <option value="baseball">Baseball · MLB</option>
       <option value="nhl">Eishockey · NHL</option>
+      <option value="nfl">Football · NFL</option>
     </select>
   </div>
 
@@ -286,6 +287,41 @@
     <div class="zwei">
       <button id="nhlKnopf" class="voll">Ansetzungen laden</button>
       <button id="nhlScanKnopf">Partien durchsuchen</button>
+    </div>
+  </div>
+
+  <div id="nflTeil" style="display:none">
+    <div id="nflStatus" style="font-size:12px;color:var(--grau);margin-bottom:12px"></div>
+    <div class="feld">
+      <label for="nflEreignis">Markt</label>
+      <select id="nflEreignis">
+        <option value="alle">Alle Märkte</option>
+        <option value="td">Anytime Touchdown</option>
+        <option value="pass">Passing Yards</option>
+        <option value="rush">Rushing Yards</option>
+        <option value="rec">Receiving Yards</option>
+      </select>
+    </div>
+    <div class="zwei">
+      <div class="feld">
+        <label for="nflSchwelle">Mindestens</label>
+        <select id="nflSchwelle">
+          <option value="55">55 %</option><option value="60">60 %</option>
+          <option value="65" selected>65 %</option><option value="70">70 %</option>
+          <option value="75">75 %</option><option value="80">80 %</option>
+        </select>
+      </div>
+      <div class="feld">
+        <label for="nflSortierung">Sortierung</label>
+        <select id="nflSortierung">
+          <option value="zeit" selected>Anstoßzeit</option>
+          <option value="p">Wahrscheinlichkeit</option>
+        </select>
+      </div>
+    </div>
+    <div class="zwei">
+      <button id="nflKnopf" class="voll">Ansetzungen laden</button>
+      <button id="nflScanKnopf">Partien durchsuchen</button>
     </div>
   </div>
 </div>
@@ -2047,6 +2083,481 @@ async function nhlStarten(){
   k.disabled=false;
 }
 
+
+// ======== Football ========
+const NFL_HW_VOL=200;    // Tage; Verwendung aendert sich schnell
+const NFL_HW_EFF=500;    // Effizienz ist stabiler
+const NFL_K_VOL=3;       // Daempfung des Volumens, in Spielen
+const NFL_K_EFF=60;      // Daempfung der Effizienz, in Versuchen
+const NFL_K_TD=45;       // Daempfung der Trefferquote, in Gelegenheiten
+const NFL_K_DEF=8;       // Daempfung der Defensivwerte, in Spielen
+const NFL={zeilen:[],ansetzungen:[],geladen:false,modell:null,letzteWoche:null};
+
+// Regularisierte untere Gammafunktion, fuer die Yards-Verteilungen
+function gammaP(a,x){
+  if(!(x>0)||!(a>0)) return 0;
+  if(x < a+1){
+    let ap=a, sum=1/a, del=sum;
+    for(let n=0;n<300;n++){
+      ap++; del*=x/ap; sum+=del;
+      if(Math.abs(del)<Math.abs(sum)*1e-13) break;
+    }
+    return Math.min(1,Math.max(0,sum*Math.exp(-x+a*Math.log(x)-lnGamma(a))));
+  }
+  let b=x+1-a, c=1e300, d=1/b, h=d;
+  for(let i=1;i<300;i++){
+    const an=-i*(i-a);
+    b+=2; d=an*d+b; if(Math.abs(d)<1e-300) d=1e-300;
+    c=b+an/c; if(Math.abs(c)<1e-300) c=1e-300;
+    d=1/d;
+    const del=d*c; h*=del;
+    if(Math.abs(del-1)<1e-13) break;
+  }
+  return Math.min(1,Math.max(0,1-Math.exp(-x+a*Math.log(x)-lnGamma(a))*h));
+}
+// Yards ueber der Linie: Verhaeltnis zur Erwartung folgt einer Gammaverteilung
+// mit Mittelwert 1 und Form k, die aus den Abweichungen geschaetzt wird.
+function pUeberYards(mu,L,k){
+  if(!(mu>0)) return 0;
+  if(L<=0) return 0.999;
+  return Math.min(0.995,Math.max(0.005,1-gammaP(k,k*L/mu)));
+}
+
+// Naeherungsdatum aus Saison und Woche: Saisonstart Anfang September
+function nflTage(saison,woche){
+  const start=Date.UTC(saison,8,5);
+  const d=start+(woche-1)*7*86400000;
+  return Math.max(0,(JETZT-d)/86400000);
+}
+
+async function nflLaden(){
+  if(NFL.geladen) return true;
+  const setz=t=>{document.getElementById("nflStatus").innerHTML=t;};
+  setz("Lade …");
+  try{
+    const [rs,ra]=await Promise.all([
+      fetch("./daten/nfl-spieler.csv"), fetch("./daten/nfl-ansetzungen.csv")]);
+    if(!rs.ok){setz("daten/nfl-spieler.csv fehlt.");return false;}
+    NFL.zeilen=csvLesen(await rs.text()).map(r=>({
+      saison:z(r.Saison), woche:z(r.Woche), id:r.SpielerId, name:r.Name,
+      pos:r.Position, team:r.Team, gegner:r.Gegner,
+      att:z(r.Att)||0, pyd:z(r.PassYds)||0, ptd:z(r.PassTD)||0,
+      car:z(r.Carries)||0, ryd:z(r.RushYds)||0, rtd:z(r.RushTD)||0,
+      tgt:z(r.Targets)||0, rec:z(r.Rec)||0, cyd:z(r.RecYds)||0, ctd:z(r.RecTD)||0
+    })).filter(x=>x.name&&x.team&&x.gegner&&Number.isFinite(x.saison));
+    if(ra.ok) NFL.ansetzungen=csvLesen(await ra.text()).map(r=>({
+      datum:r.Datum, zeit:r.Zeit, saison:z(r.Saison), woche:z(r.Woche),
+      heim:r.Heim, gast:r.Gast
+    })).filter(x=>x.heim&&x.gast);
+    // juengste vorhandene Woche merken, fuer den Ausfall-Hinweis
+    let bs=-1,bw=-1;
+    NFL.zeilen.forEach(x=>{ if(x.saison>bs||(x.saison===bs&&x.woche>bw)){bs=x.saison;bw=x.woche;} });
+    NFL.letzteWoche={saison:bs,woche:bw};
+    NFL.geladen=true;
+    setz(`${NFL.zeilen.length} Wochenzeilen, ${NFL.ansetzungen.length} Ansetzungen. `+
+         `Jüngste Woche in den Daten: Saison ${bs}, Woche ${bw}.`);
+    return true;
+  }catch(e){setz("NFL-Daten konnten nicht geladen werden.");return false;}
+}
+
+function nflBauen(){
+  if(NFL.modell) return NFL.modell;
+  const Z=NFL.zeilen;
+  if(Z.length<2000) return null;
+  const gV=x=>Math.pow(0.5,nflTage(x.saison,x.woche)/NFL_HW_VOL);
+  const gE=x=>Math.pow(0.5,nflTage(x.saison,x.woche)/NFL_HW_EFF);
+
+  // Ligamittel
+  let sAtt=0,sPyd=0,sCar=0,sRyd=0,sTgt=0,sCyd=0,sRtd=0,sCtd=0,wE=0;
+  Z.forEach(x=>{const w=gE(x);
+    sAtt+=w*x.att; sPyd+=w*x.pyd; sCar+=w*x.car; sRyd+=w*x.ryd;
+    sTgt+=w*x.tgt; sCyd+=w*x.cyd; sRtd+=w*x.rtd; sCtd+=w*x.ctd; wE+=w;});
+  const lgYPA=sAtt>0?sPyd/sAtt:7, lgYPC=sCar>0?sRyd/sCar:4.3,
+        lgYPT=sTgt>0?sCyd/sTgt:7.5,
+        lgRTD=sCar>0?sRtd/sCar:0.035, lgCTD=sTgt>0?sCtd/sTgt:0.045;
+
+  // Defensivwerte: was laesst eine Mannschaft je Spiel zu
+  const D={};
+  const holD=t=>D[t]=D[t]||{spiele:new Set(),att:0,pyd:0,car:0,ryd:0,tgt:0,cyd:0,td:0,w:0};
+  Z.forEach(x=>{
+    const d=holD(x.gegner), w=gE(x);
+    d.spiele.add(x.saison+"-"+x.woche+"-"+x.team);
+    d.att+=w*x.att; d.pyd+=w*x.pyd; d.car+=w*x.car; d.ryd+=w*x.ryd;
+    d.tgt+=w*x.tgt; d.cyd+=w*x.cyd; d.td+=w*(x.rtd+x.ctd); d.w+=w;
+  });
+  let gAtt=0,gPyd=0,gCar=0,gRyd=0,gTd=0,gSp=0;
+  Object.values(D).forEach(d=>{
+    d.n=d.spiele.size;
+    gAtt+=d.att; gPyd+=d.pyd; gCar+=d.car; gRyd+=d.ryd; gTd+=d.td; gSp+=d.n;
+  });
+  const mAttSp=gSp>0?gAtt/gSp:33, mCarSp=gSp>0?gCar/gSp:26, mTdSp=gSp>0?gTd/gSp:2.2;
+  const mYPA=gAtt>0?gPyd/gAtt:lgYPA, mYPC=gCar>0?gRyd/gCar:lgYPC;
+  const defF={};
+  Object.entries(D).forEach(([t,d])=>{
+    defF[t]={
+      passVol: d.n>0?daempfen((d.att/d.n)/mAttSp,d.n,NFL_K_DEF):1,
+      rushVol: d.n>0?daempfen((d.car/d.n)/mCarSp,d.n,NFL_K_DEF):1,
+      passEff: d.att>0?daempfen((d.pyd/d.att)/mYPA,d.att,300):1,
+      rushEff: d.car>0?daempfen((d.ryd/d.car)/mYPC,d.car,250):1,
+      td:      d.n>0?daempfen((d.td/d.n)/mTdSp,d.n,NFL_K_DEF):1,
+      n:d.n
+    };
+  });
+  const DF=(t,f)=>defF[t]?defF[t][f]:1;
+
+  // Spielerwerte
+  const P={};
+  Z.forEach(x=>{
+    const p=P[x.id]=P[x.id]||{name:x.name,pos:x.pos,team:x.team,
+      nV:0,att:0,car:0,tgt:0, nE:0,attE:0,pyd:0,carE:0,ryd:0,tgtE:0,cyd:0,
+      rtd:0,ctd:0, spiele:0, letzte:{saison:0,woche:0}};
+    const wv=gV(x), we=gE(x);
+    p.name=x.name||p.name; p.pos=x.pos||p.pos;
+    p.nV+=wv; p.att+=wv*x.att; p.car+=wv*x.car; p.tgt+=wv*x.tgt;
+    p.attE+=we*x.att; p.pyd+=we*x.pyd;
+    p.carE+=we*x.car; p.ryd+=we*x.ryd;
+    p.tgtE+=we*x.tgt; p.cyd+=we*x.cyd;
+    p.rtd+=we*x.rtd; p.ctd+=we*x.ctd;
+    p.spiele++;
+    if(x.saison>p.letzte.saison||(x.saison===p.letzte.saison&&x.woche>p.letzte.woche)){
+      p.letzte={saison:x.saison,woche:x.woche}; p.team=x.team;
+    }
+  });
+  Object.values(P).forEach(p=>{
+    p.attPG=p.nV>0?p.att/(p.nV+NFL_K_VOL*0):p.att/Math.max(p.nV,0.001);
+    p.attPG=(p.att)/(p.nV+NFL_K_VOL);
+    p.carPG=(p.car)/(p.nV+NFL_K_VOL);
+    p.tgtPG=(p.tgt)/(p.nV+NFL_K_VOL);
+    p.ypa=(p.pyd+NFL_K_EFF*lgYPA)/(p.attE+NFL_K_EFF);
+    p.ypc=(p.ryd+NFL_K_EFF*lgYPC)/(p.carE+NFL_K_EFF);
+    p.ypt=(p.cyd+NFL_K_EFF*lgYPT)/(p.tgtE+NFL_K_EFF);
+    p.rtdR=(p.rtd+NFL_K_TD*lgRTD)/(p.carE+NFL_K_TD);
+    p.ctdR=(p.ctd+NFL_K_TD*lgCTD)/(p.tgtE+NFL_K_TD);
+  });
+
+  // Streuung der Yards: Verhaeltnis zwischen Wirklichkeit und Erwartung
+  const formen={};
+  [["pass","att","ypa","pyd",8],["rush","car","ypc","ryd",5],
+   ["rec","tgt","ypt","cyd",3]].forEach(([schl,volF,effF,ydF,minVol])=>{
+    let n=0,summe=0,quad=0;
+    Z.forEach(x=>{
+      const p=P[x.id]; if(!p) return;
+      const vol=x[volF];
+      if(vol<minVol) return;
+      const erw=vol*p[effF];
+      if(!(erw>5)) return;
+      const r=x[ydF]/erw;
+      n++; summe+=r; quad+=r*r;
+    });
+    if(n<50){ formen[schl]=6; return; }
+    const mw=summe/n, varianz=Math.max(1e-6,quad/n-mw*mw);
+    formen[schl]=Math.min(40,Math.max(1.2,mw*mw/varianz));
+  });
+
+  NFL.modell={P,DF,defF,formen,lgYPA,lgYPC,lgYPT,
+    mAttSp,mCarSp,spieler:Object.keys(P).length};
+  return NFL.modell;
+}
+
+function nflSpielerFuer(team,mo){
+  const raus=[];
+  Object.entries(mo.P).forEach(([id,p])=>{
+    if(p.team!==team) return;
+    if(p.attPG<1 && p.carPG<1.5 && p.tgtPG<1) return;
+    raus.push({id,...p});
+  });
+  return raus;
+}
+
+function nflProps(spieler,gegner,mo){
+  const p=spieler;
+  const att=p.attPG*mo.DF(gegner,"passVol");
+  const car=p.carPG*mo.DF(gegner,"rushVol");
+  const tgt=p.tgtPG*mo.DF(gegner,"passVol");
+  return {
+    att, car, tgt,
+    pass: att*p.ypa*mo.DF(gegner,"passEff"),
+    rush: car*p.ypc*mo.DF(gegner,"rushEff"),
+    rec:  tgt*p.ypt*mo.DF(gegner,"passEff"),
+    tdLam: (car*p.rtdR + tgt*p.ctdR)*mo.DF(gegner,"td")
+  };
+}
+
+function nflLinien(mu,schritt){
+  const basis=Math.round(mu/schritt)*schritt;
+  const raus=[];
+  for(let k=-2;k<=2;k++){
+    const L=basis+k*schritt-0.5;
+    if(L<schritt/2) continue;
+    raus.push(L);
+  }
+  return raus;
+}
+
+function nflAusfallHinweis(p){
+  const lw=NFL.letzteWoche;
+  if(!lw||lw.saison<0) return "";
+  if(p.letzte.saison===lw.saison&&p.letzte.woche>=lw.woche-1) return "";
+  return `letzter Einsatz Saison ${p.letzte.saison}, Woche ${p.letzte.woche}`;
+}
+
+function nflMaerkte(a,mo){
+  const raus=[];
+  [[a.heim,a.gast],[a.gast,a.heim]].forEach(([team,gegner])=>{
+    nflSpielerFuer(team,mo).forEach(p=>{
+      const e=nflProps(p,gegner,mo);
+      if(e.tdLam>0.03){
+        const pj=1-Math.exp(-e.tdLam);
+        raus.push({id:"td",n:`${p.name} · Touchdown ja`,p:pj,spieler:p.name});
+        raus.push({id:"td",n:`${p.name} · Touchdown nein`,p:1-pj,spieler:p.name});
+      }
+      [["pass",e.pass,25,mo.formen.pass,"Passing Yards",e.att>=10],
+       ["rush",e.rush,10,mo.formen.rush,"Rushing Yards",e.car>=5],
+       ["rec", e.rec, 10,mo.formen.rec, "Receiving Yards",e.tgt>=2.5]
+      ].forEach(([id,mu,schritt,k,titel,ok])=>{
+        if(!ok||!(mu>5)) return;
+        nflLinien(mu,schritt).forEach(L=>{
+          const ue=pUeberYards(mu,L,k);
+          if(ue<0.03||ue>0.97) return;
+          raus.push({id,n:`${p.name} · ${titel} über ${f(L,1)}`,p:ue,spieler:p.name});
+          raus.push({id,n:`${p.name} · ${titel} unter ${f(L,1)}`,p:1-ue,spieler:p.name});
+        });
+      });
+    });
+  });
+  return raus;
+}
+
+function nflZeichnen(a){
+  const ziel=document.getElementById("ergebnis");
+  const mo=nflBauen();
+  if(!mo){ziel.innerHTML='<p class="hinweis">Zu wenige Daten.</p>';return;}
+  const zeile=(n,p)=>`<tr><td>${n}</td><td>${f(p*100,1)} %</td><td class="q">${f(1/p)}</td></tr>`;
+  const kopfTab='<table><thead><tr><th>Auswahl</th><th>Wahrsch.</th><th>faire Quote</th></tr></thead><tbody>';
+  const ydTab=(mu,schritt,k)=>{
+    let t='<table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th><th>Under</th><th>faire Q.</th></tr></thead><tbody>';
+    nflLinien(mu,schritt).forEach(L=>{
+      const ue=pUeberYards(mu,L,k);
+      if(ue<0.02||ue>0.98) return;
+      t+=`<tr><td>${f(L,1)}</td><td>${f(ue*100,1)} %</td><td class="q">${f(1/ue)}</td>
+        <td>${f((1-ue)*100,1)} %</td><td class="q">${f(1/(1-ue))}</td></tr>`;
+    });
+    return t+"</tbody></table>";
+  };
+
+  let html="";
+  let warnungen=[];
+
+  // Passing
+  let passHtml="";
+  [[a.heim,a.gast],[a.gast,a.heim]].forEach(([team,gegner])=>{
+    const qbs=nflSpielerFuer(team,mo).filter(p=>p.attPG>=8)
+      .sort((x,y)=>y.attPG-x.attPG).slice(0,2);
+    qbs.forEach(p=>{
+      const e=nflProps(p,gegner,mo);
+      const hin=nflAusfallHinweis(p);
+      if(hin) warnungen.push(`${p.name}: ${hin}`);
+      passHtml+=`<div class="teamzeile">${p.name} · ${team} gegen ${gegner} ·
+        ${f(e.pass,0)} Yards erwartet</div>${ydTab(e.pass,25,mo.formen.pass)}
+        <div class="detail">${f(e.att,1)} Pässe erwartet · ${f(p.ypa,2)} Yards je Pass ·
+        Defense ${f(mo.DF(gegner,"passEff"),2)}${hin?" · <b>"+hin+"</b>":""}</div>`;
+    });
+  });
+  if(passHtml) html+=`<div class="karte"><div class="kopf"><b>Passing Yards</b></div>
+    ${passHtml}<div class="guete mittel"><b>Belastbarkeit: mittel</b>
+    Passvolumen hängt stark am Spielverlauf. Ein Team, das früh zurückliegt, wirft
+    deutlich mehr — wer auf Over setzt, wettet indirekt auf einen Rückstand.</div></div>`;
+
+  // Rushing
+  let rushHtml="";
+  [[a.heim,a.gast],[a.gast,a.heim]].forEach(([team,gegner])=>{
+    nflSpielerFuer(team,mo).filter(p=>p.carPG>=3)
+      .sort((x,y)=>y.carPG-x.carPG).slice(0,3).forEach(p=>{
+      const e=nflProps(p,gegner,mo);
+      const hin=nflAusfallHinweis(p);
+      if(hin) warnungen.push(`${p.name}: ${hin}`);
+      rushHtml+=`<div class="teamzeile">${p.name} · ${team} · ${f(e.rush,0)} Yards erwartet</div>
+        ${ydTab(e.rush,10,mo.formen.rush)}
+        <div class="detail">${f(e.car,1)} Läufe erwartet · ${f(p.ypc,2)} Yards je Lauf ·
+        Defense ${f(mo.DF(gegner,"rushEff"),2)}${hin?" · <b>"+hin+"</b>":""}</div>`;
+    });
+  });
+  if(rushHtml) html+=`<div class="karte"><div class="kopf"><b>Rushing Yards</b></div>
+    ${rushHtml}<div class="guete mittel"><b>Belastbarkeit: mittel</b>
+    Umgekehrt zum Passspiel: Ein führendes Team läuft, um die Uhr zu verbrauchen.
+    Und die Aufteilung im Backfield schwankt von Woche zu Woche stärker als bei
+    jeder anderen Position.</div></div>`;
+
+  // Receiving
+  let recHtml="";
+  [[a.heim,a.gast],[a.gast,a.heim]].forEach(([team,gegner])=>{
+    nflSpielerFuer(team,mo).filter(p=>p.tgtPG>=2)
+      .sort((x,y)=>y.tgtPG-x.tgtPG).slice(0,4).forEach(p=>{
+      const e=nflProps(p,gegner,mo);
+      const hin=nflAusfallHinweis(p);
+      if(hin) warnungen.push(`${p.name}: ${hin}`);
+      recHtml+=`<div class="teamzeile">${p.name} · ${p.pos} · ${team} ·
+        ${f(e.rec,0)} Yards erwartet</div>${ydTab(e.rec,10,mo.formen.rec)}
+        <div class="detail">${f(e.tgt,1)} Targets erwartet · ${f(p.ypt,2)} Yards je Target ·
+        Defense ${f(mo.DF(gegner,"passEff"),2)}${hin?" · <b>"+hin+"</b>":""}</div>`;
+    });
+  });
+  if(recHtml) html+=`<div class="karte"><div class="kopf"><b>Receiving Yards</b></div>
+    ${recHtml}<div class="guete schwach"><b>Belastbarkeit: schwach</b>
+    Der schwierigste Markt. Die Targets eines Receivers hängen davon ab, wer sonst
+    auf dem Feld steht — fällt der erste Receiver aus, springen die Targets des
+    zweiten um dreißig Prozent. Das Modell kennt nur die Vergangenheit, nicht die
+    Aufstellung.</div></div>`;
+
+  // Touchdowns
+  const tds=[];
+  [[a.heim,a.gast],[a.gast,a.heim]].forEach(([team,gegner])=>{
+    nflSpielerFuer(team,mo).forEach(p=>{
+      const e=nflProps(p,gegner,mo);
+      if(e.tdLam>0.05) tds.push({name:p.name,pos:p.pos,team,p:1-Math.exp(-e.tdLam)});
+    });
+  });
+  tds.sort((x,y)=>y.p-x.p);
+  if(tds.length) html+=`<div class="karte"><div class="kopf"><b>Anytime Touchdown</b></div>
+    ${kopfTab}${tds.slice(0,14).map(t=>
+      zeile(`${t.name} <span class="q">${t.pos} · ${t.team}</span>`,t.p)).join("")}
+    </tbody></table>
+    <div class="guete mittel"><b>Belastbarkeit: mittel</b>
+    Touchdowns folgen einer Poissonverteilung mit sehr kleinem Erwartungswert — die
+    Wahrscheinlichkeit für mindestens einen ist deshalb robust gegen einzelne
+    Ausreißer. Was fehlt, ist die Verwendung in der Red Zone: Ein Back, der an der
+    Eins den Ball bekommt, trifft häufiger, als seine Gesamtzahl an Läufen
+    vermuten lässt.</div></div>`;
+
+  if(warnungen.length){
+    const eindeutig=[...new Set(warnungen)];
+    html=`<div class="warn"><b>Mögliche Ausfälle:</b> ${eindeutig.slice(0,8).join(" · ")}.
+      Diese Spieler standen zuletzt nicht im Kader. Die offiziellen Inaktivenlisten
+      erscheinen 90 Minuten vor Anstoß und sind hier nicht enthalten — prüfe das
+      vor jeder Wette selbst.</div>`+html;
+  }
+
+  html+=`<p class="hinweis">
+    Rechnung in drei Stufen: erwartetes Volumen, Effizienz je Versuch, Anpassung an
+    die gegnerische Defense. Volumen wird schneller vergessen als Effizienz
+    (Halbwertszeit ${NFL_HW_VOL} gegen ${NFL_HW_EFF} Tage), weil sich die Verwendung
+    eines Spielers rascher ändert als sein Können.<br>
+    Die Streuung der Yards folgt einer Gammaverteilung, deren Form aus den
+    Abweichungen zwischen Erwartung und Wirklichkeit geschätzt wird:
+    ${f(mo.formen.pass,1)} für Passing, ${f(mo.formen.rush,1)} für Rushing,
+    ${f(mo.formen.rec,1)} für Receiving. Je kleiner der Wert, desto schiefer die
+    Verteilung — deshalb ist Under bei Receiving Yards häufiger richtig, als der
+    Erwartungswert vermuten lässt.<br>
+    Nicht enthalten: Aufstellungen, Wetter, Red-Zone-Verwendung und der Spielverlauf.</p>`;
+  ziel.innerHTML=html;
+}
+
+function nflSpieltag(){
+  const ziel=document.getElementById("spieltag");
+  const liste=NFL.ansetzungen.slice().sort((a,b)=>
+    String(a.datum+a.zeit).localeCompare(String(b.datum+b.zeit)));
+  if(!liste.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Ansetzungen</b></div>
+      <div class="detail">Keine kommenden Partien in der Datei.</div></div>`;
+    return;
+  }
+  const mo=nflBauen();
+  let html=`<div class="karte"><div class="kopf"><b>NFL</b>
+    <span class="q">${liste.length} Partien</span></div>`;
+  let letzte="";
+  liste.slice(0,40).forEach((a,i)=>{
+    const kopf=`Woche ${a.woche} · Saison ${a.saison}`;
+    if(kopf!==letzte){html+=`<div class="tagkopf">${kopf}</div>`;letzte=kopf;}
+    let zahlen="";
+    if(mo){
+      const n1=nflSpielerFuer(a.heim,mo).length, n2=nflSpielerFuer(a.gast,mo).length;
+      zahlen=`${n1+n2} Spieler mit Werten`;
+    }
+    html+=`<div class="spiel" data-i="${i}">
+      <div class="zeit">${a.datum||""} ${a.zeit||""}</div>
+      <div class="paar">${a.gast} bei ${a.heim}</div>
+      <div class="zahlen">${zahlen}</div></div>`;
+  });
+  html+=`<div class="detail">Gastteam zuerst. Antippen öffnet die Props beider
+    Mannschaften.</div></div>`;
+  ziel.innerHTML=html;
+  ziel.querySelectorAll(".spiel").forEach(el=>{
+    el.addEventListener("click",()=>{
+      nflZeichnen(liste[Number(el.getAttribute("data-i"))]);
+      document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+    });
+  });
+}
+
+function nflScannen(){
+  const ziel=document.getElementById("funde");
+  if(!NFL.geladen){
+    ziel.innerHTML='<div class="karte"><div class="kopf"><b>Suche</b></div>'+
+      '<div class="detail">Erst die Ansetzungen laden.</div></div>';
+    return;
+  }
+  const schwelle=Number(document.getElementById("nflSchwelle").value)/100;
+  const filter=document.getElementById("nflEreignis").value;
+  const sortierung=document.getElementById("nflSortierung").value;
+  const knopf=document.getElementById("nflScanKnopf");
+  knopf.disabled=true;
+  ziel.innerHTML='<div class="karte"><div class="kopf"><b>Suche läuft</b></div>'+
+    '<div class="detail">Rechnet …</div></div>';
+  setTimeout(()=>{
+    const mo=nflBauen();
+    if(!mo){ziel.innerHTML='<p class="hinweis">Zu wenige Daten.</p>';knopf.disabled=false;return;}
+    const liste=NFL.ansetzungen.slice().sort((a,b)=>
+      String(a.datum+a.zeit).localeCompare(String(b.datum+b.zeit))).slice(0,32);
+    const funde=[];
+    liste.forEach((a,i)=>{
+      nflMaerkte(a,mo).forEach(o=>{
+        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+          funde.push({partie:a,idx:i,...o});
+      });
+    });
+    if(sortierung==="p") funde.sort((x,y)=>y.p-x.p);
+    else funde.sort((x,y)=>String(x.partie.datum).localeCompare(String(y.partie.datum))||y.p-x.p);
+    if(!funde.length){
+      ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
+        <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+        in ${liste.length} Partien.</div></div>`;
+      knopf.disabled=false; return;
+    }
+    const zeigen=funde.slice(0,MAX_FUNDE);
+    let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+      <span class="q">${funde.length} aus ${liste.length} Partien</span></div>`;
+    zeigen.forEach(t=>{
+      html+=`<div class="fund" data-i="${t.idx}">
+        <div class="links">
+          <div class="liga">NFL · Woche ${t.partie.woche} · ${t.partie.datum||""}</div>
+          <div class="partie">${t.partie.gast} bei ${t.partie.heim}</div>
+          <div class="markt">${t.n}</div></div>
+        <div class="rechts"><div class="proz">${f(t.p*100,1)} %</div>
+          <div class="q">fair ${f(1/t.p)}</div></div></div>`;
+    });
+    if(funde.length>MAX_FUNDE)
+      html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.</div>`;
+    html+=`<div class="detail"><b>Ohne Quotenabgleich und ohne Aufstellungen.</b>
+      Props sind der Markt, bei dem Ausfälle am meisten kosten. Prüfe vor jeder Wette,
+      ob der Spieler überhaupt aufläuft — die Inaktivenliste kommt 90 Minuten vor
+      Anstoß.</div></div>`;
+    ziel.innerHTML=html;
+    ziel.querySelectorAll(".fund").forEach(el=>{
+      el.addEventListener("click",()=>{
+        nflZeichnen(liste[Number(el.getAttribute("data-i"))]);
+        document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+      });
+    });
+    knopf.disabled=false;
+  },50);
+}
+async function nflStarten(){
+  const k=document.getElementById("nflKnopf");
+  k.disabled=true;
+  if(await nflLaden()) nflSpieltag();
+  k.disabled=false;
+}
+
 // ======== Sportartenwechsel ========
 function sportWechseln(){
   SPORT=document.getElementById("sportart").value;
@@ -2054,11 +2565,13 @@ function sportWechseln(){
   zeig("fussballTeil",SPORT==="fussball");
   zeig("baseballTeil",SPORT==="baseball");
   zeig("nhlTeil",SPORT==="nhl");
+  zeig("nflTeil",SPORT==="nfl");
   zeig("auswahl",SPORT==="fussball"&&!!AKTIV);
   document.getElementById("unterzeile").textContent=
     SPORT==="fussball" ? "Dreiweg · Beide treffen · Tore · Ecken · Karten · Schüsse"
     : SPORT==="baseball" ? "F5 · Dreiweg · Strikeouts · NRFI · Ganzes Spiel"
-    : "Dreiweg · Tore · Schüsse · Strafminuten";
+    : SPORT==="nhl" ? "Dreiweg · Tore · Schüsse · Strafminuten"
+    : "Touchdown · Passing · Rushing · Receiving Yards";
   document.getElementById("funde").innerHTML="";
   document.getElementById("vergleich").innerHTML="";
   document.getElementById("spieltag").innerHTML="";
@@ -2066,6 +2579,7 @@ function sportWechseln(){
     SPORT==="fussball" ? "" : '<p class="hinweis">Ansetzungen laden, dann eine Partie antippen.</p>';
   if(SPORT==="baseball"&&MLB.geladen) mlbSpieltag();
   if(SPORT==="nhl"&&NHL.geladen) nhlSpieltag();
+  if(SPORT==="nfl"&&NFL.geladen) nflSpieltag();
 }
 
 // ======== Start ========
@@ -2084,6 +2598,8 @@ document.getElementById("mlbKnopf").addEventListener("click",mlbStarten);
 document.getElementById("mlbScanKnopf").addEventListener("click",mlbScannen);
 document.getElementById("nhlKnopf").addEventListener("click",nhlStarten);
 document.getElementById("nhlScanKnopf").addEventListener("click",nhlScannen);
+document.getElementById("nflKnopf").addEventListener("click",nflStarten);
+document.getElementById("nflScanKnopf").addEventListener("click",nflScannen);
 document.getElementById("pitcherArt").addEventListener("change",()=>{
   MLB.modelle={};
   document.getElementById("funde").innerHTML="";
