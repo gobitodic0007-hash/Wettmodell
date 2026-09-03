@@ -312,7 +312,7 @@ const QUOTEN={
   "Tore unter 2,5":["Avg<2.5","B365<2.5","P<2.5","Max<2.5"]
 };
 const MLB_HALBWERT=240, MLB_KAPPA=6, MLB_KAPPA_IP=50, MLB_ITER=30;
-const STARTER_ANTEIL=0.6, SAISONGEWICHT=[1,0.6,0.35];
+const SAISONGEWICHT=[1,0.6,0.35];
 const K_KAPPA_BF=300;   // Dämpfung der Strikeout-Rate, in Battern
 const K_KAPPA_ST=4;     // Dämpfung der erwarteten Batters Faced, in Starts
 const K_KAPPA_PA=3000;  // Dämpfung der Offensivwerte, in Plate Appearances
@@ -641,6 +641,7 @@ async function mlbLaden(){
       datum:r.Datum,park:r.Park,heim:r.Heim,gast:r.Gast,
       F5H:z(r.HeimF5),F5A:z(r.GastF5),I1H:z(r.HeimI1),I1A:z(r.GastI1),
       RH:z(r.HeimR),RA:z(r.GastR),
+      LH:z(r.HeimR)-z(r.HeimF5),LA:z(r.GastR)-z(r.GastF5),
       hp:r.HeimStarterId,ap:r.GastStarterId,hpn:r.HeimStarter,apn:r.GastStarter
     })).filter(s=>s.heim&&s.gast&&Number.isFinite(s.F5H)&&Number.isFinite(s.F5A));
     if(rp.ok){
@@ -762,10 +763,16 @@ function mlbFipFaktoren(){
   return out;
 }
 function mlbBauen(art,pitcherArt){
-  const hf=s=>s[art+"H"],af=s=>s[art+"A"];
-  const sp=MLB.spiele.filter(s=>Number.isFinite(hf(s))&&Number.isFinite(af(s)));
+  // art: F5 = erste fuenf Innings, I1 = erstes Inning, L = ab dem sechsten.
+  // Bei L wird nicht dem Starter zugerechnet, sondern dem Bullpen des Teams.
+  const bullpen = art==="L";
+  const hf=s=>s[art+"H"], af=s=>s[art+"A"];
+  const gegenHeim = s => bullpen ? s.gast : s.ap;
+  const gegenGast = s => bullpen ? s.heim : s.hp;
+  const sp=MLB.spiele.filter(s=>Number.isFinite(hf(s))&&Number.isFinite(af(s))
+           &&hf(s)>=0&&af(s)>=0);
   if(sp.length<200) return null;
-  const g=mlbGewicht, anteil=art==="R"?STARTER_ANTEIL:1;
+  const g=mlbGewicht;
   let gs=0,sH=0,sA=0;
   sp.forEach(s=>{const w=g(s); gs+=w; sH+=w*hf(s); sA+=w*af(s);});
   const ligaH=sH/gs,ligaA=sA/gs,liga=(ligaH+ligaA)/2;
@@ -773,20 +780,23 @@ function mlbBauen(art,pitcherArt){
   let hvH=ligaH/liga,hvA=ligaA/liga;
   const teams=[...new Set(sp.flatMap(s=>[s.heim,s.gast]))];
   const parks=[...new Set(sp.map(s=>s.park))];
-  const werfer=[...new Set(sp.flatMap(s=>[s.hp,s.ap]).filter(Boolean))];
-  const off={},pit={},park={};
+  const werfer=[...new Set(sp.flatMap(s=>[gegenHeim(s),gegenGast(s)]).filter(Boolean))];
+  const off={},pit={},park={},nPit={};
   teams.forEach(t=>off[t]=1); parks.forEach(p=>park[p]=1);
-  werfer.forEach(p=>pit[p]=1);
-  const fest=pitcherArt==="komponenten"?mlbFipFaktoren():null;
+  werfer.forEach(p=>{pit[p]=1;nPit[p]=0;});
+  sp.forEach(s=>{const w=g(s);
+    if(gegenHeim(s)) nPit[gegenHeim(s)]+=w;
+    if(gegenGast(s)) nPit[gegenGast(s)]+=w;});
+  const fest=(!bullpen&&pitcherArt==="komponenten")?mlbFipFaktoren():null;
   if(fest) werfer.forEach(p=>{pit[p]=fest[p]!==undefined?fest[p]:1;});
   const K=MLB_KAPPA*liga;
-  const P=p=>Math.pow(pit[p]!==undefined?pit[p]:1,anteil);
+  const P=p=>pit[p]!==undefined?pit[p]:1;
   for(let it=0;it<MLB_ITER;it++){
     const on={},od={};
     teams.forEach(t=>{on[t]=0;od[t]=0;});
     sp.forEach(s=>{const w=g(s),pk=park[s.park];
-      on[s.heim]+=w*hf(s); od[s.heim]+=w*liga*hvH*P(s.ap)*pk;
-      on[s.gast]+=w*af(s); od[s.gast]+=w*liga*hvA*P(s.hp)*pk;});
+      on[s.heim]+=w*hf(s); od[s.heim]+=w*liga*hvH*P(gegenHeim(s))*pk;
+      on[s.gast]+=w*af(s); od[s.gast]+=w*liga*hvA*P(gegenGast(s))*pk;});
     teams.forEach(t=>{off[t]=(on[t]+K)/(od[t]+K);});
     let so=0; teams.forEach(t=>so+=off[t]);
     if(so>0) teams.forEach(t=>off[t]/=so/teams.length);
@@ -794,8 +804,9 @@ function mlbBauen(art,pitcherArt){
       const pn={},pd={};
       werfer.forEach(p=>{pn[p]=0;pd[p]=0;});
       sp.forEach(s=>{const w=g(s),pk=park[s.park];
-        if(s.hp){pn[s.hp]+=w*af(s); pd[s.hp]+=w*liga*hvA*off[s.gast]*pk;}
-        if(s.ap){pn[s.ap]+=w*hf(s); pd[s.ap]+=w*liga*hvH*off[s.heim]*pk;}});
+        const wh=gegenHeim(s), wg=gegenGast(s);
+        if(wh){pn[wh]+=w*hf(s); pd[wh]+=w*liga*hvH*off[s.heim]*pk;}
+        if(wg){pn[wg]+=w*af(s); pd[wg]+=w*liga*hvA*off[s.gast]*pk;}});
       werfer.forEach(p=>{pit[p]=(pn[p]+K)/(pd[p]+K);});
       let s2=0; werfer.forEach(p=>s2+=pit[p]);
       if(s2>0) werfer.forEach(p=>pit[p]/=s2/werfer.length);
@@ -804,20 +815,23 @@ function mlbBauen(art,pitcherArt){
     parks.forEach(p=>{kn[p]=0;kd[p]=0;});
     sp.forEach(s=>{const w=g(s);
       kn[s.park]+=w*(hf(s)+af(s));
-      kd[s.park]+=w*liga*(hvH*off[s.heim]*P(s.ap)+hvA*off[s.gast]*P(s.hp));});
+      kd[s.park]+=w*liga*(hvH*off[s.heim]*P(gegenHeim(s))
+                         +hvA*off[s.gast]*P(gegenGast(s)));});
     parks.forEach(p=>{park[p]=(kn[p]+2*K)/(kd[p]+2*K);});
     let sk=0; parks.forEach(p=>sk+=park[p]);
     if(sk>0) parks.forEach(p=>park[p]/=sk/parks.length);
     let nH=0,dH=0,nA=0,dA=0;
     sp.forEach(s=>{const w=g(s),pk=park[s.park];
-      nH+=w*hf(s); dH+=w*liga*off[s.heim]*P(s.ap)*pk;
-      nA+=w*af(s); dA+=w*liga*off[s.gast]*P(s.hp)*pk;});
+      nH+=w*hf(s); dH+=w*liga*off[s.heim]*P(gegenHeim(s))*pk;
+      nA+=w*af(s); dA+=w*liga*off[s.gast]*P(gegenGast(s))*pk;});
     if(dH>0) hvH=nH/dH;
     if(dA>0) hvA=nA/dA;
   }
-  const erw=(heim,gast,pk,hpid,apid)=>({
-    muH:liga*hvH*(off[heim]||1)*P(apid)*(park[pk]||1),
-    muA:liga*hvA*(off[gast]||1)*P(hpid)*(park[pk]||1)});
+  const erw=(heim,gast,pk,hpid,apid)=>{
+    const wh = bullpen ? gast : apid, wg = bullpen ? heim : hpid;
+    return {muH:liga*hvH*(off[heim]||1)*P(wh)*(park[pk]||1),
+            muA:liga*hvA*(off[gast]||1)*P(wg)*(park[pk]||1)};
+  };
   let n=0,rH=0,rA=0,rT=0;
   sp.forEach(s=>{
     const e=erw(s.heim,s.gast,s.park,s.hp,s.ap);
@@ -827,11 +841,11 @@ function mlbBauen(art,pitcherArt){
     const t=e.muH+e.muA;
     rT+=((hf(s)+af(s))-t)**2/t;
   });
-  const mo={art,erw,off,pit,park,hvH,hvA,liga,
+  const mo={art,erw,off,pit,park,hvH,hvA,liga,nPit,bullpen,
     phiH:n?rH/n:1,phiA:n?rA/n:1,phiT:n?rT/n:1,
     spiele:sp.length,komponenten:!!fest,rho:0,
     mittel:sp.reduce((a,s)=>a+hf(s)+af(s),0)/sp.length};
-  if(art!=="R") mo.rho=schaetzeRho(sp,hf,af,
+  if(art==="F5"||art==="I1") mo.rho=schaetzeRho(sp,hf,af,
     s=>erw(s.heim,s.gast,s.park,s.hp,s.ap),g);
   return mo;
 }
@@ -840,12 +854,37 @@ function mlbModell(art,pitcherArt){
   if(MLB.modelle[k]===undefined) MLB.modelle[k]=mlbBauen(art,pitcherArt);
   return MLB.modelle[k];
 }
-
+// Ganzes Spiel = F5 plus Spaetphase, Streuung an den echten Endstaenden gemessen
+function mlbGesamt(pitcherArt){
+  const k="GES:"+pitcherArt;
+  if(MLB.modelle[k]!==undefined) return MLB.modelle[k];
+  const f5=mlbModell("F5",pitcherArt), sp=mlbModell("L",pitcherArt);
+  if(!f5||!sp){ MLB.modelle[k]=null; return null; }
+  const erw=(heim,gast,pk,hpid,apid)=>{
+    const a=f5.erw(heim,gast,pk,hpid,apid), b=sp.erw(heim,gast,pk,hpid,apid);
+    return {muH:a.muH+b.muH, muA:a.muA+b.muA,
+            f5:a.muH+a.muA, spaet:b.muH+b.muA};
+  };
+  let n=0,rT=0,rH=0,rA=0;
+  MLB.spiele.forEach(s=>{
+    if(!Number.isFinite(s.RH)||!Number.isFinite(s.RA)) return;
+    const e=erw(s.heim,s.gast,s.park,s.hp,s.ap);
+    const t=e.muH+e.muA;
+    if(!(t>0)) return;
+    n++;
+    rT+=((s.RH+s.RA)-t)**2/t;
+    rH+=(s.RH-e.muH)**2/e.muH; rA+=(s.RA-e.muA)**2/e.muA;
+  });
+  const mo={erw, phiT:n?rT/n:1, phiH:n?rH/n:1, phiA:n?rA/n:1,
+            bull:sp, spiele:n};
+  MLB.modelle[k]=mo;
+  return mo;
+}
 function mlbZeichnen(partie){
   const pa=document.getElementById("pitcherArt").value;
   const ziel=document.getElementById("ergebnis");
   const {heim,gast,park,hp,ap,hpn,apn}=partie;
-  const moF5=mlbModell("F5",pa),moI1=mlbModell("I1",pa),moR=mlbModell("R",pa);
+  const moF5=mlbModell("F5",pa),moI1=mlbModell("I1",pa),moR=mlbGesamt(pa);
   if(!moF5){ziel.innerHTML='<p class="hinweis">Zu wenige Spiele.</p>';return;}
   const e=moF5.erw(heim,gast,park,hp,ap),gesamt=e.muH+e.muA;
   const aus=spielausgang(e.muH,e.muA,moF5.phiH,moF5.phiA,moF5.rho,14);
@@ -922,25 +961,36 @@ function mlbZeichnen(partie){
   }
   if(moR){
     const r=moR.erw(heim,gast,park,hp,ap),ges=r.muH+r.muA;
+    const bp=moR.bull;
     html+=`<div class="karte"><div class="kopf"><b>Ganzes Spiel</b>
       <div class="erw">${f(ges)} <span>Runs erwartet</span></div></div>
       ${linTab(ges,moR.phiT,[6.5,7.5,8.5,9.5,10.5,11.5])}
-      <div class="detail">Schwächer als F5. Der Starter geht nur mit Anteil
-        ${f(STARTER_ANTEIL,1)} ein, der Rest ist Bullpen zum Ligaschnitt.</div></div>`;
+      <div class="detail">
+        Aufteilung: ${f(r.f5)} in den ersten fünf Innings, ${f(r.spaet)} danach.<br>
+        Bullpen ${heim} ${f(bp.pit[heim]||1)} · ${gast} ${f(bp.pit[gast]||1)}
+        <span class="q">(unter 1,00 besser als Schnitt)</span><br>
+        Heimwert der Spätphase ${f(bp.hvH)} gegen ${f(bp.hvA)} auswärts — der Abstand
+        entsteht dadurch, dass das Heimteam bei Führung im neunten Inning nicht mehr
+        schlägt.<br>
+        Streuung ${f(moR.phiT)} aus ${moR.spiele} Endständen</div></div>`;
   }
   html+=`<p class="hinweis">Bewertung des Werfers bei Runs: ${moF5.komponenten
     ?"komponentenbasiert aus Strikeouts, Walks und Home Runs"
     :"ergebnisbasiert aus den zugelassenen Runs, bereinigt um Gegner und Park"}.
     Die Strikeout-Rechnung nutzt immer die tatsächlichen Startprotokolle und ist von
     dieser Umschaltung nicht betroffen.<br>
-    Nicht enthalten: Bullpen-Zustand, Handedness-Splits, Wetter und Umpire.</p>`;
+    Das Bullpen wird aus den Runs ab dem sechsten Inning geschätzt, bereinigt um
+    Gegner und Park. Nicht abgebildet ist der Zustand des Bullpens am konkreten Tag:
+    Wer gestern dreißig Würfe hatte, steht heute womöglich nicht bereit. Das ist die
+    verbliebene Schwäche beim ganzen Spiel.<br>
+    Ebenfalls nicht enthalten: Handedness-Splits, Wetter und Umpire.</p>`;
   ziel.innerHTML=html;
 }
 // Alle Maerkte einer Partie mit Wahrscheinlichkeit
 function mlbMaerkte(a){
   const pa=document.getElementById("pitcherArt").value;
   const out=[];
-  const moF5=mlbModell("F5",pa), moI1=mlbModell("I1",pa), moR=mlbModell("R",pa);
+  const moF5=mlbModell("F5",pa), moI1=mlbModell("I1",pa), moR=mlbGesamt(pa);
   const km=kModell();
   if(moF5){
     const e=moF5.erw(a.heim,a.gast,a.park,a.hp,a.ap), ges=e.muH+e.muA;
