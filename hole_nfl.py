@@ -21,6 +21,7 @@ KOPF_SP = ["Saison","Woche","SpielerId","Name","Position","Team","Gegner",
            "Carries","RushYds","RushTD",
            "Targets","Rec","RecYds","RecTD"]
 KOPF_AN = ["Datum","Zeit","Saison","Woche","Heim","Gast"]
+KOPF_KA = ["SpielerId","Name","Position","Team","Status","Saison"]
 
 
 def hole(url, still=False):
@@ -144,6 +145,44 @@ def ansetzungen_holen():
     return raus
 
 
+def kader_holen():
+    """Aktuelle Zugehoerigkeit; ohne das stehen Spieler beim alten Team."""
+    jahr = max(SAISONS)
+    zeilen = erste_treffer([
+        f"{BASIS}/rosters/roster_{jahr}.csv",
+        f"{BASIS}/weekly_rosters/roster_weekly_{jahr}.csv",
+        f"{BASIS}/rosters/roster_weekly_{jahr}.csv",
+        f"{BASIS}/rosters/roster_{jahr}.csv.gz",
+    ])
+    if not zeilen:
+        # Fallback: Vorsaison, besser als gar nichts
+        jahr = max(SAISONS) - 1
+        print(f"    Rueckfall auf Saison {jahr}")
+        zeilen = erste_treffer([
+            f"{BASIS}/rosters/roster_{jahr}.csv",
+            f"{BASIS}/weekly_rosters/roster_weekly_{jahr}.csv",
+        ])
+    neuste = {}
+    for z in zeilen:
+        pid = wert(z, "gsis_id", "player_id", "pfr_id")
+        team = wert(z, "team", "recent_team", "club_code")
+        if not pid or not team:
+            continue
+        woche = zahl(wert(z, "week"))
+        alt = neuste.get(pid)
+        if alt and alt[0] >= woche:
+            continue
+        neuste[pid] = (woche, [
+            pid,
+            wert(z, "full_name", "player_name", "football_name"),
+            wert(z, "position", "depth_chart_position"),
+            team,
+            wert(z, "status") or "ACT",
+            jahr,
+        ])
+    return [v[1] for v in neuste.values()]
+
+
 def schreiben(pfad, kopf, zeilen):
     with open(pfad, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -156,6 +195,8 @@ def main():
     os.makedirs(ORDNER, exist_ok=True)
     print("Spielerwochen holen ...")
     schreiben(f"{ORDNER}/nfl-spieler.csv", KOPF_SP, spieler_holen())
+    print("Kader holen ...")
+    schreiben(f"{ORDNER}/nfl-kader.csv", KOPF_KA, kader_holen())
     print("Ansetzungen holen ...")
     schreiben(f"{ORDNER}/nfl-ansetzungen.csv", KOPF_AN, ansetzungen_holen())
 

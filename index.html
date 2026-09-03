@@ -217,6 +217,10 @@
           <option value="tot:7.5">Gesamt 7,5</option>
           <option value="tot:8.5">Gesamt 8,5</option>
           <option value="tot:9.5">Gesamt 9,5</option>
+          <option value="teamtot">Team-Totals ganzes Spiel</option>
+          <option value="teamtot:3.5">Team gesamt 3,5</option>
+          <option value="teamtot:4.5">Team gesamt 4,5</option>
+          <option value="teamtot:5.5">Team gesamt 5,5</option>
         </optgroup>
       </select>
     </div>
@@ -1049,6 +1053,12 @@ function mlbZeichnen(partie){
     html+=`<div class="karte"><div class="kopf"><b>Ganzes Spiel</b>
       <div class="erw">${f(ges)} <span>Runs erwartet</span></div></div>
       ${linTab(ges,moR.phiT,[6.5,7.5,8.5,9.5,10.5,11.5])}
+      <details><summary>Team-Totals ganzes Spiel</summary>
+        <div class="teamzeile">${heim} · ${f(r.muH)} erwartet</div>
+        ${linTab(r.muH,moR.phiH,[2.5,3.5,4.5,5.5,6.5])}
+        <div class="teamzeile">${gast} · ${f(r.muA)} erwartet</div>
+        ${linTab(r.muA,moR.phiA,[2.5,3.5,4.5,5.5,6.5])}
+      </details>
       <div class="detail">
         Aufteilung: ${f(r.f5)} in den ersten fünf Innings, ${f(r.spaet)} danach.<br>
         Bullpen ${heim} ${f(bp.pit[heim]||1)} · ${gast} ${f(bp.pit[gast]||1)}
@@ -1115,6 +1125,12 @@ function mlbMaerkte(a){
     linienLeiter(ges,moR.phiT,[6.5,7.5,8.5,9.5,10.5,11.5]).forEach(l=>{
       out.push({id:`tot:${l.L}`,n:`Gesamt über ${f(l.L,1)}`,p:l.over});
       out.push({id:`tot:${l.L}`,n:`Gesamt unter ${f(l.L,1)}`,p:l.under});
+    });
+    [[a.heim,r.muH,moR.phiH],[a.gast,r.muA,moR.phiA]].forEach(([nm,mu,phi])=>{
+      linienLeiter(mu,phi,[2.5,3.5,4.5,5.5,6.5]).forEach(l=>{
+        out.push({id:`teamtot:${l.L}`,n:`${nm} gesamt über ${f(l.L,1)}`,p:l.over});
+        out.push({id:`teamtot:${l.L}`,n:`${nm} gesamt unter ${f(l.L,1)}`,p:l.under});
+      });
     });
   }
   return out;
@@ -2091,7 +2107,7 @@ const NFL_K_VOL=3;       // Daempfung des Volumens, in Spielen
 const NFL_K_EFF=60;      // Daempfung der Effizienz, in Versuchen
 const NFL_K_TD=45;       // Daempfung der Trefferquote, in Gelegenheiten
 const NFL_K_DEF=8;       // Daempfung der Defensivwerte, in Spielen
-const NFL={zeilen:[],ansetzungen:[],geladen:false,modell:null,letzteWoche:null};
+const NFL={zeilen:[],ansetzungen:[],kader:{},geladen:false,modell:null,letzteWoche:null};
 
 // Regularisierte untere Gammafunktion, fuer die Yards-Verteilungen
 function gammaP(a,x){
@@ -2145,6 +2161,14 @@ async function nflLaden(){
       car:z(r.Carries)||0, ryd:z(r.RushYds)||0, rtd:z(r.RushTD)||0,
       tgt:z(r.Targets)||0, rec:z(r.Rec)||0, cyd:z(r.RecYds)||0, ctd:z(r.RecTD)||0
     })).filter(x=>x.name&&x.team&&x.gegner&&Number.isFinite(x.saison));
+    try{
+      const rk=await fetch("./daten/nfl-kader.csv");
+      if(rk.ok) csvLesen(await rk.text()).forEach(r=>{
+        if(r.SpielerId) NFL.kader[r.SpielerId]={
+          team:r.Team, pos:r.Position, status:(r.Status||"ACT").toUpperCase(),
+          name:r.Name};
+      });
+    }catch(e){}
     if(ra.ok) NFL.ansetzungen=csvLesen(await ra.text()).map(r=>({
       datum:r.Datum, zeit:r.Zeit, saison:z(r.Saison), woche:z(r.Woche),
       heim:r.Heim, gast:r.Gast
@@ -2154,7 +2178,9 @@ async function nflLaden(){
     NFL.zeilen.forEach(x=>{ if(x.saison>bs||(x.saison===bs&&x.woche>bw)){bs=x.saison;bw=x.woche;} });
     NFL.letzteWoche={saison:bs,woche:bw};
     NFL.geladen=true;
-    setz(`${NFL.zeilen.length} Wochenzeilen, ${NFL.ansetzungen.length} Ansetzungen. `+
+    const kn=Object.keys(NFL.kader).length;
+    setz(`${NFL.zeilen.length} Wochenzeilen, ${NFL.ansetzungen.length} Ansetzungen, `+
+         `${kn?kn+" Kaderplätze":"kein Kader"}. `+
          `Jüngste Woche in den Daten: Saison ${bs}, Woche ${bw}.`);
     return true;
   }catch(e){setz("NFL-Daten konnten nicht geladen werden.");return false;}
@@ -2223,8 +2249,16 @@ function nflBauen(){
       p.letzte={saison:x.saison,woche:x.woche}; p.team=x.team;
     }
   });
+  const habenKader=Object.keys(NFL.kader).length>0;
+  Object.entries(P).forEach(([id,p])=>{
+    const k=NFL.kader[id];
+    p.imKader=!!k;
+    p.status=k?k.status:"";
+    if(k&&k.team) p.team=k.team;      // aktuelle Zugehoerigkeit schlaegt Historie
+    if(k&&k.pos) p.pos=k.pos||p.pos;
+    p.ohneKader=habenKader&&!k;
+  });
   Object.values(P).forEach(p=>{
-    p.attPG=p.nV>0?p.att/(p.nV+NFL_K_VOL*0):p.att/Math.max(p.nV,0.001);
     p.attPG=(p.att)/(p.nV+NFL_K_VOL);
     p.carPG=(p.car)/(p.nV+NFL_K_VOL);
     p.tgtPG=(p.tgt)/(p.nV+NFL_K_VOL);
@@ -2263,6 +2297,8 @@ function nflSpielerFuer(team,mo){
   const raus=[];
   Object.entries(mo.P).forEach(([id,p])=>{
     if(p.team!==team) return;
+    if(p.ohneKader) return;                       // nicht mehr im Verein
+    if(p.status&&["CUT","RET","DEV","EXE"].includes(p.status)) return;
     if(p.attPG<1 && p.carPG<1.5 && p.tgtPG<1) return;
     raus.push({id,...p});
   });
@@ -2295,6 +2331,8 @@ function nflLinien(mu,schritt){
 }
 
 function nflAusfallHinweis(p){
+  if(p.status==="RES") return "auf der Injured-Reserve-Liste";
+  if(p.status==="INA") return "zuletzt als inaktiv geführt";
   const lw=NFL.letzteWoche;
   if(!lw||lw.saison<0) return "";
   if(p.letzte.saison===lw.saison&&p.letzte.woche>=lw.woche-1) return "";
@@ -2448,6 +2486,10 @@ function nflZeichnen(a){
     ${f(mo.formen.rec,1)} für Receiving. Je kleiner der Wert, desto schiefer die
     Verteilung — deshalb ist Under bei Receiving Yards häufiger richtig, als der
     Erwartungswert vermuten lässt.<br>
+    Die Zugehörigkeit stammt aus der aktuellen Kaderdatei, die Leistungswerte aus den
+    Vorsaisons. Ein Spieler, der den Verein gewechselt hat, wird also beim neuen Team
+    geführt — aber mit der Effizienz aus dem alten System. Bei Receivern und Backs ist
+    das ein echter Vorbehalt, weil Verwendung stark vom Playcalling abhängt.<br>
     Nicht enthalten: Aufstellungen, Wetter, Red-Zone-Verwendung und der Spielverlauf.</p>`;
   ziel.innerHTML=html;
 }
