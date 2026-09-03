@@ -22,6 +22,7 @@ ORDNER  = "daten"
 
 KOPF_SPIELE = ["Datum","GamePk","Park","Heim","Gast",
                "HeimF5","GastF5","HeimI1","GastI1","HeimR","GastR",
+               "HeimHits","GastHits","HeimHitsF5","GastHitsF5",
                "HeimStarterId","HeimStarter","GastStarterId","GastStarter"]
 KOPF_PITCH  = ["Id","Name","Saison","IP","R","ER","SO","BB","HBP","HR","BF","GS"]
 KOPF_STARTS = ["Datum","PitcherId","Gegner","BF","SO","IP","Heim"]
@@ -57,6 +58,10 @@ def ip_zahl(s):
 
 def runs(halb):
     return (halb or {}).get("runs") or 0
+
+
+def hits(halb):
+    return (halb or {}).get("hits") or 0
 
 
 def ligen_auflisten():
@@ -105,10 +110,23 @@ def spiele_holen():
                 for g in tag.get("games", []):
                     if g.get("status", {}).get("abstractGameState") != "Final":
                         continue
-                    inn = g.get("linescore", {}).get("innings", [])
+                    ls = g.get("linescore", {})
+                    inn = ls.get("innings", [])
                     if len(inn) < 5:
                         continue
                     heim, gast = g["teams"]["home"], g["teams"]["away"]
+                    lsT = ls.get("teams", {})
+                    hHit = (lsT.get("home") or {}).get("hits")
+                    gHit = (lsT.get("away") or {}).get("hits")
+                    if hHit is None:
+                        hHit = sum(hits(i.get("home")) for i in inn) or ""
+                    if gHit is None:
+                        gHit = sum(hits(i.get("away")) for i in inn) or ""
+                    hHit5 = sum(hits(i.get("home")) for i in inn[:5])
+                    gHit5 = sum(hits(i.get("away")) for i in inn[:5])
+                    # Stehen keine Hits je Inning bereit, bleibt die Spalte leer
+                    if hHit5 == 0 and gHit5 == 0:
+                        hHit5 = gHit5 = ""
                     hp = heim.get("probablePitcher") or {}
                     gp = gast.get("probablePitcher") or {}
                     hid, hnm = hp.get("id"), hp.get("fullName", "")
@@ -128,6 +146,7 @@ def spiele_holen():
                         sum(runs(i.get("away")) for i in inn[:5]),
                         runs(inn[0].get("home")), runs(inn[0].get("away")),
                         heim.get("score", ""), gast.get("score", ""),
+                        hHit, gHit, hHit5, gHit5,
                         hid or "", hnm, gid or "", gnm,
                     ])
                     anz += 1
