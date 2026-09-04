@@ -5,7 +5,7 @@ Ersetzt den frueheren Bash-Block. Erzeugt daten/<Saison>-<Liga>.csv
 sowie daten/fixtures.csv, jeweils von Windows-1252 nach UTF-8 umgewandelt.
 """
 
-import csv, json, os, time, unicodedata, urllib.request
+import csv, json, os, time, unicodedata, urllib.error, urllib.request
 
 SAISONS = ["2425", "2526", "2627"]      # im Sommer die neue anhaengen
 LIGEN = ["E0", "E1", "E2", "E3", "EC",
@@ -97,14 +97,39 @@ def teams_aus_datei(liga):
     return sorted(namen)
 
 
-def espn_holen(slug, tag):
-    url = f"{ESPN}/{slug}/scoreboard?dates={tag}"
-    roh = hole(url)
+def espn_hole(url):
+    """ESPN weist knappe User-Agent-Angaben ab, deshalb hier ein eigener Abruf."""
+    for i in range(2):
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                               "AppleWebKit/537.36 (KHTML, like Gecko) "
+                               "Chrome/126.0 Safari/537.36"),
+                "Accept": "application/json, text/plain, */*",
+                "Accept-Language": "en-US,en;q=0.9",
+            })
+            with urllib.request.urlopen(req, timeout=45) as r:
+                return r.read(), "ok"
+        except urllib.error.HTTPError as e:
+            return None, f"HTTP {e.code}"
+        except Exception as e:
+            if i == 0:
+                time.sleep(2)
+                continue
+            return None, type(e).__name__
+    return None, "unbekannt"
+
+
+def espn_holen(slug, von, bis):
+    url = f"{ESPN}/{slug}/scoreboard?dates={von}-{bis}&limit=200"
+    roh, hinweis = espn_hole(url)
     if not roh:
+        print(f"    ESPN {slug}: {hinweis}")
         return []
     try:
         d = json.loads(roh.decode("utf-8", errors="replace"))
     except Exception:
+        print(f"    ESPN {slug}: Antwort war kein JSON")
         return []
     raus = []
     for ev in d.get("events", []):
@@ -139,25 +164,26 @@ def fruehe_ansetzungen():
             continue
         vergleich = [(n, normal(n)) for n in bekannt]
         gefunden = 0
-        for versatz in range(VORLAUF_TAGE):
-            tag = (heute + timedelta(days=versatz)).strftime("%Y%m%d")
-            for iso, heim, gast in espn_holen(slug, tag):
-                treffer = []
-                for roh in (heim, gast):
-                    kandidat, beste = None, 0.0
-                    rn = normal(roh)
-                    for name, nn in vergleich:
-                        w = aehnlichkeit(rn, nn)
-                        if w > beste:
-                            beste, kandidat = w, name
-                    treffer.append(kandidat if beste >= 0.6 else None)
-                if all(treffer):
-                    zeilen.append([liga, iso, treffer[0], treffer[1]])
-                    gefunden += 1
-                else:
-                    ohne.append(f"{liga}: {heim} gegen {gast}")
-            time.sleep(0.1)
-        print(f"  {liga}: {gefunden} Partien zugeordnet")
+        von = heute.strftime("%Y%m%d")
+        bis = (heute + timedelta(days=VORLAUF_TAGE)).strftime("%Y%m%d")
+        partien = espn_holen(slug, von, bis)
+        for iso, heim, gast in partien:
+            treffer = []
+            for roh in (heim, gast):
+                kandidat, beste = None, 0.0
+                rn = normal(roh)
+                for name, nn in vergleich:
+                    w = aehnlichkeit(rn, nn)
+                    if w > beste:
+                        beste, kandidat = w, name
+                treffer.append(kandidat if beste >= 0.6 else None)
+            if all(treffer):
+                zeilen.append([liga, iso, treffer[0], treffer[1]])
+                gefunden += 1
+            else:
+                ohne.append(f"{liga}: {heim} gegen {gast}")
+        print(f"  {liga}: {len(partien)} von ESPN, {gefunden} zugeordnet")
+        time.sleep(0.2)
     if ohne:
         print(f"  {len(ohne)} Partien ohne Zuordnung, davon:")
         for x in ohne[:10]:
