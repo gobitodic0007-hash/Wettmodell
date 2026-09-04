@@ -597,7 +597,7 @@ function spielausgang(muH,muA,phiH,phiA,rho,N){
 
 // ======== Zustand ========
 const DATEN={}, MODELLE={};
-let ANSETZUNGEN=[], FIXSTATUS="", AKTIV="", SPORT="fussball";
+let ANSETZUNGEN=[], FIXSTATUS="", AKTIV="", SPORT="fussball", FRUEH_ANZAHL=0;
 const rohdaten=()=>AKTIV&&DATEN[AKTIV]?DATEN[AKTIV].alle:[];
 const aktuelle=()=>AKTIV&&DATEN[AKTIV]?DATEN[AKTIV].aktuelle:[];
 
@@ -1396,6 +1396,31 @@ async function ansetzungenLaden(){
       FIXSTATUS="Die Datei hat keine Spalte HomeTeam.";return;}
     ANSETZUNGEN=rows;
   }catch(e){FIXSTATUS="Ansetzungsdatei konnte nicht geladen werden.";}
+  // Fruehe Paarungen ohne Quoten ergaenzen, sofern noch nicht enthalten
+  try{
+    const r=await fetch("./daten/fixtures-frueh.csv");
+    if(r.ok){
+      const roh=csvLesen(await r.text());
+      const da=new Set(ANSETZUNGEN.map(x=>
+        (x.Div||"")+"|"+(x.HomeTeam||"")+"|"+(x.AwayTeam||"")));
+      let neu=0;
+      roh.forEach(x=>{
+        if(!x.Div||!x.HomeTeam||!x.AwayTeam) return;
+        const k=x.Div+"|"+x.HomeTeam+"|"+x.AwayTeam;
+        if(da.has(k)) return;
+        const d=new Date(x.Zeit);
+        if(isNaN(d.getTime())) return;
+        ANSETZUNGEN.push({
+          Div:x.Div, HomeTeam:x.HomeTeam, AwayTeam:x.AwayTeam,
+          Date:`${zwei(d.getUTCDate())}/${zwei(d.getUTCMonth()+1)}/${d.getUTCFullYear()}`,
+          Time:`${zwei(d.getUTCHours())}:${zwei(d.getUTCMinutes())}`,
+          Frueh:"1"
+        });
+        da.add(k); neu++;
+      });
+      FRUEH_ANZAHL=neu;
+    }
+  }catch(e){}
 }
 async function ligaDatenHolen(code){
   if(DATEN[code]) return DATEN[code];
@@ -1650,7 +1675,9 @@ function spieltagZeichnen(){
       ${kante?`<div class="kante">${kante.nm} @ ${f(kante.q)} · +${f(kante.v*100,1)} %</div>`:""}
     </div>`;
   });
-  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung. Zuordnung über ${weg}.</div></div>`;
+  html+=`<div class="detail">Antippen öffnet die vollständige Rechnung. Zuordnung über ${weg}.
+    ${FRUEH_ANZAHL?`<br>${FRUEH_ANZAHL} Paarungen stammen aus dem frühen Abgleich und
+    haben noch keine Quoten — die kommen freitagnachmittags dazu.`:""}</div></div>`;
   ziel.innerHTML=html;
   ziel.querySelectorAll(".spiel").forEach(el=>{
     el.addEventListener("click",()=>{
