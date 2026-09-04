@@ -1,5 +1,4 @@
 Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
-2026-09-04T18:10:00Z,824424,Progressive Field,Cleveland Guardians,Detroit Tigers,671106,Logan Allen,672456,Keider Montero
 2026-09-04T23:15:00Z,824387,Progressive Field,Cleveland Guardians,Detroit Tigers,656492,Foster Griffin,808825,Andrew Sears
 2026-09-04T22:10:00Z,824471,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,695076,Rhett Lowder,675660,Shane Drohan
 2026-09-04T22:40:00Z,823418,Citizens Bank Park,Philadelphia Phillies,Atlanta Braves,650911,Cristopher Sánchez,519242,Chris Sale
@@ -54,7 +53,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-07T19:10:00Z,824229,Comerica Park,Detroit Tigers,Minnesota Twins,,,,
 2026-09-07T21:10:00Z,823254,Petco Park,San Diego Padres,Washington Nationals,,,,
 2026-09-08T00:10:00Z,823175,Oracle Park,San Francisco Giants,St. Louis Cardinals,,,,
-2026-09-08T01:10:00Z,823902,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,Cincinnati Reds,,,,
+2026-09-08T01:10:00Z,823902,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,Cincinnati Reds,,,695505,Chase Burns
 2026-09-08T02:05:00Z,824958,Sutter Health Park,Athletics,Toronto Blue Jays,,,,
 2026-09-08T22:35:00Z,824792,Oriole Park at Camden Yards,Baltimore Orioles,Cleveland Guardians,,,,
 2026-09-08T22:40:00Z,824228,Comerica Park,Detroit Tigers,Minnesota Twins,,,,
@@ -70,7 +69,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-09T01:40:00Z,823092,T-Mobile Park,Seattle Mariners,Texas Rangers,,,,
 2026-09-09T01:40:00Z,824957,Sutter Health Park,Athletics,Toronto Blue Jays,,,,
 2026-09-09T01:45:00Z,823174,Oracle Park,San Francisco Giants,St. Louis Cardinals,,,,
-2026-09-09T02:10:00Z,823901,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,Cincinnati Reds,,,,
+2026-09-09T02:10:00Z,823901,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,Cincinnati Reds,,,666157,Nick Lodolo
 2026-09-09T17:10:00Z,824226,Comerica Park,Detroit Tigers,Minnesota Twins,,,,
 2026-09-09T19:05:00Z,824956,Sutter Health Park,Athletics,Toronto Blue Jays,,,,
 2026-09-09T19:45:00Z,823172,Oracle Park,San Francisco Giants,St. Louis Cardinals,,,,
