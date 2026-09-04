@@ -31,6 +31,25 @@ KOPF_ANS    = ["Zeit","GamePk","Park","Heim","Gast",
                "HeimStarterId","HeimStarter","GastStarterId","GastStarter"]
 
 
+SPIELE = f"{ORDNER}/mlb-spiele.csv"
+
+
+def vorhandene_lesen(pfad, kopf):
+    """Bestand uebernehmen; bei geaendertem Aufbau von vorn beginnen."""
+    if not os.path.exists(pfad):
+        return []
+    try:
+        with open(pfad, encoding="utf-8", newline="") as f:
+            leser = csv.DictReader(f)
+            if leser.fieldnames != kopf:
+                print(f"  {pfad}: Aufbau geaendert, baue neu auf")
+                return []
+            return [[z.get(k, "") for k in kopf] for z in leser]
+    except Exception as e:
+        print(f"  {pfad} nicht lesbar:", type(e).__name__)
+        return []
+
+
 def hole(url, versuche=3):
     for i in range(versuche):
         try:
@@ -90,7 +109,7 @@ def starter_aus_boxscore(pk):
     return tuple(aus)
 
 
-def spiele_holen():
+def spiele_holen(bekannt):
     zeilen, pitcher_ids = [], set()
     for jahr in SAISONS:
         for monat in range(3, 12):
@@ -109,6 +128,8 @@ def spiele_holen():
             for tag in d.get("dates", []):
                 for g in tag.get("games", []):
                     if g.get("status", {}).get("abstractGameState") != "Final":
+                        continue
+                    if str(g.get("gamePk")) in bekannt:
                         continue
                     ls = g.get("linescore", {})
                     inn = ls.get("innings", [])
@@ -150,7 +171,7 @@ def spiele_holen():
                         hid or "", hnm, gid or "", gnm,
                     ])
                     anz += 1
-            print(f"  {jahr}-{monat:02d}: {anz} Spiele")
+            print(f"  {jahr}-{monat:02d}: {anz} neue Spiele")
             time.sleep(0.3)
     return zeilen, pitcher_ids
 
@@ -186,9 +207,10 @@ def pitcher_holen(ids):
     return zeilen, viel
 
 
-def starts_holen(viel):
-    """Je Start: Batters Faced, Strikeouts, Innings, Gegner."""
-    zeilen = []
+def starts_holen(viel, behalten):
+    """Je Start: Batters Faced, Strikeouts, Innings, Gegner.
+    Aeltere Saisons werden aus dem Bestand uebernommen."""
+    zeilen = list(behalten)
     for n, (pid, jahr) in enumerate(sorted(viel), 1):
         url = (f"{BASIS}/people/{pid}/stats"
                f"?stats=gameLog&group=pitching&season={jahr}")
@@ -274,20 +296,52 @@ def schreiben(pfad, kopf, zeilen):
 
 def main():
     os.makedirs(ORDNER, exist_ok=True)
+    laufend = max(SAISONS)
 
-    print("Verfuegbare Ligen der Schnittstelle:")
-    ligen_auflisten()
+    alt_spiele = vorhandene_lesen(SPIELE, KOPF_SPIELE)
+    bekannt = {str(z[1]) for z in alt_spiele}
+    print(f"{len(alt_spiele)} Spiele bereits vorhanden")
 
     print("Spiele holen ...")
-    spiele, ids = spiele_holen()
-    schreiben(f"{ORDNER}/mlb-spiele.csv", KOPF_SPIELE, spiele)
+    neue, ids = spiele_holen(bekannt)
+    spiele = alt_spiele + neue
+    spiele.sort(key=lambda z: (str(z[0]), str(z[1])))
+    print(f"  {len(neue)} Spiele ergaenzt")
+    schreiben(SPIELE, KOPF_SPIELE, spiele)
 
-    print(f"Pitcher holen ({len(ids)}) ...")
+    # Werfer der laufenden Saison immer neu holen, damit die Werte aktuell bleiben
+    for z in spiele:
+        jahr = str(z[0])[:4]
+        if not jahr.isdigit() or int(jahr) != laufend:
+            continue
+        for spalte in (15, 17):          # HeimStarterId, GastStarterId
+            pid = str(z[spalte]).strip()
+            if pid:
+                try:
+                    ids.add((int(float(pid)), laufend))
+                except ValueError:
+                    pass
+
+    alt_pitcher = vorhandene_lesen(f"{ORDNER}/mlb-pitcher.csv", KOPF_PITCH)
+    def paar(z):
+        try:
+            return (int(float(z[0])), int(float(z[2])))
+        except Exception:
+            return None
+    behalten_p = [z for z in alt_pitcher
+                  if str(z[2]) != str(laufend) and paar(z) not in ids]
+    print(f"Pitcher holen ({len(ids)}), {len(behalten_p)} aus dem Bestand ...")
     pitcher, viel = pitcher_holen(ids)
-    schreiben(f"{ORDNER}/mlb-pitcher.csv", KOPF_PITCH, pitcher)
+    schreiben(f"{ORDNER}/mlb-pitcher.csv", KOPF_PITCH, behalten_p + pitcher)
 
-    print(f"Startprotokolle holen ({len(viel)}) ...")
-    schreiben(f"{ORDNER}/mlb-starts.csv", KOPF_STARTS, starts_holen(viel))
+    alt_starts = vorhandene_lesen(f"{ORDNER}/mlb-starts.csv", KOPF_STARTS)
+    behalten_s = [z for z in alt_starts
+                  if not str(z[0]).startswith(str(laufend))]
+    viel_akt = {(p, j) for (p, j) in viel if j == laufend}
+    print(f"Startprotokolle holen ({len(viel_akt)}), "
+          f"{len(behalten_s)} aus dem Bestand ...")
+    schreiben(f"{ORDNER}/mlb-starts.csv", KOPF_STARTS,
+              starts_holen(viel_akt, behalten_s))
 
     print("Offensivwerte holen ...")
     schreiben(f"{ORDNER}/mlb-teams.csv", KOPF_TEAMS, teams_holen())

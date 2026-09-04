@@ -1,30 +1,30 @@
 #!/usr/bin/env python3
 """Holt NHL-Daten von der offenen Schnittstelle api-web.nhle.com.
 
+Arbeitet ergaenzend: Bereits vorhandene Spiele werden aus der Datei
+uebernommen, abgerufen wird nur, was fehlt. Der erste Lauf dauert lange,
+jeder weitere nur noch Sekunden.
+
 Erzeugt:
-  daten/nhl-spiele.csv       abgeschlossene Spiele mit Toren, Schuessen,
-                             Strafminuten und den eingesetzten Torhuetern
+  daten/nhl-spiele.csv       Tore, Schuesse, Strafminuten, Torhueter
   daten/nhl-torhueter.csv    Saisonwerte der Torhueter
   daten/nhl-ansetzungen.csv  kommende Spiele
-
-Die Torzahl wird zusaetzlich ohne Verlaengerung ausgewiesen: bei einem Sieg
-nach Verlaengerung oder Penaltyschiessen faellt genau ein Tor weg, das nicht
-zur reguleren Spielzeit gehoert.
 """
 
-import json, os, csv, time, urllib.request
+import csv, json, os, time, urllib.request
 from datetime import date, timedelta
 
-WEB    = "https://api-web.nhle.com/v1"
+WEB = "https://api-web.nhle.com/v1"
 SAISONS = ["20242025", "20252026", "20262027"]
 ORDNER = "daten"
+SPIELE = f"{ORDNER}/nhl-spiele.csv"
 
 KOPF_SPIELE = ["Datum","GameId","Saison","Heim","Gast",
                "HeimTore","GastTore","HeimReg","GastReg","Ende",
                "HeimSOG","GastSOG","HeimPIM","GastPIM",
                "HeimTwId","HeimTw","GastTwId","GastTw"]
-KOPF_TW     = ["Id","Name","Team","Saison","Spiele","Gegentore","Schuesse"]
-KOPF_ANS    = ["Zeit","GameId","Heim","Gast"]
+KOPF_TW  = ["Id","Name","Team","Saison","Spiele","Gegentore","Schuesse"]
+KOPF_ANS = ["Zeit","GameId","Heim","Gast"]
 
 
 def hole(url, versuche=3, still=False):
@@ -42,6 +42,25 @@ def hole(url, versuche=3, still=False):
                 return None
             time.sleep(2)
     return None
+
+
+def vorhandene_lesen():
+    """Gibt (Zeilen, Menge der GameIds) zurueck; bei anderem Aufbau leer."""
+    if not os.path.exists(SPIELE):
+        return [], set()
+    try:
+        with open(SPIELE, encoding="utf-8", newline="") as f:
+            leser = csv.DictReader(f)
+            if leser.fieldnames != KOPF_SPIELE:
+                print("  Spaltenaufbau hat sich geaendert, baue neu auf")
+                return [], set()
+            zeilen = [[z.get(k, "") for k in KOPF_SPIELE] for z in leser]
+        ids = {str(z[1]) for z in zeilen}
+        print(f"  {len(zeilen)} Spiele bereits vorhanden")
+        return zeilen, ids
+    except Exception as e:
+        print("  Vorhandene Datei nicht lesbar:", type(e).__name__)
+        return [], set()
 
 
 def teams_holen():
@@ -72,12 +91,11 @@ def toi_sekunden(s):
 
 
 def torhueter(seite):
-    """Der Torhueter mit der meisten Eiszeit gilt als Starter."""
     liste = seite.get("goalies") or []
     if not liste:
         return None, "", 0, 0
     bester = max(liste, key=lambda g: toi_sekunden(g.get("toi")))
-    name = (bester.get("name") or {}).get("default") or bester.get("sweaterNumber", "")
+    name = (bester.get("name") or {}).get("default") or ""
     gegen, schuesse = 0, 0
     roh = bester.get("saveShotsAgainst")
     if roh and "/" in str(roh):
@@ -103,19 +121,19 @@ def spiel_ids(codes, saison):
                 continue
             if g.get("gameState") not in ("FINAL", "OFF"):
                 continue
-            ids[g.get("id")] = g.get("gameDate", "")
-        time.sleep(0.15)
+            ids[str(g.get("id"))] = g.get("gameDate", "")
+        time.sleep(0.12)
     return ids
 
 
 def boxscore_verarbeiten(pk, datum_, saison):
     d = hole(f"{WEB}/gamecenter/{pk}/boxscore", still=True)
     if not d:
-        return None, None
+        return None
     heim, gast = d.get("homeTeam") or {}, d.get("awayTeam") or {}
     hs, gs = heim.get("score"), gast.get("score")
     if hs is None or gs is None:
-        return None, None
+        return None
     stats = d.get("playerByGameStats") or {}
     hSeite, gSeite = stats.get("homeTeam") or {}, stats.get("awayTeam") or {}
 
@@ -128,7 +146,6 @@ def boxscore_verarbeiten(pk, datum_, saison):
 
     ende = ((d.get("gameOutcome") or {}).get("lastPeriodType")
             or (d.get("summary") or {}).get("lastPeriodType") or "REG")
-    # In Verlaengerung oder Penaltyschiessen faellt genau ein Siegtor
     hReg, gReg = hs, gs
     if ende in ("OT", "SO"):
         if hs > gs:
@@ -136,18 +153,29 @@ def boxscore_verarbeiten(pk, datum_, saison):
         elif gs > hs:
             gReg = gs - 1
 
-    hid, hnm, hGegen, hSch = torhueter(hSeite)
-    gid, gnm, gGegen, gSch = torhueter(gSeite)
+    hid, hnm, _, _ = torhueter(hSeite)
+    gid, gnm, _, _ = torhueter(gSeite)
+    return [datum_, pk, saison,
+            heim.get("abbrev", ""), gast.get("abbrev", ""),
+            hs, gs, hReg, gReg, ende,
+            zahl(heim.get("sog")), zahl(gast.get("sog")),
+            pim(hSeite), pim(gSeite),
+            hid or "", hnm, gid or "", gnm]
 
-    zeile = [datum_, pk, saison,
-             heim.get("abbrev", ""), gast.get("abbrev", ""),
-             hs, gs, hReg, gReg, ende,
-             zahl(heim.get("sog")), zahl(gast.get("sog")),
-             pim(hSeite), pim(gSeite),
-             hid or "", hnm, gid or "", gnm]
-    tw = [(hid, hnm, heim.get("abbrev", ""), saison, hGegen, hSch),
-          (gid, gnm, gast.get("abbrev", ""), saison, gGegen, gSch)]
-    return zeile, tw
+
+def torhueter_zusammenfassen(zeilen):
+    """Wird aus der fertigen Spieltabelle berechnet, ohne weitere Abrufe."""
+    summe = {}
+    for z in zeilen:
+        saison = z[2]
+        for tid, tnm, team in ((z[14], z[15], z[3]), (z[16], z[17], z[4])):
+            if not tid:
+                continue
+            k = (str(tid), str(saison))
+            x = summe.setdefault(k, [tid, tnm, team, saison, 0, 0, 0])
+            x[1] = tnm or x[1]
+            x[4] += 1
+    return list(summe.values())
 
 
 def ansetzungen_holen():
@@ -181,39 +209,38 @@ def schreiben(pfad, kopf, zeilen):
 
 def main():
     os.makedirs(ORDNER, exist_ok=True)
+    spiele, bekannt = vorhandene_lesen()
+
     codes = teams_holen()
     print(f"{len(codes)} Mannschaften gefunden")
     if not codes:
-        print("Ohne Mannschaftsliste kein Abruf moeglich")
-        return
+        print("Ohne Mannschaftsliste kein Abruf, behalte den Bestand")
+    else:
+        neu = fehler = 0
+        for saison in SAISONS:
+            ids = spiel_ids(codes, saison)
+            offen = {k: v for k, v in ids.items() if k not in bekannt}
+            print(f"  {saison}: {len(ids)} Spiele, davon {len(offen)} neu")
+            for i, (pk, dat) in enumerate(sorted(offen.items()), 1):
+                try:
+                    zeile = boxscore_verarbeiten(pk, dat, saison)
+                except Exception:
+                    zeile = None
+                if zeile:
+                    spiele.append(zeile)
+                    bekannt.add(pk)
+                    neu += 1
+                else:
+                    fehler += 1
+                if i % 200 == 0:
+                    print(f"    {i} von {len(offen)}")
+                time.sleep(0.08)
+        print(f"  {neu} Spiele ergaenzt, {fehler} nicht abrufbar")
 
-    spiele, tw_summe = [], {}
-    for saison in SAISONS:
-        ids = spiel_ids(codes, saison)
-        print(f"  {saison}: {len(ids)} abgeschlossene Spiele")
-        n = 0
-        for pk, dat in sorted(ids.items()):
-            zeile, tw = boxscore_verarbeiten(pk, dat, saison)
-            if not zeile:
-                continue
-            spiele.append(zeile)
-            for tid, tnm, team, sa, gegen, sch in tw:
-                if not tid:
-                    continue
-                k = (tid, sa)
-                x = tw_summe.setdefault(k, [tid, tnm, team, sa, 0, 0, 0])
-                x[1] = tnm or x[1]
-                x[2] = team or x[2]
-                x[4] += 1
-                x[5] += gegen
-                x[6] += sch
-            n += 1
-            if n % 200 == 0:
-                print(f"    {n} von {len(ids)} verarbeitet")
-            time.sleep(0.08)
-
-    schreiben(f"{ORDNER}/nhl-spiele.csv", KOPF_SPIELE, spiele)
-    schreiben(f"{ORDNER}/nhl-torhueter.csv", KOPF_TW, list(tw_summe.values()))
+    spiele.sort(key=lambda z: (str(z[2]), str(z[0]), str(z[1])))
+    schreiben(SPIELE, KOPF_SPIELE, spiele)
+    schreiben(f"{ORDNER}/nhl-torhueter.csv", KOPF_TW,
+              torhueter_zusammenfassen(spiele))
     print("Ansetzungen holen ...")
     schreiben(f"{ORDNER}/nhl-ansetzungen.csv", KOPF_ANS, ansetzungen_holen())
 
