@@ -4,7 +4,10 @@ on:
   push:
   schedule:
     - cron: "0 4 * * *"
+    - cron: "0 15 * * 4"
     - cron: "0 17 * * 5"
+    - cron: "0 20 * * 5"
+    - cron: "0 8 * * 6"
     - cron: "0 14 * * 2"
   workflow_dispatch:
 
