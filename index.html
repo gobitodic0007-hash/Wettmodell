@@ -150,6 +150,14 @@
         </optgroup>
       </select>
     </div>
+    <div class="feld">
+      <label for="richtung">Richtung</label>
+      <select id="richtung">
+        <option value="alle">Over und Under</option>
+        <option value="o">Nur Over</option>
+        <option value="u">Nur Under</option>
+      </select>
+    </div>
     <div class="zwei">
       <div class="feld">
         <label for="schwelle">Mindestens</label>
@@ -242,6 +250,14 @@
         </optgroup>
       </select>
     </div>
+    <div class="feld">
+      <label for="mlbRichtung">Richtung</label>
+      <select id="mlbRichtung">
+        <option value="alle">Over und Under</option>
+        <option value="o">Nur Over</option>
+        <option value="u">Nur Under</option>
+      </select>
+    </div>
     <div class="zwei">
       <div class="feld">
         <label for="mlbSchwelle">Mindestens</label>
@@ -297,6 +313,14 @@
         </optgroup>
       </select>
     </div>
+    <div class="feld">
+      <label for="nhlRichtung">Richtung</label>
+      <select id="nhlRichtung">
+        <option value="alle">Over und Under</option>
+        <option value="o">Nur Over</option>
+        <option value="u">Nur Under</option>
+      </select>
+    </div>
     <div class="zwei">
       <div class="feld">
         <label for="nhlSchwelle">Mindestens</label>
@@ -338,6 +362,14 @@
         <option value="pass">Passing Yards</option>
         <option value="rush">Rushing Yards</option>
         <option value="rec">Receiving Yards</option>
+      </select>
+    </div>
+    <div class="feld">
+      <label for="nflRichtung">Richtung</label>
+      <select id="nflRichtung">
+        <option value="alle">Over und Under</option>
+        <option value="o">Nur Over</option>
+        <option value="u">Nur Under</option>
       </select>
     </div>
     <div class="zwei">
@@ -1247,6 +1279,7 @@ function mlbScannen(){
   }
   const schwelle=Number(document.getElementById("mlbSchwelle").value)/100;
   const obergrenze=Number(document.getElementById("mlbObergrenze").value)/100;
+  const richtung=document.getElementById("mlbRichtung").value;
   const filter=document.getElementById("mlbEreignis").value;
   const sortierung=document.getElementById("mlbSortierung").value;
   const knopf=document.getElementById("mlbScanKnopf");
@@ -1260,7 +1293,8 @@ function mlbScannen(){
     const funde=[];
     spiele.forEach((a,i)=>{
       mlbMaerkte(a).forEach(o=>{
-        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter)
+           &&passtZurRichtung(o.n,richtung))
           funde.push({partie:a,idx:i,...o});
       });
     });
@@ -1515,6 +1549,16 @@ function maerkte(code,r,verf){
   out.forEach(o=>{o.q=quote(r,o.n); o.v=o.q?o.p*o.q-1:null;});
   return out;
 }
+// Over, Under oder richtungslos (Dreiweg, NRFI, Touchdown)
+function richtungVon(name){
+  if(/\süber\s/.test(name)) return "o";
+  if(/\sunter\s/.test(name)) return "u";
+  return "";
+}
+function passtZurRichtung(name,wahl){
+  if(wahl==="alle") return true;
+  return richtungVon(name)===wahl;
+}
 function passtZumFilter(id,filter){
   if(filter==="alle") return true;
   if(filter.includes(":")) return id===filter;
@@ -1581,6 +1625,7 @@ async function alleLigenScannen(){
   const ziel=document.getElementById("funde");
   const schwelle=Number(document.getElementById("schwelle").value)/100;
   const obergrenze=Number(document.getElementById("obergrenze").value)/100;
+  const richtung=document.getElementById("richtung").value;
   const sortierung=document.getElementById("sortierung").value;
   const filter=document.getElementById("ereignis").value;
   const verf=document.getElementById("verfahren").value;
@@ -1605,7 +1650,8 @@ async function alleLigenScannen(){
     partien+=spiele.length;
     spiele.forEach(r=>{
       maerkte(code,r,verf).forEach(o=>{
-        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter)
+           &&passtZurRichtung(o.n,richtung))
           funde.push({code,r,zeit:anstoss(r),...o});
       });
     });
@@ -2171,6 +2217,7 @@ function nhlScannen(){
   }
   const schwelle=Number(document.getElementById("nhlSchwelle").value)/100;
   const obergrenze=Number(document.getElementById("nhlObergrenze").value)/100;
+  const richtung=document.getElementById("nhlRichtung").value;
   const filter=document.getElementById("nhlEreignis").value;
   const sortierung=document.getElementById("nhlSortierung").value;
   const knopf=document.getElementById("nhlScanKnopf");
@@ -2184,7 +2231,8 @@ function nhlScannen(){
     spiele.forEach((a,i)=>{
       const tH=(nhlStandardTw(a.heim)||{}).id, tA=(nhlStandardTw(a.gast)||{}).id;
       nhlMaerkte(a,tH,tA).forEach(o=>{
-        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter)
+           &&passtZurRichtung(o.n,richtung))
           funde.push({partie:a,idx:i,...o});
       });
     });
@@ -2675,6 +2723,7 @@ function nflScannen(){
   }
   const schwelle=Number(document.getElementById("nflSchwelle").value)/100;
   const obergrenze=Number(document.getElementById("nflObergrenze").value)/100;
+  const richtung=document.getElementById("nflRichtung").value;
   const filter=document.getElementById("nflEreignis").value;
   const sortierung=document.getElementById("nflSortierung").value;
   const knopf=document.getElementById("nflScanKnopf");
@@ -2689,7 +2738,8 @@ function nflScannen(){
     const funde=[];
     liste.forEach((a,i)=>{
       nflMaerkte(a,mo).forEach(o=>{
-        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter)
+           &&passtZurRichtung(o.n,richtung))
           funde.push({partie:a,idx:i,...o});
       });
     });
