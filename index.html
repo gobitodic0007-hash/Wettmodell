@@ -160,13 +160,21 @@
         </select>
       </div>
       <div class="feld">
-        <label for="sortierung">Sortierung</label>
-        <select id="sortierung">
-          <option value="zeit" selected>Anstoßzeit</option>
-          <option value="p">Wahrscheinlichkeit</option>
-          <option value="v">Rechnerischer Vorteil</option>
+        <label for="obergrenze">Höchstens</label>
+        <select id="obergrenze">
+          <option value="80">80 %</option><option value="85">85 %</option>
+          <option value="90" selected>90 %</option><option value="95">95 %</option>
+          <option value="100">ohne Grenze</option>
         </select>
       </div>
+    </div>
+    <div class="feld">
+      <label for="sortierung">Sortierung</label>
+      <select id="sortierung">
+        <option value="zeit" selected>Anstoßzeit</option>
+        <option value="p">Wahrscheinlichkeit</option>
+        <option value="v">Rechnerischer Vorteil</option>
+      </select>
     </div>
     <div class="zwei">
       <button id="scanKnopf" class="voll">Alle Ligen durchsuchen</button>
@@ -244,12 +252,20 @@
         </select>
       </div>
       <div class="feld">
-        <label for="mlbSortierung">Sortierung</label>
-        <select id="mlbSortierung">
-          <option value="zeit" selected>Anwurfzeit</option>
-          <option value="p">Wahrscheinlichkeit</option>
+        <label for="mlbObergrenze">Höchstens</label>
+        <select id="mlbObergrenze">
+          <option value="80">80 %</option><option value="85">85 %</option>
+          <option value="90" selected>90 %</option><option value="95">95 %</option>
+          <option value="100">ohne Grenze</option>
         </select>
       </div>
+    </div>
+    <div class="feld">
+      <label for="mlbSortierung">Sortierung</label>
+      <select id="mlbSortierung">
+        <option value="zeit" selected>Anwurfzeit</option>
+        <option value="p">Wahrscheinlichkeit</option>
+      </select>
     </div>
     <div class="zwei">
       <button id="mlbKnopf" class="voll">Ansetzungen laden</button>
@@ -291,12 +307,20 @@
         </select>
       </div>
       <div class="feld">
-        <label for="nhlSortierung">Sortierung</label>
-        <select id="nhlSortierung">
-          <option value="zeit" selected>Anspielzeit</option>
-          <option value="p">Wahrscheinlichkeit</option>
+        <label for="nhlObergrenze">Höchstens</label>
+        <select id="nhlObergrenze">
+          <option value="80">80 %</option><option value="85">85 %</option>
+          <option value="90" selected>90 %</option><option value="95">95 %</option>
+          <option value="100">ohne Grenze</option>
         </select>
       </div>
+    </div>
+    <div class="feld">
+      <label for="nhlSortierung">Sortierung</label>
+      <select id="nhlSortierung">
+        <option value="zeit" selected>Anspielzeit</option>
+        <option value="p">Wahrscheinlichkeit</option>
+      </select>
     </div>
     <div class="zwei">
       <button id="nhlKnopf" class="voll">Ansetzungen laden</button>
@@ -326,12 +350,20 @@
         </select>
       </div>
       <div class="feld">
-        <label for="nflSortierung">Sortierung</label>
-        <select id="nflSortierung">
-          <option value="zeit" selected>Anstoßzeit</option>
-          <option value="p">Wahrscheinlichkeit</option>
+        <label for="nflObergrenze">Höchstens</label>
+        <select id="nflObergrenze">
+          <option value="80">80 %</option><option value="85">85 %</option>
+          <option value="90" selected>90 %</option><option value="95">95 %</option>
+          <option value="100">ohne Grenze</option>
         </select>
       </div>
+    </div>
+    <div class="feld">
+      <label for="nflSortierung">Sortierung</label>
+      <select id="nflSortierung">
+        <option value="zeit" selected>Anstoßzeit</option>
+        <option value="p">Wahrscheinlichkeit</option>
+      </select>
     </div>
     <div class="zwei">
       <button id="nflKnopf" class="voll">Ansetzungen laden</button>
@@ -393,14 +425,14 @@ const METRIKEN=[
   {id:"tore",name:"Tore",halbwert:300,ref:false,leiter:[0.5,1.5,2.5,3.5,4.5],
    h:r=>z(r.FTHG),a:r=>z(r.FTAG)},
   {id:"ecken",name:"Ecken",halbwert:500,ref:false,
-   leiter:[7.5,8.5,9.5,10.5,11.5,12.5,13.5],h:r=>z(r.HC),a:r=>z(r.AC)},
+   leiter:[8.5,9.5,10.5,11.5,12.5],h:r=>z(r.HC),a:r=>z(r.AC)},
   {id:"karten",name:"Karten",halbwert:200,ref:true,
-   leiter:[1.5,2.5,3.5,4.5,5.5,6.5,7.5],
+   leiter:[2.5,3.5,4.5,5.5],
    h:r=>z(r.HY)+z(r.HR),a:r=>z(r.AY)+z(r.AR)},
   {id:"sch",name:"Schüsse",halbwert:500,ref:false,
-   leiter:[17.5,19.5,21.5,23.5,25.5,27.5,29.5],h:r=>z(r.HS),a:r=>z(r.AS)},
+   leiter:[19.5,21.5,23.5,25.5,27.5],h:r=>z(r.HS),a:r=>z(r.AS)},
   {id:"sot",name:"Schüsse aufs Tor",halbwert:450,ref:false,
-   leiter:[5.5,6.5,7.5,8.5,9.5,10.5,11.5],h:r=>z(r.HST),a:r=>z(r.AST)}
+   leiter:[5.5,6.5,7.5,8.5,9.5,10.5],h:r=>z(r.HST),a:r=>z(r.AST)}
 ];
 const QUOTEN={
   "Heimsieg":["AvgH","B365H","PSH","BWH","MaxH"],
@@ -1214,6 +1246,7 @@ function mlbScannen(){
     return;
   }
   const schwelle=Number(document.getElementById("mlbSchwelle").value)/100;
+  const obergrenze=Number(document.getElementById("mlbObergrenze").value)/100;
   const filter=document.getElementById("mlbEreignis").value;
   const sortierung=document.getElementById("mlbSortierung").value;
   const knopf=document.getElementById("mlbScanKnopf");
@@ -1227,7 +1260,7 @@ function mlbScannen(){
     const funde=[];
     spiele.forEach((a,i)=>{
       mlbMaerkte(a).forEach(o=>{
-        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
           funde.push({partie:a,idx:i,...o});
       });
     });
@@ -1235,12 +1268,12 @@ function mlbScannen(){
     else funde.sort((x,y)=>x.partie.ms-y.partie.ms||y.p-x.p);
     if(!funde.length){
       ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
-        <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+        <div class="detail">Keine Treffer zwischen ${f(schwelle*100,0)} und ${f(obergrenze*100,0)} Prozent
         in ${spiele.length} anstehenden Partien.</div></div>`;
       knopf.disabled=false; return;
     }
     const zeigen=funde.slice(0,MAX_FUNDE), nachZeit=sortierung==="zeit";
-    let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+    let html=`<div class="karte"><div class="kopf"><b>Treffer ${f(schwelle*100,0)}–${f(obergrenze*100,0)} %</b>
       <span class="q">${funde.length} aus ${spiele.length} Partien</span></div>`;
     let letzter="";
     zeigen.forEach(t=>{
@@ -1547,6 +1580,7 @@ async function liveZeigen(){
 async function alleLigenScannen(){
   const ziel=document.getElementById("funde");
   const schwelle=Number(document.getElementById("schwelle").value)/100;
+  const obergrenze=Number(document.getElementById("obergrenze").value)/100;
   const sortierung=document.getElementById("sortierung").value;
   const filter=document.getElementById("ereignis").value;
   const verf=document.getElementById("verfahren").value;
@@ -1571,7 +1605,7 @@ async function alleLigenScannen(){
     partien+=spiele.length;
     spiele.forEach(r=>{
       maerkte(code,r,verf).forEach(o=>{
-        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
           funde.push({code,r,zeit:anstoss(r),...o});
       });
     });
@@ -1582,12 +1616,12 @@ async function alleLigenScannen(){
   else funde.sort((a,b)=>a.zeit-b.zeit||b.p-a.p);
   if(!funde.length){
     ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
-      <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+      <div class="detail">Keine Treffer zwischen ${f(schwelle*100,0)} und ${f(obergrenze*100,0)} Prozent
       in ${partien} anstehenden Partien.</div></div>`;
     knopf.disabled=false; return;
   }
   const zeigen=funde.slice(0,MAX_FUNDE),nachZeit=sortierung==="zeit";
-  let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+  let html=`<div class="karte"><div class="kopf"><b>Treffer ${f(schwelle*100,0)}–${f(obergrenze*100,0)} %</b>
     <span class="q">${funde.length} aus ${partien} Partien</span></div>`;
   let letzterTag="";
   zeigen.forEach(t=>{
@@ -1609,7 +1643,10 @@ async function alleLigenScannen(){
   if(funde.length>MAX_FUNDE)
     html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.</div>`;
   html+=`<div class="detail"><b>Wichtig:</b> Eine hohe Wahrscheinlichkeit ist kein Vorteil.
-    Entscheidend ist die dritte Zeile rechts.</div></div>`;
+    Entscheidend ist die dritte Zeile rechts.<br>
+    Die Obergrenze blendet aus, was praktisch feststeht — solche Linien werden
+    entweder nicht angeboten oder zu Quoten, bei denen die Marge den Ertrag
+    aufzehrt.</div></div>`;
   ziel.innerHTML=html;
   ziel.querySelectorAll(".fund").forEach(el=>{
     el.addEventListener("click",async()=>{
@@ -2133,6 +2170,7 @@ function nhlScannen(){
     return;
   }
   const schwelle=Number(document.getElementById("nhlSchwelle").value)/100;
+  const obergrenze=Number(document.getElementById("nhlObergrenze").value)/100;
   const filter=document.getElementById("nhlEreignis").value;
   const sortierung=document.getElementById("nhlSortierung").value;
   const knopf=document.getElementById("nhlScanKnopf");
@@ -2146,7 +2184,7 @@ function nhlScannen(){
     spiele.forEach((a,i)=>{
       const tH=(nhlStandardTw(a.heim)||{}).id, tA=(nhlStandardTw(a.gast)||{}).id;
       nhlMaerkte(a,tH,tA).forEach(o=>{
-        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
           funde.push({partie:a,idx:i,...o});
       });
     });
@@ -2154,12 +2192,12 @@ function nhlScannen(){
     else funde.sort((x,y)=>x.partie.ms-y.partie.ms||y.p-x.p);
     if(!funde.length){
       ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
-        <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+        <div class="detail">Keine Treffer zwischen ${f(schwelle*100,0)} und ${f(obergrenze*100,0)} Prozent
         in ${spiele.length} anstehenden Partien.</div></div>`;
       knopf.disabled=false; return;
     }
     const zeigen=funde.slice(0,MAX_FUNDE), nachZeit=sortierung==="zeit";
-    let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+    let html=`<div class="karte"><div class="kopf"><b>Treffer ${f(schwelle*100,0)}–${f(obergrenze*100,0)} %</b>
       <span class="q">${funde.length} aus ${spiele.length} Partien</span></div>`;
     let letzter="";
     zeigen.forEach(t=>{
@@ -2636,6 +2674,7 @@ function nflScannen(){
     return;
   }
   const schwelle=Number(document.getElementById("nflSchwelle").value)/100;
+  const obergrenze=Number(document.getElementById("nflObergrenze").value)/100;
   const filter=document.getElementById("nflEreignis").value;
   const sortierung=document.getElementById("nflSortierung").value;
   const knopf=document.getElementById("nflScanKnopf");
@@ -2650,7 +2689,7 @@ function nflScannen(){
     const funde=[];
     liste.forEach((a,i)=>{
       nflMaerkte(a,mo).forEach(o=>{
-        if(o.p>=schwelle&&passtZumFilter(o.id,filter))
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter))
           funde.push({partie:a,idx:i,...o});
       });
     });
@@ -2658,12 +2697,12 @@ function nflScannen(){
     else funde.sort((x,y)=>String(x.partie.datum).localeCompare(String(y.partie.datum))||y.p-x.p);
     if(!funde.length){
       ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Suche</b></div>
-        <div class="detail">Keine Treffer über ${f(schwelle*100,0)} Prozent
+        <div class="detail">Keine Treffer zwischen ${f(schwelle*100,0)} und ${f(obergrenze*100,0)} Prozent
         in ${liste.length} Partien.</div></div>`;
       knopf.disabled=false; return;
     }
     const zeigen=funde.slice(0,MAX_FUNDE);
-    let html=`<div class="karte"><div class="kopf"><b>Treffer ab ${f(schwelle*100,0)} %</b>
+    let html=`<div class="karte"><div class="kopf"><b>Treffer ${f(schwelle*100,0)}–${f(obergrenze*100,0)} %</b>
       <span class="q">${funde.length} aus ${liste.length} Partien</span></div>`;
     zeigen.forEach(t=>{
       html+=`<div class="fund" data-i="${t.idx}">
