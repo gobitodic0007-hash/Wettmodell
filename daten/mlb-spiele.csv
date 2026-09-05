@@ -6972,3 +6972,19 @@ Datum,GamePk,Park,Heim,Gast,HeimF5,GastF5,HeimI1,GastI1,HeimR,GastR,HeimHits,Gas
 2026-09-03,824388,Progressive Field,Cleveland Guardians,Toronto Blue Jays,3,5,0,0,3,6,8,9,7,5,676440,Tanner Bibee,667755,José Soriano
 2026-09-03,824632,Wrigley Field,Chicago Cubs,Milwaukee Brewers,2,1,0,0,2,1,3,5,3,5,592332,Kevin Gausman,701656,Logan Henderson
 2026-09-03,824796,Oriole Park at Camden Yards,Baltimore Orioles,Boston Red Sox,3,1,1,1,5,6,7,7,5,1,687064,Brandon Young,687562,Jake Bennett
+2026-09-04,822852,Globe Life Field,Texas Rangers,Tampa Bay Rays,1,6,0,0,6,7,7,12,3,9,592866,Trevor Williams,607259,Nick Martinez
+2026-09-04,823093,T-Mobile Park,Seattle Mariners,Athletics,5,7,0,0,6,7,10,11,7,8,669302,Logan Gilbert,695034,Kade Morris
+2026-09-04,823256,Petco Park,San Diego Padres,New York Yankees,1,1,0,0,3,2,6,5,4,3,621111,Walker Buehler,608331,Max Fried
+2026-09-04,823338,PNC Park,Pittsburgh Pirates,Los Angeles Angels,1,0,0,0,1,0,5,4,3,3,683003,Jared Jones,696270,Ryan Johnson
+2026-09-04,823418,Citizens Bank Park,Philadelphia Phillies,Atlanta Braves,2,3,0,0,2,5,6,8,5,5,650911,Cristopher Sánchez,519242,Chris Sale
+2026-09-04,823579,Citi Field,New York Mets,San Francisco Giants,7,2,3,0,10,6,9,12,5,6,690997,Nolan McLean,683363,Matt Wilkinson
+2026-09-04,823824,loanDepot park,Miami Marlins,Chicago Cubs,0,1,0,0,1,6,4,9,2,3,676083,Janson Junk,684007,Shota Imanaga
+2026-09-04,823905,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,Washington Nationals,4,0,0,0,5,3,5,10,4,3,605483,Blake Snell,800600,Jackson Kent
+2026-09-04,824067,Kauffman Stadium,Kansas City Royals,Toronto Blue Jays,1,5,1,4,2,9,6,13,3,7,663738,Daniel Lynch IV,592791,Jameson Taillon
+2026-09-04,824146,Daikin Park,Houston Astros,Arizona Diamondbacks,3,1,0,0,3,1,7,3,7,1,664299,Cristian Javier,518876,Merrill Kelly
+2026-09-04,824311,Coors Field,Colorado Rockies,St. Louis Cardinals,1,4,1,0,6,7,10,9,2,7,663372,Ryan Feltner,669467,Andre Pallante
+2026-09-04,824387,Progressive Field,Cleveland Guardians,Detroit Tigers,0,3,0,0,4,3,6,9,3,8,656492,Foster Griffin,808825,Andrew Sears
+2026-09-04,824424,Progressive Field,Cleveland Guardians,Detroit Tigers,6,6,1,4,7,6,11,11,10,9,671106,Logan Allen,672456,Keider Montero
+2026-09-04,824471,Great American Ball Park,Cincinnati Reds,Milwaukee Brewers,6,9,1,0,7,10,8,12,6,7,695076,Rhett Lowder,675660,Shane Drohan
+2026-09-04,824554,Rate Field,Chicago White Sox,Minnesota Twins,4,0,1,0,4,1,6,8,4,3,607200,Erick Fedde,805673,Zebby Matthews
+2026-09-04,824797,Oriole Park at Camden Yards,Baltimore Orioles,Boston Red Sox,0,1,0,1,0,1,6,5,5,2,669358,Shane Baz,624133,Ranger Suarez
