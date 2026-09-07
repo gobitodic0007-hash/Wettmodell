@@ -350,6 +350,7 @@
       <button id="nhlKnopf" class="voll">Ansetzungen laden</button>
       <button id="nhlScanKnopf">Partien durchsuchen</button>
     </div>
+    <button id="nhlRueckblickKnopf" style="margin-top:12px">Letzten Spieltag prüfen</button>
   </div>
 
   <div id="nflTeil" style="display:none">
@@ -401,6 +402,7 @@
       <button id="nflKnopf" class="voll">Ansetzungen laden</button>
       <button id="nflScanKnopf">Partien durchsuchen</button>
     </div>
+    <button id="nflRueckblickKnopf" style="margin-top:12px">Letzte Woche prüfen</button>
   </div>
 </div>
 
@@ -428,10 +430,14 @@
       auch Teams früherer Saisons anzeigen
     </label>
   </div>
-  <button id="testKnopf">Verfahren prüfen</button>
+  <div class="zwei">
+    <button id="testKnopf">Verfahren prüfen</button>
+    <button id="rueckblickKnopf">Letzten Spieltag</button>
+  </div>
 </div>
 
 <div id="vergleich"></div>
+<div id="rueckblick"></div>
 <div id="ergebnis"></div>
 
 </div>
@@ -1935,6 +1941,7 @@ async function ligaLaden(code){
   }
   AKTIV=code;
   document.getElementById("vergleich").innerHTML="";
+  document.getElementById("rueckblick").innerHTML="";
   listenFuellen();
   const refs={};
   d.alle.forEach(r=>{const n=(r.Referee||"").trim(); if(n) refs[n]=(refs[n]||0)+1;});
@@ -2458,9 +2465,10 @@ async function nflLaden(){
   }catch(e){setz("NFL-Daten konnten nicht geladen werden.");return false;}
 }
 
-function nflBauen(){
-  if(NFL.modell) return NFL.modell;
-  const Z=NFL.zeilen;
+function nflBauen(zeilenParam){
+  const halten=!zeilenParam;
+  if(halten&&NFL.modell) return NFL.modell;
+  const Z=zeilenParam||NFL.zeilen;
   if(Z.length<2000) return null;
   const gV=x=>Math.pow(0.5,nflTage(x.saison,x.woche)/NFL_HW_VOL);
   const gE=x=>Math.pow(0.5,nflTage(x.saison,x.woche)/NFL_HW_EFF);
@@ -2560,9 +2568,10 @@ function nflBauen(){
     formen[schl]=Math.min(40,Math.max(1.2,mw*mw/varianz));
   });
 
-  NFL.modell={P,DF,defF,formen,lgYPA,lgYPC,lgYPT,
+  const modell={P,DF,defF,formen,lgYPA,lgYPC,lgYPT,
     mAttSp,mCarSp,spieler:Object.keys(P).length};
-  return NFL.modell;
+  if(halten) NFL.modell=modell;
+  return modell;
 }
 
 function nflSpielerFuer(team,mo){
@@ -2971,6 +2980,251 @@ function kalibNhl(){
   return paare.length>=150?plattFit(paare):null;
 }
 
+
+// ======== Rückblick letzter Spieltag ========
+// Das Modell wird ausschliesslich aus Spielen VOR diesem Termin gebaut - der
+// letzte Spieltag war ihm beim Bauen unbekannt, genauso wie ein kommendes Spiel
+// es waere. Anders als die Kalibrierung, die viele Spieltage im Schnitt prueft,
+// zeigt das hier einen einzelnen, konkret nachlesbaren Fall. Bewusst ohne die
+// laufende Kalibrierungs-Korrektur (kalP) gerechnet, weil sonst zwei getrennte
+// Pruefverfahren vermischt wuerden.
+
+function fussballLetzterSpieltag(code){
+  const d=DATEN[code];
+  if(!d||!d.alle.length) return null;
+  const rows=d.alle.filter(r=>r.HomeTeam&&r.AwayTeam&&datum(r.Date)
+    &&Number.isFinite(z(r.FTHG))&&Number.isFinite(z(r.FTAG)))
+    .sort((a,b)=>datum(a.Date)-datum(b.Date));
+  if(rows.length<150) return null;
+  const maxDatum=datum(rows[rows.length-1].Date);
+  const start=new Date(maxDatum.getTime()-3*86400000);
+  const matchday=rows.filter(r=>{const dd=datum(r.Date); return dd>=start&&dd<=maxDatum;});
+  const rest=rows.filter(r=>{const dd=datum(r.Date); return !(dd>=start&&dd<=maxDatum);});
+  if(!matchday.length||rest.length<100) return null;
+  const moT=modellBauen(rest,METRIKEN[0],"regression",start.getTime(),saisonIndex(start));
+  if(!moT) return null;
+  const spiele=matchday.map(r=>{
+    const h=z(r.FTHG), a=z(r.FTAG);
+    const st=moT.staerken(r.HomeTeam,r.AwayTeam);
+    const aus=spielausgang(st.muH,st.muA,moT.phiH,moT.phiA,moT.rho);
+    const p25=pOver(st.muH+st.muA,moT.phiT,2.5);
+    const tats=h>a?"H":h===a?"D":"A";
+    const vorh=aus.heim>=aus.remis&&aus.heim>=aus.aus?"H":aus.remis>=aus.aus?"D":"A";
+    const feld=tats==="H"?"Heimsieg":tats==="D"?"Unentschieden":"Auswärtssieg";
+    const q=quote(r,feld);
+    return {r,h,a,aus,p25,tats,vorh,
+      treffer1x2:vorh===tats, trefferTore:(p25>=0.5)===((h+a)>2.5),
+      modellP:tats==="H"?aus.heim:tats==="D"?aus.remis:aus.aus,
+      marktP:q?1/q:null};
+  });
+  return {von:start,bis:maxDatum,spiele};
+}
+
+function fussballRueckblickZeichnen(){
+  const ziel=document.getElementById("rueckblick");
+  if(!AKTIV||!DATEN[AKTIV]){ziel.innerHTML='<p class="hinweis">Erst eine Liga laden.</p>';return;}
+  const res=fussballLetzterSpieltag(AKTIV);
+  if(!res){ziel.innerHTML='<p class="hinweis">Zu wenige Spiele für einen Rückblick.</p>';return;}
+  let r1=0,rT=0;
+  let html=`<div class="karte"><div class="kopf"><b>Rückblick letzter Spieltag</b>
+    <span class="q">${res.spiele.length} Partien</span></div>`;
+  res.spiele.forEach(s=>{
+    if(s.treffer1x2) r1++;
+    if(s.trefferTore) rT++;
+    const ausText=s.tats==="H"?s.r.HomeTeam+" gewinnt":s.tats==="D"?"Unentschieden":s.r.AwayTeam+" gewinnt";
+    html+=`<div class="spiel" style="cursor:default">
+      <div class="paar">${s.r.HomeTeam} ${s.h}:${s.a} ${s.r.AwayTeam}</div>
+      <div class="zahlen">1X2 Modell: H ${f(s.aus.heim*100,0)}% · D ${f(s.aus.remis*100,0)}% ·
+        A ${f(s.aus.aus*100,0)}% — <span class="${s.treffer1x2?"ja":"nein"}">
+        ${s.treffer1x2?"Treffer":"daneben"}</span></div>
+      <div class="zahlen">Tore über 2,5: ${f(s.p25*100,0)}% —
+        ${s.h+s.a} Tore (${(s.h+s.a)>2.5?"over":"under"}) —
+        <span class="${s.trefferTore?"ja":"nein"}">${s.trefferTore?"Treffer":"daneben"}</span></div>
+      ${s.marktP!==null?`<div class="zahlen q">Markt für ${ausText}: ${f(s.marktP*100,0)}% ·
+        Modell: ${f(s.modellP*100,0)}%</div>`:""}
+    </div>`;
+  });
+  html+=`<div class="detail"><b>${r1} von ${res.spiele.length}</b> Ausgänge richtig
+    (höchste Modellwahrscheinlichkeit) · <b>${rT} von ${res.spiele.length}</b> bei
+    Tore über/unter 2,5.<br>
+    Das Modell kannte diese Partien beim Bauen nicht. Bei so wenigen Spielen ist das
+    keine verlässliche Statistik, sondern ein konkreter Einzelfall zum Nachlesen —
+    für eine belastbare Aussage zählt die Kalibrierung oben in der Statuszeile,
+    die hunderte Spieltage zusammenfasst.</div></div>`;
+  ziel.innerHTML=html;
+}
+
+function mlbLetzterTag(){
+  if(!MLB.spiele.length) return null;
+  const sp=MLB.spiele.slice().sort((a,b)=>String(a.datum).localeCompare(String(b.datum)));
+  const maxDatum=sp[sp.length-1].datum;
+  const tag=sp.filter(s=>s.datum===maxDatum);
+  const rest=sp.filter(s=>s.datum!==maxDatum);
+  if(!tag.length||rest.length<300) return null;
+  const pa=document.getElementById("pitcherArt").value;
+  const moF5=mlbBauen("F5",pa,rest);
+  const moHF5=mlbBauen("HF5",pa,rest);
+  if(!moF5) return null;
+  const spiele=tag.map(s=>{
+    const e=moF5.erw(s.heim,s.gast,s.park,s.hp,s.ap);
+    const mu=e.muH+e.muA, ist=s.F5H+s.F5A;
+    const zeilen=[3.5,4.5,5.5,6.5].map(L=>{
+      const p=pOver(mu,moF5.phiT,L);
+      return {L,p,treffer:(p>=0.5)===(ist>L)};
+    });
+    let hitZeile=null;
+    if(moHF5&&Number.isFinite(s.HF5H)&&Number.isFinite(s.HF5A)){
+      const eh=moHF5.erw(s.heim,s.gast,s.park,s.hp,s.ap);
+      const muh=eh.muH+eh.muA, isth=s.HF5H+s.HF5A;
+      const L=Math.max(0.5,Math.round(muh)-0.5);
+      const p=pOver(muh,moHF5.phiT,L);
+      hitZeile={mu:muh,ist:isth,L,p,treffer:(p>=0.5)===(isth>L)};
+    }
+    return {s,mu,ist,zeilen,hitZeile};
+  });
+  return {spiele};
+}
+
+function mlbRueckblickZeichnen(){
+  const ziel=document.getElementById("rueckblick");
+  if(!MLB.geladen){ziel.innerHTML='<p class="hinweis">Erst die Ansetzungen laden.</p>';return;}
+  const res=mlbLetzterTag();
+  if(!res){ziel.innerHTML='<p class="hinweis">Zu wenige Daten für einen Rückblick.</p>';return;}
+  let treffer=0,gesamt=0;
+  let html=`<div class="karte"><div class="kopf"><b>Rückblick letzter Spieltag</b>
+    <span class="q">${res.spiele.length} Partien</span></div>`;
+  res.spiele.forEach(x=>{
+    const mitte=x.zeilen[1];
+    x.zeilen.forEach(zl=>{gesamt++; if(zl.treffer) treffer++;});
+    html+=`<div class="spiel" style="cursor:default">
+      <div class="paar">${x.s.gast} bei ${x.s.heim} · F5 ${x.s.F5H}:${x.s.F5A}</div>
+      <div class="zahlen">F5 gesamt ${f(x.mu,1)} erwartet, ${x.ist} tatsächlich —
+        Linie ${f(mitte.L,1)}: ${f(mitte.p*100,0)}%
+        <span class="${mitte.treffer?"ja":"nein"}">${mitte.treffer?"Treffer":"daneben"}</span></div>
+      ${x.hitZeile?`<div class="zahlen">Hits F5 ${f(x.hitZeile.mu,1)} erwartet,
+        ${x.hitZeile.ist} tatsächlich — Linie ${f(x.hitZeile.L,1)}: ${f(x.hitZeile.p*100,0)}%
+        <span class="${x.hitZeile.treffer?"ja":"nein"}">
+        ${x.hitZeile.treffer?"Treffer":"daneben"}</span></div>`:""}
+    </div>`;
+  });
+  html+=`<div class="detail"><b>${treffer} von ${gesamt}</b> F5-Linien richtig
+    (vier Linien je Spiel probiert). Das Modell wurde ohne die Spiele dieses Tages gebaut.<br>
+    Beschränkt auf F5-Runs und F5-Hits. Strikeouts und das ganze Spiel fehlen hier, weil
+    dafür eine zweite, eigens gehaltene Modellversion nötig wäre.</div></div>`;
+  ziel.innerHTML=html;
+}
+
+function nhlLetzterTag(){
+  if(!NHL.spiele.length) return null;
+  const sp=NHL.spiele.slice().sort((a,b)=>String(a.datum).localeCompare(String(b.datum)));
+  const maxDatum=sp[sp.length-1].datum;
+  const tag=sp.filter(s=>s.datum===maxDatum);
+  const rest=sp.filter(s=>s.datum!==maxDatum);
+  if(!tag.length||rest.length<300) return null;
+  const moR=nhlBauen("REG",rest);
+  const moT=nhlBauen("TOR",rest);
+  if(!moR||!moT) return null;
+  const spiele=tag.map(s=>{
+    const e=moR.erw(s.heim,s.gast,s.twH,s.twA);
+    const aus=spielausgang(e.muH,e.muA,moR.phiH,moR.phiA,moR.rho,14);
+    const tats=s.regH>s.regA?"H":s.regH===s.regA?"D":"A";
+    const vorh=aus.heim>=aus.remis&&aus.heim>=aus.aus?"H":aus.remis>=aus.aus?"D":"A";
+    const et=moT.erw(s.heim,s.gast,s.twH,s.twA);
+    const mu=et.muH+et.muA, ist=s.torH+s.torA;
+    const L=Math.max(0.5,Math.round(mu)-0.5);
+    const p=pOver(mu,moT.phiT,L);
+    return {s,aus,tats,vorh,treffer1x2:vorh===tats,
+      mu,ist,L,p,trefferTore:(p>=0.5)===(ist>L)};
+  });
+  return {spiele};
+}
+
+function nhlRueckblickZeichnen(){
+  const ziel=document.getElementById("rueckblick");
+  if(!NHL.geladen){ziel.innerHTML='<p class="hinweis">Erst die Ansetzungen laden.</p>';return;}
+  const res=nhlLetzterTag();
+  if(!res){ziel.innerHTML='<p class="hinweis">Zu wenige Daten für einen Rückblick.</p>';return;}
+  let r1=0,rT=0;
+  let html=`<div class="karte"><div class="kopf"><b>Rückblick letzter Spieltag</b>
+    <span class="q">${res.spiele.length} Partien</span></div>`;
+  res.spiele.forEach(s=>{
+    if(s.treffer1x2) r1++;
+    if(s.trefferTore) rT++;
+    html+=`<div class="spiel" style="cursor:default">
+      <div class="paar">${nhlName(s.s.gast)} bei ${nhlName(s.s.heim)} ·
+        ${s.s.regH}:${s.s.regA} nach 60</div>
+      <div class="zahlen">Dreiweg Modell: H ${f(s.aus.heim*100,0)}% · D ${f(s.aus.remis*100,0)}% ·
+        A ${f(s.aus.aus*100,0)}% — <span class="${s.treffer1x2?"ja":"nein"}">
+        ${s.treffer1x2?"Treffer":"daneben"}</span></div>
+      <div class="zahlen">Tore über ${f(s.L,1)}: ${f(s.p*100,0)}% —
+        ${s.ist} Tore gesamt — <span class="${s.trefferTore?"ja":"nein"}">
+        ${s.trefferTore?"Treffer":"daneben"}</span></div>
+    </div>`;
+  });
+  html+=`<div class="detail"><b>${r1} von ${res.spiele.length}</b> Dreiweg-Ausgänge richtig ·
+    <b>${rT} von ${res.spiele.length}</b> bei der Torlinie.<br>
+    Beschränkt auf Dreiweg und Tore gesamt. Schüsse und Strafminuten fehlen hier aus
+    demselben Grund wie bei MLB die Strikeouts.</div></div>`;
+  ziel.innerHTML=html;
+}
+
+function nflLetzteWoche(){
+  if(!NFL.zeilen.length) return null;
+  const lw=NFL.letzteWoche;
+  if(!lw||lw.saison<0) return null;
+  const woche=NFL.zeilen.filter(x=>x.saison===lw.saison&&x.woche===lw.woche);
+  const rest=NFL.zeilen.filter(x=>!(x.saison===lw.saison&&x.woche===lw.woche));
+  if(!woche.length||rest.length<1500) return null;
+  const mo=nflBauen(rest);
+  if(!mo) return null;
+  const raus=[];
+  woche.forEach(x=>{
+    const p=mo.P[x.id];
+    if(!p) return;
+    const e=nflProps(p,x.gegner,mo);
+    const istTd=(x.rtd+x.ctd)>0;
+    const pTd=e.tdLam>0.02?1-Math.exp(-e.tdLam):null;
+    let markt=null,muVor=null,istWert=null;
+    if(p.pos==="QB"&&e.att>=8){markt="Passing";muVor=e.pass;istWert=x.pyd;}
+    else if(e.car>=5&&p.pos!=="QB"){markt="Rushing";muVor=e.rush;istWert=x.ryd;}
+    else if(e.tgt>=2.5){markt="Receiving";muVor=e.rec;istWert=x.cyd;}
+    raus.push({name:x.name,team:x.team,pos:p.pos,pTd,istTd,markt,muVor,istWert});
+  });
+  return {woche:lw,raus};
+}
+
+function nflRueckblickZeichnen(){
+  const ziel=document.getElementById("rueckblick");
+  if(!NFL.geladen){ziel.innerHTML='<p class="hinweis">Erst die Ansetzungen laden.</p>';return;}
+  const res=nflLetzteWoche();
+  if(!res){ziel.innerHTML='<p class="hinweis">Noch keine abgeschlossene Woche für einen Rückblick.</p>';return;}
+  const yardZeilen=res.raus.filter(x=>x.markt);
+  let fehlerSumme=0,fehlerN=0,tdTreffer=0,tdN=0;
+  yardZeilen.forEach(x=>{fehlerSumme+=(x.istWert-x.muVor); fehlerN++;});
+  res.raus.forEach(x=>{if(x.pTd!==null){tdN++; if((x.pTd>=0.5)===x.istTd) tdTreffer++;}});
+  const bias=fehlerN?fehlerSumme/fehlerN:0;
+  let html=`<div class="karte"><div class="kopf"><b>Rückblick Woche ${res.woche.woche}</b>
+    <span class="q">Saison ${res.woche.saison}</span></div>`;
+  yardZeilen.sort((a,b)=>b.istWert-a.istWert).slice(0,20).forEach(x=>{
+    const diff=x.istWert-x.muVor;
+    html+=`<div class="spiel" style="cursor:default">
+      <div class="paar">${x.name} <span class="q">${x.pos} · ${x.team}</span></div>
+      <div class="zahlen">${x.markt}: ${f(x.muVor,0)} erwartet, ${x.istWert} tatsächlich
+        (${diff>=0?"+":""}${f(diff,0)})</div>
+    </div>`;
+  });
+  html+=`<div class="detail">
+    <b>Yards:</b> im Schnitt ${bias>=0?"+":""}${f(bias,1)} gegenüber der Vorhersage
+    über ${fehlerN} Spieler
+    ${bias>3?"— das Modell lag zuletzt zu niedrig.":
+      bias<-3?"— das Modell lag zuletzt zu hoch.":"— im Schnitt ausgeglichen."}<br>
+    <b>Touchdown:</b> ${tdTreffer} von ${tdN} richtig eingeschätzt (ab 50 % als „ja" gewertet).<br>
+    Zeigt die zwanzig auffälligsten Werte. Das Modell wurde ohne die Daten dieser Woche
+    gebaut; die Kaderzuordnung stammt aber weiterhin aus der aktuellen Datei, nicht aus dem
+    Stand von damals — bei Wechseln mitten in der Saison kann das leicht verzerren.</div></div>`;
+  ziel.innerHTML=html;
+}
+
 // ======== Sportartenwechsel ========
 function sportWechseln(){
   SPORT=document.getElementById("sportart").value;
@@ -2987,6 +3241,7 @@ function sportWechseln(){
     : "Touchdown · Passing · Rushing · Receiving Yards";
   document.getElementById("funde").innerHTML="";
   document.getElementById("vergleich").innerHTML="";
+  document.getElementById("rueckblick").innerHTML="";
   document.getElementById("spieltag").innerHTML="";
   document.getElementById("ergebnis").innerHTML=
     SPORT==="fussball" ? "" : '<p class="hinweis">Ansetzungen laden, dann eine Partie antippen.</p>';
@@ -3004,15 +3259,19 @@ document.getElementById("liga").addEventListener("change",e=>ligaLaden(e.target.
 document.getElementById("verfahren").addEventListener("change",()=>{zeichnen();spieltagZeichnen();});
 document.getElementById("alleTeams").addEventListener("change",()=>{listenFuellen();zeichnen();});
 document.getElementById("testKnopf").addEventListener("click",vergleichStarten);
+document.getElementById("rueckblickKnopf").addEventListener("click",fussballRueckblickZeichnen);
 document.getElementById("scanKnopf").addEventListener("click",alleLigenScannen);
 document.getElementById("liveKnopf").addEventListener("click",liveZeigen);
 document.getElementById("sportart").addEventListener("change",sportWechseln);
 document.getElementById("mlbKnopf").addEventListener("click",mlbStarten);
 document.getElementById("mlbScanKnopf").addEventListener("click",mlbScannen);
+document.getElementById("mlbRueckblickKnopf").addEventListener("click",mlbRueckblickZeichnen);
 document.getElementById("nhlKnopf").addEventListener("click",nhlStarten);
 document.getElementById("nhlScanKnopf").addEventListener("click",nhlScannen);
+document.getElementById("nhlRueckblickKnopf").addEventListener("click",nhlRueckblickZeichnen);
 document.getElementById("nflKnopf").addEventListener("click",nflStarten);
 document.getElementById("nflScanKnopf").addEventListener("click",nflScannen);
+document.getElementById("nflRueckblickKnopf").addEventListener("click",nflRueckblickZeichnen);
 document.getElementById("pitcherArt").addEventListener("change",()=>{
   MLB.modelle={};
   KALIB.baseball=null;
