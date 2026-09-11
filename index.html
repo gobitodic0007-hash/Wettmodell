@@ -188,6 +188,7 @@
       <button id="scanKnopf" class="voll">Alle Ligen durchsuchen</button>
       <button id="liveKnopf">Läuft gerade</button>
     </div>
+    <button id="geprueftKnopf" style="margin-top:12px">Nur geprüfte Treffer</button>
   </div>
 
   <div id="baseballTeil" style="display:none">
@@ -673,7 +674,7 @@ function linienFuer(mu,phi){
     if(d<ab){ab=d;best=k;}
   }
   const out=[];
-  for(let k=Math.max(0,best-1);k<=best+1;k++){
+  for(let k=Math.max(0,best-2);k<=best+2;k++){
     const roh=1-cdf[k];
     if(roh<0.002||roh>0.998) continue;
     const over=kalP(roh);
@@ -734,6 +735,7 @@ function spielausgang(muH,muA,phiH,phiA,rho,N){
 
 // ======== Zustand ========
 const DATEN={}, MODELLE={};
+const PRUEF_CACHE={};  // Rueckvergleich + Kalibrierung je Liga, einmal pro Sitzung
 let ANSETZUNGEN=[], FIXSTATUS="", AKTIV="", SPORT="fussball", FRUEH_ANZAHL=0;
 const rohdaten=()=>AKTIV&&DATEN[AKTIV]?DATEN[AKTIV].alle:[];
 const aktuelle=()=>AKTIV&&DATEN[AKTIV]?DATEN[AKTIV].aktuelle:[];
@@ -1790,6 +1792,126 @@ async function alleLigenScannen(){
   });
   knopf.disabled=false;
 }
+
+// Beide Pruefungen fuer eine Liga, gecacht fuer die Sitzung
+async function geprueftePruefung(code,d){
+  if(PRUEF_CACHE[code]) return PRUEF_CACHE[code];
+  const passt={};
+  METRIKEN.forEach(m=>{
+    const v=rueckvergleich(d.alle,m);
+    passt[m.id]=!!(v&&v.brauchbar);
+  });
+  const kal=kalibFussball(code);
+  const res={passt,kal,kalOk:!!(kal&&kal.n>=150)};
+  PRUEF_CACHE[code]=res;
+  return res;
+}
+
+// Wie alleLigenScannen, aber nur Kennzahlen, die BEIDE Huerden nehmen:
+// der Rueckvergleich sagt "passt" UND die Liga hat genug Spiele fuer eine
+// verlaessliche Kalibrierung. Deutlich langsamer, weil fuer jede Liga erst
+// der Rueckvergleich (5 Kennzahlen) und die Kalibrierung gerechnet werden.
+async function alleLigenGeprueftScannen(){
+  const ziel=document.getElementById("funde");
+  const schwelle=Number(document.getElementById("schwelle").value)/100;
+  const obergrenze=Number(document.getElementById("obergrenze").value)/100;
+  const richtung=document.getElementById("richtung").value;
+  const filter=document.getElementById("ereignis").value;
+  const verf=document.getElementById("verfahren").value;
+  const sortierung=document.getElementById("sortierung").value;
+  const knopf=document.getElementById("geprueftKnopf");
+  knopf.disabled=true;
+  await ansetzungenLaden();
+  if(!ANSETZUNGEN.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Geprüfte Treffer</b></div>
+      <div class="detail">${FIXSTATUS||"Keine Ansetzungen verfügbar."}</div></div>`;
+    knopf.disabled=false; return;
+  }
+  const vorherKalib=KALIB.fussball;   // am Ende wiederherstellen, sonst faerbt die letzte Liga ab
+  const codes=Object.keys(LIGEN), funde=[];
+  let partien=0;
+  for(let i=0;i<codes.length;i++){
+    const code=codes[i];
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Verfahren wird geprüft</b>
+      <span class="q">${i+1}/${codes.length}</span></div>
+      <div class="detail">${LIGEN[code]} — dauert länger als die normale Suche …</div></div>`;
+    await warte();
+    const d=await ligaDatenHolen(code);
+    if(!d.alle.length) continue;
+    const pr=await geprueftePruefung(code,d);
+    if(!pr.kalOk || !Object.values(pr.passt).some(Boolean)) continue;
+    KALIB.fussball=pr.kal;   // waehrend dieser Liga gilt ihre eigene Korrektur
+    const {spiele}=partienFuer(code,d);
+    partien+=spiele.length;
+    spiele.forEach(r=>{
+      maerkte(code,r,verf).forEach(o=>{
+        const basis=o.id.split(":")[0];
+        const metrikId=(basis==="1x2"||basis==="btts")?"tore":basis;
+        if(!pr.passt[metrikId]) return;
+        if(o.p>=schwelle&&o.p<=obergrenze&&passtZumFilter(o.id,filter)
+           &&passtZurRichtung(o.n,richtung))
+          funde.push({code,r,zeit:anstoss(r),...o});
+      });
+    });
+    await warte();
+  }
+  KALIB.fussball=vorherKalib;
+
+  if(sortierung==="v") funde.sort((a,b)=>(b.v===null?-9:b.v)-(a.v===null?-9:a.v)||b.p-a.p);
+  else if(sortierung==="p") funde.sort((a,b)=>b.p-a.p);
+  else funde.sort((a,b)=>a.zeit-b.zeit||b.p-a.p);
+
+  if(!funde.length){
+    ziel.innerHTML=`<div class="karte"><div class="kopf"><b>Geprüfte Treffer</b></div>
+      <div class="detail">Keine Treffer, bei denen sowohl der Rückvergleich „passt" sagt als
+      auch eine verlässliche Kalibrierung vorliegt — aus ${partien} anstehenden Partien.
+      Bei kleineren Ligen mit wenig Historie ist das der häufigste Grund.</div></div>`;
+    knopf.disabled=false; return;
+  }
+  const zeigen=funde.slice(0,MAX_FUNDE), nachZeit=sortierung==="zeit";
+  let html=`<div class="karte"><div class="kopf"><b>Geprüfte Treffer</b>
+    <span class="q">${funde.length} aus ${partien} Partien</span></div>`;
+  let letzterTag="";
+  zeigen.forEach(t=>{
+    const tag=tagText(t.r), zeit=zeitText(t.r);
+    if(nachZeit&&tag!==letzterTag){html+=`<div class="tagkopf">${tag}</div>`;letzterTag=tag;}
+    html+=`<div class="fund" data-code="${t.code}" data-h="${t.r.HomeTeam}" data-g="${t.r.AwayTeam}">
+      <div class="links">
+        <div class="liga">${LIGEN[t.code]} · ${nachZeit?zeit:tag+" "+zeit}</div>
+        <div class="partie">${t.r.HomeTeam} – ${t.r.AwayTeam}</div>
+        <div class="markt">${t.n}</div></div>
+      <div class="rechts"><div class="proz">${f(t.p*100,1)} %</div>
+        <div class="q">fair ${f(1/t.p)}</div>
+        ${t.q?(t.v>KANTE_MIN
+          ?`<div class="vorteil">@ ${f(t.q)} · +${f(t.v*100,1)} %</div>`
+          :`<div class="kein">@ ${f(t.q)} · ${t.v>0?"+":""}${f(t.v*100,1)} %</div>`)
+          :`<div class="kein">keine Quote</div>`}
+      </div></div>`;
+  });
+  if(funde.length>MAX_FUNDE)
+    html+=`<div class="detail">${funde.length-MAX_FUNDE} weitere ausgeblendet.</div>`;
+  html+=`<div class="detail"><b>Zwei Hürden gleichzeitig:</b> Der Rückvergleich sagt für diese
+    Kennzahl „passt", und die Liga hat genug geprüfte Spiele für eine verlässliche
+    Kalibrierung. Dreiweg und Beide treffen hängen an derselben Prüfung wie Tore, weil beide
+    aus demselben Modell stammen. Das schließt viele Ligen komplett aus, vor allem kleinere
+    mit wenig Historie — das ist beabsichtigt, nicht ein Fehler.</div></div>`;
+  ziel.innerHTML=html;
+  ziel.querySelectorAll(".fund").forEach(el=>{
+    el.addEventListener("click",async()=>{
+      const c=el.getAttribute("data-code");
+      document.getElementById("liga").value=c;
+      await ligaLaden(c);
+      const sh=document.getElementById("heim"),sg=document.getElementById("gast");
+      const h=el.getAttribute("data-h"),g=el.getAttribute("data-g");
+      if(![...sh.options].some(o=>o.value===h)){
+        document.getElementById("alleTeams").checked=true; listenFuellen();}
+      sh.value=h; sg.value=g; zeichnen();
+      document.getElementById("ergebnis").scrollIntoView({behavior:"smooth"});
+    });
+  });
+  knopf.disabled=false;
+}
+
 function spieltagZeichnen(){
   const ziel=document.getElementById("spieltag");
   const code=AKTIV,verf=document.getElementById("verfahren").value;
@@ -3262,6 +3384,7 @@ document.getElementById("testKnopf").addEventListener("click",vergleichStarten);
 document.getElementById("rueckblickKnopf").addEventListener("click",fussballRueckblickZeichnen);
 document.getElementById("scanKnopf").addEventListener("click",alleLigenScannen);
 document.getElementById("liveKnopf").addEventListener("click",liveZeigen);
+document.getElementById("geprueftKnopf").addEventListener("click",alleLigenGeprueftScannen);
 document.getElementById("sportart").addEventListener("change",sportWechseln);
 document.getElementById("mlbKnopf").addEventListener("click",mlbStarten);
 document.getElementById("mlbScanKnopf").addEventListener("click",mlbScannen);
