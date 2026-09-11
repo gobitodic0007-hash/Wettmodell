@@ -37,7 +37,16 @@ def hole(url, versuche=3):
 
 
 def schreiben(pfad, rohdaten):
-    """Windows-1252 nach UTF-8; unbekannte Zeichen werden verworfen."""
+    """Windows-1252 nach UTF-8; unbekannte Zeichen werden verworfen.
+
+    football-data.co.uk stellt manchen Dateien inzwischen ein UTF-8-BOM voran.
+    Ohne Entfernen wuerden dessen drei Bytes bei der cp1252-Dekodierung zu drei
+    sichtbaren Muellzeichen vor der ersten Spaltenueberschrift (aus "Div" wird
+    "\ufeffDiv", das dann als "ï»¿Div" auftaucht) - und jede Zeile haette
+    dadurch keinen brauchbaren Wert mehr unter "Div".
+    """
+    if rohdaten[:3] == b"\xef\xbb\xbf":
+        rohdaten = rohdaten[3:]
     text = rohdaten.decode("cp1252", errors="ignore")
     with open(pfad, "w", encoding="utf-8", newline="") as f:
         f.write(text)
