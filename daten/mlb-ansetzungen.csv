@@ -1,5 +1,4 @@
 Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
-2026-09-11T18:20:00Z,824631,Wrigley Field,Chicago Cubs,Pittsburgh Pirates,684007,Shota Imanaga,696062,Wilber Dotel
 2026-09-11T22:40:00Z,824227,Comerica Park,Detroit Tigers,Colorado Rockies,664285,Framber Valdez,690279,Mason Adams
 2026-09-11T22:45:00Z,822684,Nationals Park,Washington Nationals,Los Angeles Angels,676917,Cade Cavalli,579328,Yusei Kikuchi
 2026-09-11T23:05:00Z,823498,Yankee Stadium,New York Yankees,New York Mets,607074,Carlos Rodón,690997,Nolan McLean
@@ -12,7 +11,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-12T00:10:00Z,823659,Target Field,Minnesota Twins,Cleveland Guardians,671737,Taj Bradley,800048,Parker Messick
 2026-09-12T00:15:00Z,823012,Busch Stadium,St. Louis Cardinals,Chicago White Sox,669461,Matthew Liberatore,641743,Anthony Kay
 2026-09-12T01:40:00Z,824954,Sutter Health Park,Athletics,Seattle Mariners,605488,Jeffrey Springs,669923,George Kirby
-2026-09-12T01:40:00Z,825036,Chase Field,Arizona Diamondbacks,Texas Rangers,,,669022,MacKenzie Gore
+2026-09-12T01:40:00Z,825036,Chase Field,Arizona Diamondbacks,Texas Rangers,518876,Merrill Kelly,669022,MacKenzie Gore
 2026-09-12T02:15:00Z,823173,Oracle Park,San Francisco Giants,San Diego Padres,683627,Anthony Molina,592662,Robbie Ray
 2026-09-12T17:10:00Z,824224,Comerica Park,Detroit Tigers,Colorado Rockies,,,685299,Tanner Gordon
 2026-09-12T17:35:00Z,823496,Yankee Stadium,New York Yankees,New York Mets,543037,Gerrit Cole,804267,Zac Thornton
@@ -34,7 +33,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-13T17:35:00Z,822682,Nationals Park,Washington Nationals,Los Angeles Angels,663623,Jake Irvin,680570,Grayson Rodriguez
 2026-09-13T17:35:00Z,824869,Truist Park,Atlanta Braves,Philadelphia Phillies,656550,Grant Holmes,691725,Andrew Painter
 2026-09-13T17:35:00Z,823495,Yankee Stadium,New York Yankees,New York Mets,693645,Cam Schlittler,681035,Christian Scott
-2026-09-13T17:37:00Z,822764,Rogers Centre,Toronto Blue Jays,Baltimore Orioles,,,669432,Trevor Rogers
+2026-09-13T17:37:00Z,822764,Rogers Centre,Toronto Blue Jays,Baltimore Orioles,656302,Dylan Cease,669432,Trevor Rogers
 2026-09-13T17:40:00Z,822928,Tropicana Field,Tampa Bay Rays,Houston Astros,642547,Freddy Peralta,669713,Hayden Wesneski
 2026-09-13T17:40:00Z,823815,loanDepot park,Miami Marlins,Los Angeles Dodgers,691587,Eury Pérez,,
 2026-09-13T18:10:00Z,823658,Target Field,Minnesota Twins,Cleveland Guardians,,,,
@@ -46,8 +45,8 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-13T23:20:00Z,823171,Oracle Park,San Francisco Giants,San Diego Padres,657277,Logan Webb,601713,Nick Pivetta
 2026-09-14T22:40:00Z,824465,Great American Ball Park,Cincinnati Reds,Los Angeles Dodgers,,,,
 2026-09-14T22:40:00Z,824386,Progressive Field,Cleveland Guardians,Chicago White Sox,,,,
-2026-09-14T23:07:00Z,822765,Rogers Centre,Toronto Blue Jays,Detroit Tigers,,,,
-2026-09-14T23:10:00Z,823575,Citi Field,New York Mets,Baltimore Orioles,,,,
+2026-09-14T23:07:00Z,822765,Rogers Centre,Toronto Blue Jays,Detroit Tigers,667755,José Soriano,,
+2026-09-14T23:10:00Z,823575,Citi Field,New York Mets,Baltimore Orioles,804636,Jonah Tong,,
 2026-09-14T23:40:00Z,824629,Wrigley Field,Chicago Cubs,Atlanta Braves,,,,
 2026-09-14T23:40:00Z,823656,Target Field,Minnesota Twins,New York Yankees,,,,
 2026-09-14T23:45:00Z,823006,Busch Stadium,St. Louis Cardinals,San Francisco Giants,,,,
@@ -60,7 +59,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-15T22:40:00Z,823333,PNC Park,Pittsburgh Pirates,Milwaukee Brewers,,,,
 2026-09-15T22:45:00Z,822683,Nationals Park,Washington Nationals,Philadelphia Phillies,,,,
 2026-09-15T23:07:00Z,822762,Rogers Centre,Toronto Blue Jays,Detroit Tigers,,,,
-2026-09-15T23:10:00Z,823574,Citi Field,New York Mets,Baltimore Orioles,,,,
+2026-09-15T23:10:00Z,823574,Citi Field,New York Mets,Baltimore Orioles,640455,Sean Manaea,,
 2026-09-15T23:40:00Z,824627,Wrigley Field,Chicago Cubs,Atlanta Braves,,,,
 2026-09-15T23:40:00Z,823654,Target Field,Minnesota Twins,New York Yankees,,,,
 2026-09-15T23:45:00Z,823007,Busch Stadium,St. Louis Cardinals,San Francisco Giants,,,,

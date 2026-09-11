@@ -7767,7 +7767,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-23,684007,Seattle Mariners,14,4,2.0,0
 2026-08-30,684007,Cincinnati Reds,24,4,5.0,1
 2026-09-04,684007,Miami Marlins,21,4,6.0,0
-2026-09-11,684007,Pittsburgh Pirates,13,3,3.0,1
+2026-09-11,684007,Pittsburgh Pirates,24,4,6.0,1
 2026-07-21,684442,Athletics,21,5,5.0,1
 2026-07-26,684442,Washington Nationals,19,1,4.0,0
 2026-08-01,684442,Cleveland Guardians,19,6,4.0,0
@@ -8447,6 +8447,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-06-21,695684,Cincinnati Reds,19,4,4.0,1
 2026-08-26,695684,Houston Astros,22,6,6.0,1
 2026-08-31,695684,Los Angeles Angels,20,5,3.67,0
+2026-09-11,696062,Chicago Cubs,10,1,2.0,0
 2026-05-18,696070,Houston Astros,15,3,4.0,1
 2026-06-23,696070,Los Angeles Dodgers,10,4,2.0,1
 2026-07-21,696070,Cleveland Guardians,10,2,2.33,0
