@@ -12,7 +12,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-12T00:10:00Z,823659,Target Field,Minnesota Twins,Cleveland Guardians,671737,Taj Bradley,800048,Parker Messick
 2026-09-12T00:15:00Z,823012,Busch Stadium,St. Louis Cardinals,Chicago White Sox,669461,Matthew Liberatore,641743,Anthony Kay
 2026-09-12T01:40:00Z,824954,Sutter Health Park,Athletics,Seattle Mariners,605488,Jeffrey Springs,669923,George Kirby
-2026-09-12T01:40:00Z,825036,Chase Field,Arizona Diamondbacks,Texas Rangers,,,,
+2026-09-12T01:40:00Z,825036,Chase Field,Arizona Diamondbacks,Texas Rangers,,,669022,MacKenzie Gore
 2026-09-12T02:15:00Z,823173,Oracle Park,San Francisco Giants,San Diego Padres,683627,Anthony Molina,592662,Robbie Ray
 2026-09-12T17:10:00Z,824224,Comerica Park,Detroit Tigers,Colorado Rockies,,,685299,Tanner Gordon
 2026-09-12T17:35:00Z,823496,Yankee Stadium,New York Yankees,New York Mets,543037,Gerrit Cole,804267,Zac Thornton
@@ -27,7 +27,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-12T23:10:00Z,823737,American Family Field,Milwaukee Brewers,Cincinnati Reds,,,663903,Brady Singer
 2026-09-12T23:15:00Z,824870,Truist Park,Atlanta Braves,Philadelphia Phillies,641816,Tyler Mahle,666200,Jesús Luzardo
 2026-09-12T23:15:00Z,823009,Busch Stadium,St. Louis Cardinals,Chicago White Sox,681517,Kyle Leahy,622491,Luis Castillo
-2026-09-13T00:10:00Z,825035,Chase Field,Arizona Diamondbacks,Texas Rangers,,,,
+2026-09-13T00:10:00Z,825035,Chase Field,Arizona Diamondbacks,Texas Rangers,,,677958,Kumar Rocker
 2026-09-13T01:40:00Z,824955,Sutter Health Park,Athletics,Seattle Mariners,695611,Gage Jump,693433,Bryan Woo
 2026-09-13T16:10:00Z,824225,Comerica Park,Detroit Tigers,Colorado Rockies,695549,Jackson Jobe,687312,Gabriel Hughes
 2026-09-13T17:35:00Z,824708,Fenway Park,Boston Red Sox,Kansas City Royals,801139,Payton Tolle,702070,Noah Cameron
