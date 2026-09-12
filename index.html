@@ -289,6 +289,7 @@
       <button id="mlbKnopf" class="voll">Ansetzungen laden</button>
       <button id="mlbScanKnopf">Partien durchsuchen</button>
     </div>
+    <button id="mlbRueckblickKnopf" style="margin-top:12px">Letzten Spieltag prüfen</button>
   </div>
   </div>
 
@@ -3391,6 +3392,13 @@ function sportWechseln(){
 }
 
 // ======== Start ========
+// Ueber diesen Helfer statt direkt, damit ein einzelnes fehlendes Element nicht
+// die gesamte restliche Verdrahtung stehen laesst.
+function anKnopf(id,fn,ereignis){
+  const el=document.getElementById(id);
+  if(!el){ console.warn("Element fehlt:",id); return; }
+  el.addEventListener(ereignis||"click",fn);
+}
 document.getElementById("liga").innerHTML='<option value="">– wählen –</option>'+
   Object.entries(LIGEN).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
 document.getElementById("liga").addEventListener("change",e=>ligaLaden(e.target.value));
@@ -3398,21 +3406,21 @@ document.getElementById("liga").addEventListener("change",e=>ligaLaden(e.target.
   document.getElementById(id).addEventListener("change",zeichnen));
 document.getElementById("verfahren").addEventListener("change",()=>{zeichnen();spieltagZeichnen();});
 document.getElementById("alleTeams").addEventListener("change",()=>{listenFuellen();zeichnen();});
-document.getElementById("testKnopf").addEventListener("click",vergleichStarten);
-document.getElementById("rueckblickKnopf").addEventListener("click",fussballRueckblickZeichnen);
-document.getElementById("scanKnopf").addEventListener("click",alleLigenScannen);
-document.getElementById("liveKnopf").addEventListener("click",liveZeigen);
-document.getElementById("geprueftKnopf").addEventListener("click",alleLigenGeprueftScannen);
-document.getElementById("sportart").addEventListener("change",sportWechseln);
-document.getElementById("mlbKnopf").addEventListener("click",mlbStarten);
-document.getElementById("mlbScanKnopf").addEventListener("click",mlbScannen);
-document.getElementById("mlbRueckblickKnopf").addEventListener("click",mlbRueckblickZeichnen);
-document.getElementById("nhlKnopf").addEventListener("click",nhlStarten);
-document.getElementById("nhlScanKnopf").addEventListener("click",nhlScannen);
-document.getElementById("nhlRueckblickKnopf").addEventListener("click",nhlRueckblickZeichnen);
-document.getElementById("nflKnopf").addEventListener("click",nflStarten);
-document.getElementById("nflScanKnopf").addEventListener("click",nflScannen);
-document.getElementById("nflRueckblickKnopf").addEventListener("click",nflRueckblickZeichnen);
+anKnopf("testKnopf",vergleichStarten);
+anKnopf("rueckblickKnopf",fussballRueckblickZeichnen);
+anKnopf("scanKnopf",alleLigenScannen);
+anKnopf("liveKnopf",liveZeigen);
+anKnopf("geprueftKnopf",alleLigenGeprueftScannen);
+anKnopf("sportart",sportWechseln,"change");
+anKnopf("mlbKnopf",mlbStarten);
+anKnopf("mlbScanKnopf",mlbScannen);
+anKnopf("mlbRueckblickKnopf",mlbRueckblickZeichnen);
+anKnopf("nhlKnopf",nhlStarten);
+anKnopf("nhlScanKnopf",nhlScannen);
+anKnopf("nhlRueckblickKnopf",nhlRueckblickZeichnen);
+anKnopf("nflKnopf",nflStarten);
+anKnopf("nflScanKnopf",nflScannen);
+anKnopf("nflRueckblickKnopf",nflRueckblickZeichnen);
 document.getElementById("pitcherArt").addEventListener("change",()=>{
   MLB.modelle={};
   KALIB.baseball=null;
