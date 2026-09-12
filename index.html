@@ -135,6 +135,7 @@
         </optgroup>
         <optgroup label="Ecken">
           <option value="ecken">Ecken, alle Linien</option>
+          <option value="ecken3">Ecken: wer holt mehr</option>
           <option value="ecken:9.5">Ecken 9,5</option>
           <option value="ecken:10.5">Ecken 10,5</option>
           <option value="ecken:11.5">Ecken 11,5</option>
@@ -1623,6 +1624,12 @@ function maerkte(code,r,verf){
     const mo=holModell(code,m,verf);
     if(!mo) return;
     const e=rechnen(mo,r.HomeTeam,r.AwayTeam,"");
+    if(m.id==="ecken"){
+      const se=spielausgang(e.muH,e.muA,mo.phiH,mo.phiA,0,25);
+      out.push({id:"ecken3",n:`${r.HomeTeam} mehr Ecken`,p:se.heim},
+               {id:"ecken3",n:"Gleich viele Ecken",p:se.remis},
+               {id:"ecken3",n:`${r.AwayTeam} mehr Ecken`,p:se.aus});
+    }
     linienLeiter(e.mu,mo.phiT,m.leiter).forEach(l=>{
       const id=`${m.id}:${l.L}`;
       out.push({id,n:`${m.name} über ${f(l.L,1)}`,p:l.over});
@@ -2016,9 +2023,20 @@ function zeichnen(){
         ${zeilen([["Ja",s.bttsJa],["Nein",s.bttsNein]])}
         <div class="detail">Unentschieden-Korrektur ${f(mo.rho,3)}.</div></div>`;
     }
+    let eckenDreiweg="";
+    if(m.id==="ecken"){
+      const se=spielausgang(e.muH,e.muA,mo.phiH,mo.phiA,0,25);
+      eckenDreiweg=`<div class="trenner">Wer holt mehr Ecken</div>
+        ${zeilen([[heim,se.heim],["Gleich viele",se.remis],[gast,se.aus]])}
+        <div class="detail">Erwartet ${f(e.muH,1)} zu ${f(e.muA,1)}.
+          „Gleich viele" ist hier keine Randerscheinung wie beim Unentschieden im
+          Torspiel — bei zweistelligen Eckenzahlen landet man häufiger genau gleichauf,
+          als man denkt. Prüfe, ob dein Buchmacher diesen Ausgang überhaupt führt oder
+          die Wette bei Gleichstand für ungültig erklärt.</div>`;
+    }
     html+=`<div class="karte"><div class="kopf"><b>${m.name}</b>
       <div class="erw">${f(e.mu)} <span>erwartet</span></div></div>
-      ${tabelle(e.gesamt)}
+      ${tabelle(e.gesamt)}${eckenDreiweg}
       <details><summary>Pro Mannschaft anzeigen</summary>
         <div class="teamzeile">${heim} · ${f(e.muH)} erwartet</div>${tabelle(e.heimL,"mini")}
         <div class="teamzeile">${gast} · ${f(e.muA)} erwartet</div>${tabelle(e.gastL,"mini")}
