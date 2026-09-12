@@ -362,6 +362,8 @@
       <label for="nflEreignis">Markt</label>
       <select id="nflEreignis">
         <option value="alle">Alle Märkte</option>
+        <option value="punkte">Punkte gesamt</option>
+        <option value="punkteteam">Punkte je Team</option>
         <option value="td">Anytime Touchdown</option>
         <option value="pass">Passing Yards</option>
         <option value="rush">Rushing Yards</option>
@@ -2527,7 +2529,8 @@ const NFL_K_VOL=3;       // Daempfung des Volumens, in Spielen
 const NFL_K_EFF=60;      // Daempfung der Effizienz, in Versuchen
 const NFL_K_TD=45;       // Daempfung der Trefferquote, in Gelegenheiten
 const NFL_K_DEF=8;       // Daempfung der Defensivwerte, in Spielen
-const NFL={zeilen:[],ansetzungen:[],kader:{},geladen:false,modell:null,letzteWoche:null};
+const NFL={zeilen:[],ansetzungen:[],ergebnisse:[],kader:{},geladen:false,
+  modell:null,punkteModell:null,letzteWoche:null};
 
 // Regularisierte untere Gammafunktion, fuer die Yards-Verteilungen
 function gammaP(a,x){
@@ -2559,6 +2562,21 @@ function pUeberYards(mu,L,k){
   return Math.min(0.995,Math.max(0.005,1-gammaP(k,k*L/mu)));
 }
 
+// Punkte haeufen sich auf Vielfachen von 3 und 7 und streuen weit staerker als
+// Tore. Eine Zaehlverteilung passt dafuer nicht; die Normalverteilung trifft die
+// Gesamtform deutlich besser.
+function normalCdf(x){
+  const t=1/(1+0.2316419*Math.abs(x));
+  const d=0.3989422804014327*Math.exp(-x*x/2);
+  const p=d*t*(0.319381530+t*(-0.356563782+t*(1.781477937
+          +t*(-1.821255978+t*1.330274429))));
+  return x>0 ? 1-p : p;
+}
+function pUeberPunkte(mu,sd,L){
+  if(!(sd>0)) return 0.5;
+  return Math.min(0.99,Math.max(0.01,1-normalCdf((L-mu)/sd)));
+}
+
 // Naeherungsdatum aus Saison und Woche: Saisonstart Anfang September
 function nflTage(saison,woche){
   const start=Date.UTC(saison,8,5);
@@ -2582,6 +2600,13 @@ async function nflLaden(){
       tgt:z(r.Targets)||0, rec:z(r.Rec)||0, cyd:z(r.RecYds)||0, ctd:z(r.RecTD)||0
     })).filter(x=>x.name&&x.team&&x.gegner&&Number.isFinite(x.saison));
     try{
+      const re2=await fetch("./daten/nfl-ergebnisse.csv");
+      if(re2.ok) NFL.ergebnisse=csvLesen(await re2.text()).map(r=>({
+        saison:z(r.Saison), woche:z(r.Woche), datum:r.Datum,
+        heim:r.Heim, gast:r.Gast, ph:z(r.HeimPunkte), pa:z(r.GastPunkte)
+      })).filter(x=>x.heim&&x.gast&&Number.isFinite(x.ph)&&Number.isFinite(x.pa));
+    }catch(e){}
+    try{
       const rk=await fetch("./daten/nfl-kader.csv");
       if(rk.ok) csvLesen(await rk.text()).forEach(r=>{
         if(r.SpielerId) NFL.kader[r.SpielerId]={
@@ -2600,7 +2625,8 @@ async function nflLaden(){
     NFL.geladen=true;
     const kn=Object.keys(NFL.kader).length;
     setz(`${NFL.zeilen.length} Wochenzeilen, ${NFL.ansetzungen.length} Ansetzungen, `+
-         `${kn?kn+" Kaderplätze":"kein Kader"}. `+
+         `${kn?kn+" Kaderplätze":"kein Kader"}, `+
+         `${NFL.ergebnisse.length} Endstände. `+
          `Jüngste Woche in den Daten: Saison ${bs}, Woche ${bw}.`);
     return true;
   }catch(e){setz("NFL-Daten konnten nicht geladen werden.");return false;}
@@ -2763,6 +2789,22 @@ function nflAusfallHinweis(p){
 
 function nflMaerkte(a,mo){
   const raus=[];
+  const pm=nflPunkteModell();
+  if(pm){
+    const e=pm.erw(a.heim,a.gast), ges=e.muH+e.muA;
+    nflPunkteLinien(ges,3).forEach(L=>{
+      const ue=pUeberPunkte(ges,pm.sdGesamt,L);
+      raus.push({id:"punkte",n:`Punkte gesamt über ${f(L,1)}`,p:ue});
+      raus.push({id:"punkte",n:`Punkte gesamt unter ${f(L,1)}`,p:1-ue});
+    });
+    [[a.heim,e.muH],[a.gast,e.muA]].forEach(([t,mu])=>{
+      nflPunkteLinien(mu,3).forEach(L=>{
+        const ue=pUeberPunkte(mu,pm.sdTeam,L);
+        raus.push({id:"punkteteam",n:`${t} über ${f(L,1)} Punkte`,p:ue});
+        raus.push({id:"punkteteam",n:`${t} unter ${f(L,1)} Punkte`,p:1-ue});
+      });
+    });
+  }
   [[a.heim,a.gast],[a.gast,a.heim]].forEach(([team,gegner])=>{
     nflSpielerFuer(team,mo).forEach(p=>{
       const e=nflProps(p,gegner,mo);
@@ -2788,6 +2830,71 @@ function nflMaerkte(a,mo){
   return raus;
 }
 
+
+// Punktemodell: Angriff, Abwehr und Heimvorteil wie beim Fussball geschaetzt,
+// aber mit Normalverteilung statt Zaehlverteilung.
+function nflPunkteModell(){
+  if(NFL.punkteModell!==null) return NFL.punkteModell;
+  const E=NFL.ergebnisse;
+  if(!E||E.length<300){ NFL.punkteModell=false; return false; }
+  const g=x=>Math.pow(0.5,nflTage(x.saison,x.woche)/500);
+  let gs=0,sH=0,sA=0;
+  E.forEach(x=>{const w=g(x); gs+=w; sH+=w*x.ph; sA+=w*x.pa;});
+  const ligaH=sH/gs, ligaA=sA/gs, mitte=(ligaH+ligaA)/2;
+  if(!(mitte>0)){ NFL.punkteModell=false; return false; }
+  let hvH=ligaH/mitte, hvA=ligaA/mitte;
+  const teams=[...new Set(E.flatMap(x=>[x.heim,x.gast]))];
+  const att={},def={};
+  teams.forEach(t=>{att[t]=1;def[t]=1;});
+  const K=3*mitte;                       // Daempfung, in Durchschnittsspielen
+  for(let it=0;it<30;it++){
+    const an={},ad={},bn={},bd={};
+    teams.forEach(t=>{an[t]=0;ad[t]=0;bn[t]=0;bd[t]=0;});
+    E.forEach(x=>{
+      const w=g(x);
+      an[x.heim]+=w*x.ph; ad[x.heim]+=w*mitte*hvH*def[x.gast];
+      an[x.gast]+=w*x.pa; ad[x.gast]+=w*mitte*hvA*def[x.heim];
+      bn[x.gast]+=w*x.ph; bd[x.gast]+=w*mitte*hvH*att[x.heim];
+      bn[x.heim]+=w*x.pa; bd[x.heim]+=w*mitte*hvA*att[x.gast];
+    });
+    teams.forEach(t=>{att[t]=(an[t]+K)/(ad[t]+K); def[t]=(bn[t]+K)/(bd[t]+K);});
+    let sa=0,sd=0; teams.forEach(t=>{sa+=att[t];sd+=def[t];});
+    const ca=sa/teams.length, cd=sd/teams.length;
+    if(ca>0&&cd>0) teams.forEach(t=>{att[t]/=ca;def[t]/=cd;});
+    let nH=0,dH=0,nA=0,dA=0;
+    E.forEach(x=>{
+      const w=g(x);
+      nH+=w*x.ph; dH+=w*mitte*att[x.heim]*def[x.gast];
+      nA+=w*x.pa; dA+=w*mitte*att[x.gast]*def[x.heim];
+    });
+    if(dH>0) hvH=nH/dH;
+    if(dA>0) hvA=nA/dA;
+  }
+  const erw=(heim,gast)=>({
+    muH:mitte*hvH*(att[heim]||1)*(def[gast]||1),
+    muA:mitte*hvA*(att[gast]||1)*(def[heim]||1)});
+  // Streuung direkt aus den Abweichungen, getrennt fuer Team und Gesamtpunkte
+  let n=0,qH=0,qA=0,qT=0;
+  E.forEach(x=>{
+    const e=erw(x.heim,x.gast);
+    n++;
+    qH+=(x.ph-e.muH)**2; qA+=(x.pa-e.muA)**2;
+    qT+=((x.ph+x.pa)-(e.muH+e.muA))**2;
+  });
+  const mo={erw,att,def,hvH,hvA,mitte,
+    sdTeam:Math.sqrt((qH+qA)/(2*n)), sdGesamt:Math.sqrt(qT/n),
+    spiele:n, schnitt:E.reduce((a,x)=>a+x.ph+x.pa,0)/E.length};
+  NFL.punkteModell=mo;
+  return mo;
+}
+
+function nflPunkteLinien(mu,schritt){
+  const basis=Math.round(mu/schritt)*schritt;
+  const raus=[];
+  for(let k=-2;k<=2;k++) raus.push(basis+k*schritt-0.5);
+  return raus.filter(L=>L>schritt);
+}
+
 function nflZeichnen(a){
   const ziel=document.getElementById("ergebnis");
   const mo=nflBauen();
@@ -2807,6 +2914,43 @@ function nflZeichnen(a){
 
   let html="";
   let warnungen=[];
+
+  const pm=nflPunkteModell();
+  if(pm){
+    const e=pm.erw(a.heim,a.gast), ges=e.muH+e.muA;
+    const tab=(mu,sd,schritt)=>{
+      let t='<table><thead><tr><th>Linie</th><th>Over</th><th>faire Q.</th>'+
+            '<th>Under</th><th>faire Q.</th></tr></thead><tbody>';
+      nflPunkteLinien(mu,schritt).forEach(L=>{
+        const ue=pUeberPunkte(mu,sd,L);
+        t+=`<tr><td>${f(L,1)}</td><td>${f(ue*100,1)} %</td><td class="q">${f(1/ue)}</td>
+          <td>${f((1-ue)*100,1)} %</td><td class="q">${f(1/(1-ue))}</td></tr>`;
+      });
+      return t+"</tbody></table>";
+    };
+    html+=`<div class="karte">
+      <div class="kopf"><b>Punkte gesamt</b>
+        <div class="erw">${f(ges,1)} <span>erwartet</span></div></div>
+      ${tab(ges,pm.sdGesamt,3)}
+      <details><summary>Punkte je Team</summary>
+        <div class="teamzeile">${a.heim} · ${f(e.muH,1)} erwartet</div>
+        ${tab(e.muH,pm.sdTeam,3)}
+        <div class="teamzeile">${a.gast} · ${f(e.muA,1)} erwartet</div>
+        ${tab(e.muA,pm.sdTeam,3)}
+      </details>
+      <div class="detail">
+        Angriff ${a.heim} ${f(pm.att[a.heim]||1)} · Abwehr ${f(pm.def[a.heim]||1)}<br>
+        Angriff ${a.gast} ${f(pm.att[a.gast]||1)} · Abwehr ${f(pm.def[a.gast]||1)}<br>
+        Heimvorteil ${f(pm.hvH)} · Streuung ${f(pm.sdGesamt,1)} Punkte gesamt,
+        ${f(pm.sdTeam,1)} je Team · Ligaschnitt ${f(pm.schnitt,1)}
+        aus ${pm.spiele} Spielen</div>
+      <div class="guete mittel"><b>Belastbarkeit: mittel</b>
+        Anders als bei Toren wird hier mit einer Normalverteilung gerechnet, weil
+        Punkte auf Vielfachen von 3 und 7 klumpen und weit streuen. Die Linien liegen
+        deshalb in Dreierschritten. Nicht abgebildet: Verletzungen zentraler Spieler,
+        Wetter und die Frage, ob ein Team in der Schlussphase noch voll spielt oder
+        die Uhr laufen lässt.</div></div>`;
+  }
 
   // Passing
   let passHtml="";

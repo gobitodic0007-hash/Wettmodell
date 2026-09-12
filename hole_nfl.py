@@ -22,6 +22,7 @@ KOPF_SP = ["Saison","Woche","SpielerId","Name","Position","Team","Gegner",
            "Targets","Rec","RecYds","RecTD"]
 KOPF_AN = ["Datum","Zeit","Saison","Woche","Heim","Gast"]
 KOPF_KA = ["SpielerId","Name","Position","Team","Status","Saison"]
+KOPF_ER = ["Saison","Woche","Datum","Heim","Gast","HeimPunkte","GastPunkte"]
 
 
 def hole(url, still=False):
@@ -121,12 +122,15 @@ def spieler_holen():
     return raus
 
 
-def ansetzungen_holen():
-    zeilen = erste_treffer([
+def spielplan_holen():
+    return erste_treffer([
         f"{BASIS}/schedules/games.csv",
         f"{BASIS}/schedules/schedules.csv",
         f"{BASIS}/schedules/games.csv.gz",
     ])
+
+
+def ansetzungen_holen(zeilen):
     raus = []
     for z in zeilen:
         if zahl(wert(z, "season")) not in SAISONS:
@@ -142,6 +146,29 @@ def ansetzungen_holen():
         raus.append([wert(z, "gameday", "game_date"), wert(z, "gametime"),
                      zahl(wert(z, "season")), zahl(wert(z, "week")), heim, gast])
     raus.sort(key=lambda r: (str(r[0]), str(r[1])))
+    return raus
+
+
+def ergebnisse_holen(zeilen):
+    """Abgeschlossene Partien mit Endstand, Grundlage fuer das Punktemodell."""
+    raus = []
+    for z in zeilen:
+        saison = zahl(wert(z, "season"))
+        if saison < min(SAISONS) - 2:      # zwei Jahre mehr Historie als bei Spielern
+            continue
+        if str(wert(z, "game_type")).upper() not in ("REG", ""):
+            continue
+        hs = wert(z, "home_score")
+        gs = wert(z, "away_score")
+        if str(hs).strip() in ("", "NA", "None"):
+            continue
+        heim, gast = wert(z, "home_team"), wert(z, "away_team")
+        if not heim or not gast:
+            continue
+        raus.append([saison, zahl(wert(z, "week")),
+                     wert(z, "gameday", "game_date"),
+                     heim, gast, zahl(hs), zahl(gs)])
+    raus.sort(key=lambda r: (r[0], r[1]))
     return raus
 
 
@@ -197,8 +224,11 @@ def main():
     schreiben(f"{ORDNER}/nfl-spieler.csv", KOPF_SP, spieler_holen())
     print("Kader holen ...")
     schreiben(f"{ORDNER}/nfl-kader.csv", KOPF_KA, kader_holen())
-    print("Ansetzungen holen ...")
-    schreiben(f"{ORDNER}/nfl-ansetzungen.csv", KOPF_AN, ansetzungen_holen())
+
+    print("Spielplan holen ...")
+    plan = spielplan_holen()
+    schreiben(f"{ORDNER}/nfl-ansetzungen.csv", KOPF_AN, ansetzungen_holen(plan))
+    schreiben(f"{ORDNER}/nfl-ergebnisse.csv", KOPF_ER, ergebnisse_holen(plan))
 
 
 if __name__ == "__main__":
