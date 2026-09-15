@@ -23875,6 +23875,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0030140,Tress Way,P,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0030279,Keenan Allen,WR,IND,BAL,0,0,0,0,0,0,0,6,6,32,0
 2026,1,00-0030294,Tony Jefferson,S,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0030506,Travis Kelce,TE,KC,DEN,0,0,0,0,0,0,0,5,3,71,0
 2026,1,00-0030565,Geno Smith,QB,NYJ,TEN,24,215,0,0,6,7,0,0,0,0,0
 2026,1,00-0031040,Khalil Mack,OLB,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0031136,Chris Boswell,K,PIT,ATL,0,0,0,0,0,0,0,0,0,0,0
@@ -23892,6 +23893,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0031583,Grady Jarrett,DT,CHI,CAR,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0031588,Stefon Diggs,WR,WAS,PHI,0,0,0,0,0,0,0,9,4,55,1
 2026,1,00-0031610,Darren Waller,TE,CAR,CHI,0,0,0,0,0,0,0,2,2,28,0
+2026,1,00-0031898,Alex Singleton,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0031933,Leonard Williams,DE,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0031957,Rakeem Nunez-Roches,DT,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0032065,Bradley Pinion,P,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
@@ -23905,10 +23907,12 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0032398,Chris Moore,WR,BAL,IND,0,0,0,0,0,0,0,2,1,53,0
 2026,1,00-0032424,DJ Reader,DT,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0032464,Kalif Raymond,WR,CHI,CAR,0,0,0,0,0,0,0,9,8,84,0
+2026,1,00-0032569,Wil Lutz,K,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0032701,Jake Brendel,C,SF,LA,0,0,0,0,0,0,0,1,1,2,0
 2026,1,00-0032726,Ka'imi Fairbairn,K,HOU,BUF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0032753,Luke Rhodes,LS,IND,BAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0032759,Sheldon Rankins,DT,HOU,BUF,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0032762,Chris Jones,DE,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0032764,Derrick Henry,RB,BAL,IND,0,0,0,0,24,144,3,1,1,19,0
 2026,1,00-0032775,Demarcus Robinson,WR,SF,LA,0,0,0,0,0,0,0,3,2,50,1
 2026,1,00-0032889,A'Shawn Robinson,DT,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
@@ -23935,6 +23939,8 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0033290,Jermaine Eluemunor,G,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0033293,Aaron Jones,RB,MIN,GB,0,0,0,0,12,40,1,1,0,0,0
 2026,1,00-0033294,Chuck Clark,SAF,DET,NO,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0033297,D.J. Jones,DT,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0033303,Harrison Butker,K,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0033307,Kendrick Bourne,WR,ARI,LAC,0,0,0,0,0,0,0,8,8,75,0
 2026,1,00-0033319,Nick Mullens,QB,JAX,CLE,0,0,0,0,3,-3,0,0,0,0,0
 2026,1,00-0033336,Eric Wilson,LB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
@@ -23953,7 +23959,9 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0033787,Jake Elliott,K,PHI,WAS,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0033858,Jonnu Smith,TE,GB,MIN,0,0,0,0,0,0,0,3,2,50,0
 2026,1,00-0033860,Davon Godchaux,DT,NO,DET,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0033873,Patrick Mahomes,QB,KC,DEN,27,184,2,0,7,23,1,0,0,0,0
 2026,1,00-0033877,Malik Hooker,FS,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0033881,Evan Engram,TE,DEN,KC,0,0,0,0,0,0,0,5,4,43,1
 2026,1,00-0033885,David Njoku,TE,LAC,ARI,0,0,0,0,0,0,0,5,5,58,0
 2026,1,00-0033886,T.J. Watt,OLB,PIT,ATL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0033890,Budda Baker,S,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
@@ -23980,6 +23988,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0034302,Frankie Luvu,LB,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0034320,Kentavius Street,DE,CHI,CAR,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0034333,Daron Payne,NT,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0034348,Courtland Sutton,WR,DEN,KC,0,0,0,0,0,0,0,5,2,11,0
 2026,1,00-0034350,Uchenna Nwosu,LB,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0034351,Dallas Goedert,TE,PHI,WAS,0,0,0,0,0,0,0,5,4,77,2
 2026,1,00-0034356,Donte Jackson,CB,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
@@ -24062,12 +24071,14 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0035234,Tytus Howard,OT,CLE,JAX,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035236,Byron Murphy,CB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035240,Jahlani Tavai,LB,JAX,CLE,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0035248,Zach Allen,DE,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035249,Josh Oliver,TE,MIN,GB,0,0,0,0,0,0,0,4,2,22,0
 2026,1,00-0035250,Devin Singletary,RB,NYG,DAL,0,0,0,0,6,16,0,4,4,22,1
 2026,1,00-0035253,C.J. Gardner-Johnson,SAF,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035254,Anthony Nelson,LB,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035258,Hjalte Froholdt,G,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035261,Tony Pollard,RB,TEN,NYJ,0,0,0,0,7,35,0,2,1,-1,0
+2026,1,00-0035262,Drue Tranquill,LB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035269,Matt Gay,K,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035272,Andrew Van Ginkel,OLB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035276,Blake Cashman,LB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
@@ -24120,6 +24131,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0035717,Nick Bosa,DE,SF,LA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035718,Quinnen Williams,DT,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035719,Deebo Samuel Sr.,WR,SF,LA,0,0,0,0,1,12,0,7,6,48,1
+2026,1,00-0035763,Malcolm Roach,DT,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035795,James Pierre,CB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035821,Corliss Waitman,P,SF,LA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0035827,Ross Matiscik,LS,JAX,CLE,0,0,0,0,0,0,0,0,0,0,0
@@ -24134,6 +24146,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036124,Khalil Dorsey,CB,DET,NO,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036139,Rico Dowdle,RB,PIT,ATL,0,0,0,0,8,15,0,5,2,6,0
 2026,1,00-0036157,Kristian Welch,LB,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036158,J.K. Dobbins,RB,DEN,KC,0,0,0,0,8,36,0,0,0,0,0
 2026,1,00-0036159,Joshua Uche,LB,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036162,Tyler Bass,K,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036171,Aaron Brewer,C,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
@@ -24142,6 +24155,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036193,Anfernee Jennings,LB,NO,DET,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036204,LaCale London,DE,ATL,PIT,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036220,Derrick Brown,DT,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036221,Brandon Jones,SAF,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036222,Isaiah Rodgers,CB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036223,Jonathan Taylor,RB,IND,BAL,0,0,0,0,19,98,2,4,3,23,0
 2026,1,00-0036231,Kyle Dugger,SAF,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
@@ -24191,7 +24205,9 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036358,CeeDee Lamb,WR,DAL,NYG,0,0,0,0,1,0,0,8,5,44,1
 2026,1,00-0036362,Willie Gay Jr.,LB,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036366,Neville Gallimore,DT,CHI,CAR,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036374,L'Jarius Sneed,CB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036375,Amik Robertson,CB,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036380,Alohi Gilman,SAF,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036386,Andrew Thomas,OT,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036388,Xavier McKinney,SAF,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036389,Jalen Hurts,QB,PHI,WAS,25,203,3,0,7,46,0,0,0,0,0
@@ -24200,8 +24216,11 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036409,Jordyn Brooks,LB,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036410,Tee Higgins,WR,CIN,TB,0,0,0,0,0,0,0,6,3,59,0
 2026,1,00-0036411,Antoine Winfield Jr.,SAF,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036416,Kristian Fulton,CB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036418,Zack Baun,LB,PHI,WAS,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036422,Adam Trautman,TE,DEN,KC,0,0,0,0,0,0,0,3,2,10,0
 2026,1,00-0036425,DeeJay Dallas,RB,MIN,GB,0,0,0,0,0,0,0,1,1,1,0
+2026,1,00-0036428,Justin Strnad,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036442,Joe Burrow,QB,CIN,TB,35,254,1,0,5,20,0,0,0,0,0
 2026,1,00-0036443,Rex Sunahara,LS,CLE,JAX,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036463,Chris Blair,WR,ATL,PIT,0,0,0,0,0,0,0,0,0,0,0
@@ -24212,24 +24231,32 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036550,Rashod Bateman,WR,BAL,IND,0,0,0,0,0,0,0,1,0,0,0
 2026,1,00-0036554,Nico Collins,WR,HOU,BUF,0,0,0,0,1,7,0,10,7,75,1
 2026,1,00-0036555,Chuba Hubbard,RB,CAR,CHI,0,0,0,0,10,49,1,3,3,38,1
+2026,1,00-0036557,Jaylon Moore,OT,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036563,Deommodore Lenoir,CB,SF,LA,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036564,Talanoa Hufanga,SAF,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036568,Roy Lopez,DT,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036587,Ar'Darius Washington,SAF,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036590,Quintin Morris,TE,JAX,CLE,0,0,0,0,0,0,0,1,0,0,0
 2026,1,00-0036603,Alaric Jackson,OT,LA,SF,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036613,Jaylen Waddle,WR,DEN,KC,0,0,0,0,0,0,0,3,1,2,0
 2026,1,00-0036617,Asante Samuel Jr.,CB,PIT,ATL,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036621,Nick Bolton,LB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036622,Josh Myers,C,NYJ,TEN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036623,Creed Humphrey,C,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036624,Alim McNeill,DT,DET,NO,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036625,Benjamin St-Juste,CB,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036626,Dyami Brown,WR,WAS,PHI,0,0,0,0,0,0,0,2,0,0,0
 2026,1,00-0036628,John Bates,TE,WAS,PHI,0,0,0,0,0,0,0,3,2,13,0
 2026,1,00-0036629,Camryn Bynum,SAF,IND,BAL,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036637,Noah Gray,TE,KC,DEN,0,0,0,0,0,0,0,1,1,5,0
 2026,1,00-0036642,Tedarrell Slaton,DT,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036646,Simi Fehoko,WR,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036648,Nick Niemann,LB,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036658,Isaiah McDuffie,LB,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036660,Trey Smith,G,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036677,Zayne Anderson,SAF,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036682,Malik Herring,DE,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036683,Devon Key,SAF,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036754,Brock Wright,TE,DET,NO,0,0,0,0,0,0,0,1,1,5,0
 2026,1,00-0036813,Christian Elliss,LB,NE,SEA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036816,Riley Patterson,K,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
@@ -24237,6 +24264,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036844,Garret Wallow,LB,SF,LA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036854,Evan McPherson,K,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036867,Chris Rumph II,LB,NO,DET,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036874,Pat Surtain II,CB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036875,Rhamondre Stevenson,RB,NE,SEA,0,0,0,0,18,51,0,6,5,44,0
 2026,1,00-0036880,Penei Sewell,OT,DET,NO,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036883,Tommy Togiai,DT,HOU,BUF,0,0,0,0,0,0,0,0,0,0,0
@@ -24246,6 +24274,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036900,Ja'Marr Chase,WR,CIN,TB,0,0,0,0,0,0,0,4,2,12,0
 2026,1,00-0036901,Eric Stokes,CB,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036903,Bobby Brown III,DT,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036909,Khyiris Tonga,DT,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036912,DeVonta Smith,WR,PHI,WAS,0,0,0,0,0,0,0,6,3,53,0
 2026,1,00-0036914,Greg Rousseau,LB,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036916,Milton Williams,DT,NE,SEA,0,0,0,0,0,0,0,0,0,0,0
@@ -24258,6 +24287,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0036940,Odafe Oweh,LB,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036941,Andre Cisco,SAF,NYJ,TEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036942,Osa Odighizuwa,DT,SF,LA,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0036943,Mitchell Fraboni,LS,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036944,Jaycee Horn,CB,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036962,Tre'von Moehrig,SAF,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0036963,Amon-Ra St. Brown,WR,DET,NO,0,0,0,0,0,0,0,14,10,67,2
@@ -24304,9 +24334,11 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0037179,Jeremiah Moon,LB,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037190,Sauce Gardner,CB,IND,BAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037191,Trent McDuffie,CB,LA,SF,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0037192,George Karlaftis,DE,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037193,Bryan Cook,SAF,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037195,Jaylen Watson,CB,LA,SF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037196,Rasheed Walker,OT,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0037208,Jack Cochrane,LB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037224,Cameron Dicker,K,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037228,Jaylen Warren,RB,PIT,ATL,0,0,0,0,10,46,0,6,5,27,0
 2026,1,00-0037235,Travon Walker,DE,JAX,CLE,0,0,0,0,0,0,0,0,0,0,0
@@ -24319,6 +24351,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0037246,Jalen Pitre,SAF,HOU,BUF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037247,George Pickens,WR,DAL,NYG,0,0,0,0,0,0,0,6,3,28,0
 2026,1,00-0037248,James Cook,RB,BUF,HOU,0,0,0,0,13,57,0,4,3,12,0
+2026,1,00-0037249,Nik Bonitto,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037250,Martin Emerson,CB,NO,DET,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037252,Greg Dulcich,TE,MIA,LV,0,0,0,0,0,0,0,2,2,18,0
 2026,1,00-0037253,Marcus Jones,CB,NE,SEA,0,0,0,0,0,0,0,0,0,0,0
@@ -24331,6 +24364,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0037270,Otito Ogbonnia,DT,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037271,D'Marco Jackson,LB,CHI,CAR,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037275,DaRon Bland,CB,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0037284,Matt Araiza,P,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037288,Christian Benford,CB,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037289,Malcolm Rodriguez,LB,DET,NO,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037291,Jalen Nailor,WR,LV,MIA,0,0,0,0,0,0,0,5,3,27,0
@@ -24342,6 +24376,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0037317,Nick Muse,TE,ATL,PIT,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037323,Rodney Thomas,SAF,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037380,Kaden Davis,WR,CHI,CAR,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0037384,Ja'Quan McMillian,CB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037428,Alec Anderson,OT,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037457,Jake Hansen,LB,HOU,BUF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037480,Dylan Cook,OT,PIT,ATL,0,0,0,0,0,0,0,0,0,0,0
@@ -24370,8 +24405,10 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0037743,Daxton Hill,DB,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037744,Trey McBride,TE,ARI,LAC,0,0,0,0,0,0,0,13,9,95,1
 2026,1,00-0037746,Brian Robinson,RB,ATL,PIT,0,0,0,0,9,31,0,0,0,0,0
+2026,1,00-0037752,Tycen Anderson,SAF,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037756,Travis Jones,DT,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037758,Cordale Flott,CB,TEN,NYJ,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0037799,Dondrea Tillman,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0037801,KaVontae Turpin,WR,DAL,NYG,0,0,0,0,0,0,0,1,1,8,0
 2026,1,00-0037805,Jeremy Ruckert,TE,NYJ,TEN,0,0,0,0,0,0,0,1,1,4,0
 2026,1,00-0037809,Chig Okonkwo,TE,WAS,PHI,0,0,0,0,0,0,0,3,2,16,0
@@ -24394,6 +24431,8 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038090,Skyy Moore,WR,GB,MIN,0,0,0,0,0,0,0,1,0,0,0
 2026,1,00-0038094,Jordan Stout,P,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038102,Kenny Pickett,QB,CAR,CHI,1,0,0,0,1,24,0,0,0,0,0
+2026,1,00-0038104,Tyquan Thornton,WR,KC,DEN,0,0,0,0,0,0,0,1,0,0,0
+2026,1,00-0038106,Eyioma Uwazurike,DT,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038112,Cam Jurgens,C,PHI,WAS,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038115,Daniel Bellinger,TE,TEN,NYJ,0,0,0,0,0,0,0,1,1,7,0
 2026,1,00-0038116,Arnold Ebiketie,LB,PHI,WAS,0,0,0,0,0,0,0,0,0,0,0
@@ -24406,6 +24445,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038128,Malik Willis,QB,MIA,LV,27,220,0,0,6,39,1,0,0,0,0
 2026,1,00-0038129,Cade Otton,TE,TB,CIN,0,0,0,0,0,0,0,5,3,26,0
 2026,1,00-0038133,Boye Mafe,DE,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0038134,Kenneth Walker III,RB,KC,DEN,0,0,0,0,23,173,1,6,3,18,1
 2026,1,00-0038135,Jaquan Brisker,SAF,PIT,ATL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038359,Xavier Smith,WR,LA,SF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038360,Alex Ward,LS,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
@@ -24419,9 +24459,11 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038454,Keaton Mitchell,RB,LAC,ARI,0,0,0,0,4,9,0,0,0,0,0
 2026,1,00-0038463,Brenton Cox Jr.,DE,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038488,Brady Russell,RB,SEA,NE,0,0,0,0,0,0,0,2,2,20,0
+2026,1,00-0038489,Ben VanSumeren,RB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038493,Claudin Cherelus,LB,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038504,Trenton Simpson,LB,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038505,Tavius Robinson,LB,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0038519,Nikko Remigio,WR,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038540,Paris Johnson Jr.,OT,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038541,Tyree Wilson,DE,NO,DET,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038542,Bijan Robinson,RB,ATL,PIT,0,0,0,0,21,83,0,10,8,90,1
@@ -24432,6 +24474,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038548,O'Cyrus Torrence,G,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038549,DJ Turner II,CB,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038551,Kendre Miller,RB,NO,DET,0,0,0,0,9,30,1,0,0,0,0
+2026,1,00-0038552,Riley Moss,CB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038553,Daiyan Henley,LB,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038554,Ji'Ayir Brown,SAF,SF,LA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038555,Tank Bigsby,RB,PHI,WAS,0,0,0,0,1,3,0,0,0,0,0
@@ -24451,6 +24494,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038597,Chase Brown,RB,CIN,TB,0,0,0,0,16,56,1,6,5,22,0
 2026,1,00-0038599,Henry To'oTo'o,LB,HOU,BUF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038603,Rob Beal Jr.,DE,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0038605,JL Skinner,SAF,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038606,Parker Washington,WR,JAX,CLE,0,0,0,0,0,0,0,6,5,83,1
 2026,1,00-0038608,Kayshon Boutte,WR,HOU,BUF,0,0,0,0,0,0,0,2,1,21,0
 2026,1,00-0038611,Chris Rodriguez Jr.,RB,JAX,CLE,0,0,0,0,6,23,0,0,0,0,0
@@ -24473,6 +24517,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038764,Patrick O'Connell,LB,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038778,Jalen Redmond,DL,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038782,Eku Leota,LB,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0038783,Nate Adkins,TE,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038791,Thomas Incoom,LB,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038797,Emanuel Wilson,RB,SEA,NE,0,0,0,0,2,3,0,0,0,0,0
 2026,1,00-0038807,Ivan Pace Jr.,LB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
@@ -24482,6 +24527,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038933,Dalton Kincaid,TE,BUF,HOU,0,0,0,0,0,0,0,6,5,130,0
 2026,1,00-0038935,Brenton Strange,TE,JAX,CLE,0,0,0,0,0,0,0,3,2,23,1
 2026,1,00-0038940,Tyler Lacy,DE,DET,NO,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0038976,Marvin Mims Jr.,WR,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038978,Byron Young,DT,PHI,WAS,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038984,Kei'Trel Clark,CB,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0038994,Jordan Addison,WR,MIN,GB,0,0,0,0,0,0,0,2,0,0,0
@@ -24489,6 +24535,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0038997,Josh Downs,WR,IND,BAL,0,0,0,0,0,0,0,4,2,37,0
 2026,1,00-0039000,Deonte Banks,CB,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039002,Sydney Brown,SAF,ATL,PIT,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0039006,Felix Anudike-Uzomah,DE,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039013,Nolan Smith,LB,PHI,WAS,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039018,Jack Campbell,LB,DET,NO,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039020,Anthony Bradford,G,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
@@ -24506,6 +24553,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0039064,Zay Flowers,WR,BAL,IND,0,0,0,0,0,0,0,6,5,150,1
 2026,1,00-0039065,Sam LaPorta,TE,DET,NO,0,0,0,0,0,0,0,8,5,48,0
 2026,1,00-0039066,Michael Mayer,TE,LV,MIA,0,0,0,0,0,0,0,7,6,32,0
+2026,1,00-0039067,Rashee Rice,WR,KC,DEN,0,0,0,0,0,0,0,2,2,19,1
 2026,1,00-0039068,Yaya Diaby,LB,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039070,Gervon Dexter Sr.,DT,ATL,PIT,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039071,Tyrique Stevenson,CB,CHI,CAR,0,0,0,0,0,0,0,0,0,0,0
@@ -24555,6 +24603,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0039366,Tarheeb Still,CB,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039368,Jordan Magee,LB,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039369,Cam Hart,CB,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0039371,Kris Abrams-Draine,CB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039372,Jarvis Brownlee Jr.,DB,NYJ,TEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039380,Chau Smith-Wade,CB,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039384,Tyrone Tracy Jr.,RB,NYG,DAL,0,0,0,0,2,14,0,0,0,0,0
@@ -24569,6 +24618,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0039423,Jonah Laulu,DT,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039424,Devaughn Vele,WR,NO,DET,0,0,0,0,0,0,0,9,7,69,1
 2026,1,00-0039430,James Williams,LB,TEN,NYJ,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0039433,Marcus Harris,DT,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039451,Isaiah Williams,WR,NYJ,TEN,0,0,0,0,0,0,0,1,1,7,0
 2026,1,00-0039460,Carl Jones,LB,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039471,Frank Gore Jr.,RB,BUF,HOU,0,0,0,0,1,3,0,0,0,0,0
@@ -24585,6 +24635,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0039686,Colson Yankoff,TE,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039692,Dell Pettus,SAF,NE,SEA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039731,JC Latham,OT,TEN,NYJ,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0039732,Bo Nix,QB,DEN,KC,28,131,1,0,3,2,0,0,0,0,0
 2026,1,00-0039733,Ruke Orhorhoro,DT,JAX,CLE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039734,Braden Fiske,DE,LA,SF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039735,Jackson Powers-Johnson,C,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
@@ -24608,9 +24659,11 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0039795,Nehemiah Pritchett,CB,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039796,Rasheen Ali,RB,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039807,Max Melton,CB,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0039809,Jonah Elliss,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039811,MarShawn Lloyd,RB,GB,MIN,0,0,0,0,13,37,0,1,0,0,0
 2026,1,00-0039813,Evan Williams,SAF,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039821,Andru Phillips,DB,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0039825,Jaden Hicks,SAF,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039826,Jeremiah Trotter Jr.,LB,PHI,WAS,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039831,Kamal Hadden,CB,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039834,Kamren Kinchens,SAF,LA,SF,0,0,0,0,0,0,0,0,0,0,0
@@ -24630,6 +24683,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0039860,Kool-Aid McKinstry,CB,NO,DET,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039861,Tyler Nubin,SAF,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039867,Javon Bullard,SAF,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0039868,Troy Franklin,WR,DEN,KC,0,0,0,0,1,5,0,1,0,0,0
 2026,1,00-0039872,Cole Bishop,SAF,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039873,DeWayne Carter,DT,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039874,Jaylen Wright,RB,MIA,LV,0,0,0,0,1,-1,0,0,0,0,0
@@ -24641,6 +24695,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0039889,Maason Smith,DT,ATL,PIT,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039890,Adonai Mitchell,WR,NYJ,TEN,0,0,0,0,0,0,0,3,3,60,0
 2026,1,00-0039893,Brian Thomas Jr.,WR,JAX,CLE,0,0,0,0,0,0,0,3,3,40,0
+2026,1,00-0039894,Xavier Worthy,WR,KC,DEN,0,0,0,0,0,0,0,6,3,18,0
 2026,1,00-0039897,Joe Alt,OT,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039898,Mike Sainristil,CB,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0039899,Patrick Paul,OT,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
@@ -24664,11 +24719,14 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040045,Alijah Clark,DB,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040056,Jared Ivey,LB,ATL,PIT,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040061,Connor O'Toole,LB,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040072,Jeffrey Bassa,LB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040074,Tyler Loop,K,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040075,LaJohntay Wester,WR,BAL,IND,0,0,0,0,0,0,0,2,2,15,0
 2026,1,00-0040076,Aeneas Peebles,DT,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040081,Jake Briningstool,TE,KC,DEN,0,0,0,0,0,0,0,1,1,9,0
 2026,1,00-0040089,Kevin Knowles,DB,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040100,Jay Higgins,LB,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040118,Cooper McDonald,LB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040122,Ashton Jeanty,RB,LV,MIA,0,0,0,0,23,102,0,6,6,45,2
 2026,1,00-0040124,Tetairoa McMillan,WR,CAR,CHI,0,0,0,0,0,0,0,8,5,75,0
 2026,1,00-0040126,Colston Loveland,TE,CHI,CAR,0,0,0,0,0,0,0,2,0,0,0
@@ -24677,6 +24735,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040131,Kyle Williams,WR,NE,SEA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040132,Landon Jackson,DE,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040133,Azareye'h Thomas,CB,NYJ,TEN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040134,Pat Bryant,WR,DEN,KC,0,0,0,0,0,0,0,6,4,42,0
 2026,1,00-0040136,Princely Umanmielen,LB,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040137,Jordan Burch,LB,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040138,Jaylin Noel,WR,HOU,BUF,0,0,0,0,0,0,0,2,2,53,0
@@ -24700,6 +24759,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040164,Jaylin Lane,WR,WAS,PHI,0,0,0,0,0,0,0,1,1,4,0
 2026,1,00-0040165,Malachi Moore,SAF,NYJ,TEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040166,Quincy Riley,CB,NO,DET,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040168,Que Robinson,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040169,Tonka Hemingway,DT,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040170,Elic Ayomanor,WR,TEN,NYJ,0,0,0,0,0,0,0,3,1,11,1
 2026,1,00-0040173,Tyrion Ingram-Dawkins,DT,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
@@ -24719,6 +24779,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040208,Tahj Brooks,RB,CIN,TB,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040216,Kain Medrano,LB,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040218,Jimmy Horn Jr.,WR,CAR,CHI,0,0,0,0,0,0,0,1,0,0,0
+2026,1,00-0040223,Jeremy Crawshaw,P,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040230,Kitan Crawford,SAF,ARI,LAC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040231,Carson Bruener,LB,PIT,ATL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040236,Kyle Monangai,RB,CHI,CAR,0,0,0,0,10,100,1,2,2,24,0
@@ -24734,6 +24795,7 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040342,Danny Striggow,DE,JAX,CLE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040363,Keleki Latu,TE,BUF,HOU,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040429,Josh Williams,RB,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040449,Karene Reid,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040458,TeRah Edwards,DT,CAR,CHI,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040466,Raheim Sanders,RB,CLE,JAX,0,0,0,0,1,1,0,3,3,25,0
 2026,1,00-0040506,Myles Price,WR,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
@@ -24749,16 +24811,20 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040590,Konata Mumpfield,WR,LA,SF,0,0,0,0,0,0,0,1,0,0,0
 2026,1,00-0040613,Shaun Dolac,LB,LA,SF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040621,Montorie Foster Jr,WR,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040634,Jordan Turner,LB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040636,Keyon Martin,CB,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040640,Ashton Gillotte,DE,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040641,Darien Porter,CB,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040642,Vernon Broughton,DT,NO,DET,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040643,Jonas Sanker,SAF,NO,DET,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040646,Jalen Royals,WR,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040647,Rylie Mills,DT,SEA,NE,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040654,Kai Kroeger,P,HOU,BUF,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040663,Harold Fannin Jr.,TE,CLE,JAX,0,0,0,0,0,0,0,3,2,21,0
 2026,1,00-0040666,Omarion Hampton,RB,LAC,ARI,0,0,0,0,12,43,1,0,0,0,0
 2026,1,00-0040667,Matthew Golden,WR,GB,MIN,0,0,0,0,0,0,0,12,6,95,0
 2026,1,00-0040669,Isaac TeSlaa,WR,DET,NO,0,0,0,0,0,0,0,1,0,0,0
+2026,1,00-0040670,Nohl Williams,CB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040672,Tyleik Williams,DT,DET,NO,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040676,Cam Ward,QB,TEN,NYJ,32,140,1,0,4,21,0,0,0,0,0
 2026,1,00-0040677,Abdul Carter,LB,NYG,DAL,0,0,0,0,0,0,0,0,0,0,0
@@ -24778,10 +24844,12 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040716,Craig Woodson,SAF,NE,SEA,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040718,Travis Hunter,CB,JAX,CLE,0,0,0,0,1,3,0,1,1,8,0
 2026,1,00-0040719,Bhayshul Tuten,RB,JAX,CLE,0,0,0,0,15,66,0,1,1,22,0
+2026,1,00-0040720,Jahdae Barron,CB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040725,Donovan Ezeiruaku,LB,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040727,Tre Harris,WR,LAC,ARI,0,0,0,0,0,0,0,6,3,20,0
 2026,1,00-0040728,Tate Ratledge,G,DET,NO,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040729,Jack Bech,WR,LV,MIA,0,0,0,0,0,0,0,4,3,23,1
+2026,1,00-0040730,RJ Harvey,RB,DEN,KC,0,0,0,0,3,18,0,4,4,23,0
 2026,1,00-0040735,Luther Burden III,WR,CHI,CAR,0,0,0,0,1,2,0,5,5,63,0
 2026,1,00-0040736,Mason Taylor,TE,NYJ,TEN,0,0,0,0,0,0,0,3,2,-2,0
 2026,1,00-0040737,Terrance Ferguson,TE,LA,SF,0,0,0,0,0,0,0,1,0,0,0
@@ -24807,10 +24875,14 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0040879,Matthew Hibner,TE,BAL,IND,0,0,0,0,0,0,0,1,1,13,0
 2026,1,00-0040880,LT Overton,DT,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040889,Hezekiah Masses,CB,LV,MIA,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040890,Cyrus Allen,WR,KC,DEN,0,0,0,0,0,0,0,1,0,0,0
 2026,1,00-0040894,Malik Benson,WR,LV,MIA,0,0,0,0,1,-8,0,2,1,6,0
 2026,1,00-0040898,Ryan Eckley,P,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040899,Trey Smack,K,GB,MIN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0040957,Xavier Nwankpa,SAF,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0040978,Ethan Burke,LB,BAL,IND,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0041013,Emmett Johnson,RB,KC,DEN,0,0,0,0,8,24,0,2,2,44,0
+2026,1,00-0041019,Kahlil Benson,OT,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041026,David Bailey,LB,NYJ,TEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041027,Jeremiyah Love,RB,ARI,LAC,0,0,0,0,11,41,1,4,2,9,0
 2026,1,00-0041028,Sonny Styles,LB,WAS,PHI,0,0,0,0,0,0,0,0,0,0,0
@@ -24879,6 +24951,9 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0041479,Anthony Hill Jr.,LB,TEN,NYJ,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041490,Eli Heidenreich,RB,PIT,ATL,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041495,Jake Golday,LB,MIN,GB,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0041496,Jonah Coleman,RB,DEN,KC,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0041497,Jadon Canady,CB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0041501,R Mason Thomas,DE,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041502,Josiah Trotter,LB,TB,CIN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041503,Nate Boerkircher,TE,JAX,CLE,0,0,0,0,0,0,0,1,1,9,0
 2026,1,00-0041508,Keldric Faulk,DE,TEN,NYJ,0,0,0,0,0,0,0,0,0,0,0
@@ -24896,7 +24971,9 @@ Saison,Woche,SpielerId,Name,Position,Team,Gegner,Att,PassYds,PassTD,Int,Carries,
 2026,1,00-0041533,Chris Johnson,CB,MIA,LV,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041537,Malachi Lawrence,LB,DAL,NYG,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041538,Dillon Thieneman,SAF,CHI,CAR,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0041543,Mansoor Delane,CB,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041544,Akheem Mesidor,LB,LAC,ARI,0,0,0,0,0,0,0,0,0,0,0
+2026,1,00-0041545,Peter Woods,DT,KC,DEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041547,KC Concepcion,WR,CLE,JAX,0,0,0,0,3,15,0,5,4,43,0
 2026,1,00-0041549,Darrell Jackson Jr.,DT,NYJ,TEN,0,0,0,0,0,0,0,0,0,0,0
 2026,1,00-0041569,Gabe Jacas,LB,NE,SEA,0,0,0,0,0,0,0,0,0,0,0

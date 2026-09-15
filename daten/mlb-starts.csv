@@ -5357,6 +5357,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,608372,Atlanta Braves,24,4,4.0,0
 2026-09-02,608372,Baltimore Orioles,26,4,6.0,1
 2026-09-09,608372,New York Yankees,25,5,6.0,0
+2026-09-14,608372,San Diego Padres,23,2,5.0,1
 2026-03-28,608379,Atlanta Braves,20,7,6.0,0
 2026-04-06,608379,Cleveland Guardians,26,3,7.0,0
 2026-04-11,608379,Chicago White Sox,28,7,8.0,1
@@ -5531,6 +5532,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-07-21,625643,San Diego Padres,23,6,4.33,1
 2026-07-26,625643,Baltimore Orioles,23,6,5.67,0
 2026-09-09,625643,Tampa Bay Rays,23,5,4.67,1
+2026-09-14,625643,Chicago Cubs,17,2,3.0,0
 2026-06-13,640455,Atlanta Braves,22,6,6.0,1
 2026-06-18,640455,Philadelphia Phillies,23,5,5.33,0
 2026-06-24,640455,Chicago Cubs,19,4,3.0,1
@@ -5747,6 +5749,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-29,645261,Washington Nationals,27,3,6.0,0
 2026-09-03,645261,Kansas City Royals,24,2,6.0,0
 2026-09-08,645261,New York Mets,25,1,4.33,1
+2026-09-14,645261,Arizona Diamondbacks,25,6,5.0,0
 2026-03-30,647336,Detroit Tigers,20,10,5.0,1
 2026-04-04,647336,Atlanta Braves,22,3,5.0,1
 2026-04-10,647336,Philadelphia Phillies,25,10,5.67,0
@@ -5983,6 +5986,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-19,656794,Chicago Cubs,7,0,2.0,0
 2026-08-23,656794,New York Mets,8,3,2.0,1
 2026-09-12,656794,St. Louis Cardinals,6,4,1.33,0
+2026-09-14,656794,Cleveland Guardians,3,0,1.0,0
 2026-03-28,656849,Pittsburgh Pirates,25,3,5.33,1
 2026-04-02,656849,San Francisco Giants,24,5,4.33,0
 2026-04-08,656849,Arizona Diamondbacks,23,6,5.0,1
@@ -6003,6 +6007,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,656849,Cincinnati Reds,24,6,5.0,1
 2026-09-02,656849,Milwaukee Brewers,23,4,3.67,1
 2026-09-08,656849,Milwaukee Brewers,20,4,4.33,0
+2026-09-14,656849,Atlanta Braves,23,7,6.0,1
 2026-03-26,656876,St. Louis Cardinals,20,2,5.0,0
 2026-04-01,656876,Milwaukee Brewers,20,8,5.0,0
 2026-04-12,656876,New York Yankees,19,7,6.0,1
@@ -6195,6 +6200,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,663554,Tampa Bay Rays,25,1,5.0,0
 2026-09-02,663554,Cincinnati Reds,18,4,4.0,0
 2026-09-08,663554,Washington Nationals,22,7,5.67,1
+2026-09-14,663554,Colorado Rockies,24,0,5.0,0
 2026-03-31,663556,Milwaukee Brewers,19,4,4.67,0
 2026-04-06,663556,Chicago Cubs,17,5,4.0,1
 2026-04-14,663556,Chicago White Sox,23,4,5.0,0
@@ -6413,6 +6419,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,665152,Chicago White Sox,21,3,4.0,1
 2026-09-02,665152,Detroit Tigers,20,5,4.0,1
 2026-09-08,665152,Detroit Tigers,20,3,5.0,0
+2026-09-14,665152,New York Yankees,19,5,5.67,1
 2026-05-24,665622,San Diego Padres,5,1,1.33,0
 2026-03-30,665795,Los Angeles Angels,19,5,6.0,1
 2026-04-05,665795,Cleveland Guardians,22,4,5.67,0
@@ -6466,6 +6473,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-26,666157,San Francisco Giants,21,5,4.0,0
 2026-09-01,666157,San Diego Padres,24,5,6.0,1
 2026-09-08,666157,Los Angeles Dodgers,23,6,4.67,0
+2026-09-14,666157,Los Angeles Dodgers,27,4,7.0,1
 2026-03-29,666200,Texas Rangers,25,7,6.0,1
 2026-04-04,666200,Colorado Rockies,24,11,6.67,0
 2026-04-10,666200,Arizona Diamondbacks,22,8,4.67,1
@@ -6525,6 +6533,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-29,667755,Seattle Mariners,27,6,7.0,1
 2026-09-03,667755,Cleveland Guardians,24,2,4.67,0
 2026-09-08,667755,Athletics,27,3,7.0,0
+2026-09-14,667755,Detroit Tigers,25,5,6.33,1
 2026-07-30,668390,Tampa Bay Rays,3,0,1.0,0
 2026-03-26,668678,Los Angeles Dodgers,19,2,4.0,0
 2026-04-01,668678,Detroit Tigers,21,2,6.0,1
@@ -6580,6 +6589,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-25,668909,Los Angeles Angels,11,3,1.33,0
 2026-09-01,668909,Toronto Blue Jays,25,13,7.0,1
 2026-09-06,668909,Detroit Tigers,24,11,6.0,1
+2026-09-14,668909,Chicago White Sox,24,7,5.0,1
 2026-04-19,668964,Chicago Cubs,7,2,2.0,0
 2026-05-22,668964,Miami Marlins,6,0,1.33,0
 2026-06-15,668964,Cincinnati Reds,11,1,1.33,0
@@ -6784,6 +6794,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,669373,Detroit Tigers,22,7,6.0,0
 2026-09-03,669373,St. Louis Cardinals,26,6,5.67,1
 2026-09-08,669373,Cincinnati Reds,27,5,7.33,1
+2026-09-14,669373,Cincinnati Reds,24,9,7.0,0
 2026-03-29,669387,New York Mets,20,8,4.33,0
 2026-04-04,669387,Baltimore Orioles,21,5,4.67,1
 2026-04-10,669387,Chicago Cubs,23,2,5.33,0
@@ -7036,6 +7047,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,672282,Philadelphia Phillies,23,2,6.0,1
 2026-09-02,672282,New York Yankees,25,8,7.0,1
 2026-09-08,672282,Boston Red Sox,21,9,6.0,0
+2026-09-14,672282,Seattle Mariners,25,8,6.0,1
 2026-06-28,672335,Philadelphia Phillies,3,2,1.0,1
 2026-07-07,672335,Kansas City Royals,5,1,1.0,1
 2026-04-05,672456,St. Louis Cardinals,17,3,4.33,1
@@ -7112,6 +7124,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-26,675512,Tampa Bay Rays,27,4,7.0,1
 2026-09-01,675512,Minnesota Twins,25,4,5.33,0
 2026-09-07,675512,Minnesota Twins,27,3,5.67,1
+2026-09-14,675512,Toronto Blue Jays,17,3,2.67,0
 2026-04-08,675660,Boston Red Sox,15,2,2.67,0
 2026-06-01,675660,San Francisco Giants,17,5,4.0,1
 2026-06-07,675660,Colorado Rockies,24,4,6.33,0
@@ -7938,6 +7951,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,687064,Athletics,27,4,7.0,0
 2026-09-03,687064,Boston Red Sox,27,7,6.67,1
 2026-09-08,687064,Cleveland Guardians,22,2,3.67,1
+2026-09-14,687064,New York Mets,24,6,5.0,0
 2026-03-29,687075,Chicago White Sox,18,3,3.0,1
 2026-04-16,687075,Toronto Blue Jays,24,6,6.67,1
 2026-04-23,687075,Detroit Tigers,21,4,5.33,0
@@ -7963,6 +7977,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-28,687273,Pittsburgh Pirates,23,7,5.67,1
 2026-09-03,687273,Los Angeles Dodgers,23,4,5.0,0
 2026-09-08,687273,San Francisco Giants,25,4,6.0,0
+2026-09-14,687273,San Francisco Giants,25,8,6.67,1
 2026-07-08,687312,Los Angeles Dodgers,24,7,6.0,0
 2026-07-17,687312,Cincinnati Reds,21,6,5.33,1
 2026-07-22,687312,Washington Nationals,21,5,5.0,1
@@ -8366,6 +8381,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-27,694738,Arizona Diamondbacks,21,3,5.0,1
 2026-09-02,694738,Pittsburgh Pirates,19,4,5.0,0
 2026-09-08,694738,St. Louis Cardinals,23,2,6.0,1
+2026-09-14,694738,St. Louis Cardinals,20,4,4.33,0
 2026-03-26,694819,Chicago White Sox,20,11,5.0,1
 2026-04-01,694819,Tampa Bay Rays,25,7,6.0,1
 2026-04-07,694819,Boston Red Sox,22,10,5.33,0
@@ -8669,6 +8685,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-25,701542,Houston Astros,24,4,5.0,1
 2026-08-30,701542,Boston Red Sox,27,7,7.0,1
 2026-09-09,701542,Colorado Rockies,23,8,6.0,1
+2026-09-14,701542,Minnesota Twins,24,6,5.67,0
 2026-04-04,701656,Kansas City Royals,9,3,2.0,0
 2026-05-03,701656,Washington Nationals,21,8,6.0,0
 2026-05-10,701656,New York Yankees,19,5,5.0,1
@@ -8845,6 +8862,8 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-30,804267,Houston Astros,22,5,5.0,1
 2026-09-05,804267,San Francisco Giants,22,6,5.0,1
 2026-09-12,804267,New York Yankees,26,4,7.0,0
+2026-09-07,804636,Miami Marlins,21,7,5.0,0
+2026-09-14,804636,Baltimore Orioles,23,6,6.0,1
 2026-05-14,805673,Miami Marlins,25,5,7.0,1
 2026-05-19,805673,Houston Astros,23,6,6.0,1
 2026-05-25,805673,Chicago White Sox,25,6,6.0,0
@@ -8871,6 +8890,7 @@ Datum,PitcherId,Gegner,BF,SO,IP,Heim
 2026-08-29,807739,Toronto Blue Jays,19,3,4.33,0
 2026-09-03,807739,Athletics,22,3,5.0,1
 2026-09-09,807739,Texas Rangers,24,5,6.0,1
+2026-09-14,807739,Los Angeles Angels,20,5,4.33,0
 2026-06-12,807743,Athletics,12,2,3.0,0
 2026-06-17,807743,Chicago Cubs,23,2,4.0,0
 2026-06-23,807743,Boston Red Sox,24,3,5.0,1
