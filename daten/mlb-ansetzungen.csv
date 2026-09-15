@@ -1,7 +1,7 @@
 Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-15T22:40:00Z,824466,Great American Ball Park,Cincinnati Reds,Los Angeles Dodgers,695076,Rhett Lowder,808967,Yoshinobu Yamamoto
 2026-09-15T22:40:00Z,822925,Tropicana Field,Tampa Bay Rays,Athletics,643377,Griffin Jax,678022,Jack Perkins
-2026-09-15T22:40:00Z,824384,Progressive Field,Cleveland Guardians,Chicago White Sox,656492,Foster Griffin,663436,Davis Martin
+2026-09-15T22:40:00Z,824384,Progressive Field,Cleveland Guardians,Chicago White Sox,656492,Foster Griffin,669684,Chris Murphy
 2026-09-15T22:40:00Z,823333,PNC Park,Pittsburgh Pirates,Milwaukee Brewers,669199,Lake Bachar,694819,Jacob Misiorowski
 2026-09-15T22:45:00Z,822683,Nationals Park,Washington Nationals,Philadelphia Phillies,800600,Jackson Kent,650911,Cristopher Sánchez
 2026-09-15T23:07:00Z,822762,Rogers Centre,Toronto Blue Jays,Detroit Tigers,680755,Braydon Fisher,623454,Drew Anderson
@@ -9,7 +9,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-15T23:40:00Z,824627,Wrigley Field,Chicago Cubs,Atlanta Braves,592332,Kevin Gausman,527048,Martín Pérez
 2026-09-15T23:40:00Z,823654,Target Field,Minnesota Twins,New York Yankees,641927,Bailey Ober,608331,Max Fried
 2026-09-15T23:45:00Z,823007,Busch Stadium,St. Louis Cardinals,San Francisco Giants,669467,Andre Pallante,694918,Blade Tidwell
-2026-09-16T00:05:00Z,822849,Globe Life Field,Texas Rangers,Boston Red Sox,,,663776,Patrick Sandoval
+2026-09-16T00:05:00Z,822849,Globe Life Field,Texas Rangers,Boston Red Sox,594798,Jacob deGrom,663776,Patrick Sandoval
 2026-09-16T00:10:00Z,824143,Daikin Park,Houston Astros,Kansas City Royals,686613,Hunter Brown,608379,Michael Wacha
 2026-09-16T00:40:00Z,824307,Coors Field,Colorado Rockies,San Diego Padres,607536,Kyle Freeland,621111,Walker Buehler
 2026-09-16T01:38:00Z,823980,Angel Stadium,Los Angeles Angels,Seattle Mariners,696270,Ryan Johnson,669302,Logan Gilbert
@@ -24,7 +24,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-16T22:45:00Z,822680,Nationals Park,Washington Nationals,Philadelphia Phillies,676917,Cade Cavalli,554430,Zack Wheeler
 2026-09-16T23:10:00Z,823576,Citi Field,New York Mets,Baltimore Orioles,476594,Robert Stock,605135,Chris Bassitt
 2026-09-16T23:40:00Z,824626,Wrigley Field,Chicago Cubs,Atlanta Braves,684007,Shota Imanaga,702275,JR Ritchie
-2026-09-17T00:05:00Z,822846,Globe Life Field,Texas Rangers,Boston Red Sox,,,687562,Jake Bennett
+2026-09-17T00:05:00Z,822846,Globe Life Field,Texas Rangers,Boston Red Sox,669022,MacKenzie Gore,687562,Jake Bennett
 2026-09-17T00:10:00Z,824140,Daikin Park,Houston Astros,Kansas City Royals,664299,Cristian Javier,663738,Daniel Lynch IV
 2026-09-17T00:40:00Z,824306,Coors Field,Colorado Rockies,San Diego Padres,690279,Mason Adams,592662,Robbie Ray
 2026-09-17T01:38:00Z,823979,Angel Stadium,Los Angeles Angels,Seattle Mariners,579328,Yusei Kikuchi,669923,George Kirby
