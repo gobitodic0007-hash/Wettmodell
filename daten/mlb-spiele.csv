@@ -7134,3 +7134,18 @@ Datum,GamePk,Park,Heim,Gast,HeimF5,GastF5,HeimI1,GastI1,HeimR,GastR,HeimHits,Gas
 2026-09-15,824466,Great American Ball Park,Cincinnati Reds,Los Angeles Dodgers,0,3,0,0,0,4,3,8,1,5,695076,Rhett Lowder,808967,Yoshinobu Yamamoto
 2026-09-15,824627,Wrigley Field,Chicago Cubs,Atlanta Braves,3,0,0,0,3,6,5,9,4,2,592332,Kevin Gausman,527048,Martín Pérez
 2026-09-15,825030,Chase Field,Arizona Diamondbacks,Miami Marlins,1,1,1,0,2,4,9,5,7,2,647336,Michael Soroka,676083,Janson Junk
+2026-09-16,822680,Nationals Park,Washington Nationals,Philadelphia Phillies,0,2,0,2,0,3,4,5,4,2,688692,Jared Simpson,554430,Zack Wheeler
+2026-09-16,822763,Rogers Centre,Toronto Blue Jays,Detroit Tigers,3,1,0,1,5,1,9,7,8,3,453286,Max Scherzer,672456,Keider Montero
+2026-09-16,822846,Globe Life Field,Texas Rangers,Boston Red Sox,3,3,1,2,7,3,13,3,9,2,669022,MacKenzie Gore,687562,Jake Bennett
+2026-09-16,822926,Tropicana Field,Tampa Bay Rays,Athletics,4,2,2,0,4,3,9,8,7,5,607259,Nick Martinez,669620,Brady Basso
+2026-09-16,823004,Busch Stadium,St. Louis Cardinals,San Francisco Giants,0,1,0,0,5,6,5,13,2,4,669461,Matthew Liberatore,683627,Anthony Molina
+2026-09-16,823332,PNC Park,Pittsburgh Pirates,Milwaukee Brewers,3,3,0,0,4,5,12,10,6,7,683003,Jared Jones,701656,Logan Henderson
+2026-09-16,823576,Citi Field,New York Mets,Baltimore Orioles,1,6,0,1,1,7,7,9,3,6,675540,Xzavion Curry,605135,Chris Bassitt
+2026-09-16,823655,Target Field,Minnesota Twins,New York Yankees,2,0,1,0,5,4,10,9,4,2,805673,Zebby Matthews,607074,Carlos Rodón
+2026-09-16,823979,Angel Stadium,Los Angeles Angels,Seattle Mariners,2,5,1,2,2,7,10,9,6,5,579328,Yusei Kikuchi,669923,George Kirby
+2026-09-16,824140,Daikin Park,Houston Astros,Kansas City Royals,0,2,0,0,2,5,8,8,2,4,664299,Cristian Javier,663738,Daniel Lynch IV
+2026-09-16,824306,Coors Field,Colorado Rockies,San Diego Padres,1,8,1,2,3,9,4,13,1,10,690279,Mason Adams,592662,Robbie Ray
+2026-09-16,824382,Progressive Field,Cleveland Guardians,Chicago White Sox,2,3,0,0,6,3,5,8,3,7,800048,Parker Messick,641743,Anthony Kay
+2026-09-16,824467,Great American Ball Park,Cincinnati Reds,Los Angeles Dodgers,3,1,0,0,6,2,13,7,7,3,671096,Andrew Abbott,605483,Blake Snell
+2026-09-16,824626,Wrigley Field,Chicago Cubs,Atlanta Braves,6,0,1,0,8,4,12,8,7,3,684007,Shota Imanaga,702275,JR Ritchie
+2026-09-16,825031,Chase Field,Arizona Diamondbacks,Miami Marlins,2,4,0,0,3,4,10,10,8,7,518876,Merrill Kelly,687473,Ryan Gusto
