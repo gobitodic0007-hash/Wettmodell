@@ -1,7 +1,4 @@
 Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
-2026-09-21T22:35:00Z,824787,Oriole Park at Camden Yards,Baltimore Orioles,Toronto Blue Jays,669358,Shane Baz,702056,Trey Yesavage
-2026-09-21T22:40:00Z,824221,Comerica Park,Detroit Tigers,Washington Nationals,689981,River Ryan,687792,DJ Herz
-2026-09-22T01:45:00Z,823169,Oracle Park,San Francisco Giants,Minnesota Twins,694918,Blade Tidwell,805673,Zebby Matthews
 2026-09-22T17:05:00Z,823543,Yankee Stadium,New York Yankees,Tampa Bay Rays,607074,Carlos Rodón,607259,Nick Martinez
 2026-09-22T23:05:00Z,823494,Yankee Stadium,New York Yankees,Tampa Bay Rays,608331,Max Fried,656876,Drew Rasmussen
 2026-09-22T22:35:00Z,824785,Oriole Park at Camden Yards,Baltimore Orioles,Toronto Blue Jays,605135,Chris Bassitt,453286,Max Scherzer
@@ -12,7 +9,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-22T23:15:00Z,824867,Truist Park,Atlanta Braves,Cincinnati Reds,702275,JR Ritchie,682227,Brandon Williamson
 2026-09-22T23:40:00Z,824061,Kauffman Stadium,Kansas City Royals,Chicago White Sox,663738,Daniel Lynch IV,641743,Anthony Kay
 2026-09-22T23:40:00Z,824624,Wrigley Field,Chicago Cubs,Miami Marlins,,,676083,Janson Junk
-2026-09-23T00:05:00Z,822840,Globe Life Field,Texas Rangers,New York Mets,,,640455,Sean Manaea
+2026-09-23T00:05:00Z,822840,Globe Life Field,Texas Rangers,New York Mets,669022,MacKenzie Gore,640455,Sean Manaea
 2026-09-23T00:40:00Z,824302,Coors Field,Colorado Rockies,Arizona Diamondbacks,607536,Kyle Freeland,647336,Michael Soroka
 2026-09-23T01:40:00Z,824953,Sutter Health Park,Athletics,Los Angeles Angels,669620,Brady Basso,579328,Yusei Kikuchi
 2026-09-23T01:40:00Z,823089,T-Mobile Park,Seattle Mariners,Houston Astros,669302,Logan Gilbert,664299,Cristian Javier
