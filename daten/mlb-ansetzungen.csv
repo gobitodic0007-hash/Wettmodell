@@ -1,13 +1,12 @@
 Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
-2026-09-25T17:05:00Z,824703,Fenway Park,Boston Red Sox,Chicago Cubs,687941,Alec Gamboa,605280,Clay Holmes
-2026-09-25T22:05:00Z,824706,Fenway Park,Boston Red Sox,Chicago Cubs,678394,Brayan Bello,656849,David Peterson
-2026-09-25T20:05:00Z,823491,Yankee Stadium,New York Yankees,Baltimore Orioles,,,687064,Brandon Young
-2026-09-25T20:10:00Z,823489,Yankee Stadium,New York Yankees,Baltimore Orioles,694341,Brendan Beck,669432,Trevor Rogers
+2026-09-25T21:35:00Z,824706,Fenway Park,Boston Red Sox,Chicago Cubs,678394,Brayan Bello,656849,David Peterson
+2026-09-25T20:05:00Z,823491,Yankee Stadium,New York Yankees,Baltimore Orioles,694341,Brendan Beck,669432,Trevor Rogers
+2026-09-25T20:10:00Z,823489,Yankee Stadium,New York Yankees,Baltimore Orioles,,,687064,Brandon Young
 2026-09-25T22:40:00Z,824220,Comerica Park,Detroit Tigers,Pittsburgh Pirates,695549,Jackson Jobe,696149,Bubba Chandler
 2026-09-25T22:40:00Z,823409,Citizens Bank Park,Philadelphia Phillies,Tampa Bay Rays,650911,Cristopher Sánchez,642547,Freddy Peralta
 2026-09-25T22:45:00Z,822681,Nationals Park,Washington Nationals,New York Mets,674841,Andrew Alvarez,,
-2026-09-25T23:07:00Z,822760,Rogers Centre,Toronto Blue Jays,Cincinnati Reds,,,666157,Nick Lodolo
-2026-09-25T23:10:00Z,823816,loanDepot park,Miami Marlins,Atlanta Braves,691587,Eury Pérez,,
+2026-09-25T23:07:00Z,822760,Rogers Centre,Toronto Blue Jays,Cincinnati Reds,667755,José Soriano,666157,Nick Lodolo
+2026-09-25T23:10:00Z,823816,loanDepot park,Miami Marlins,Atlanta Braves,691587,Eury Pérez,678061,Ray Kerr
 2026-09-25T23:40:00Z,824058,Kauffman Stadium,Kansas City Royals,Cleveland Guardians,702070,Noah Cameron,668909,Gavin Williams
 2026-09-25T23:40:00Z,824544,Rate Field,Chicago White Sox,Colorado Rockies,680732,Sean Burke,608372,Tomoyuki Sugano
 2026-09-25T23:40:00Z,823735,American Family Field,Milwaukee Brewers,St. Louis Cardinals,688107,Robert Gasser,700241,Michael McGreevy
@@ -17,7 +16,7 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-26T02:10:00Z,823085,T-Mobile Park,Seattle Mariners,Los Angeles Angels,682243,Bryce Miller,672282,Reid Detmers
 2026-09-26T02:15:00Z,823167,Oracle Park,San Francisco Giants,Los Angeles Dodgers,805074,Yunior Marte,669373,Tarik Skubal
 2026-09-26T17:10:00Z,824219,Comerica Park,Detroit Tigers,Pittsburgh Pirates,434378,Justin Verlander,,
-2026-09-26T19:07:00Z,822759,Rogers Centre,Toronto Blue Jays,Cincinnati Reds,,,695076,Rhett Lowder
+2026-09-26T19:07:00Z,822759,Rogers Centre,Toronto Blue Jays,Cincinnati Reds,702056,Trey Yesavage,695076,Rhett Lowder
 2026-09-26T20:05:00Z,822678,Nationals Park,Washington Nationals,New York Mets,663623,Jake Irvin,804636,Jonah Tong
 2026-09-26T20:05:00Z,823165,Oracle Park,San Francisco Giants,Los Angeles Dodgers,683363,Matt Wilkinson,605483,Blake Snell
 2026-09-26T20:10:00Z,823653,Target Field,Minnesota Twins,Texas Rangers,641927,Bailey Ober,,
@@ -43,4 +42,4 @@ Zeit,GamePk,Park,Heim,Gast,HeimStarterId,HeimStarter,GastStarterId,GastStarter
 2026-09-27T19:10:00Z,824542,Rate Field,Chicago White Sox,Colorado Rockies,641743,Anthony Kay,607536,Kyle Freeland
 2026-09-27T19:10:00Z,823814,loanDepot park,Miami Marlins,Atlanta Braves,676083,Janson Junk,,
 2026-09-27T19:10:00Z,823731,American Family Field,Milwaukee Brewers,St. Louis Cardinals,694819,Jacob Misiorowski,669467,Andre Pallante
-2026-09-27T19:20:00Z,823490,Yankee Stadium,New York Yankees,Baltimore Orioles,,,669358,Shane Baz
+2026-09-27T19:20:00Z,823490,Yankee Stadium,New York Yankees,Baltimore Orioles,695684,Elmer Rodríguez,669358,Shane Baz

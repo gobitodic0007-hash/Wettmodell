@@ -253,7 +253,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0034397,Tim Settle,DL,WAS,ACT,2026
 00-0034399,Wyatt Teller,OL,HOU,ACT,2026
 00-0034407,Ray-Ray McCloud,WR,CHI,RES,2026
-00-0034413,Foye Oluokun,LB,JAX,ACT,2026
+00-0034413,Foyesade Oluokun,LB,JAX,ACT,2026
 00-0034417,Matt Pryor,OL,ARI,DEV,2026
 00-0034419,Braxton Berrios,WR,NYG,DEV,2026
 00-0034429,Jordan Mailata,OL,PHI,ACT,2026
@@ -385,7 +385,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0035282,Easton Stick,QB,TB,DEV,2026
 00-0035286,Cole Holcomb,LB,PIT,ACT,2026
 00-0035289,Gardner Minshew,QB,ARI,ACT,2026
-00-0035298,Scott Miller,WR,CHI,DEV,2026
+00-0035298,Scott Miller,WR,CHI,CUT,2026
 00-0035316,Kaden Elliss,LB,NO,ACT,2026
 00-0035317,Joshua Miles,OL,LV,RET,2026
 00-0035345,Chris Myarick,TE,LV,DEV,2026
@@ -410,7 +410,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0035544,Tom Kennedy,WR,DET,ACT,2026
 00-0035567,Craig Reynolds,RB,WAS,DEV,2026
 00-0035588,Garrett Bradbury,OL,CHI,ACT,2026
-00-0035589,Gary Jennings,WR,LAC,CUT,2026
+00-0035589,Gary Jennings,WR,LAC,DEV,2026
 00-0035594,Travis Homer,RB,PIT,DEV,2026
 00-0035602,Alex Bachman,WR,LA,DEV,2026
 00-0035617,Troy Reeder,LB,NYJ,ACT,2026
@@ -639,6 +639,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0036555,Chuba Hubbard,RB,CAR,ACT,2026
 00-0036556,Brevin Jordan,TE,HOU,ACT,2026
 00-0036557,Jaylon Moore,OL,KC,ACT,2026
+00-0036559,Shaun Wade,DB,PHI,DEV,2026
 00-0036563,Deommodore Lenoir,DB,SF,ACT,2026
 00-0036564,Talanoa Hufanga,DB,DEN,ACT,2026
 00-0036568,Roy Lopez,DL,ARI,ACT,2026
@@ -2039,7 +2040,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0040296,Corey Thornton,DB,CAR,DEV,2026
 00-0040298,Andrew Armstrong,WR,KC,DEV,2026
 00-0040299,Eugene Asante,LB,ARI,DEV,2026
-00-0040302,A.J. Henning,WR,MIA,CUT,2026
+00-0040302,A.J. Henning,WR,MIA,DEV,2026
 00-0040304,Alex Huntley,DL,MIA,CUT,2026
 00-0040307,Josh Priebe,OL,MIA,CUT,2026
 00-0040310,John Saunders Jr.,DB,NYJ,DEV,2026
@@ -2276,7 +2277,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0040687,Cameron Williams,OL,ATL,RES,2026
 00-0040688,Malaki Starks,DB,BAL,ACT,2026
 00-0040689,Anthony Campbell,DL,GB,INA,2026
-00-0040691,Jaxson Dart,QB,NYG,ACT,2026
+00-0040691,Jaxson Dart,QB,NYG,RES,2026
 00-0040692,Jarquez Hunter,RB,MIA,DEV,2026
 00-0040694,Darius Alexander,DL,NYG,ACT,2026
 00-0040697,Thomas Gordon,TE,DET,DEV,2026
@@ -2626,7 +2627,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0041163,Kahlil Saunders,DL,NO,CUT,2026
 00-0041164,Caden Barnett,OL,CHI,DEV,2026
 00-0041165,Coleman Bennett,RB,MIA,CUT,2026
-00-0041167,Beau Gardner,LS,CHI,CUT,2026
+00-0041167,Beau Gardner,LS,CHI,DEV,2026
 00-0041168,Omari Kelly,WR,CHI,CUT,2026
 00-0041169,Jaren Kump,OL,CHI,CUT,2026
 00-0041170,Hayden Large,TE,CHI,RES,2026
@@ -2764,7 +2765,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0041335,Jay'Viar Suggs,DL,NO,DEV,2026
 00-0041336,Alex Wollschlaeger,OL,NO,DEV,2026
 00-0041338,Caden Fordham,LB,TB,DEV,2026
-00-0041339,Deshawn McKnight,DL,TB,RES,2026
+00-0041339,Deshawn McKnight,DL,TB,CUT,2026
 00-0041340,Marcus Allen,DB,MIN,CUT,2026
 00-0041341,Da'Veawn Armstead,DB,MIN,DEV,2026
 00-0041342,Dillon Bell,WR,MIN,DEV,2026
