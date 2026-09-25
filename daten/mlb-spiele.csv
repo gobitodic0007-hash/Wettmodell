@@ -7237,3 +7237,15 @@ Datum,GamePk,Park,Heim,Gast,HeimF5,GastF5,HeimI1,GastI1,HeimR,GastR,HeimHits,Gas
 2026-09-23,824785,Oriole Park at Camden Yards,Baltimore Orioles,Toronto Blue Jays,4,0,0,0,4,2,5,10,4,6,605135,Chris Bassitt,453286,Max Scherzer
 2026-09-23,824868,Truist Park,Atlanta Braves,Cincinnati Reds,0,1,0,1,3,2,7,5,3,4,519242,Chris Sale,671096,Andrew Abbott
 2026-09-23,824951,Sutter Health Park,Athletics,Los Angeles Angels,5,3,4,0,7,3,13,8,8,6,605488,Jeffrey Springs,700712,Walbert Ureña
+2026-09-24,822842,Globe Life Field,Texas Rangers,New York Mets,2,1,2,1,3,1,7,4,4,3,677958,Kumar Rocker,804267,Zac Thornton
+2026-09-24,823087,T-Mobile Park,Seattle Mariners,Los Angeles Angels,4,3,0,0,4,6,7,9,5,6,693433,Bryan Woo,680570,Grayson Rodriguez
+2026-09-24,823326,PNC Park,Pittsburgh Pirates,St. Louis Cardinals,1,1,1,1,2,1,7,5,5,3,694973,Paul Skenes,681517,Kyle Leahy
+2026-09-24,823411,Citizens Bank Park,Philadelphia Phillies,Milwaukee Brewers,1,1,0,0,1,5,4,11,3,5,691725,Andrew Painter,675660,Shane Drohan
+2026-09-24,823493,Yankee Stadium,New York Yankees,Tampa Bay Rays,0,3,0,0,6,4,7,9,1,7,693645,Cam Schlittler,693855,Ian Seymour
+2026-09-24,823895,UNIQLO Field at Dodger Stadium,Los Angeles Dodgers,San Diego Padres,0,0,0,0,2,4,7,6,5,0,607192,Tyler Glasnow,601713,Nick Pivetta
+2026-09-24,824059,Kauffman Stadium,Kansas City Royals,Chicago White Sox,1,9,0,3,1,9,7,12,5,10,677976,Randy Dobnak,689818,David Sandlin
+2026-09-24,824298,Coors Field,Colorado Rockies,Arizona Diamondbacks,1,11,0,6,8,12,17,18,7,15,685299,Tanner Gordon,593958,Eduardo Rodriguez
+2026-09-24,824623,Wrigley Field,Chicago Cubs,Miami Marlins,1,1,0,0,2,1,6,5,4,5,571510,Matthew Boyd,663969,Tyler Phillips
+2026-09-24,824707,Fenway Park,Boston Red Sox,Cleveland Guardians,0,1,0,0,0,1,2,4,1,3,624133,Ranger Suarez,682982,Daniel Espino
+2026-09-24,824866,Truist Park,Atlanta Braves,Cincinnati Reds,6,5,4,1,6,7,12,7,9,6,641816,Tyler Mahle,663903,Brady Singer
+2026-09-24,824950,Sutter Health Park,Athletics,Houston Astros,4,3,0,0,5,7,11,10,7,3,686930,Mason Barnett,663567,Peter Lambert
