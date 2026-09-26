@@ -28,6 +28,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Pakete installieren
+        run: pip install pandas pyarrow
+
       - name: Fussball abrufen
         run: python hole_fussball.py
 
