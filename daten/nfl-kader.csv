@@ -402,7 +402,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0035408,Nick Moore,LS,BAL,ACT,2026
 00-0035409,Shy Tuttle,DL,WAS,ACT,2026
 00-0035413,Luke Gifford,LB,SF,ACT,2026
-00-0035500,Greg Dortch,WR,BUF,DEV,2026
+00-0035500,Greg Dortch,WR,BUF,ACT,2026
 00-0035525,Devin Bush,LB,CHI,ACT,2026
 00-0035526,Elgton Jenkins,OL,CLE,ACT,2026
 00-0035535,Darius Slayton,WR,IND,ACT,2026
@@ -1962,7 +1962,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0040188,Yahya Black,DL,PIT,ACT,2026
 00-0040189,Oronde Gadsden II,TE,LAC,ACT,2026
 00-0040190,Jackson Slater,OL,TEN,ACT,2026
-00-0040192,Jordan Hancock,DB,BUF,ACT,2026
+00-0040192,Jordan Hancock,DB,BUF,RES,2026
 00-0040193,Miles Frazier,OL,DET,ACT,2026
 00-0040194,Jackson Hawes,TE,BUF,ACT,2026
 00-0040195,Denzel Burke,DB,ARI,ACT,2026
@@ -2820,7 +2820,7 @@ SpielerId,Name,Position,Team,Status,Saison
 00-0041399,CJ Daniels,WR,LA,ACT,2026
 00-0041400,Gabe Rubio,DL,PIT,ACT,2026
 00-0041401,Robert Spears-Jennings,DB,PIT,ACT,2026
-00-0041402,Quintayvious Hutchins,LB,NE,ACT,2026
+00-0041402,Quintayvious Hutchins,LB,NE,RES,2026
 00-0041403,Rohan Jones,TE,LA,CUT,2026
 00-0041404,Wesley Bailey,LB,LA,ACT,2026
 00-0041405,Peter Manuma,DB,NE,CUT,2026
