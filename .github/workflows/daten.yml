@@ -31,6 +31,10 @@ jobs:
       - name: Pakete installieren
         run: pip install numpy pandas pyarrow
 
+      - name: DEL testen
+        continue-on-error: true
+        run: python hole_del_test.py
+
       - name: Fussball abrufen
         run: python hole_fussball.py
 
