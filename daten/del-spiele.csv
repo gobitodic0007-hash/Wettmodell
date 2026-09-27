@@ -1,0 +1,753 @@
+Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,GastSOG,HeimPIM,GastPIM,HeimTwId,HeimTw,GastTwId,GastTw,Spieltag,HeimSchuesse,GastSchuesse,HeimPP,GastPP,HeimBully,GastBully
+2024-09-19,3504,2024-25,Augsburger Panther,ERC Ingolstadt,3,2,2,2,OT,21,49,18,38,,,,,1,33,84,5,6,34,38
+2024-09-20,3505,2024-25,Kölner Haie,Eisbären Berlin,2,6,2,6,REG,27,42,6,4,,,,,1,50,61,2,3,37,23
+2024-09-20,3506,2024-25,Löwen Frankfurt,Nürnberg Ice Tigers,3,2,3,2,REG,19,23,19,15,,,,,1,40,41,3,3,27,31
+2024-09-20,3507,2024-25,Adler Mannheim,Schwenninger Wild Wings,4,3,4,3,REG,29,24,8,8,,,,,1,57,47,3,3,27,29
+2024-09-20,3508,2024-25,Pinguins Bremerhaven,Grizzlys Wolfsburg,4,1,4,1,REG,33,28,6,8,,,,,1,56,45,3,2,32,21
+2024-09-20,3509,2024-25,Iserlohn Roosters,EHC Red Bull München,5,7,5,7,REG,30,29,6,35,,,,,1,56,51,4,1,19,28
+2024-09-20,3510,2024-25,Straubing Tigers,Düsseldorfer EG,7,2,7,2,REG,42,14,10,8,,,,,1,68,34,4,5,34,32
+2024-09-22,3511,2024-25,Kölner Haie,Adler Mannheim,3,1,3,1,REG,31,29,16,28,,,,,2,51,60,6,5,21,31
+2024-09-22,3512,2024-25,Nürnberg Ice Tigers,Augsburger Panther,4,1,4,1,REG,25,25,14,10,,,,,2,54,40,2,4,38,30
+2024-09-22,3513,2024-25,Löwen Frankfurt,EHC Red Bull München,2,3,2,3,REG,31,23,8,4,,,,,2,54,44,2,4,24,35
+2024-09-22,3514,2024-25,ERC Ingolstadt,Straubing Tigers,5,2,5,2,REG,27,28,8,12,,,,,2,54,48,6,4,27,26
+2024-09-22,3515,2024-25,Iserlohn Roosters,Eisbären Berlin,1,4,1,4,REG,16,38,8,4,,,,,2,34,64,2,4,21,26
+2024-09-22,3516,2024-25,Schwenninger Wild Wings,Pinguins Bremerhaven,2,1,1,1,OT,37,30,10,8,,,,,2,59,55,3,4,28,35
+2024-09-22,3517,2024-25,Grizzlys Wolfsburg,Düsseldorfer EG,4,0,4,0,REG,35,15,4,12,,,,,2,57,30,5,1,35,24
+2024-09-26,3518,2024-25,Pinguins Bremerhaven,Straubing Tigers,3,0,3,0,REG,15,32,2,2,,,,,3,35,68,1,1,32,28
+2024-09-27,3519,2024-25,Kölner Haie,Nürnberg Ice Tigers,5,6,5,5,OT,23,31,15,9,,,,,3,42,57,2,5,28,33
+2024-09-27,3520,2024-25,Eisbären Berlin,Augsburger Panther,2,6,2,6,REG,31,33,15,17,,,,,3,62,43,5,4,34,25
+2024-09-27,3521,2024-25,Düsseldorfer EG,Schwenninger Wild Wings,3,2,2,2,SO,23,32,4,10,,,,,3,41,62,5,2,33,28
+2024-09-27,3522,2024-25,ERC Ingolstadt,Löwen Frankfurt,2,0,2,0,REG,29,10,4,8,,,,,3,56,26,4,2,33,15
+2024-09-27,3523,2024-25,Grizzlys Wolfsburg,Iserlohn Roosters,4,3,4,3,REG,42,28,15,11,,,,,3,80,47,2,4,51,34
+2024-09-29,3524,2024-25,Nürnberg Ice Tigers,Düsseldorfer EG,6,3,6,3,REG,33,31,9,6,,,,,4,63,58,3,3,43,23
+2024-09-29,3525,2024-25,Löwen Frankfurt,Grizzlys Wolfsburg,4,3,4,3,REG,39,29,19,38,,,,,4,52,53,3,3,26,30
+2024-09-29,3526,2024-25,Augsburger Panther,Kölner Haie,7,6,6,6,OT,26,34,29,10,,,,,4,44,60,4,2,33,31
+2024-09-29,3527,2024-25,Pinguins Bremerhaven,Adler Mannheim,1,2,1,1,OT,22,32,12,12,,,,,4,48,58,5,5,24,30
+2024-09-29,3528,2024-25,Iserlohn Roosters,ERC Ingolstadt,3,5,3,5,REG,25,41,15,6,,,,,4,38,55,2,5,16,35
+2024-09-29,3529,2024-25,Straubing Tigers,EHC Red Bull München,2,6,2,6,REG,27,31,10,6,,,,,4,48,46,3,5,26,29
+2024-09-29,3530,2024-25,Schwenninger Wild Wings,Eisbären Berlin,4,3,3,3,SO,26,44,12,8,,,,,4,47,63,3,5,33,45
+2024-10-01,3531,2024-25,Düsseldorfer EG,Pinguins Bremerhaven,1,3,1,3,REG,25,48,24,20,,,,,5,55,83,2,4,27,42
+2024-10-01,3532,2024-25,Löwen Frankfurt,Kölner Haie,5,1,5,1,REG,38,23,8,10,,,,,5,65,40,5,4,28,33
+2024-10-01,3533,2024-25,Straubing Tigers,Eisbären Berlin,2,4,2,4,REG,22,28,10,8,,,,,5,52,48,4,5,23,27
+2024-10-01,3534,2024-25,Schwenninger Wild Wings,ERC Ingolstadt,3,6,3,6,REG,22,34,10,8,,,,,5,38,60,4,5,30,38
+2024-10-02,3535,2024-25,Adler Mannheim,Nürnberg Ice Tigers,5,4,5,4,REG,30,29,2,10,,,,,5,53,51,4,0,37,23
+2024-10-02,3536,2024-25,Augsburger Panther,Iserlohn Roosters,1,2,1,1,SO,33,40,6,8,,,,,5,57,77,4,2,31,37
+2024-10-02,3537,2024-25,EHC Red Bull München,Grizzlys Wolfsburg,7,4,7,4,REG,29,34,6,6,,,,,5,52,57,3,3,35,31
+2024-10-03,3538,2024-25,Kölner Haie,Straubing Tigers,2,0,2,0,REG,16,34,6,8,,,,,6,36,71,4,3,26,30
+2024-10-04,3539,2024-25,Nürnberg Ice Tigers,Pinguins Bremerhaven,0,9,0,9,REG,30,37,17,15,,,,,6,49,62,3,4,33,34
+2024-10-04,3540,2024-25,Adler Mannheim,Augsburger Panther,6,1,6,1,REG,31,23,6,6,,,,,6,57,44,3,3,36,18
+2024-10-04,3541,2024-25,ERC Ingolstadt,Düsseldorfer EG,4,3,4,3,REG,40,13,4,8,,,,,6,66,26,3,1,39,16
+2024-10-04,3542,2024-25,Iserlohn Roosters,Löwen Frankfurt,3,4,3,4,REG,24,30,26,12,,,,,6,43,53,5,7,26,28
+2024-10-04,3543,2024-25,EHC Red Bull München,Eisbären Berlin,2,3,2,3,REG,22,49,8,12,,,,,6,37,76,5,3,27,33
+2024-10-04,3544,2024-25,Grizzlys Wolfsburg,Schwenninger Wild Wings,4,3,3,3,OT,31,28,4,8,,,,,6,60,50,4,2,30,20
+2024-10-06,3545,2024-25,Eisbären Berlin,Nürnberg Ice Tigers,6,2,6,2,REG,39,31,16,14,,,,,7,59,58,3,4,48,41
+2024-10-06,3546,2024-25,Düsseldorfer EG,Löwen Frankfurt,0,3,0,3,REG,33,21,16,10,,,,,7,58,37,5,3,27,37
+2024-10-06,3547,2024-25,Adler Mannheim,ERC Ingolstadt,1,3,1,3,REG,27,16,10,12,,,,,7,56,34,4,3,20,26
+2024-10-06,3548,2024-25,Augsburger Panther,Grizzlys Wolfsburg,3,4,3,4,REG,33,27,18,14,,,,,7,65,46,6,3,27,38
+2024-10-06,3549,2024-25,Pinguins Bremerhaven,Iserlohn Roosters,5,0,5,0,REG,36,32,4,2,,,,,7,61,68,1,2,28,25
+2024-10-06,3550,2024-25,EHC Red Bull München,Kölner Haie,4,6,4,6,REG,23,29,6,8,,,,,7,51,41,3,2,26,32
+2024-10-06,3551,2024-25,Schwenninger Wild Wings,Straubing Tigers,1,2,1,2,REG,18,33,18,20,,,,,7,38,61,3,2,28,45
+2024-10-10,3552,2024-25,Nürnberg Ice Tigers,Iserlohn Roosters,0,4,0,4,REG,37,22,6,6,,,,,8,62,39,2,2,32,20
+2024-10-11,3553,2024-25,Kölner Haie,Schwenninger Wild Wings,2,3,2,2,OT,26,32,2,4,,,,,8,50,47,2,1,29,29
+2024-10-11,3554,2024-25,Eisbären Berlin,Pinguins Bremerhaven,4,3,4,3,REG,21,26,4,14,,,,,8,36,55,2,2,30,26
+2024-10-11,3555,2024-25,Augsburger Panther,Löwen Frankfurt,4,1,4,1,REG,31,15,6,14,,,,,8,56,40,7,2,27,32
+2024-10-11,3556,2024-25,ERC Ingolstadt,Grizzlys Wolfsburg,7,5,7,5,REG,37,37,42,13,,,,,8,59,55,3,6,34,30
+2024-10-11,3557,2024-25,EHC Red Bull München,Düsseldorfer EG,1,2,1,1,SO,36,24,2,8,,,,,8,81,36,4,1,29,17
+2024-10-11,3558,2024-25,Straubing Tigers,Adler Mannheim,2,6,2,6,REG,35,30,15,15,,,,,8,63,47,2,3,34,31
+2024-10-13,3559,2024-25,Kölner Haie,ERC Ingolstadt,2,3,2,2,SO,25,41,10,10,,,,,9,50,72,4,4,22,34
+2024-10-13,3560,2024-25,Nürnberg Ice Tigers,Straubing Tigers,3,4,3,3,SO,35,29,6,4,,,,,9,56,55,1,2,38,26
+2024-10-13,3561,2024-25,Düsseldorfer EG,Iserlohn Roosters,3,4,3,3,OT,43,41,8,7,,,,,9,62,63,2,4,28,26
+2024-10-13,3562,2024-25,Löwen Frankfurt,Eisbären Berlin,2,5,2,5,REG,23,23,14,16,,,,,9,46,48,6,5,35,35
+2024-10-13,3563,2024-25,Pinguins Bremerhaven,EHC Red Bull München,4,5,4,4,SO,27,31,11,11,,,,,9,55,51,2,2,28,28
+2024-10-13,3564,2024-25,Schwenninger Wild Wings,Augsburger Panther,1,2,1,2,REG,45,26,12,14,,,,,9,82,44,7,6,33,38
+2024-10-13,3565,2024-25,Grizzlys Wolfsburg,Adler Mannheim,3,1,3,1,REG,25,31,15,38,,,,,9,46,54,5,5,19,30
+2024-10-17,3566,2024-25,Schwenninger Wild Wings,Iserlohn Roosters,2,1,1,1,OT,39,17,10,10,,,,,10,67,31,4,4,31,44
+2024-10-18,3567,2024-25,Eisbären Berlin,Adler Mannheim,4,3,3,3,OT,30,27,4,8,,,,,10,48,43,4,2,24,30
+2024-10-18,3568,2024-25,Nürnberg Ice Tigers,ERC Ingolstadt,6,2,6,2,REG,33,21,10,10,,,,,10,47,53,5,5,33,34
+2024-10-18,3569,2024-25,Düsseldorfer EG,Kölner Haie,3,6,3,6,REG,26,25,11,13,,,,,10,42,46,3,2,28,28
+2024-10-18,3570,2024-25,Pinguins Bremerhaven,Löwen Frankfurt,3,0,3,0,REG,25,18,0,6,,,,,10,43,36,3,0,36,25
+2024-10-18,3571,2024-25,EHC Red Bull München,Augsburger Panther,2,4,2,4,REG,41,29,10,12,,,,,10,70,42,5,4,28,27
+2024-10-18,3572,2024-25,Straubing Tigers,Grizzlys Wolfsburg,2,4,2,4,REG,42,24,6,8,,,,,10,78,34,4,3,34,24
+2024-10-20,3573,2024-25,Löwen Frankfurt,Schwenninger Wild Wings,1,2,1,1,OT,33,24,33,14,,,,,11,54,48,6,4,25,32
+2024-10-20,3574,2024-25,Adler Mannheim,Düsseldorfer EG,4,2,4,2,REG,27,28,6,14,,,,,11,67,51,7,3,45,26
+2024-10-20,3575,2024-25,Augsburger Panther,Straubing Tigers,0,4,0,4,REG,24,36,10,16,,,,,11,50,55,6,3,29,31
+2024-10-20,3576,2024-25,ERC Ingolstadt,Pinguins Bremerhaven,4,2,4,2,REG,28,18,6,10,,,,,11,50,46,4,2,24,22
+2024-10-20,3577,2024-25,Iserlohn Roosters,Kölner Haie,2,1,1,1,SO,17,33,10,8,,,,,11,34,65,3,4,24,22
+2024-10-20,3578,2024-25,EHC Red Bull München,Nürnberg Ice Tigers,4,0,4,0,REG,24,19,6,10,,,,,11,56,42,5,3,31,24
+2024-10-20,3579,2024-25,Grizzlys Wolfsburg,Eisbären Berlin,2,3,2,2,OT,34,28,4,4,,,,,11,55,52,2,2,30,30
+2024-10-22,3580,2024-25,Eisbären Berlin,Grizzlys Wolfsburg,5,4,4,4,OT,32,38,8,4,,,,,16,57,65,2,4,31,30
+2024-10-24,3581,2024-25,Düsseldorfer EG,Augsburger Panther,4,3,4,3,REG,36,38,13,13,,,,,12,59,81,4,4,41,32
+2024-10-24,3582,2024-25,ERC Ingolstadt,Eisbären Berlin,2,4,2,4,REG,28,29,10,8,,,,,12,54,45,3,4,36,24
+2024-10-25,3583,2024-25,Löwen Frankfurt,Straubing Tigers,2,5,2,5,REG,22,30,8,6,,,,,12,32,59,3,4,35,29
+2024-10-25,3584,2024-25,Pinguins Bremerhaven,Kölner Haie,0,2,0,2,REG,31,27,8,8,,,,,12,53,43,2,2,34,20
+2024-10-25,3585,2024-25,Iserlohn Roosters,Adler Mannheim,3,4,3,3,SO,31,36,4,4,,,,,12,53,63,1,1,28,30
+2024-10-25,3586,2024-25,Schwenninger Wild Wings,EHC Red Bull München,4,3,3,3,SO,32,36,6,2,,,,,12,51,67,1,3,36,47
+2024-10-25,3587,2024-25,Grizzlys Wolfsburg,Nürnberg Ice Tigers,1,2,1,2,REG,36,27,6,8,,,,,12,62,49,4,3,39,33
+2024-10-26,3588,2024-25,Eisbären Berlin,Düsseldorfer EG,4,3,3,3,OT,43,24,10,6,,,,,13,68,35,2,4,31,37
+2024-10-27,3589,2024-25,Kölner Haie,Grizzlys Wolfsburg,2,1,2,1,REG,21,24,2,4,,,,,13,54,48,1,0,28,14
+2024-10-27,3590,2024-25,Nürnberg Ice Tigers,Schwenninger Wild Wings,4,1,4,1,REG,33,44,10,12,,,,,13,48,67,5,4,47,33
+2024-10-27,3591,2024-25,Adler Mannheim,Löwen Frankfurt,0,2,0,2,REG,26,23,6,10,,,,,13,59,38,5,3,27,21
+2024-10-27,3592,2024-25,Augsburger Panther,Pinguins Bremerhaven,2,5,2,5,REG,33,22,8,10,,,,,13,63,51,5,4,35,30
+2024-10-27,3593,2024-25,EHC Red Bull München,ERC Ingolstadt,5,1,5,1,REG,36,24,10,12,,,,,13,55,51,5,4,25,33
+2024-10-27,3594,2024-25,Straubing Tigers,Iserlohn Roosters,6,2,6,2,REG,40,22,15,11,,,,,13,71,46,3,5,38,24
+2024-10-29,3595,2024-25,EHC Red Bull München,Adler Mannheim,5,4,5,4,REG,20,41,8,4,,,,,3,30,85,1,3,28,27
+2024-10-30,3596,2024-25,Straubing Tigers,Nürnberg Ice Tigers,1,4,1,4,REG,30,21,9,11,,,,,30,67,39,3,2,29,26
+2024-10-31,3597,2024-25,ERC Ingolstadt,Löwen Frankfurt,2,3,2,2,OT,33,26,10,14,,,,,14,65,31,6,5,27,30
+2024-10-31,3598,2024-25,Grizzlys Wolfsburg,Adler Mannheim,4,6,4,6,REG,27,36,10,14,,,,,14,43,54,5,3,30,40
+2024-10-31,3599,2024-25,Augsburger Panther,Eisbären Berlin,2,3,2,3,REG,18,49,4,2,,,,,14,40,82,1,2,29,26
+2024-11-01,3600,2024-25,Nürnberg Ice Tigers,Straubing Tigers,2,5,2,5,REG,26,25,8,10,,,,,14,54,50,3,2,30,26
+2024-11-01,3601,2024-25,Düsseldorfer EG,Pinguins Bremerhaven,1,3,1,3,REG,30,26,8,16,,,,,14,40,44,2,3,21,30
+2024-11-01,3602,2024-25,EHC Red Bull München,Kölner Haie,1,2,1,2,REG,33,27,2,4,,,,,14,57,42,2,1,29,22
+2024-11-01,3603,2024-25,Schwenninger Wild Wings,Iserlohn Roosters,4,1,4,1,REG,54,18,13,15,,,,,14,93,38,5,4,28,34
+2024-11-03,3604,2024-25,Eisbären Berlin,Schwenninger Wild Wings,3,4,3,3,OT,28,41,13,11,,,,,15,48,57,2,3,27,30
+2024-11-03,3605,2024-25,Löwen Frankfurt,EHC Red Bull München,4,5,4,4,SO,22,37,10,8,,,,,15,36,69,4,5,31,25
+2024-11-03,3606,2024-25,Adler Mannheim,Nürnberg Ice Tigers,4,2,4,2,REG,40,25,10,14,,,,,15,66,46,4,2,37,31
+2024-11-03,3607,2024-25,Pinguins Bremerhaven,Grizzlys Wolfsburg,6,1,6,1,REG,42,35,8,8,,,,,15,63,54,4,4,29,34
+2024-11-03,3608,2024-25,ERC Ingolstadt,Augsburger Panther,4,1,4,1,REG,29,21,4,4,,,,,15,46,43,2,2,30,36
+2024-11-03,3609,2024-25,Iserlohn Roosters,Kölner Haie,3,2,3,2,REG,28,30,6,6,,,,,15,45,61,2,2,21,38
+2024-11-03,3610,2024-25,Straubing Tigers,Düsseldorfer EG,4,2,4,2,REG,34,24,6,6,,,,,15,64,43,2,2,31,23
+2024-11-14,3611,2024-25,Löwen Frankfurt,Iserlohn Roosters,6,2,6,2,REG,29,32,33,4,,,,,16,54,55,2,5,33,22
+2024-11-15,3612,2024-25,Kölner Haie,Pinguins Bremerhaven,1,3,1,3,REG,24,24,6,8,,,,,16,49,41,3,2,25,26
+2024-11-15,3613,2024-25,Nürnberg Ice Tigers,ERC Ingolstadt,5,4,4,4,OT,30,47,17,9,,,,,16,42,74,2,6,27,42
+2024-11-15,3614,2024-25,Adler Mannheim,Augsburger Panther,6,2,6,2,REG,42,24,6,4,,,,,16,80,46,2,3,42,22
+2024-11-15,3615,2024-25,EHC Red Bull München,Straubing Tigers,2,5,2,5,REG,17,28,29,31,,,,,16,34,56,3,2,28,26
+2024-11-15,3616,2024-25,Schwenninger Wild Wings,Düsseldorfer EG,2,4,2,4,REG,45,27,2,6,,,,,16,83,43,3,1,43,46
+2024-11-17,3617,2024-25,Eisbären Berlin,Löwen Frankfurt,5,2,5,2,REG,33,20,8,8,,,,,17,61,40,3,4,27,30
+2024-11-17,3618,2024-25,Düsseldorfer EG,Nürnberg Ice Tigers,2,3,2,2,SO,30,46,6,4,,,,,17,53,79,2,3,22,46
+2024-11-17,3619,2024-25,Augsburger Panther,Iserlohn Roosters,2,5,2,5,REG,37,28,42,19,,,,,17,67,52,4,4,32,27
+2024-11-17,3620,2024-25,Pinguins Bremerhaven,EHC Red Bull München,4,0,4,0,REG,25,22,6,6,,,,,17,39,53,3,3,27,27
+2024-11-17,3621,2024-25,ERC Ingolstadt,Adler Mannheim,3,2,2,2,SO,31,27,13,17,,,,,17,47,46,5,3,27,36
+2024-11-17,3622,2024-25,Straubing Tigers,Kölner Haie,1,2,1,2,REG,23,21,13,12,,,,,17,50,36,4,4,22,29
+2024-11-17,3623,2024-25,Grizzlys Wolfsburg,Schwenninger Wild Wings,4,1,4,1,REG,29,37,8,8,,,,,17,43,55,4,4,28,26
+2024-11-21,3624,2024-25,Iserlohn Roosters,EHC Red Bull München,0,3,0,3,REG,17,27,8,6,,,,,18,37,49,3,4,17,21
+2024-11-21,3625,2024-25,Grizzlys Wolfsburg,Augsburger Panther,2,1,2,1,REG,37,29,2,6,,,,,18,60,51,3,1,26,35
+2024-11-22,3626,2024-25,Kölner Haie,ERC Ingolstadt,2,5,2,5,REG,23,20,2,6,,,,,18,57,36,3,1,25,24
+2024-11-22,3627,2024-25,Nürnberg Ice Tigers,Schwenninger Wild Wings,3,7,3,7,REG,26,27,2,4,,,,,18,46,55,2,1,34,29
+2024-11-22,3628,2024-25,Düsseldorfer EG,Eisbären Berlin,3,5,3,5,REG,23,36,4,2,,,,,18,39,82,1,2,34,35
+2024-11-22,3629,2024-25,Löwen Frankfurt,Adler Mannheim,3,1,3,1,REG,22,27,17,21,,,,,18,39,66,5,3,32,37
+2024-11-22,3630,2024-25,Straubing Tigers,Pinguins Bremerhaven,4,2,4,2,REG,32,24,12,8,,,,,18,52,44,2,3,28,34
+2024-11-23,3631,2024-25,EHC Red Bull München,Augsburger Panther,3,2,3,2,REG,35,31,6,4,,,,,19,61,52,2,3,29,23
+2024-11-24,3632,2024-25,Kölner Haie,Düsseldorfer EG,5,1,5,1,REG,33,17,6,8,,,,,19,53,40,4,3,24,20
+2024-11-24,3633,2024-25,Eisbären Berlin,Iserlohn Roosters,6,3,6,3,REG,37,25,6,10,,,,,19,68,43,3,1,33,31
+2024-11-24,3634,2024-25,Nürnberg Ice Tigers,Löwen Frankfurt,3,2,2,2,OT,37,29,6,6,,,,,19,61,47,3,3,37,26
+2024-11-24,3635,2024-25,Adler Mannheim,Pinguins Bremerhaven,1,0,1,0,REG,24,34,6,4,,,,,19,47,56,2,3,26,27
+2024-11-24,3636,2024-25,ERC Ingolstadt,Grizzlys Wolfsburg,5,1,5,1,REG,29,20,8,10,,,,,19,46,38,4,3,26,28
+2024-11-24,3637,2024-25,Schwenninger Wild Wings,Straubing Tigers,3,4,3,3,SO,38,27,32,22,,,,,19,80,42,4,5,44,44
+2024-11-26,3638,2024-25,Kölner Haie,Nürnberg Ice Tigers,4,2,4,2,REG,30,27,8,10,,,,,20,50,46,3,2,34,25
+2024-11-26,3639,2024-25,Löwen Frankfurt,Augsburger Panther,4,3,4,3,REG,30,40,10,35,,,,,20,62,63,5,4,26,34
+2024-11-26,3640,2024-25,Pinguins Bremerhaven,Eisbären Berlin,2,1,2,1,REG,24,27,10,14,,,,,20,48,59,6,4,25,30
+2024-11-26,3641,2024-25,EHC Red Bull München,Schwenninger Wild Wings,4,2,4,2,REG,27,24,4,4,,,,,20,52,49,2,2,36,26
+2024-11-27,3642,2024-25,Adler Mannheim,Iserlohn Roosters,4,1,4,1,REG,37,18,6,6,,,,,20,66,42,3,3,34,25
+2024-11-27,3643,2024-25,Straubing Tigers,ERC Ingolstadt,2,5,2,5,REG,35,25,10,8,,,,,20,59,42,3,4,33,23
+2024-11-27,3644,2024-25,Grizzlys Wolfsburg,Düsseldorfer EG,2,1,1,1,OT,37,30,6,6,,,,,20,66,46,3,3,34,24
+2024-11-28,3645,2024-25,EHC Red Bull München,Nürnberg Ice Tigers,3,4,3,3,OT,41,22,6,22,,,,,21,70,37,5,2,38,22
+2024-11-29,3646,2024-25,Eisbären Berlin,ERC Ingolstadt,0,4,0,4,REG,24,21,4,6,,,,,21,46,44,2,1,27,20
+2024-11-29,3647,2024-25,Düsseldorfer EG,Iserlohn Roosters,6,1,6,1,REG,28,41,6,8,,,,,21,38,82,4,3,19,36
+2024-11-29,3648,2024-25,Löwen Frankfurt,Pinguins Bremerhaven,1,7,1,7,REG,19,34,27,8,,,,,21,47,56,3,1,16,36
+2024-11-29,3649,2024-25,Augsburger Panther,Straubing Tigers,4,1,4,1,REG,30,30,14,16,,,,,21,52,56,4,3,29,27
+2024-11-29,3650,2024-25,Schwenninger Wild Wings,Adler Mannheim,6,2,6,2,REG,27,17,6,22,,,,,21,47,45,5,2,22,25
+2024-11-29,3651,2024-25,Grizzlys Wolfsburg,Kölner Haie,1,2,1,2,REG,23,21,10,6,,,,,21,52,47,2,4,19,25
+2024-12-01,3652,2024-25,Kölner Haie,Schwenninger Wild Wings,2,4,2,4,REG,27,29,8,14,,,,,22,57,49,6,2,40,24
+2024-12-01,3653,2024-25,Nürnberg Ice Tigers,Eisbären Berlin,2,3,2,2,OT,25,28,4,6,,,,,22,48,62,3,2,31,26
+2024-12-01,3654,2024-25,Adler Mannheim,EHC Red Bull München,4,1,4,1,REG,24,26,6,10,,,,,22,46,49,3,1,28,29
+2024-12-01,3655,2024-25,Pinguins Bremerhaven,Augsburger Panther,4,1,4,1,REG,31,25,4,10,,,,,22,67,50,4,1,28,19
+2024-12-01,3656,2024-25,ERC Ingolstadt,Düsseldorfer EG,7,1,7,1,REG,29,13,8,20,,,,,22,47,35,4,3,39,24
+2024-12-01,3657,2024-25,Iserlohn Roosters,Grizzlys Wolfsburg,1,3,1,3,REG,26,20,12,33,,,,,22,55,45,3,4,22,27
+2024-12-01,3658,2024-25,Straubing Tigers,Löwen Frankfurt,2,1,2,1,REG,39,30,10,8,,,,,22,64,60,3,4,32,18
+2024-12-05,3659,2024-25,Schwenninger Wild Wings,ERC Ingolstadt,4,5,4,4,OT,24,38,10,8,,,,,23,46,59,4,5,41,35
+2024-12-06,3660,2024-25,Augsburger Panther,Nürnberg Ice Tigers,5,4,4,4,SO,30,28,33,39,,,,,23,48,58,6,3,26,35
+2024-12-06,3661,2024-25,Eisbären Berlin,Kölner Haie,2,3,2,2,SO,21,20,27,4,,,,,23,42,41,2,2,22,24
+2024-12-06,3662,2024-25,Düsseldorfer EG,Löwen Frankfurt,4,3,4,3,REG,31,24,6,10,,,,,23,59,51,4,3,35,24
+2024-12-06,3663,2024-25,Adler Mannheim,Straubing Tigers,3,0,3,0,REG,21,24,12,10,,,,,23,50,48,3,4,30,28
+2024-12-06,3664,2024-25,Iserlohn Roosters,Pinguins Bremerhaven,4,0,4,0,REG,31,32,8,20,,,,,23,47,62,4,3,25,47
+2024-12-06,3665,2024-25,Grizzlys Wolfsburg,EHC Red Bull München,1,2,1,1,SO,33,23,2,4,,,,,23,51,50,1,0,34,29
+2024-12-08,3666,2024-25,Kölner Haie,Augsburger Panther,3,1,3,1,REG,39,26,6,6,,,,,24,68,46,2,2,42,27
+2024-12-08,3667,2024-25,Nürnberg Ice Tigers,Iserlohn Roosters,4,3,3,3,OT,26,31,2,8,,,,,24,52,62,4,1,34,22
+2024-12-08,3668,2024-25,Düsseldorfer EG,Adler Mannheim,0,2,0,2,REG,30,27,29,8,,,,,24,63,54,3,2,30,26
+2024-12-08,3669,2024-25,Löwen Frankfurt,Grizzlys Wolfsburg,3,5,3,5,REG,28,33,10,14,,,,,24,45,61,4,2,27,38
+2024-12-08,3670,2024-25,Pinguins Bremerhaven,Schwenninger Wild Wings,3,0,3,0,REG,36,18,8,8,,,,,24,55,31,3,3,25,21
+2024-12-08,3671,2024-25,EHC Red Bull München,ERC Ingolstadt,0,4,0,4,REG,23,27,10,12,,,,,24,65,55,6,5,23,31
+2024-12-08,3672,2024-25,Straubing Tigers,Eisbären Berlin,3,4,3,4,REG,33,22,6,12,,,,,24,60,37,5,2,26,24
+2024-12-10,3673,2024-25,EHC Red Bull München,Straubing Tigers,3,1,3,1,REG,28,34,4,8,,,,,27,55,46,4,2,28,26
+2024-12-12,3674,2024-25,ERC Ingolstadt,Pinguins Bremerhaven,2,3,2,2,SO,40,22,4,4,,,,,25,75,38,1,1,32,30
+2024-12-13,3675,2024-25,Eisbären Berlin,EHC Red Bull München,1,4,1,4,REG,23,28,4,8,,,,,25,54,47,3,1,33,20
+2024-12-13,3676,2024-25,Adler Mannheim,Kölner Haie,4,1,4,1,REG,22,25,8,22,,,,,25,41,48,5,4,26,32
+2024-12-13,3677,2024-25,Augsburger Panther,Düsseldorfer EG,6,1,6,1,REG,33,43,37,12,,,,,25,61,75,3,5,33,25
+2024-12-13,3678,2024-25,Iserlohn Roosters,Straubing Tigers,2,5,2,5,REG,26,37,6,6,,,,,25,44,61,2,2,21,38
+2024-12-13,3679,2024-25,Schwenninger Wild Wings,Löwen Frankfurt,7,3,7,3,REG,36,27,20,45,,,,,25,65,44,11,3,32,41
+2024-12-13,3680,2024-25,Grizzlys Wolfsburg,Nürnberg Ice Tigers,4,3,3,3,OT,30,26,6,10,,,,,25,55,46,4,2,24,30
+2024-12-15,3681,2024-25,Kölner Haie,Löwen Frankfurt,4,3,4,3,REG,21,37,10,4,,,,,26,34,66,2,5,28,28
+2024-12-15,3682,2024-25,Eisbären Berlin,Adler Mannheim,5,2,5,2,REG,31,26,24,26,,,,,26,58,51,4,5,32,32
+2024-12-15,3683,2024-25,Düsseldorfer EG,EHC Red Bull München,0,8,0,8,REG,29,29,4,8,,,,,26,51,46,4,2,21,29
+2024-12-15,3684,2024-25,Pinguins Bremerhaven,Nürnberg Ice Tigers,6,7,6,6,SO,34,34,10,10,,,,,26,57,61,4,4,44,30
+2024-12-15,3685,2024-25,ERC Ingolstadt,Iserlohn Roosters,5,1,5,1,REG,29,18,4,4,,,,,26,54,38,1,1,23,30
+2024-12-15,3686,2024-25,Straubing Tigers,Grizzlys Wolfsburg,3,2,3,2,REG,27,23,6,8,,,,,26,54,44,3,2,32,35
+2024-12-15,3687,2024-25,Schwenninger Wild Wings,Augsburger Panther,4,2,4,2,REG,37,28,12,6,,,,,26,56,59,2,4,34,38
+2024-12-18,3689,2024-25,Iserlohn Roosters,Schwenninger Wild Wings,3,4,3,3,OT,23,23,4,4,,,,,27,42,46,2,2,32,28
+2024-12-18,3690,2024-25,Grizzlys Wolfsburg,ERC Ingolstadt,6,3,6,3,REG,30,35,7,9,,,,,27,44,53,2,1,28,34
+2024-12-19,3691,2024-25,Nürnberg Ice Tigers,Kölner Haie,3,2,2,2,OT,31,31,4,4,,,,,28,54,54,2,2,33,26
+2024-12-20,3692,2024-25,Eisbären Berlin,Löwen Frankfurt,2,3,2,3,REG,23,23,14,12,,,,,28,45,39,4,5,22,31
+2024-12-20,3693,2024-25,Adler Mannheim,EHC Red Bull München,4,1,4,1,REG,31,24,10,4,,,,,28,45,51,1,3,21,25
+2024-12-20,3694,2024-25,Pinguins Bremerhaven,Düsseldorfer EG,2,1,1,1,OT,33,20,2,2,,,,,28,70,49,1,1,34,19
+2024-12-20,3695,2024-25,ERC Ingolstadt,Schwenninger Wild Wings,5,3,5,3,REG,26,33,12,14,,,,,28,49,54,6,4,48,28
+2024-12-20,3696,2024-25,Iserlohn Roosters,Grizzlys Wolfsburg,4,2,4,2,REG,31,32,2,4,,,,,28,53,57,2,1,36,32
+2024-12-20,3697,2024-25,Straubing Tigers,Augsburger Panther,9,1,9,1,REG,50,25,4,20,,,,,28,78,50,5,2,35,33
+2024-12-22,3698,2024-25,Kölner Haie,Straubing Tigers,3,4,3,4,REG,31,20,8,12,,,,,29,53,48,5,3,24,31
+2024-12-22,3699,2024-25,Eisbären Berlin,ERC Ingolstadt,1,6,1,6,REG,28,24,4,6,,,,,29,55,45,3,2,14,34
+2024-12-22,3700,2024-25,Düsseldorfer EG,Augsburger Panther,7,2,7,2,REG,31,32,4,6,,,,,29,56,57,3,2,37,37
+2024-12-22,3701,2024-25,Adler Mannheim,Pinguins Bremerhaven,2,1,2,1,REG,29,25,58,33,,,,,29,52,44,3,3,26,27
+2024-12-22,3702,2024-25,EHC Red Bull München,Iserlohn Roosters,2,1,2,1,REG,28,17,6,8,,,,,29,53,36,4,3,32,25
+2024-12-22,3703,2024-25,Schwenninger Wild Wings,Nürnberg Ice Tigers,3,2,2,2,OT,33,23,0,4,,,,,29,54,40,2,0,36,37
+2024-12-22,3704,2024-25,Grizzlys Wolfsburg,Löwen Frankfurt,4,1,4,1,REG,34,20,2,6,,,,,29,57,33,3,1,25,23
+2024-12-26,3705,2024-25,Löwen Frankfurt,Iserlohn Roosters,5,4,4,4,OT,27,36,6,10,,,,,30,46,67,4,2,25,38
+2024-12-26,3706,2024-25,Augsburger Panther,Adler Mannheim,1,4,1,4,REG,33,25,4,10,,,,,30,60,52,4,1,36,31
+2024-12-26,3707,2024-25,Pinguins Bremerhaven,Kölner Haie,4,1,4,1,REG,26,26,4,4,,,,,30,51,45,2,2,30,21
+2024-12-26,3708,2024-25,ERC Ingolstadt,EHC Red Bull München,3,2,2,2,SO,37,27,6,10,,,,,30,57,52,5,3,29,32
+2024-12-26,3709,2024-25,Schwenninger Wild Wings,Düsseldorfer EG,4,2,4,2,REG,35,18,15,36,,,,,30,69,46,4,5,27,36
+2024-12-26,3710,2024-25,Grizzlys Wolfsburg,Eisbären Berlin,1,3,1,3,REG,25,25,4,6,,,,,30,52,47,3,2,33,28
+2024-12-28,3711,2024-25,Eisbären Berlin,Schwenninger Wild Wings,7,3,7,3,REG,34,26,10,12,,,,,31,55,51,5,4,36,28
+2024-12-28,3712,2024-25,Nürnberg Ice Tigers,EHC Red Bull München,4,1,4,1,REG,21,31,8,8,,,,,31,43,64,4,4,28,27
+2024-12-28,3713,2024-25,Düsseldorfer EG,Grizzlys Wolfsburg,2,5,2,5,REG,34,27,8,16,,,,,31,65,52,3,4,35,30
+2024-12-28,3714,2024-25,Löwen Frankfurt,ERC Ingolstadt,5,3,5,3,REG,16,45,12,10,,,,,31,29,68,4,5,27,42
+2024-12-28,3715,2024-25,Adler Mannheim,Kölner Haie,1,4,1,4,REG,34,30,31,12,,,,,31,72,46,4,2,29,27
+2024-12-28,3716,2024-25,Iserlohn Roosters,Augsburger Panther,4,3,3,3,OT,31,19,4,8,,,,,31,52,36,4,2,35,29
+2024-12-30,3717,2024-25,Kölner Haie,Löwen Frankfurt,3,2,2,2,SO,29,24,8,8,,,,,32,54,42,3,3,30,23
+2024-12-30,3718,2024-25,Nürnberg Ice Tigers,Pinguins Bremerhaven,2,1,1,1,SO,31,24,6,4,,,,,32,55,49,1,2,12,31
+2024-12-30,3719,2024-25,Augsburger Panther,Eisbären Berlin,2,4,2,4,REG,31,41,6,8,,,,,32,47,72,4,3,35,26
+2024-12-30,3720,2024-25,ERC Ingolstadt,Adler Mannheim,6,2,6,2,REG,41,18,2,12,,,,,32,66,33,6,1,34,27
+2024-12-30,3721,2024-25,Iserlohn Roosters,Düsseldorfer EG,2,1,1,1,SO,30,24,6,6,,,,,32,51,50,3,3,34,26
+2024-12-30,3722,2024-25,EHC Red Bull München,Grizzlys Wolfsburg,3,2,3,2,REG,44,27,25,31,,,,,32,89,43,2,0,33,27
+2025-01-02,3723,2024-25,Düsseldorfer EG,ERC Ingolstadt,4,1,4,1,REG,20,36,4,4,,,,,33,42,65,1,1,23,31
+2025-01-03,3724,2024-25,Kölner Haie,EHC Red Bull München,3,2,3,2,REG,19,26,0,2,,,,,33,38,47,1,0,26,33
+2025-01-03,3725,2024-25,Eisbären Berlin,Iserlohn Roosters,3,2,3,2,REG,32,18,4,8,,,,,33,56,33,4,2,35,21
+2025-01-03,3726,2024-25,Augsburger Panther,Nürnberg Ice Tigers,4,3,3,3,SO,28,27,6,37,,,,,33,47,65,6,2,26,36
+2025-01-03,3727,2024-25,Schwenninger Wild Wings,Grizzlys Wolfsburg,4,2,4,2,REG,33,34,0,6,,,,,33,49,57,3,0,31,39
+2025-01-04,3728,2024-25,Löwen Frankfurt,Adler Mannheim,5,1,5,1,REG,22,33,14,8,,,,,27,35,50,3,6,38,27
+2025-01-05,3729,2024-25,Kölner Haie,Augsburger Panther,2,3,2,3,REG,38,14,0,4,,,,,34,85,27,2,0,49,22
+2025-01-05,3730,2024-25,Nürnberg Ice Tigers,Eisbären Berlin,2,5,2,5,REG,27,26,6,18,,,,,34,50,43,8,2,34,30
+2025-01-05,3731,2024-25,Pinguins Bremerhaven,Schwenninger Wild Wings,2,1,2,1,REG,16,27,4,4,,,,,34,40,39,1,1,33,25
+2025-01-05,3732,2024-25,Iserlohn Roosters,ERC Ingolstadt,4,5,4,4,OT,26,37,11,11,,,,,34,36,73,2,2,26,26
+2025-01-05,3733,2024-25,Grizzlys Wolfsburg,Straubing Tigers,5,3,5,3,REG,31,39,27,8,,,,,34,45,64,3,2,28,32
+2025-01-06,3734,2024-25,EHC Red Bull München,Löwen Frankfurt,5,4,5,4,REG,35,23,13,13,,,,,34,49,46,3,3,32,29
+2025-01-07,3735,2024-25,Straubing Tigers,Adler Mannheim,2,1,1,1,SO,33,22,4,12,,,,,33,68,47,5,1,35,33
+2025-01-07,3736,2024-25,Kölner Haie,Eisbären Berlin,5,3,5,3,REG,27,36,8,10,,,,,27,50,65,5,4,29,26
+2025-01-08,3688,2024-25,Augsburger Panther,Pinguins Bremerhaven,2,6,2,6,REG,28,33,4,29,,,,,27,50,55,3,2,21,26
+2025-01-09,3737,2024-25,Adler Mannheim,Eisbären Berlin,3,9,3,9,REG,34,35,21,11,,,,,35,62,53,1,6,33,29
+2025-01-10,3738,2024-25,Kölner Haie,Grizzlys Wolfsburg,3,2,2,2,SO,37,34,10,4,,,,,35,63,57,1,4,27,25
+2025-01-10,3739,2024-25,Düsseldorfer EG,Straubing Tigers,3,4,3,3,OT,28,39,6,8,,,,,35,47,68,4,3,30,41
+2025-01-10,3740,2024-25,Löwen Frankfurt,Schwenninger Wild Wings,4,3,3,3,SO,17,36,2,0,,,,,35,34,71,0,1,37,22
+2025-01-10,3741,2024-25,ERC Ingolstadt,Augsburger Panther,4,1,4,1,REG,30,20,8,6,,,,,35,57,36,2,3,25,26
+2025-01-10,3742,2024-25,Iserlohn Roosters,Nürnberg Ice Tigers,6,2,6,2,REG,28,36,13,13,,,,,35,52,70,4,4,25,31
+2025-01-10,3743,2024-25,EHC Red Bull München,Pinguins Bremerhaven,1,2,1,1,SO,29,25,0,4,,,,,35,72,45,2,0,26,17
+2025-01-12,3744,2024-25,Nürnberg Ice Tigers,Adler Mannheim,4,1,4,1,REG,20,31,6,8,,,,,36,37,59,4,3,35,33
+2025-01-12,3745,2024-25,Düsseldorfer EG,Eisbären Berlin,3,2,2,2,OT,34,21,2,4,,,,,36,64,45,2,1,24,18
+2025-01-12,3746,2024-25,Augsburger Panther,Löwen Frankfurt,2,1,1,1,SO,46,28,2,10,,,,,36,75,51,4,0,27,29
+2025-01-12,3747,2024-25,ERC Ingolstadt,Kölner Haie,5,4,5,4,REG,43,24,4,8,,,,,36,72,39,3,1,33,22
+2025-01-12,3748,2024-25,Straubing Tigers,Iserlohn Roosters,5,4,5,4,REG,31,34,14,8,,,,,36,53,61,3,6,41,35
+2025-01-12,3749,2024-25,Schwenninger Wild Wings,EHC Red Bull München,6,0,6,0,REG,30,20,8,6,,,,,36,48,47,3,4,32,25
+2025-01-12,3750,2024-25,Grizzlys Wolfsburg,Pinguins Bremerhaven,2,1,1,1,OT,27,38,4,4,,,,,36,51,63,1,1,14,34
+2025-01-15,3751,2024-25,Pinguins Bremerhaven,Straubing Tigers,4,5,4,5,REG,38,44,6,4,,,,,31,56,64,2,3,28,32
+2025-01-15,3752,2024-25,Adler Mannheim,Düsseldorfer EG,6,0,6,0,REG,38,18,4,10,,,,,34,70,38,5,2,42,24
+2025-01-16,3753,2024-25,Augsburger Panther,EHC Red Bull München,4,5,4,5,REG,21,48,12,12,,,,,37,38,82,5,5,29,42
+2025-01-17,3754,2024-25,Schwenninger Wild Wings,Kölner Haie,2,0,2,0,REG,22,24,8,6,,,,,37,46,53,3,4,25,37
+2025-01-17,3755,2024-25,Eisbären Berlin,Straubing Tigers,6,2,6,2,REG,30,28,6,4,,,,,37,45,44,2,3,26,33
+2025-01-17,3756,2024-25,Nürnberg Ice Tigers,Grizzlys Wolfsburg,4,0,4,0,REG,28,33,4,6,,,,,37,47,67,2,1,22,30
+2025-01-17,3757,2024-25,Löwen Frankfurt,Düsseldorfer EG,2,7,2,7,REG,29,32,6,6,,,,,37,60,47,3,3,26,32
+2025-01-17,3759,2024-25,Iserlohn Roosters,Adler Mannheim,2,4,2,4,REG,18,34,4,16,,,,,37,30,55,7,1,34,40
+2025-01-19,3760,2024-25,Kölner Haie,Iserlohn Roosters,0,4,0,4,REG,39,21,2,6,,,,,38,73,39,3,1,36,23
+2025-01-19,3761,2024-25,Eisbären Berlin,Pinguins Bremerhaven,3,4,3,4,REG,36,31,29,10,,,,,38,60,60,3,2,19,46
+2025-01-19,3762,2024-25,Adler Mannheim,Schwenninger Wild Wings,3,2,3,2,REG,22,22,4,8,,,,,38,46,43,4,2,34,20
+2025-01-19,3763,2024-25,ERC Ingolstadt,Nürnberg Ice Tigers,4,0,4,0,REG,30,30,4,4,,,,,38,52,50,2,2,37,24
+2025-01-19,3764,2024-25,EHC Red Bull München,Düsseldorfer EG,1,4,1,4,REG,32,22,4,4,,,,,38,51,44,2,2,33,33
+2025-01-19,3765,2024-25,Straubing Tigers,Löwen Frankfurt,3,2,2,2,OT,43,28,8,4,,,,,38,75,53,2,4,33,26
+2025-01-19,3766,2024-25,Grizzlys Wolfsburg,Augsburger Panther,2,0,2,0,REG,33,19,4,29,,,,,38,66,33,2,1,27,22
+2025-01-23,3767,2024-25,Eisbären Berlin,EHC Red Bull München,2,3,2,2,SO,25,33,6,6,,,,,39,55,52,3,3,37,32
+2025-01-24,3768,2024-25,Düsseldorfer EG,Kölner Haie,4,7,4,7,REG,32,18,2,8,,,,,39,55,40,4,1,26,31
+2025-01-24,3769,2024-25,Löwen Frankfurt,Nürnberg Ice Tigers,2,1,1,1,OT,26,28,4,4,,,,,39,45,49,2,2,20,34
+2025-01-24,3770,2024-25,Adler Mannheim,Grizzlys Wolfsburg,3,4,3,3,OT,28,21,8,4,,,,,39,51,42,1,3,31,20
+2025-01-24,3771,2024-25,Augsburger Panther,Schwenninger Wild Wings,2,4,2,4,REG,30,23,8,10,,,,,39,59,49,5,4,24,38
+2025-01-24,3773,2024-25,Straubing Tigers,ERC Ingolstadt,1,4,1,4,REG,29,27,4,6,,,,,39,60,44,3,2,24,23
+2025-01-26,3774,2024-25,Nürnberg Ice Tigers,Adler Mannheim,1,2,1,1,OT,20,33,8,4,,,,,40,41,49,1,2,23,26
+2025-01-26,3775,2024-25,Düsseldorfer EG,Straubing Tigers,3,2,3,2,REG,21,38,32,29,,,,,40,42,67,3,5,19,36
+2025-01-26,3776,2024-25,Löwen Frankfurt,Kölner Haie,0,2,0,2,REG,22,22,2,2,,,,,40,51,48,1,1,24,30
+2025-01-26,3777,2024-25,Augsburger Panther,ERC Ingolstadt,2,5,2,5,REG,21,35,8,6,,,,,40,44,64,2,3,23,36
+2025-01-26,3778,2024-25,Iserlohn Roosters,Eisbären Berlin,5,6,5,5,SO,28,34,6,6,,,,,40,43,64,3,3,35,39
+2025-01-26,3779,2024-25,Schwenninger Wild Wings,Pinguins Bremerhaven,6,4,6,4,REG,27,31,17,15,,,,,40,48,63,4,5,30,42
+2025-01-26,3780,2024-25,Grizzlys Wolfsburg,EHC Red Bull München,1,4,1,4,REG,24,26,6,10,,,,,40,51,37,4,2,21,27
+2025-01-28,3781,2024-25,Kölner Haie,EHC Red Bull München,2,3,2,3,REG,22,25,4,6,,,,,41,43,44,3,2,18,26
+2025-01-28,3782,2024-25,Iserlohn Roosters,Nürnberg Ice Tigers,4,3,3,3,OT,40,33,8,8,,,,,41,66,47,3,3,28,35
+2025-01-28,3784,2024-25,Grizzlys Wolfsburg,Löwen Frankfurt,1,7,1,7,REG,29,28,31,8,,,,,41,53,40,3,3,29,28
+2025-01-29,3785,2024-25,Düsseldorfer EG,Schwenninger Wild Wings,4,3,3,3,SO,31,38,6,4,,,,,41,57,68,2,3,28,33
+2025-01-29,3787,2024-25,Straubing Tigers,Augsburger Panther,3,4,3,3,SO,32,26,8,6,,,,,41,77,44,3,4,35,34
+2025-01-30,3788,2024-25,Iserlohn Roosters,Löwen Frankfurt,3,4,3,3,SO,34,29,8,8,,,,,42,54,55,3,3,39,27
+2025-01-31,3790,2024-25,Augsburger Panther,Grizzlys Wolfsburg,6,2,6,2,REG,25,38,2,6,,,,,42,41,68,2,0,36,30
+2025-01-31,3791,2024-25,ERC Ingolstadt,Kölner Haie,1,4,1,4,REG,40,25,17,13,,,,,42,58,42,1,3,37,27
+2025-01-31,3792,2024-25,EHC Red Bull München,Pinguins Bremerhaven,3,1,3,1,REG,20,29,10,6,,,,,42,40,66,3,5,34,36
+2025-01-31,3793,2024-25,Straubing Tigers,Nürnberg Ice Tigers,2,4,2,4,REG,44,30,36,11,,,,,42,75,40,1,1,33,26
+2025-01-31,3794,2024-25,Schwenninger Wild Wings,Adler Mannheim,2,5,2,5,REG,26,27,10,10,,,,,42,49,49,4,4,26,38
+2025-02-02,3795,2024-25,Kölner Haie,Adler Mannheim,4,7,4,7,REG,26,34,31,8,,,,,43,45,52,3,4,35,29
+2025-02-02,3796,2024-25,Eisbären Berlin,Nürnberg Ice Tigers,2,1,2,1,REG,24,25,8,4,,,,,43,36,54,1,3,25,27
+2025-02-02,3797,2024-25,Düsseldorfer EG,EHC Red Bull München,1,2,1,2,REG,19,24,4,6,,,,,43,52,46,3,2,23,27
+2025-02-02,3798,2024-25,Löwen Frankfurt,Straubing Tigers,6,4,6,4,REG,32,34,4,6,,,,,43,59,58,3,2,28,36
+2025-02-02,3799,2024-25,Augsburger Panther,Schwenninger Wild Wings,5,3,5,3,REG,32,33,27,6,,,,,43,47,64,3,2,28,35
+2025-02-02,3800,2024-25,Pinguins Bremerhaven,ERC Ingolstadt,1,3,1,3,REG,33,22,4,8,,,,,43,58,43,4,2,25,30
+2025-02-02,3801,2024-25,Grizzlys Wolfsburg,Iserlohn Roosters,3,2,3,2,REG,37,30,4,8,,,,,43,52,55,3,1,34,31
+2025-02-12,3772,2024-25,Pinguins Bremerhaven,Iserlohn Roosters,5,2,5,2,REG,32,27,6,8,,,,,39,68,47,3,2,30,26
+2025-02-12,3789,2024-25,Eisbären Berlin,Düsseldorfer EG,10,2,10,2,REG,40,19,2,4,,,,,42,65,37,2,1,31,28
+2025-02-13,3802,2024-25,EHC Red Bull München,Schwenninger Wild Wings,5,2,5,2,REG,25,28,4,18,,,,,44,55,48,3,1,34,22
+2025-02-14,3803,2024-25,Nürnberg Ice Tigers,Grizzlys Wolfsburg,2,1,2,1,REG,24,23,12,9,,,,,44,44,44,2,4,29,27
+2025-02-14,3804,2024-25,Löwen Frankfurt,Augsburger Panther,5,4,4,4,SO,28,41,8,6,,,,,44,50,64,2,3,28,29
+2025-02-14,3805,2024-25,Adler Mannheim,ERC Ingolstadt,4,3,4,3,REG,28,29,24,35,,,,,44,56,50,4,5,35,34
+2025-02-14,3806,2024-25,Pinguins Bremerhaven,Eisbären Berlin,5,4,4,4,SO,35,33,8,8,,,,,44,59,56,3,3,43,29
+2025-02-14,3807,2024-25,Iserlohn Roosters,Düsseldorfer EG,6,3,6,3,REG,27,25,6,8,,,,,44,54,52,3,2,35,31
+2025-02-14,3808,2024-25,Straubing Tigers,Kölner Haie,4,3,4,3,REG,40,17,2,4,,,,,44,71,26,2,1,33,33
+2025-02-16,3809,2024-25,Kölner Haie,Düsseldorfer EG,5,3,5,3,REG,26,35,6,8,,,,,45,48,63,4,3,23,38
+2025-02-16,3810,2024-25,Eisbären Berlin,Straubing Tigers,4,2,4,2,REG,21,32,15,17,,,,,45,34,47,6,5,22,34
+2025-02-16,3811,2024-25,Augsburger Panther,Adler Mannheim,1,3,1,3,REG,34,31,8,6,,,,,45,58,49,3,4,26,34
+2025-02-16,3812,2024-25,ERC Ingolstadt,Iserlohn Roosters,5,1,5,1,REG,38,26,8,8,,,,,45,59,44,4,4,30,29
+2025-02-16,3813,2024-25,EHC Red Bull München,Löwen Frankfurt,5,3,5,3,REG,38,21,2,31,,,,,45,62,40,3,1,29,29
+2025-02-16,3814,2024-25,Schwenninger Wild Wings,Nürnberg Ice Tigers,0,2,0,2,REG,24,24,19,17,,,,,45,43,47,4,5,44,34
+2025-02-16,3815,2024-25,Grizzlys Wolfsburg,Pinguins Bremerhaven,6,5,5,5,SO,31,41,10,10,,,,,45,53,62,4,4,39,29
+2025-02-19,3816,2024-25,Nürnberg Ice Tigers,EHC Red Bull München,2,1,2,1,REG,22,31,0,2,,,,,46,42,62,1,0,21,28
+2025-02-19,3817,2024-25,Düsseldorfer EG,ERC Ingolstadt,2,3,2,3,REG,23,29,6,2,,,,,46,49,48,1,3,23,33
+2025-02-19,3818,2024-25,Löwen Frankfurt,Eisbären Berlin,5,1,5,1,REG,20,23,10,8,,,,,46,33,55,2,3,22,38
+2025-02-19,3819,2024-25,Adler Mannheim,Grizzlys Wolfsburg,1,2,1,2,REG,36,24,6,6,,,,,46,63,40,3,3,28,18
+2025-02-19,3820,2024-25,Pinguins Bremerhaven,Augsburger Panther,1,2,1,2,REG,35,28,8,8,,,,,46,73,52,3,3,35,23
+2025-02-19,3821,2024-25,Iserlohn Roosters,Straubing Tigers,1,4,1,4,REG,16,45,4,8,,,,,46,29,78,3,1,23,29
+2025-02-19,3822,2024-25,Schwenninger Wild Wings,Kölner Haie,5,2,5,2,REG,31,33,6,6,,,,,46,50,59,3,3,17,15
+2025-02-21,3823,2024-25,Eisbären Berlin,Augsburger Panther,5,0,5,0,REG,48,15,6,8,,,,,47,84,27,5,2,31,27
+2025-02-21,3824,2024-25,Nürnberg Ice Tigers,Kölner Haie,1,3,1,3,REG,22,34,2,8,,,,,47,40,57,4,1,21,23
+2025-02-21,3825,2024-25,Düsseldorfer EG,Adler Mannheim,4,5,4,4,OT,26,49,10,8,,,,,47,50,75,3,4,24,38
+2025-02-21,3826,2024-25,Pinguins Bremerhaven,Löwen Frankfurt,5,1,5,1,REG,34,19,4,8,,,,,47,66,48,4,2,24,23
+2025-02-21,3827,2024-25,EHC Red Bull München,Iserlohn Roosters,1,3,1,3,REG,36,21,6,10,,,,,47,76,33,4,2,35,27
+2025-02-21,3828,2024-25,Straubing Tigers,Schwenninger Wild Wings,2,0,2,0,REG,26,16,2,2,,,,,47,55,36,1,1,27,28
+2025-02-21,3829,2024-25,Grizzlys Wolfsburg,ERC Ingolstadt,3,4,3,4,REG,24,28,6,2,,,,,47,44,50,1,3,26,28
+2025-02-23,3830,2024-25,Eisbären Berlin,Kölner Haie,5,4,5,4,REG,25,16,8,35,,,,,48,49,32,6,2,26,26
+2025-02-23,3831,2024-25,Löwen Frankfurt,Düsseldorfer EG,4,8,4,8,REG,28,28,37,14,,,,,48,48,41,4,4,27,33
+2025-02-23,3832,2024-25,Adler Mannheim,Straubing Tigers,4,1,4,1,REG,24,27,6,8,,,,,48,40,48,4,3,25,33
+2025-02-23,3833,2024-25,Augsburger Panther,EHC Red Bull München,3,5,3,5,REG,24,25,4,6,,,,,48,45,58,3,2,27,28
+2025-02-23,3834,2024-25,ERC Ingolstadt,Nürnberg Ice Tigers,3,2,3,2,REG,28,24,6,6,,,,,48,48,51,2,2,32,30
+2025-02-23,3835,2024-25,Iserlohn Roosters,Pinguins Bremerhaven,2,3,2,3,REG,36,38,4,8,,,,,48,53,60,3,1,23,34
+2025-02-23,3836,2024-25,Schwenninger Wild Wings,Grizzlys Wolfsburg,3,2,2,2,SO,37,27,6,4,,,,,48,59,50,1,2,38,38
+2025-02-25,3783,2024-25,Pinguins Bremerhaven,Adler Mannheim,5,3,5,3,REG,38,35,4,4,,,,,41,57,61,2,2,27,29
+2025-02-26,3786,2024-25,ERC Ingolstadt,Eisbären Berlin,3,1,3,1,REG,24,28,4,8,,,,,41,37,56,4,2,30,35
+2025-02-26,3837,2024-25,Straubing Tigers,Schwenninger Wild Wings,4,1,4,1,REG,48,8,18,20,,,,,32,78,26,3,2,36,22
+2025-02-26,3838,2024-25,Löwen Frankfurt,Pinguins Bremerhaven,2,4,2,4,REG,21,29,2,0,,,,,33,44,56,0,1,17,25
+2025-02-26,3839,2024-25,Nürnberg Ice Tigers,Düsseldorfer EG,5,4,5,4,REG,31,26,4,6,,,,,27,54,53,2,1,36,35
+2025-02-27,3840,2024-25,Adler Mannheim,Iserlohn Roosters,2,3,2,3,REG,45,22,2,2,,,,,49,75,34,1,1,41,28
+2025-02-28,3841,2024-25,Nürnberg Ice Tigers,Augsburger Panther,4,1,4,1,REG,25,27,16,8,,,,,49,43,47,3,7,30,21
+2025-02-28,3842,2024-25,Pinguins Bremerhaven,Düsseldorfer EG,5,1,5,1,REG,32,34,6,4,,,,,49,66,53,1,2,35,21
+2025-02-28,3843,2024-25,ERC Ingolstadt,Straubing Tigers,3,2,3,2,REG,27,29,4,8,,,,,49,46,58,3,1,24,24
+2025-02-28,3844,2024-25,EHC Red Bull München,Eisbären Berlin,2,3,2,3,REG,30,26,10,12,,,,,49,48,45,4,3,33,29
+2025-02-28,3845,2024-25,Schwenninger Wild Wings,Löwen Frankfurt,7,2,7,2,REG,29,27,13,9,,,,,49,47,52,2,4,29,36
+2025-02-28,3846,2024-25,Grizzlys Wolfsburg,Kölner Haie,2,6,2,6,REG,34,34,8,33,,,,,49,57,53,5,4,37,29
+2025-03-02,3847,2024-25,Eisbären Berlin,Grizzlys Wolfsburg,6,3,6,3,REG,23,31,8,14,,,,,50,52,47,6,3,23,30
+2025-03-02,3848,2024-25,Düsseldorfer EG,Nürnberg Ice Tigers,4,3,3,3,OT,31,24,8,12,,,,,50,52,56,5,3,40,26
+2025-03-02,3849,2024-25,Löwen Frankfurt,ERC Ingolstadt,3,2,3,2,REG,23,28,6,6,,,,,50,42,50,3,3,29,26
+2025-03-02,3850,2024-25,Augsburger Panther,Kölner Haie,3,4,3,4,REG,28,31,4,6,,,,,50,51,48,3,2,24,37
+2025-03-02,3851,2024-25,Iserlohn Roosters,Schwenninger Wild Wings,4,3,4,3,REG,24,32,8,12,,,,,50,41,51,5,3,44,26
+2025-03-02,3852,2024-25,EHC Red Bull München,Adler Mannheim,2,0,2,0,REG,16,41,33,2,,,,,50,31,73,1,5,18,33
+2025-03-02,3853,2024-25,Straubing Tigers,Pinguins Bremerhaven,4,3,3,3,OT,28,34,8,6,,,,,50,45,49,3,4,30,28
+2025-03-04,3854,2024-25,Kölner Haie,Iserlohn Roosters,3,2,3,2,REG,39,22,4,4,,,,,51,56,40,1,1,30,20
+2025-03-04,3855,2024-25,Adler Mannheim,Löwen Frankfurt,3,0,3,0,REG,29,29,4,4,,,,,51,50,44,1,1,26,30
+2025-03-04,3856,2024-25,Augsburger Panther,Düsseldorfer EG,5,1,5,1,REG,38,35,4,8,,,,,51,68,57,4,2,31,27
+2025-03-04,3857,2024-25,Pinguins Bremerhaven,Nürnberg Ice Tigers,1,0,1,0,REG,36,24,2,6,,,,,51,73,51,3,1,35,17
+2025-03-04,3858,2024-25,ERC Ingolstadt,EHC Red Bull München,4,2,4,2,REG,21,18,2,4,,,,,51,44,38,2,1,19,23
+2025-03-04,3859,2024-25,Schwenninger Wild Wings,Eisbären Berlin,3,6,3,6,REG,28,24,6,14,,,,,51,48,43,6,2,31,46
+2025-03-04,3860,2024-25,Grizzlys Wolfsburg,Straubing Tigers,5,2,5,2,REG,30,26,22,47,,,,,51,52,51,6,3,24,24
+2025-03-07,3861,2024-25,Kölner Haie,Pinguins Bremerhaven,4,1,4,1,REG,31,18,6,8,,,,,52,52,38,2,1,22,21
+2025-03-07,3862,2024-25,Nürnberg Ice Tigers,Löwen Frankfurt,0,4,0,4,REG,26,28,10,8,,,,,52,43,38,3,4,28,27
+2025-03-07,3863,2024-25,Düsseldorfer EG,Grizzlys Wolfsburg,3,0,3,0,REG,17,39,8,4,,,,,52,39,79,2,4,24,29
+2025-03-07,3864,2024-25,Adler Mannheim,Eisbären Berlin,4,5,4,4,SO,35,31,6,12,,,,,52,60,58,5,2,37,34
+2025-03-07,3865,2024-25,ERC Ingolstadt,Schwenninger Wild Wings,0,4,0,4,REG,23,20,6,10,,,,,52,62,36,4,2,33,18
+2025-03-07,3866,2024-25,Iserlohn Roosters,Augsburger Panther,2,3,2,3,REG,26,31,6,4,,,,,52,53,55,2,3,34,29
+2025-03-07,3867,2024-25,Straubing Tigers,EHC Red Bull München,6,3,6,3,REG,37,23,6,6,,,,,52,51,37,2,2,27,25
+2025-09-09,3939,2025-26,Eisbären Berlin,Dresdner Eislöwen,6,2,6,2,REG,28,18,8,4,,,,,1,49,33,2,4,32,17
+2025-09-12,3942,2025-26,Kölner Haie,EHC Red Bull München,2,4,2,4,REG,30,26,12,16,,,,,1,50,45,6,4,29,38
+2025-09-12,3943,2025-26,Nürnberg Ice Tigers,Augsburger Panther,3,1,3,1,REG,23,24,12,6,,,,,1,37,53,3,6,29,28
+2025-09-12,3944,2025-26,Löwen Frankfurt,Grizzlys Wolfsburg,1,9,1,9,REG,25,36,6,4,,,,,1,40,65,1,2,25,28
+2025-09-12,3945,2025-26,Adler Mannheim,Straubing Tigers,3,0,3,0,REG,32,27,10,8,,,,,1,53,49,2,3,39,26
+2025-09-12,3946,2025-26,Pinguins Bremerhaven,Schwenninger Wild Wings,2,1,2,1,REG,23,35,4,2,,,,,1,39,67,1,2,39,29
+2025-09-12,3947,2025-26,ERC Ingolstadt,Iserlohn Roosters,2,3,2,3,REG,29,30,2,8,,,,,1,54,56,3,0,28,38
+2025-09-14,3948,2025-26,Augsburger Panther,Adler Mannheim,3,6,3,6,REG,21,35,33,12,,,,,2,36,56,5,4,29,33
+2025-09-14,3949,2025-26,EHC Red Bull München,Pinguins Bremerhaven,3,4,3,4,REG,37,30,6,10,,,,,2,65,56,5,3,29,37
+2025-09-14,3950,2025-26,Straubing Tigers,Löwen Frankfurt,2,1,2,1,REG,42,20,12,60,,,,,2,67,32,4,3,33,23
+2025-09-14,3951,2025-26,Grizzlys Wolfsburg,Nürnberg Ice Tigers,5,3,5,3,REG,28,38,18,14,,,,,2,42,73,2,4,34,33
+2025-09-14,3952,2025-26,Kölner Haie,Eisbären Berlin,3,7,3,7,REG,39,22,8,12,,,,,2,72,49,3,1,26,27
+2025-09-14,3953,2025-26,Dresdner Eislöwen,ERC Ingolstadt,2,4,2,4,REG,19,34,8,2,,,,,2,39,76,1,4,21,33
+2025-09-14,3954,2025-26,Iserlohn Roosters,Schwenninger Wild Wings,2,3,2,2,SO,26,27,10,35,,,,,2,49,48,5,4,32,28
+2025-09-18,3955,2025-26,Löwen Frankfurt,Dresdner Eislöwen,3,6,3,6,REG,28,22,8,6,,,,,3,57,33,3,4,29,24
+2025-09-19,3956,2025-26,EHC Red Bull München,Augsburger Panther,6,3,6,3,REG,39,21,10,6,,,,,3,58,37,3,5,30,28
+2025-09-19,3957,2025-26,Adler Mannheim,Eisbären Berlin,7,1,7,1,REG,36,23,23,50,,,,,3,60,47,5,3,27,33
+2025-09-19,3958,2025-26,Pinguins Bremerhaven,Straubing Tigers,2,5,2,5,REG,26,39,12,14,,,,,3,54,71,4,3,38,29
+2025-09-19,3959,2025-26,ERC Ingolstadt,Grizzlys Wolfsburg,3,2,3,2,REG,25,27,13,15,,,,,3,51,59,5,4,30,31
+2025-09-19,3960,2025-26,Iserlohn Roosters,Nürnberg Ice Tigers,6,5,5,5,SO,28,20,2,8,,,,,3,50,33,4,1,32,35
+2025-09-19,3961,2025-26,Schwenninger Wild Wings,Kölner Haie,1,4,1,4,REG,27,30,8,10,,,,,3,43,57,4,3,28,34
+2025-09-21,3962,2025-26,Augsburger Panther,Iserlohn Roosters,4,1,4,1,REG,24,23,2,2,,,,,4,42,40,1,1,30,36
+2025-09-21,3963,2025-26,Pinguins Bremerhaven,Eisbären Berlin,5,1,5,1,REG,27,34,14,12,,,,,4,46,62,5,6,34,30
+2025-09-21,3964,2025-26,Adler Mannheim,ERC Ingolstadt,2,1,2,1,REG,33,41,6,6,,,,,4,60,72,3,3,31,39
+2025-09-21,3965,2025-26,Straubing Tigers,EHC Red Bull München,6,2,6,2,REG,23,16,19,21,,,,,4,43,38,6,5,30,30
+2025-09-21,3966,2025-26,Löwen Frankfurt,Schwenninger Wild Wings,3,6,3,6,REG,23,27,17,15,,,,,4,42,60,4,5,37,34
+2025-09-21,3967,2025-26,Grizzlys Wolfsburg,Dresdner Eislöwen,6,3,6,3,REG,29,28,19,15,,,,,4,64,45,3,5,31,26
+2025-09-21,3968,2025-26,Nürnberg Ice Tigers,Kölner Haie,2,4,2,4,REG,24,25,10,6,,,,,4,44,48,3,5,27,39
+2025-09-25,3969,2025-26,ERC Ingolstadt,EHC Red Bull München,6,3,6,3,REG,26,31,10,10,,,,,5,38,58,5,5,25,29
+2025-09-26,3970,2025-26,Dresdner Eislöwen,Adler Mannheim,0,3,0,3,REG,21,36,6,6,,,,,5,44,67,2,2,34,21
+2025-09-26,3971,2025-26,Eisbären Berlin,Straubing Tigers,2,3,2,2,OT,25,33,8,8,,,,,5,55,67,4,4,18,35
+2025-09-26,3972,2025-26,Löwen Frankfurt,Nürnberg Ice Tigers,0,3,0,3,REG,26,23,12,14,,,,,5,56,43,6,5,28,25
+2025-09-26,3973,2025-26,Augsburger Panther,Kölner Haie,4,2,4,2,REG,22,39,4,4,,,,,5,56,80,2,2,21,35
+2025-09-26,3974,2025-26,Iserlohn Roosters,Pinguins Bremerhaven,1,5,1,5,REG,17,34,4,4,,,,,5,30,65,1,1,26,26
+2025-09-26,3975,2025-26,Grizzlys Wolfsburg,Schwenninger Wild Wings,4,1,4,1,REG,26,24,8,14,,,,,5,51,46,6,3,33,36
+2025-09-28,3976,2025-26,Eisbären Berlin,Schwenninger Wild Wings,1,2,1,2,REG,46,21,0,4,,,,,6,82,39,2,0,23,21
+2025-09-28,3977,2025-26,Adler Mannheim,Löwen Frankfurt,2,3,2,2,OT,42,21,8,6,,,,,6,64,40,1,2,35,25
+2025-09-28,3978,2025-26,EHC Red Bull München,Iserlohn Roosters,3,1,3,1,REG,32,13,6,2,,,,,6,55,29,0,2,20,31
+2025-09-28,3979,2025-26,Straubing Tigers,Augsburger Panther,5,3,5,3,REG,45,20,8,6,,,,,6,69,41,3,4,34,23
+2025-09-28,3980,2025-26,Nürnberg Ice Tigers,Dresdner Eislöwen,8,2,8,2,REG,37,24,6,16,,,,,6,62,42,7,2,33,31
+2025-09-28,3981,2025-26,Pinguins Bremerhaven,ERC Ingolstadt,5,2,5,2,REG,25,39,14,12,,,,,6,48,67,5,6,38,27
+2025-09-28,3982,2025-26,Kölner Haie,Grizzlys Wolfsburg,4,2,4,2,REG,37,28,11,6,,,,,6,51,51,3,4,30,37
+2025-10-02,3983,2025-26,Kölner Haie,Pinguins Bremerhaven,4,1,4,1,REG,26,20,10,12,,,,,7,45,45,4,3,27,27
+2025-10-02,3984,2025-26,Iserlohn Roosters,Löwen Frankfurt,3,4,3,4,REG,31,23,6,8,,,,,7,45,36,3,2,29,20
+2025-10-02,3985,2025-26,Schwenninger Wild Wings,Dresdner Eislöwen,4,1,4,1,REG,38,18,13,15,,,,,7,62,42,6,4,31,29
+2025-10-03,3986,2025-26,Nürnberg Ice Tigers,Adler Mannheim,1,5,1,5,REG,28,37,11,17,,,,,7,63,60,4,1,24,30
+2025-10-03,3987,2025-26,Augsburger Panther,Eisbären Berlin,3,4,3,3,OT,31,58,2,8,,,,,7,47,91,3,0,25,53
+2025-10-03,3988,2025-26,ERC Ingolstadt,Straubing Tigers,6,5,5,5,OT,24,39,8,6,,,,,7,42,56,2,3,36,35
+2025-10-03,3989,2025-26,EHC Red Bull München,Grizzlys Wolfsburg,5,7,5,7,REG,38,29,8,8,,,,,7,70,49,3,3,47,28
+2025-10-04,3990,2025-26,Löwen Frankfurt,Kölner Haie,2,1,2,1,REG,19,29,8,8,,,,,8,31,70,2,2,19,32
+2025-10-05,3991,2025-26,Eisbären Berlin,ERC Ingolstadt,3,0,3,0,REG,17,36,8,10,,,,,8,44,64,5,4,29,33
+2025-10-05,3992,2025-26,Dresdner Eislöwen,Augsburger Panther,1,4,1,4,REG,27,39,12,6,,,,,8,41,64,3,5,25,30
+2025-10-05,3993,2025-26,Adler Mannheim,Iserlohn Roosters,4,1,4,1,REG,32,29,6,6,,,,,8,62,45,1,1,20,36
+2025-10-05,3994,2025-26,Straubing Tigers,Nürnberg Ice Tigers,4,1,4,1,REG,42,25,4,4,,,,,8,66,44,2,2,32,33
+2025-10-05,3995,2025-26,Grizzlys Wolfsburg,Pinguins Bremerhaven,2,4,2,4,REG,27,24,10,10,,,,,8,63,53,3,3,28,37
+2025-10-05,3996,2025-26,Schwenninger Wild Wings,EHC Red Bull München,4,2,4,2,REG,24,34,14,24,,,,,8,41,64,9,4,33,31
+2025-10-09,3997,2025-26,Nürnberg Ice Tigers,EHC Red Bull München,2,3,2,3,REG,25,30,8,10,,,,,9,53,45,5,4,29,27
+2025-10-10,3998,2025-26,Straubing Tigers,Schwenninger Wild Wings,1,0,1,0,REG,35,19,4,6,,,,,9,58,33,2,1,25,20
+2025-10-10,3999,2025-26,Kölner Haie,ERC Ingolstadt,4,3,4,3,REG,22,30,4,6,,,,,9,41,65,2,1,31,33
+2025-10-10,4000,2025-26,Löwen Frankfurt,Eisbären Berlin,2,3,2,2,SO,26,35,12,14,,,,,9,45,64,6,5,29,35
+2025-10-10,4001,2025-26,Augsburger Panther,Grizzlys Wolfsburg,2,1,1,1,OT,29,28,6,10,,,,,9,51,55,4,2,23,31
+2025-10-10,4002,2025-26,Pinguins Bremerhaven,Adler Mannheim,3,6,3,6,REG,44,26,4,6,,,,,9,77,43,3,2,36,28
+2025-10-10,4003,2025-26,Iserlohn Roosters,Dresdner Eislöwen,4,3,3,3,OT,23,23,6,8,,,,,9,45,46,4,3,21,43
+2025-10-12,4004,2025-26,Kölner Haie,Iserlohn Roosters,3,1,3,1,REG,36,19,2,6,,,,,10,64,36,3,1,27,20
+2025-10-12,4005,2025-26,Dresdner Eislöwen,Pinguins Bremerhaven,4,5,4,4,OT,24,29,19,23,,,,,10,44,60,6,4,21,37
+2025-10-12,4006,2025-26,Adler Mannheim,EHC Red Bull München,4,3,3,3,SO,24,29,8,8,,,,,10,43,59,4,4,40,33
+2025-10-12,4007,2025-26,Eisbären Berlin,Nürnberg Ice Tigers,3,2,3,2,REG,22,27,6,6,,,,,10,45,52,3,3,26,34
+2025-10-12,4008,2025-26,ERC Ingolstadt,Löwen Frankfurt,5,2,5,2,REG,42,22,6,33,,,,,10,71,36,5,3,41,32
+2025-10-12,4009,2025-26,Schwenninger Wild Wings,Augsburger Panther,3,5,3,5,REG,35,36,2,6,,,,,10,58,60,3,1,41,30
+2025-10-12,4010,2025-26,Grizzlys Wolfsburg,Straubing Tigers,2,5,2,5,REG,30,33,6,10,,,,,10,51,50,4,2,28,31
+2025-10-16,4011,2025-26,Dresdner Eislöwen,Kölner Haie,2,5,2,5,REG,29,36,6,8,,,,,11,50,50,4,3,24,29
+2025-10-17,4012,2025-26,ERC Ingolstadt,Nürnberg Ice Tigers,7,4,7,4,REG,36,23,10,12,,,,,11,68,54,3,2,38,31
+2025-10-17,4013,2025-26,Eisbären Berlin,Grizzlys Wolfsburg,3,2,3,2,REG,25,27,4,2,,,,,11,47,46,1,2,26,28
+2025-10-17,4014,2025-26,Löwen Frankfurt,EHC Red Bull München,2,1,1,1,OT,27,44,2,6,,,,,11,50,77,3,1,30,33
+2025-10-17,4015,2025-26,Adler Mannheim,Schwenninger Wild Wings,0,3,0,3,REG,25,23,6,2,,,,,11,49,37,1,3,40,22
+2025-10-17,4016,2025-26,Pinguins Bremerhaven,Augsburger Panther,3,4,3,3,SO,43,29,4,10,,,,,11,88,51,5,2,44,24
+2025-10-17,4017,2025-26,Straubing Tigers,Iserlohn Roosters,2,0,2,0,REG,38,18,6,11,,,,,11,69,41,3,2,28,25
+2025-10-19,4018,2025-26,Nürnberg Ice Tigers,Pinguins Bremerhaven,4,3,4,3,REG,42,33,8,10,,,,,12,68,52,4,3,22,42
+2025-10-19,4019,2025-26,Augsburger Panther,Löwen Frankfurt,5,3,5,3,REG,28,29,2,6,,,,,12,41,55,3,1,22,24
+2025-10-19,4020,2025-26,EHC Red Bull München,Dresdner Eislöwen,2,1,2,1,REG,34,25,2,8,,,,,12,70,41,4,1,33,26
+2025-10-19,4021,2025-26,Schwenninger Wild Wings,ERC Ingolstadt,2,4,2,4,REG,27,32,10,6,,,,,12,52,59,2,4,33,34
+2025-10-19,4022,2025-26,Iserlohn Roosters,Eisbären Berlin,3,4,3,4,REG,26,38,6,8,,,,,12,45,59,4,3,29,27
+2025-10-19,4023,2025-26,Grizzlys Wolfsburg,Adler Mannheim,2,4,2,4,REG,29,29,6,16,,,,,12,47,43,6,1,33,37
+2025-10-19,4024,2025-26,Kölner Haie,Straubing Tigers,7,4,7,4,REG,21,38,8,6,,,,,12,39,55,2,3,46,27
+2025-10-23,4025,2025-26,Augsburger Panther,ERC Ingolstadt,4,2,4,2,REG,17,36,10,6,,,,,13,33,73,2,4,25,31
+2025-10-23,4026,2025-26,EHC Red Bull München,Eisbären Berlin,3,2,3,2,REG,38,25,2,8,,,,,13,67,50,4,1,39,25
+2025-10-24,4027,2025-26,Dresdner Eislöwen,Straubing Tigers,2,4,2,4,REG,24,31,10,16,,,,,13,51,54,6,3,29,24
+2025-10-24,4028,2025-26,Löwen Frankfurt,Pinguins Bremerhaven,7,3,7,3,REG,29,41,71,88,,,,,13,51,63,6,4,23,37
+2025-10-24,4029,2025-26,Adler Mannheim,Kölner Haie,5,2,5,2,REG,23,30,8,4,,,,,13,47,56,1,3,31,22
+2025-10-24,4030,2025-26,Schwenninger Wild Wings,Nürnberg Ice Tigers,5,2,5,2,REG,34,26,4,6,,,,,13,65,54,2,1,39,41
+2025-10-24,4031,2025-26,Grizzlys Wolfsburg,Iserlohn Roosters,3,1,3,1,REG,32,22,6,4,,,,,13,51,39,1,2,20,34
+2025-10-25,4032,2025-26,Eisbären Berlin,Augsburger Panther,3,4,3,3,OT,23,31,6,6,,,,,14,49,44,3,3,35,31
+2025-10-26,4033,2025-26,Kölner Haie,Löwen Frankfurt,5,0,5,0,REG,34,19,4,6,,,,,14,67,32,2,1,33,22
+2025-10-26,4034,2025-26,Nürnberg Ice Tigers,Iserlohn Roosters,2,1,2,1,REG,37,28,2,2,,,,,14,61,53,1,1,26,28
+2025-10-26,4035,2025-26,Pinguins Bremerhaven,Dresdner Eislöwen,4,2,4,2,REG,41,21,8,12,,,,,14,69,40,3,1,40,23
+2025-10-26,4036,2025-26,ERC Ingolstadt,Adler Mannheim,5,2,5,2,REG,26,30,2,6,,,,,14,47,54,3,1,17,35
+2025-10-26,4037,2025-26,EHC Red Bull München,Schwenninger Wild Wings,5,4,5,4,REG,35,26,60,30,,,,,14,63,42,1,3,37,27
+2025-10-26,4038,2025-26,Straubing Tigers,Grizzlys Wolfsburg,6,0,6,0,REG,27,25,12,8,,,,,14,40,49,2,4,39,27
+2025-10-28,4039,2025-26,Augsburger Panther,Pinguins Bremerhaven,2,5,2,5,REG,21,37,8,6,,,,,15,39,62,2,2,19,34
+2025-10-28,4040,2025-26,Iserlohn Roosters,Kölner Haie,1,3,1,3,REG,25,30,2,6,,,,,15,55,49,3,1,22,44
+2025-10-28,4041,2025-26,Grizzlys Wolfsburg,EHC Red Bull München,4,3,4,3,REG,30,27,2,2,,,,,15,53,44,1,1,30,38
+2025-10-29,4042,2025-26,Eisbären Berlin,Adler Mannheim,4,3,3,3,OT,34,24,11,15,,,,,15,60,42,4,2,29,28
+2025-10-29,4043,2025-26,Dresdner Eislöwen,Nürnberg Ice Tigers,1,5,1,5,REG,30,27,2,8,,,,,15,54,48,3,0,35,24
+2025-10-29,4044,2025-26,Schwenninger Wild Wings,Löwen Frankfurt,6,1,6,1,REG,28,23,10,33,,,,,15,52,45,4,4,26,30
+2025-10-29,4045,2025-26,Straubing Tigers,ERC Ingolstadt,4,6,4,6,REG,25,30,9,9,,,,,15,49,44,2,2,27,27
+2025-10-30,4046,2025-26,Pinguins Bremerhaven,Iserlohn Roosters,2,1,2,1,REG,28,27,13,4,,,,,16,40,50,1,4,35,26
+2025-10-30,4047,2025-26,Grizzlys Wolfsburg,Augsburger Panther,3,0,3,0,REG,41,31,8,4,,,,,16,71,51,1,3,32,41
+2025-10-31,4048,2025-26,Nürnberg Ice Tigers,Straubing Tigers,3,5,3,5,REG,22,30,6,6,,,,,16,43,53,3,3,29,27
+2025-10-31,4049,2025-26,Dresdner Eislöwen,Löwen Frankfurt,4,3,3,3,SO,30,24,8,8,,,,,16,56,52,3,3,31,28
+2025-10-31,4050,2025-26,ERC Ingolstadt,Kölner Haie,10,3,10,3,REG,42,27,8,6,,,,,16,74,44,3,4,37,34
+2025-10-31,4051,2025-26,EHC Red Bull München,Adler Mannheim,4,0,4,0,REG,32,22,4,8,,,,,16,57,40,3,1,27,31
+2025-10-31,4052,2025-26,Schwenninger Wild Wings,Eisbären Berlin,3,4,3,3,OT,26,37,6,4,,,,,16,40,63,1,2,35,39
+2025-11-01,4053,2025-26,Iserlohn Roosters,Grizzlys Wolfsburg,3,2,2,2,OT,24,29,6,8,,,,,17,36,55,3,4,30,27
+2025-11-02,4054,2025-26,Kölner Haie,EHC Red Bull München,0,2,0,2,REG,26,24,2,6,,,,,17,66,49,3,1,31,26
+2025-11-02,4055,2025-26,Eisbären Berlin,Pinguins Bremerhaven,1,4,1,4,REG,22,21,4,6,,,,,17,56,29,3,2,21,33
+2025-11-02,4056,2025-26,Löwen Frankfurt,ERC Ingolstadt,0,8,0,8,REG,16,38,11,9,,,,,17,27,61,2,3,19,37
+2025-11-02,4057,2025-26,Adler Mannheim,Nürnberg Ice Tigers,2,4,2,4,REG,51,19,2,10,,,,,17,90,43,5,1,37,20
+2025-11-02,4058,2025-26,Straubing Tigers,Dresdner Eislöwen,6,1,6,1,REG,44,17,11,13,,,,,17,74,29,1,1,31,24
+2025-11-02,4059,2025-26,Augsburger Panther,Schwenninger Wild Wings,5,1,5,1,REG,39,31,4,8,,,,,17,55,51,3,1,30,30
+2025-11-13,4060,2025-26,Pinguins Bremerhaven,EHC Red Bull München,4,1,4,1,REG,23,33,4,6,,,,,18,45,63,2,1,30,24
+2025-11-14,4061,2025-26,Nürnberg Ice Tigers,Eisbären Berlin,4,5,4,4,SO,36,30,14,16,,,,,18,55,68,6,5,34,29
+2025-11-14,4062,2025-26,Dresdner Eislöwen,Schwenninger Wild Wings,0,2,0,2,REG,19,28,46,38,,,,,18,44,54,5,2,27,30
+2025-11-14,4063,2025-26,Löwen Frankfurt,Adler Mannheim,3,2,3,2,REG,21,38,8,6,,,,,18,35,65,3,4,23,39
+2025-11-14,4064,2025-26,Augsburger Panther,Straubing Tigers,4,9,4,9,REG,26,36,10,10,,,,,18,49,56,4,4,31,30
+2025-11-14,4065,2025-26,Iserlohn Roosters,ERC Ingolstadt,5,6,5,5,OT,28,33,6,6,,,,,18,49,61,3,3,30,36
+2025-11-14,4066,2025-26,Grizzlys Wolfsburg,Kölner Haie,3,4,3,4,REG,44,22,8,8,,,,,18,75,38,3,3,27,30
+2025-11-16,4067,2025-26,Kölner Haie,Dresdner Eislöwen,5,0,5,0,REG,39,16,4,8,,,,,19,63,40,3,1,26,28
+2025-11-16,4068,2025-26,Eisbären Berlin,Löwen Frankfurt,4,2,4,2,REG,35,18,6,8,,,,,19,60,34,4,3,30,23
+2025-11-16,4069,2025-26,ERC Ingolstadt,Augsburger Panther,5,1,5,1,REG,34,23,33,10,,,,,19,54,56,4,6,28,38
+2025-11-16,4070,2025-26,EHC Red Bull München,Nürnberg Ice Tigers,4,1,4,1,REG,34,14,0,8,,,,,19,58,30,4,0,32,26
+2025-11-16,4071,2025-26,Straubing Tigers,Pinguins Bremerhaven,3,1,3,1,REG,29,23,37,20,,,,,19,55,46,4,4,28,28
+2025-11-16,4072,2025-26,Schwenninger Wild Wings,Iserlohn Roosters,3,0,3,0,REG,32,24,8,8,,,,,19,56,48,3,4,32,31
+2025-11-16,4073,2025-26,Adler Mannheim,Grizzlys Wolfsburg,3,1,3,1,REG,22,30,17,11,,,,,19,48,67,2,5,33,28
+2025-11-19,4074,2025-26,Dresdner Eislöwen,Schwenninger Wild Wings,4,3,3,3,OT,25,33,8,4,,,,,38,54,61,2,4,26,27
+2025-11-21,4075,2025-26,Schwenninger Wild Wings,Straubing Tigers,4,1,4,1,REG,23,36,2,6,,,,,20,40,66,3,1,19,41
+2025-11-21,4076,2025-26,Kölner Haie,Augsburger Panther,3,4,3,3,SO,39,21,6,8,,,,,20,71,47,4,3,37,19
+2025-11-21,4077,2025-26,Eisbären Berlin,EHC Red Bull München,1,3,1,3,REG,26,23,2,4,,,,,20,45,38,2,1,21,28
+2025-11-21,4078,2025-26,Löwen Frankfurt,Iserlohn Roosters,3,0,3,0,REG,19,19,6,18,,,,,20,41,40,4,3,32,29
+2025-11-21,4079,2025-26,Adler Mannheim,Dresdner Eislöwen,3,1,3,1,REG,35,19,4,4,,,,,20,76,31,1,1,33,17
+2025-11-21,4080,2025-26,Pinguins Bremerhaven,Nürnberg Ice Tigers,4,5,4,5,REG,34,27,4,27,,,,,20,74,53,2,2,36,19
+2025-11-21,4081,2025-26,Grizzlys Wolfsburg,ERC Ingolstadt,2,4,2,4,REG,32,37,8,10,,,,,20,57,57,2,1,37,37
+2025-11-23,4082,2025-26,Nürnberg Ice Tigers,Löwen Frankfurt,5,2,5,2,REG,36,25,2,4,,,,,21,53,45,2,1,28,20
+2025-11-23,4083,2025-26,Augsburger Panther,EHC Red Bull München,3,8,3,8,REG,24,35,2,8,,,,,21,42,56,4,1,28,26
+2025-11-23,4084,2025-26,ERC Ingolstadt,Pinguins Bremerhaven,5,2,5,2,REG,33,34,12,20,,,,,21,58,61,4,5,32,31
+2025-11-23,4085,2025-26,Iserlohn Roosters,Adler Mannheim,0,4,0,4,REG,31,21,4,4,,,,,21,55,41,2,2,22,22
+2025-11-23,4086,2025-26,Straubing Tigers,Eisbären Berlin,2,4,2,4,REG,24,31,10,6,,,,,21,47,59,2,4,30,38
+2025-11-23,4087,2025-26,Kölner Haie,Schwenninger Wild Wings,4,1,4,1,REG,31,17,8,10,,,,,21,56,36,5,4,35,24
+2025-11-23,4088,2025-26,Dresdner Eislöwen,Grizzlys Wolfsburg,0,4,0,4,REG,30,36,8,12,,,,,21,47,64,6,4,26,38
+2025-11-25,4089,2025-26,Kölner Haie,Adler Mannheim,3,2,2,2,SO,31,28,2,12,,,,,22,62,55,6,1,25,30
+2025-11-25,4090,2025-26,Nürnberg Ice Tigers,Schwenninger Wild Wings,4,5,4,4,SO,30,30,8,14,,,,,22,57,61,5,3,32,35
+2025-11-25,4091,2025-26,Löwen Frankfurt,Augsburger Panther,4,2,4,2,REG,28,42,4,4,,,,,22,57,73,1,1,30,33
+2025-11-25,4092,2025-26,EHC Red Bull München,Straubing Tigers,5,3,5,3,REG,31,26,8,6,,,,,22,57,54,2,3,30,44
+2025-11-26,4093,2025-26,ERC Ingolstadt,Eisbären Berlin,5,2,5,2,REG,38,21,8,10,,,,,22,59,54,4,3,30,38
+2025-11-26,4094,2025-26,Dresdner Eislöwen,Iserlohn Roosters,1,6,1,6,REG,26,26,0,4,,,,,22,52,47,2,0,28,25
+2025-11-26,4095,2025-26,Pinguins Bremerhaven,Grizzlys Wolfsburg,0,4,0,4,REG,26,28,6,8,,,,,22,64,35,3,2,39,19
+2025-11-28,4096,2025-26,Augsburger Panther,Nürnberg Ice Tigers,1,5,1,5,REG,37,28,4,8,,,,,23,67,49,3,1,30,27
+2025-11-28,4097,2025-26,Pinguins Bremerhaven,Löwen Frankfurt,5,2,5,2,REG,33,18,4,10,,,,,23,61,28,4,1,43,23
+2025-11-28,4098,2025-26,ERC Ingolstadt,Dresdner Eislöwen,3,2,2,2,OT,32,25,6,6,,,,,23,61,51,3,3,31,25
+2025-11-28,4099,2025-26,Iserlohn Roosters,EHC Red Bull München,3,1,3,1,REG,18,26,4,2,,,,,23,31,53,1,2,30,20
+2025-11-28,4100,2025-26,Straubing Tigers,Kölner Haie,0,2,0,2,REG,38,27,16,20,,,,,23,67,58,3,6,32,30
+2025-11-28,4101,2025-26,Schwenninger Wild Wings,Adler Mannheim,2,4,2,4,REG,24,34,8,12,,,,,23,47,59,5,3,31,43
+2025-11-28,4102,2025-26,Grizzlys Wolfsburg,Eisbären Berlin,1,6,1,6,REG,27,29,6,8,,,,,23,53,46,3,2,26,30
+2025-11-30,4103,2025-26,Nürnberg Ice Tigers,ERC Ingolstadt,3,5,3,5,REG,29,42,2,8,,,,,24,63,60,4,1,35,25
+2025-11-30,4104,2025-26,Löwen Frankfurt,Straubing Tigers,1,3,1,3,REG,25,19,4,31,,,,,24,49,48,3,1,26,34
+2025-11-30,4105,2025-26,Schwenninger Wild Wings,Grizzlys Wolfsburg,3,2,3,2,REG,35,26,4,4,,,,,24,56,42,2,2,26,25
+2025-11-30,4106,2025-26,Dresdner Eislöwen,EHC Red Bull München,2,4,2,4,REG,37,28,14,12,,,,,24,56,52,5,6,23,27
+2025-11-30,4107,2025-26,Adler Mannheim,Pinguins Bremerhaven,4,0,4,0,REG,36,23,6,8,,,,,24,67,46,3,2,28,16
+2025-11-30,4108,2025-26,Iserlohn Roosters,Augsburger Panther,1,4,1,4,REG,29,20,8,6,,,,,24,52,45,3,4,28,27
+2025-11-30,4109,2025-26,Eisbären Berlin,Kölner Haie,3,4,3,3,SO,33,42,4,6,,,,,24,47,60,2,1,43,22
+2025-12-04,4110,2025-26,Augsburger Panther,Dresdner Eislöwen,2,4,2,4,REG,39,24,6,8,,,,,25,68,42,4,3,42,18
+2025-12-05,4111,2025-26,Kölner Haie,Nürnberg Ice Tigers,7,4,7,4,REG,30,28,8,10,,,,,25,51,52,5,4,29,23
+2025-12-05,4112,2025-26,Eisbären Berlin,Iserlohn Roosters,5,3,5,3,REG,26,23,4,6,,,,,25,56,37,3,2,32,23
+2025-12-05,4113,2025-26,EHC Red Bull München,ERC Ingolstadt,2,0,2,0,REG,29,28,0,2,,,,,25,52,60,1,0,27,24
+2025-12-05,4114,2025-26,Straubing Tigers,Adler Mannheim,0,4,0,4,REG,26,32,36,20,,,,,25,59,54,2,6,21,21
+2025-12-05,4115,2025-26,Schwenninger Wild Wings,Pinguins Bremerhaven,2,6,2,6,REG,14,29,4,6,,,,,25,34,53,3,2,24,37
+2025-12-05,4116,2025-26,Grizzlys Wolfsburg,Löwen Frankfurt,4,1,4,1,REG,23,26,6,6,,,,,25,45,43,3,3,24,30
+2025-12-07,4117,2025-26,ERC Ingolstadt,Schwenninger Wild Wings,5,2,5,2,REG,45,25,16,18,,,,,26,72,44,4,3,37,29
+2025-12-07,4118,2025-26,Nürnberg Ice Tigers,Grizzlys Wolfsburg,4,2,4,2,REG,26,23,4,4,,,,,26,46,47,2,2,27,37
+2025-12-07,4119,2025-26,Eisbären Berlin,Dresdner Eislöwen,5,1,5,1,REG,29,26,12,12,,,,,26,48,44,5,6,29,27
+2025-12-07,4120,2025-26,Löwen Frankfurt,EHC Red Bull München,0,5,0,5,REG,21,30,12,8,,,,,26,43,54,4,6,25,34
+2025-12-07,4121,2025-26,Adler Mannheim,Augsburger Panther,7,0,7,0,REG,25,19,13,11,,,,,26,47,36,3,4,23,23
+2025-12-07,4122,2025-26,Iserlohn Roosters,Straubing Tigers,4,0,4,0,REG,25,36,8,14,,,,,26,35,69,6,3,24,28
+2025-12-07,4123,2025-26,Pinguins Bremerhaven,Kölner Haie,2,5,2,5,REG,37,27,4,8,,,,,26,60,41,4,2,39,23
+2025-12-10,4124,2025-26,EHC Red Bull München,Kölner Haie,2,1,1,1,OT,37,22,6,8,,,,,27,61,41,3,2,40,15
+2025-12-12,4125,2025-26,Nürnberg Ice Tigers,Löwen Frankfurt,4,3,4,3,REG,22,25,6,8,,,,,27,48,48,2,1,25,22
+2025-12-12,4126,2025-26,Augsburger Panther,ERC Ingolstadt,3,4,3,4,REG,15,29,10,4,,,,,27,31,60,1,4,34,27
+2025-12-12,4127,2025-26,Iserlohn Roosters,Dresdner Eislöwen,5,4,5,4,REG,31,20,6,10,,,,,27,52,47,5,3,28,28
+2025-12-12,4128,2025-26,Straubing Tigers,Eisbären Berlin,5,3,5,3,REG,36,25,6,8,,,,,27,59,55,4,3,26,24
+2025-12-12,4129,2025-26,Schwenninger Wild Wings,Adler Mannheim,0,5,0,5,REG,28,32,43,8,,,,,27,52,57,3,4,20,27
+2025-12-12,4130,2025-26,Grizzlys Wolfsburg,Pinguins Bremerhaven,4,5,4,5,REG,21,41,8,6,,,,,27,39,63,3,4,27,37
+2025-12-14,4131,2025-26,Löwen Frankfurt,Straubing Tigers,3,7,3,7,REG,29,33,10,16,,,,,28,47,52,5,2,39,30
+2025-12-14,4132,2025-26,Pinguins Bremerhaven,Augsburger Panther,2,1,1,1,OT,31,26,12,28,,,,,28,76,41,7,4,34,31
+2025-12-14,4133,2025-26,ERC Ingolstadt,Iserlohn Roosters,4,2,4,2,REG,38,24,6,6,,,,,28,69,38,2,2,39,23
+2025-12-14,4134,2025-26,EHC Red Bull München,Nürnberg Ice Tigers,3,1,3,1,REG,29,27,6,4,,,,,28,46,52,1,2,17,23
+2025-12-14,4135,2025-26,Kölner Haie,Adler Mannheim,5,4,5,4,REG,33,38,6,10,,,,,28,55,65,4,2,31,35
+2025-12-14,4136,2025-26,Dresdner Eislöwen,Grizzlys Wolfsburg,1,4,1,4,REG,39,23,16,18,,,,,28,67,46,5,4,36,33
+2025-12-14,4137,2025-26,Eisbären Berlin,Schwenninger Wild Wings,2,0,2,0,REG,31,10,6,6,,,,,28,55,30,3,3,33,26
+2025-12-18,4138,2025-26,Kölner Haie,Grizzlys Wolfsburg,4,1,4,1,REG,28,21,4,6,,,,,29,55,46,2,1,38,31
+2025-12-18,4139,2025-26,ERC Ingolstadt,Eisbären Berlin,8,5,8,5,REG,36,28,6,12,,,,,29,71,55,6,3,35,36
+2025-12-18,4143,2025-26,EHC Red Bull München,Schwenninger Wild Wings,3,1,3,1,REG,35,25,4,8,,,,,29,67,40,4,2,28,20
+2025-12-19,4140,2025-26,Nürnberg Ice Tigers,Dresdner Eislöwen,5,1,5,1,REG,37,23,4,8,,,,,29,58,38,4,2,28,25
+2025-12-19,4141,2025-26,Löwen Frankfurt,Augsburger Panther,3,4,3,3,OT,27,34,4,6,,,,,29,49,56,3,2,34,23
+2025-12-19,4142,2025-26,Adler Mannheim,Iserlohn Roosters,5,3,5,3,REG,27,15,6,6,,,,,29,52,28,3,3,26,31
+2025-12-19,4144,2025-26,Straubing Tigers,Pinguins Bremerhaven,3,2,3,2,REG,23,27,4,4,,,,,29,48,58,2,2,26,29
+2025-12-21,4145,2025-26,Eisbären Berlin,Kölner Haie,3,4,3,3,SO,26,34,10,12,,,,,30,50,53,5,4,30,34
+2025-12-21,4146,2025-26,Dresdner Eislöwen,ERC Ingolstadt,3,2,3,2,REG,20,35,10,11,,,,,30,36,69,3,4,30,31
+2025-12-21,4147,2025-26,Pinguins Bremerhaven,EHC Red Bull München,3,6,3,6,REG,32,26,8,14,,,,,30,60,49,5,2,33,23
+2025-12-21,4148,2025-26,Iserlohn Roosters,Löwen Frankfurt,6,4,6,4,REG,30,23,4,6,,,,,30,49,37,3,2,35,28
+2025-12-21,4149,2025-26,Schwenninger Wild Wings,Nürnberg Ice Tigers,3,4,3,3,OT,30,25,24,22,,,,,30,55,42,3,4,30,34
+2025-12-21,4150,2025-26,Grizzlys Wolfsburg,Adler Mannheim,5,2,5,2,REG,30,36,10,6,,,,,30,44,67,2,4,25,40
+2025-12-21,4151,2025-26,Augsburger Panther,Straubing Tigers,2,3,2,2,SO,35,32,12,10,,,,,30,50,58,4,5,27,24
+2025-12-23,4152,2025-26,Löwen Frankfurt,Kölner Haie,1,4,1,4,REG,32,34,10,14,,,,,31,56,55,6,4,40,26
+2025-12-23,4153,2025-26,Adler Mannheim,Eisbären Berlin,8,5,8,5,REG,40,28,17,40,,,,,31,57,56,6,6,29,37
+2025-12-23,4154,2025-26,Augsburger Panther,Nürnberg Ice Tigers,2,3,2,2,OT,17,30,0,4,,,,,31,46,54,2,0,22,36
+2025-12-23,4155,2025-26,ERC Ingolstadt,EHC Red Bull München,1,3,1,3,REG,31,20,8,8,,,,,31,63,38,4,4,29,30
+2025-12-23,4156,2025-26,Straubing Tigers,Dresdner Eislöwen,5,3,5,3,REG,35,24,6,6,,,,,31,60,43,3,3,42,23
+2025-12-23,4157,2025-26,Schwenninger Wild Wings,Pinguins Bremerhaven,0,4,0,4,REG,30,23,4,6,,,,,31,54,39,3,2,26,29
+2025-12-23,4158,2025-26,Grizzlys Wolfsburg,Iserlohn Roosters,4,1,4,1,REG,24,19,2,4,,,,,31,49,34,2,1,33,25
+2025-12-26,4159,2025-26,Kölner Haie,Pinguins Bremerhaven,3,0,3,0,REG,24,36,8,10,,,,,32,56,63,5,4,26,37
+2025-12-26,4160,2025-26,Eisbären Berlin,Grizzlys Wolfsburg,1,2,1,2,REG,23,18,6,6,,,,,32,45,39,2,2,30,19
+2025-12-26,4161,2025-26,Nürnberg Ice Tigers,Straubing Tigers,2,3,2,3,REG,26,31,4,4,,,,,32,45,45,2,2,26,19
+2025-12-26,4162,2025-26,Dresdner Eislöwen,Augsburger Panther,3,1,3,1,REG,22,30,8,2,,,,,32,42,56,1,4,26,25
+2025-12-26,4163,2025-26,Adler Mannheim,ERC Ingolstadt,2,5,2,5,REG,35,26,11,17,,,,,32,68,49,3,1,32,26
+2025-12-26,4164,2025-26,Iserlohn Roosters,Schwenninger Wild Wings,4,2,4,2,REG,19,32,6,8,,,,,32,40,59,3,2,22,26
+2025-12-26,4165,2025-26,EHC Red Bull München,Löwen Frankfurt,1,3,1,3,REG,21,20,8,35,,,,,32,50,38,6,4,27,21
+2025-12-28,4166,2025-26,Dresdner Eislöwen,EHC Red Bull München,2,5,2,5,REG,17,34,6,2,,,,,33,38,65,1,3,29,28
+2025-12-28,4167,2025-26,Pinguins Bremerhaven,Löwen Frankfurt,5,4,4,4,OT,,,,,,,,,33,,,,,,
+2025-12-28,4168,2025-26,Kölner Haie,Schwenninger Wild Wings,6,5,6,5,REG,39,30,8,12,,,,,33,69,47,5,3,29,30
+2025-12-28,4169,2025-26,Eisbären Berlin,Nürnberg Ice Tigers,5,2,5,2,REG,,,,,,,,,33,,,,,,
+2025-12-28,4170,2025-26,Augsburger Panther,Adler Mannheim,2,3,2,2,SO,28,46,13,13,,,,,33,42,75,2,2,29,35
+2025-12-28,4171,2025-26,Straubing Tigers,Iserlohn Roosters,0,2,0,2,REG,,,,,,,,,33,,,,,,
+2025-12-28,4172,2025-26,ERC Ingolstadt,Grizzlys Wolfsburg,2,1,1,1,SO,43,29,2,10,,,,,33,65,51,5,1,36,28
+2025-12-30,4173,2025-26,Nürnberg Ice Tigers,Adler Mannheim,2,3,2,2,OT,,,,,,,,,34,,,,,,
+2025-12-30,4174,2025-26,Löwen Frankfurt,Dresdner Eislöwen,3,0,3,0,REG,,,,,,,,,34,,,,,,
+2025-12-30,4175,2025-26,Pinguins Bremerhaven,Eisbären Berlin,6,4,6,4,REG,,,,,,,,,34,,,,,,
+2025-12-30,4176,2025-26,Iserlohn Roosters,Kölner Haie,4,7,4,7,REG,,,,,,,,,34,,,,,,
+2025-12-30,4177,2025-26,EHC Red Bull München,Augsburger Panther,3,2,2,2,OT,,,,,,,,,34,,,,,,
+2025-12-30,4178,2025-26,Schwenninger Wild Wings,ERC Ingolstadt,5,3,5,3,REG,,,,,,,,,34,,,,,,
+2025-12-30,4179,2025-26,Grizzlys Wolfsburg,Straubing Tigers,2,5,2,5,REG,,,,,,,,,34,,,,,,
+2026-01-02,4180,2025-26,Kölner Haie,Straubing Tigers,4,2,4,2,REG,,,,,,,,,35,,,,,,
+2026-01-02,4181,2025-26,Eisbären Berlin,Löwen Frankfurt,2,3,2,3,REG,,,,,,,,,35,,,,,,
+2026-01-02,4182,2025-26,Adler Mannheim,Dresdner Eislöwen,2,5,2,5,REG,,,,,,,,,35,,,,,,
+2026-01-02,4183,2025-26,Augsburger Panther,Schwenninger Wild Wings,7,6,7,6,REG,,,,,,,,,35,,,,,,
+2026-01-02,4184,2025-26,ERC Ingolstadt,Pinguins Bremerhaven,2,3,2,3,REG,,,,,,,,,35,,,,,,
+2026-01-02,4185,2025-26,Iserlohn Roosters,Nürnberg Ice Tigers,4,3,4,3,REG,,,,,,,,,35,,,,,,
+2026-01-02,4186,2025-26,Grizzlys Wolfsburg,EHC Red Bull München,2,3,2,2,SO,,,,,,,,,35,,,,,,
+2026-01-04,4187,2025-26,Dresdner Eislöwen,Kölner Haie,1,8,1,8,REG,,,,,,,,,36,,,,,,
+2026-01-04,4188,2025-26,Pinguins Bremerhaven,Iserlohn Roosters,3,2,2,2,SO,,,,,,,,,36,,,,,,
+2026-01-04,4189,2025-26,Eisbären Berlin,Augsburger Panther,6,3,6,3,REG,,,,,,,,,36,,,,,,
+2026-01-04,4190,2025-26,Löwen Frankfurt,Schwenninger Wild Wings,1,2,1,2,REG,,,,,,,,,36,,,,,,
+2026-01-04,4191,2025-26,EHC Red Bull München,Adler Mannheim,2,4,2,4,REG,,,,,,,,,36,,,,,,
+2026-01-04,4192,2025-26,Straubing Tigers,ERC Ingolstadt,6,3,6,3,REG,,,,,,,,,36,,,,,,
+2026-01-04,4193,2025-26,Nürnberg Ice Tigers,Grizzlys Wolfsburg,4,2,4,2,REG,,,,,,,,,36,,,,,,
+2026-01-06,4194,2025-26,Nürnberg Ice Tigers,Kölner Haie,2,4,2,4,REG,,,,,,,,,37,,,,,,
+2026-01-06,4195,2025-26,Dresdner Eislöwen,Pinguins Bremerhaven,2,3,2,3,REG,,,,,,,,,37,,,,,,
+2026-01-06,4196,2025-26,Augsburger Panther,Iserlohn Roosters,2,3,2,2,SO,,,,,,,,,37,,,,,,
+2026-01-06,4197,2025-26,ERC Ingolstadt,Löwen Frankfurt,6,3,6,3,REG,,,,,,,,,37,,,,,,
+2026-01-06,4198,2025-26,EHC Red Bull München,Eisbären Berlin,2,3,2,3,REG,,,,,,,,,37,,,,,,
+2026-01-06,4199,2025-26,Straubing Tigers,Adler Mannheim,4,1,4,1,REG,,,,,,,,,37,,,,,,
+2026-01-06,4200,2025-26,Schwenninger Wild Wings,Grizzlys Wolfsburg,4,3,3,3,SO,,,,,,,,,37,,,,,,
+2026-01-08,4201,2025-26,Iserlohn Roosters,Eisbären Berlin,4,3,4,3,REG,,,,,,,,,38,,,,,,
+2026-01-09,4202,2025-26,Löwen Frankfurt,Adler Mannheim,2,6,2,6,REG,,,,,,,,,38,,,,,,
+2026-01-09,4203,2025-26,Pinguins Bremerhaven,Nürnberg Ice Tigers,3,1,3,1,REG,,,,,,,,,38,,,,,,
+2026-01-09,4204,2025-26,ERC Ingolstadt,Kölner Haie,4,5,4,5,REG,,,,,,,,,38,,,,,,
+2026-01-09,4205,2025-26,Straubing Tigers,EHC Red Bull München,3,6,3,6,REG,,,,,,,,,38,,,,,,
+2026-01-09,4206,2025-26,Grizzlys Wolfsburg,Augsburger Panther,4,3,3,3,OT,,,,,,,,,38,,,,,,
+2026-01-10,4304,2025-26,Dresdner Eislöwen,Eisbären Berlin,2,3,2,2,OT,,,,,,,,,39,,,,,,
+2026-01-11,4207,2025-26,Nürnberg Ice Tigers,ERC Ingolstadt,1,4,1,4,REG,,,,,,,,,39,,,,,,
+2026-01-11,4208,2025-26,Augsburger Panther,Kölner Haie,1,3,1,3,REG,,,,,,,,,39,,,,,,
+2026-01-11,4209,2025-26,EHC Red Bull München,Iserlohn Roosters,6,0,6,0,REG,,,,,,,,,39,,,,,,
+2026-01-11,4210,2025-26,Grizzlys Wolfsburg,Löwen Frankfurt,5,2,5,2,REG,,,,,,,,,39,,,,,,
+2026-01-11,4211,2025-26,Adler Mannheim,Pinguins Bremerhaven,4,3,4,3,REG,,,,,,,,,39,,,,,,
+2026-01-11,4212,2025-26,Schwenninger Wild Wings,Straubing Tigers,4,2,4,2,REG,,,,,,,,,39,,,,,,
+2026-01-15,4213,2025-26,Schwenninger Wild Wings,Eisbären Berlin,3,5,3,5,REG,,,,,,,,,40,,,,,,
+2026-01-16,4214,2025-26,Adler Mannheim,Nürnberg Ice Tigers,2,4,2,4,REG,,,,,,,,,40,,,,,,
+2026-01-16,4215,2025-26,Augsburger Panther,Löwen Frankfurt,6,3,6,3,REG,,,,,,,,,40,,,,,,
+2026-01-16,4216,2025-26,Pinguins Bremerhaven,Kölner Haie,2,4,2,4,REG,,,,,,,,,40,,,,,,
+2026-01-16,4217,2025-26,ERC Ingolstadt,Straubing Tigers,5,4,5,4,REG,,,,,,,,,40,,,,,,
+2026-01-16,4218,2025-26,Iserlohn Roosters,Grizzlys Wolfsburg,2,1,1,1,OT,,,,,,,,,40,,,,,,
+2026-01-16,4219,2025-26,EHC Red Bull München,Dresdner Eislöwen,3,1,3,1,REG,,,,,,,,,40,,,,,,
+2026-01-18,4220,2025-26,Kölner Haie,Iserlohn Roosters,4,2,4,2,REG,,,,,,,,,41,,,,,,
+2026-01-18,4221,2025-26,Nürnberg Ice Tigers,EHC Red Bull München,5,4,5,4,REG,,,,,,,,,41,,,,,,
+2026-01-18,4222,2025-26,Dresdner Eislöwen,Adler Mannheim,2,6,2,6,REG,,,,,,,,,41,,,,,,
+2026-01-18,4223,2025-26,Löwen Frankfurt,ERC Ingolstadt,1,2,1,1,SO,,,,,,,,,41,,,,,,
+2026-01-18,4224,2025-26,Straubing Tigers,Augsburger Panther,1,4,1,4,REG,,,,,,,,,41,,,,,,
+2026-01-18,4225,2025-26,Grizzlys Wolfsburg,Eisbären Berlin,5,2,5,2,REG,,,,,,,,,41,,,,,,
+2026-01-18,4226,2025-26,Pinguins Bremerhaven,Schwenninger Wild Wings,2,5,2,5,REG,,,,,,,,,41,,,,,,
+2026-01-22,4227,2025-26,Adler Mannheim,Grizzlys Wolfsburg,2,1,2,1,REG,,,,,,,,,42,,,,,,
+2026-01-23,4228,2025-26,Eisbären Berlin,ERC Ingolstadt,2,1,2,1,REG,,,,,,,,,42,,,,,,
+2026-01-23,4229,2025-26,Nürnberg Ice Tigers,Augsburger Panther,3,1,3,1,REG,,,,,,,,,42,,,,,,
+2026-01-23,4230,2025-26,Dresdner Eislöwen,Iserlohn Roosters,1,4,1,4,REG,,,,,,,,,42,,,,,,
+2026-01-23,4231,2025-26,EHC Red Bull München,Pinguins Bremerhaven,6,3,6,3,REG,,,,,,,,,42,,,,,,
+2026-01-23,4232,2025-26,Straubing Tigers,Löwen Frankfurt,5,4,5,4,REG,,,,,,,,,42,,,,,,
+2026-01-23,4233,2025-26,Schwenninger Wild Wings,Kölner Haie,2,3,2,3,REG,,,,,,,,,42,,,,,,
+2026-01-25,4234,2025-26,Kölner Haie,Nürnberg Ice Tigers,5,2,5,2,REG,,,,,,,,,43,,,,,,
+2026-01-25,4235,2025-26,Adler Mannheim,EHC Red Bull München,4,3,3,3,SO,,,,,,,,,43,,,,,,
+2026-01-25,4236,2025-26,Augsburger Panther,Pinguins Bremerhaven,1,2,1,2,REG,,,,,,,,,43,,,,,,
+2026-01-25,4237,2025-26,Löwen Frankfurt,Eisbären Berlin,4,1,4,1,REG,,,,,,,,,43,,,,,,
+2026-01-25,4238,2025-26,Iserlohn Roosters,Straubing Tigers,2,4,2,4,REG,,,,,,,,,43,,,,,,
+2026-01-25,4239,2025-26,Grizzlys Wolfsburg,Dresdner Eislöwen,4,2,4,2,REG,,,,,,,,,43,,,,,,
+2026-01-25,4240,2025-26,ERC Ingolstadt,Schwenninger Wild Wings,4,1,4,1,REG,,,,,,,,,43,,,,,,
+2026-01-27,4241,2025-26,Kölner Haie,Löwen Frankfurt,1,4,1,4,REG,,,,,,,,,44,,,,,,
+2026-01-27,4242,2025-26,Augsburger Panther,Eisbären Berlin,2,1,2,1,REG,,,,,,,,,44,,,,,,
+2026-01-27,4243,2025-26,Pinguins Bremerhaven,Grizzlys Wolfsburg,2,3,2,2,OT,,,,,,,,,44,,,,,,
+2026-01-27,4244,2025-26,ERC Ingolstadt,Dresdner Eislöwen,4,1,4,1,REG,,,,,,,,,44,,,,,,
+2026-01-27,4245,2025-26,Iserlohn Roosters,Adler Mannheim,1,2,1,2,REG,,,,,,,,,44,,,,,,
+2026-01-27,4246,2025-26,Straubing Tigers,Nürnberg Ice Tigers,3,1,3,1,REG,,,,,,,,,44,,,,,,
+2026-01-27,4247,2025-26,Schwenninger Wild Wings,EHC Red Bull München,3,1,3,1,REG,,,,,,,,,44,,,,,,
+2026-02-25,4248,2025-26,Kölner Haie,Dresdner Eislöwen,7,2,7,2,REG,,,,,,,,,45,,,,,,
+2026-02-25,4249,2025-26,Eisbären Berlin,Straubing Tigers,2,3,2,3,REG,,,,,,,,,45,,,,,,
+2026-02-25,4250,2025-26,Nürnberg Ice Tigers,Iserlohn Roosters,1,4,1,4,REG,,,,,,,,,45,,,,,,
+2026-02-25,4251,2025-26,Löwen Frankfurt,Pinguins Bremerhaven,4,1,4,1,REG,,,,,,,,,45,,,,,,
+2026-02-25,4252,2025-26,Adler Mannheim,Augsburger Panther,3,4,3,3,OT,,,,,,,,,45,,,,,,
+2026-02-25,4253,2025-26,EHC Red Bull München,ERC Ingolstadt,4,0,4,0,REG,,,,,,,,,45,,,,,,
+2026-02-25,4254,2025-26,Grizzlys Wolfsburg,Schwenninger Wild Wings,2,4,2,4,REG,,,,,,,,,45,,,,,,
+2026-02-27,4255,2025-26,Kölner Haie,ERC Ingolstadt,6,3,6,3,REG,,,,,,,,,46,,,,,,
+2026-02-27,4256,2025-26,Eisbären Berlin,Iserlohn Roosters,5,2,5,2,REG,,,,,,,,,46,,,,,,
+2026-02-27,4257,2025-26,Dresdner Eislöwen,Nürnberg Ice Tigers,3,4,3,4,REG,,,,,,,,,46,,,,,,
+2026-02-27,4258,2025-26,Augsburger Panther,EHC Red Bull München,2,4,2,4,REG,,,,,,,,,46,,,,,,
+2026-02-27,4259,2025-26,Pinguins Bremerhaven,Adler Mannheim,1,2,1,1,OT,,,,,,,,,46,,,,,,
+2026-02-27,4260,2025-26,Straubing Tigers,Grizzlys Wolfsburg,4,0,4,0,REG,,,,,,,,,46,,,,,,
+2026-02-27,4261,2025-26,Schwenninger Wild Wings,Löwen Frankfurt,4,1,4,1,REG,,,,,,,,,46,,,,,,
+2026-03-01,4262,2025-26,Eisbären Berlin,Pinguins Bremerhaven,1,3,1,3,REG,,,,,,,,,47,,,,,,
+2026-03-01,4263,2025-26,Iserlohn Roosters,Augsburger Panther,4,2,4,2,REG,,,,,,,,,47,,,,,,
+2026-03-01,4264,2025-26,Adler Mannheim,Straubing Tigers,2,3,2,3,REG,,,,,,,,,47,,,,,,
+2026-03-01,4265,2025-26,ERC Ingolstadt,Nürnberg Ice Tigers,4,1,4,1,REG,,,,,,,,,47,,,,,,
+2026-03-01,4266,2025-26,EHC Red Bull München,Kölner Haie,0,1,0,1,REG,,,,,,,,,47,,,,,,
+2026-03-01,4267,2025-26,Schwenninger Wild Wings,Dresdner Eislöwen,2,5,2,5,REG,,,,,,,,,47,,,,,,
+2026-03-01,4268,2025-26,Löwen Frankfurt,Grizzlys Wolfsburg,3,2,2,2,OT,,,,,,,,,47,,,,,,
+2026-03-04,4269,2025-26,Kölner Haie,Augsburger Panther,6,2,6,2,REG,,,,,,,,,48,,,,,,
+2026-03-04,4270,2025-26,Nürnberg Ice Tigers,Schwenninger Wild Wings,2,5,2,5,REG,,,,,,,,,48,,,,,,
+2026-03-04,4271,2025-26,Dresdner Eislöwen,Eisbären Berlin,2,5,2,5,REG,,,,,,,,,48,,,,,,
+2026-03-04,4272,2025-26,Adler Mannheim,Löwen Frankfurt,4,3,3,3,OT,,,,,,,,,48,,,,,,
+2026-03-04,4273,2025-26,Pinguins Bremerhaven,Straubing Tigers,1,3,1,3,REG,,,,,,,,,48,,,,,,
+2026-03-04,4274,2025-26,Iserlohn Roosters,EHC Red Bull München,3,4,3,3,OT,,,,,,,,,48,,,,,,
+2026-03-04,4275,2025-26,Grizzlys Wolfsburg,ERC Ingolstadt,4,1,4,1,REG,,,,,,,,,48,,,,,,
+2026-03-06,4276,2025-26,Nürnberg Ice Tigers,Eisbären Berlin,4,5,4,5,REG,,,,,,,,,49,,,,,,
+2026-03-06,4277,2025-26,Löwen Frankfurt,Iserlohn Roosters,4,5,4,4,OT,,,,,,,,,49,,,,,,
+2026-03-06,4278,2025-26,Adler Mannheim,Kölner Haie,5,1,5,1,REG,,,,,,,,,49,,,,,,
+2026-03-06,4279,2025-26,Augsburger Panther,Dresdner Eislöwen,6,3,6,3,REG,,,,,,,,,49,,,,,,
+2026-03-06,4280,2025-26,Pinguins Bremerhaven,ERC Ingolstadt,2,3,2,3,REG,,,,,,,,,49,,,,,,
+2026-03-06,4281,2025-26,EHC Red Bull München,Grizzlys Wolfsburg,4,1,4,1,REG,,,,,,,,,49,,,,,,
+2026-03-06,4282,2025-26,Straubing Tigers,Schwenninger Wild Wings,5,3,5,3,REG,,,,,,,,,49,,,,,,
+2026-03-08,4283,2025-26,ERC Ingolstadt,Adler Mannheim,0,4,0,4,REG,,,,,,,,,50,,,,,,
+2026-03-08,4284,2025-26,Schwenninger Wild Wings,Augsburger Panther,2,1,2,1,REG,,,,,,,,,50,,,,,,
+2026-03-08,4285,2025-26,Grizzlys Wolfsburg,Nürnberg Ice Tigers,1,4,1,4,REG,,,,,,,,,50,,,,,,
+2026-03-08,4286,2025-26,Kölner Haie,Eisbären Berlin,0,1,0,1,REG,,,,,,,,,50,,,,,,
+2026-03-08,4287,2025-26,Iserlohn Roosters,Pinguins Bremerhaven,0,5,0,5,REG,,,,,,,,,50,,,,,,
+2026-03-08,4288,2025-26,EHC Red Bull München,Löwen Frankfurt,3,2,2,2,OT,,,,,,,,,50,,,,,,
+2026-03-08,4289,2025-26,Dresdner Eislöwen,Straubing Tigers,3,5,3,5,REG,,,,,,,,,50,,,,,,
+2026-03-13,4290,2025-26,Eisbären Berlin,Adler Mannheim,4,2,4,2,REG,,,,,,,,,51,,,,,,
+2026-03-13,4291,2025-26,Nürnberg Ice Tigers,Pinguins Bremerhaven,4,6,4,6,REG,,,,,,,,,51,,,,,,
+2026-03-13,4292,2025-26,Dresdner Eislöwen,Löwen Frankfurt,4,6,4,6,REG,,,,,,,,,51,,,,,,
+2026-03-13,4293,2025-26,ERC Ingolstadt,Augsburger Panther,7,4,7,4,REG,,,,,,,,,51,,,,,,
+2026-03-13,4294,2025-26,EHC Red Bull München,Straubing Tigers,10,1,10,1,REG,,,,,,,,,51,,,,,,
+2026-03-13,4295,2025-26,Schwenninger Wild Wings,Iserlohn Roosters,3,2,3,2,REG,,,,,,,,,51,,,,,,
+2026-03-13,4296,2025-26,Grizzlys Wolfsburg,Kölner Haie,8,5,8,5,REG,,,,,,,,,51,,,,,,
+2026-03-15,4297,2025-26,Eisbären Berlin,EHC Red Bull München,5,1,5,1,REG,,,,,,,,,52,,,,,,
+2026-03-15,4298,2025-26,Löwen Frankfurt,Nürnberg Ice Tigers,3,4,3,4,REG,,,,,,,,,52,,,,,,
+2026-03-15,4299,2025-26,Pinguins Bremerhaven,Dresdner Eislöwen,6,1,6,1,REG,,,,,,,,,52,,,,,,
+2026-03-15,4300,2025-26,Straubing Tigers,Kölner Haie,3,6,3,6,REG,,,,,,,,,52,,,,,,
+2026-03-15,4301,2025-26,Augsburger Panther,Grizzlys Wolfsburg,5,6,5,5,SO,,,,,,,,,52,,,,,,
+2026-03-15,4302,2025-26,Iserlohn Roosters,ERC Ingolstadt,5,3,5,3,REG,,,,,,,,,52,,,,,,
+2026-03-15,4303,2025-26,Adler Mannheim,Schwenninger Wild Wings,4,2,4,2,REG,,,,,,,,,52,,,,,,
+2026-09-17,4389,2026-27,Eisbären Berlin,Straubing Tigers,4,2,4,2,REG,,,,,,,,,1,,,,,,
+2026-09-18,4390,2026-27,Kölner Haie,Grizzlys Wolfsburg,4,8,4,8,REG,,,,,,,,,1,,,,,,
+2026-09-18,4391,2026-27,Nürnberg Ice Tigers,Augsburger Panther,4,1,4,1,REG,,,,,,,,,1,,,,,,
+2026-09-18,4392,2026-27,Krefeld Pinguine,Pinguins Bremerhaven,1,3,1,3,REG,,,,,,,,,1,,,,,,
+2026-09-18,4393,2026-27,Iserlohn Roosters,ERC Ingolstadt,3,4,3,4,REG,,,,,,,,,1,,,,,,
+2026-09-18,4394,2026-27,EHC Red Bull München,Adler Mannheim,4,3,3,3,SO,,,,,,,,,1,,,,,,
+2026-09-18,4395,2026-27,Schwenninger Wild Wings,Löwen Frankfurt,0,5,0,5,REG,,,,,,,,,1,,,,,,
+2026-09-20,4396,2026-27,Adler Mannheim,Eisbären Berlin,4,3,4,3,REG,,,,,,,,,2,,,,,,
+2026-09-20,4397,2026-27,Augsburger Panther,Schwenninger Wild Wings,7,3,7,3,REG,,,,,,,,,2,,,,,,
+2026-09-20,4398,2026-27,Pinguins Bremerhaven,Iserlohn Roosters,2,1,2,1,REG,,,,,,,,,2,,,,,,
+2026-09-20,4399,2026-27,ERC Ingolstadt,Nürnberg Ice Tigers,2,6,2,6,REG,,,,,,,,,2,,,,,,
+2026-09-20,4400,2026-27,Straubing Tigers,Krefeld Pinguine,3,6,3,6,REG,,,,,,,,,2,,,,,,
+2026-09-20,4401,2026-27,Grizzlys Wolfsburg,EHC Red Bull München,4,3,3,3,OT,,,,,,,,,2,,,,,,
+2026-09-20,4402,2026-27,Kölner Haie,Löwen Frankfurt,4,3,3,3,OT,,,,,,,,,2,,,,,,
+2026-09-22,4403,2026-27,Nürnberg Ice Tigers,Adler Mannheim,5,3,5,3,REG,,,,,,,,,31,,,,,,
+2026-09-24,4404,2026-27,Iserlohn Roosters,Augsburger Panther,2,3,2,2,SO,,,,,,,,,3,,,,,,
+2026-09-25,4405,2026-27,Kölner Haie,Eisbären Berlin,5,6,5,5,SO,,,,,,,,,3,,,,,,
+2026-09-25,4406,2026-27,Löwen Frankfurt,Nürnberg Ice Tigers,1,2,1,2,REG,,,,,,,,,3,,,,,,
+2026-09-25,4407,2026-27,Adler Mannheim,Krefeld Pinguine,4,1,4,1,REG,,,,,,,,,3,,,,,,
+2026-09-25,4408,2026-27,Pinguins Bremerhaven,EHC Red Bull München,1,4,1,4,REG,,,,,,,,,3,,,,,,
+2026-09-25,4409,2026-27,Straubing Tigers,ERC Ingolstadt,4,1,4,1,REG,,,,,,,,,3,,,,,,
+2026-09-25,4410,2026-27,Grizzlys Wolfsburg,Schwenninger Wild Wings,3,4,3,3,OT,,,,,,,,,3,,,,,,
+2026-09-27,4411,2026-27,Eisbären Berlin,Iserlohn Roosters,4,0,4,0,REG,,,,,,,,,4,,,,,,
+2026-09-27,4415,2026-27,EHC Red Bull München,Löwen Frankfurt,1,2,1,2,REG,,,,,,,,,4,,,,,,
+2026-09-27,4416,2026-27,Grizzlys Wolfsburg,Pinguins Bremerhaven,3,0,3,0,REG,,,,,,,,,4,,,,,,

@@ -1,0 +1,340 @@
+Zeit,GameId,Heim,Gast,Spieltag
+2026-09-27T14:30:00Z,2026-09-27_Augsburger Panther_Kölner Haie,Augsburger Panther,Kölner Haie,4
+2026-09-27T14:30:00Z,2026-09-27_Nürnberg Ice Tigers_Straubing Tigers,Nürnberg Ice Tigers,Straubing Tigers,4
+2026-09-27T14:30:00Z,2026-09-27_Krefeld Pinguine_Schwenninger Wild Wings,Krefeld Pinguine,Schwenninger Wild Wings,4
+2026-09-27T17:00:00Z,2026-09-27_ERC Ingolstadt_Adler Mannheim,ERC Ingolstadt,Adler Mannheim,4
+2026-10-01T17:30:00Z,2026-10-01_Adler Mannheim_Iserlohn Roosters,Adler Mannheim,Iserlohn Roosters,5
+2026-10-02T17:30:00Z,2026-10-02_Krefeld Pinguine_ERC Ingolstadt,Krefeld Pinguine,ERC Ingolstadt,5
+2026-10-02T17:30:00Z,2026-10-02_Kölner Haie_EHC Red Bull München,Kölner Haie,EHC Red Bull München,5
+2026-10-02T17:30:00Z,2026-10-02_Augsburger Panther_Grizzlys Wolfsburg,Augsburger Panther,Grizzlys Wolfsburg,5
+2026-10-02T17:30:00Z,2026-10-02_Nürnberg Ice Tigers_Schwenninger Wild Wings,Nürnberg Ice Tigers,Schwenninger Wild Wings,5
+2026-10-02T17:30:00Z,2026-10-02_Löwen Frankfurt_Eisbären Berlin,Löwen Frankfurt,Eisbären Berlin,5
+2026-10-02T17:30:00Z,2026-10-02_Straubing Tigers_Pinguins Bremerhaven,Straubing Tigers,Pinguins Bremerhaven,5
+2026-10-04T12:00:00Z,2026-10-04_Eisbären Berlin_Nürnberg Ice Tigers,Eisbären Berlin,Nürnberg Ice Tigers,6
+2026-10-04T12:00:00Z,2026-10-04_Schwenninger Wild Wings_Straubing Tigers,Schwenninger Wild Wings,Straubing Tigers,6
+2026-10-04T12:00:00Z,2026-10-04_Pinguins Bremerhaven_Löwen Frankfurt,Pinguins Bremerhaven,Löwen Frankfurt,6
+2026-10-04T14:30:00Z,2026-10-04_ERC Ingolstadt_Kölner Haie,ERC Ingolstadt,Kölner Haie,6
+2026-10-04T14:30:00Z,2026-10-04_Grizzlys Wolfsburg_Adler Mannheim,Grizzlys Wolfsburg,Adler Mannheim,6
+2026-10-04T14:30:00Z,2026-10-04_Iserlohn Roosters_Krefeld Pinguine,Iserlohn Roosters,Krefeld Pinguine,6
+2026-10-04T17:00:00Z,2026-10-04_EHC Red Bull München_Augsburger Panther,EHC Red Bull München,Augsburger Panther,6
+2026-10-08T17:30:00Z,2026-10-08_Löwen Frankfurt_Krefeld Pinguine,Löwen Frankfurt,Krefeld Pinguine,7
+2026-10-09T17:30:00Z,2026-10-09_EHC Red Bull München_ERC Ingolstadt,EHC Red Bull München,ERC Ingolstadt,7
+2026-10-09T17:30:00Z,2026-10-09_Kölner Haie_Schwenninger Wild Wings,Kölner Haie,Schwenninger Wild Wings,7
+2026-10-09T17:30:00Z,2026-10-09_Augsburger Panther_Pinguins Bremerhaven,Augsburger Panther,Pinguins Bremerhaven,7
+2026-10-09T17:30:00Z,2026-10-09_Nürnberg Ice Tigers_Adler Mannheim,Nürnberg Ice Tigers,Adler Mannheim,7
+2026-10-09T17:30:00Z,2026-10-09_Eisbären Berlin_Grizzlys Wolfsburg,Eisbären Berlin,Grizzlys Wolfsburg,7
+2026-10-09T17:30:00Z,2026-10-09_Straubing Tigers_Iserlohn Roosters,Straubing Tigers,Iserlohn Roosters,7
+2026-10-11T12:00:00Z,2026-10-11_ERC Ingolstadt_Löwen Frankfurt,ERC Ingolstadt,Löwen Frankfurt,8
+2026-10-11T12:00:00Z,2026-10-11_Krefeld Pinguine_Augsburger Panther,Krefeld Pinguine,Augsburger Panther,8
+2026-10-11T14:30:00Z,2026-10-11_Kölner Haie_Nürnberg Ice Tigers,Kölner Haie,Nürnberg Ice Tigers,8
+2026-10-11T14:30:00Z,2026-10-11_Schwenninger Wild Wings_EHC Red Bull München,Schwenninger Wild Wings,EHC Red Bull München,8
+2026-10-11T14:30:00Z,2026-10-11_Pinguins Bremerhaven_Eisbären Berlin,Pinguins Bremerhaven,Eisbären Berlin,8
+2026-10-11T14:30:00Z,2026-10-11_Iserlohn Roosters_Grizzlys Wolfsburg,Iserlohn Roosters,Grizzlys Wolfsburg,8
+2026-10-11T17:00:00Z,2026-10-11_Adler Mannheim_Straubing Tigers,Adler Mannheim,Straubing Tigers,8
+2026-10-15T17:30:00Z,2026-10-15_Grizzlys Wolfsburg_Krefeld Pinguine,Grizzlys Wolfsburg,Krefeld Pinguine,9
+2026-10-16T17:30:00Z,2026-10-16_Schwenninger Wild Wings_ERC Ingolstadt,Schwenninger Wild Wings,ERC Ingolstadt,9
+2026-10-16T17:30:00Z,2026-10-16_Iserlohn Roosters_Kölner Haie,Iserlohn Roosters,Kölner Haie,9
+2026-10-16T17:30:00Z,2026-10-16_Eisbären Berlin_EHC Red Bull München,Eisbären Berlin,EHC Red Bull München,9
+2026-10-16T17:30:00Z,2026-10-16_Augsburger Panther_Adler Mannheim,Augsburger Panther,Adler Mannheim,9
+2026-10-16T17:30:00Z,2026-10-16_Pinguins Bremerhaven_Nürnberg Ice Tigers,Pinguins Bremerhaven,Nürnberg Ice Tigers,9
+2026-10-16T17:30:00Z,2026-10-16_Löwen Frankfurt_Straubing Tigers,Löwen Frankfurt,Straubing Tigers,9
+2026-10-18T12:00:00Z,2026-10-18_Krefeld Pinguine_Eisbären Berlin,Krefeld Pinguine,Eisbären Berlin,10
+2026-10-18T12:00:00Z,2026-10-18_Löwen Frankfurt_Iserlohn Roosters,Löwen Frankfurt,Iserlohn Roosters,10
+2026-10-18T12:00:00Z,2026-10-18_Straubing Tigers_Grizzlys Wolfsburg,Straubing Tigers,Grizzlys Wolfsburg,10
+2026-10-18T14:30:00Z,2026-10-18_ERC Ingolstadt_Augsburger Panther,ERC Ingolstadt,Augsburger Panther,10
+2026-10-18T14:30:00Z,2026-10-18_Kölner Haie_Pinguins Bremerhaven,Kölner Haie,Pinguins Bremerhaven,10
+2026-10-18T14:30:00Z,2026-10-18_Adler Mannheim_Schwenninger Wild Wings,Adler Mannheim,Schwenninger Wild Wings,10
+2026-10-18T17:00:00Z,2026-10-18_Nürnberg Ice Tigers_EHC Red Bull München,Nürnberg Ice Tigers,EHC Red Bull München,10
+2026-10-20T17:30:00Z,2026-10-20_ERC Ingolstadt_Grizzlys Wolfsburg,ERC Ingolstadt,Grizzlys Wolfsburg,46
+2026-10-20T17:30:00Z,2026-10-20_Kölner Haie_Schwenninger Wild Wings,Kölner Haie,Schwenninger Wild Wings,49
+2026-10-23T17:30:00Z,2026-10-23_Grizzlys Wolfsburg_ERC Ingolstadt,Grizzlys Wolfsburg,ERC Ingolstadt,11
+2026-10-23T17:30:00Z,2026-10-23_Straubing Tigers_Kölner Haie,Straubing Tigers,Kölner Haie,11
+2026-10-23T17:30:00Z,2026-10-23_EHC Red Bull München_Iserlohn Roosters,EHC Red Bull München,Iserlohn Roosters,11
+2026-10-23T17:30:00Z,2026-10-23_Eisbären Berlin_Augsburger Panther,Eisbären Berlin,Augsburger Panther,11
+2026-10-23T17:30:00Z,2026-10-23_Nürnberg Ice Tigers_Krefeld Pinguine,Nürnberg Ice Tigers,Krefeld Pinguine,11
+2026-10-23T17:30:00Z,2026-10-23_Schwenninger Wild Wings_Pinguins Bremerhaven,Schwenninger Wild Wings,Pinguins Bremerhaven,11
+2026-10-23T17:30:00Z,2026-10-23_Adler Mannheim_Löwen Frankfurt,Adler Mannheim,Löwen Frankfurt,11
+2026-10-25T13:00:00Z,2026-10-25_Schwenninger Wild Wings_Eisbären Berlin,Schwenninger Wild Wings,Eisbären Berlin,12
+2026-10-25T13:00:00Z,2026-10-25_Löwen Frankfurt_Grizzlys Wolfsburg,Löwen Frankfurt,Grizzlys Wolfsburg,12
+2026-10-25T15:30:00Z,2026-10-25_Krefeld Pinguine_EHC Red Bull München,Krefeld Pinguine,EHC Red Bull München,12
+2026-10-25T15:30:00Z,2026-10-25_Augsburger Panther_Straubing Tigers,Augsburger Panther,Straubing Tigers,12
+2026-10-25T15:30:00Z,2026-10-25_Iserlohn Roosters_Nürnberg Ice Tigers,Iserlohn Roosters,Nürnberg Ice Tigers,12
+2026-10-25T18:00:00Z,2026-10-25_Pinguins Bremerhaven_ERC Ingolstadt,Pinguins Bremerhaven,ERC Ingolstadt,12
+2026-10-27T18:30:00Z,2026-10-27_Kölner Haie_Adler Mannheim,Kölner Haie,Adler Mannheim,12
+2026-10-28T18:30:00Z,2026-10-28_Krefeld Pinguine_Schwenninger Wild Wings,Krefeld Pinguine,Schwenninger Wild Wings,41
+2026-10-29T18:30:00Z,2026-10-29_Augsburger Panther_Löwen Frankfurt,Augsburger Panther,Löwen Frankfurt,13
+2026-10-30T18:30:00Z,2026-10-30_ERC Ingolstadt_Eisbären Berlin,ERC Ingolstadt,Eisbären Berlin,13
+2026-10-30T18:30:00Z,2026-10-30_Krefeld Pinguine_Kölner Haie,Krefeld Pinguine,Kölner Haie,13
+2026-10-30T18:30:00Z,2026-10-30_Straubing Tigers_EHC Red Bull München,Straubing Tigers,EHC Red Bull München,13
+2026-10-30T18:30:00Z,2026-10-30_Nürnberg Ice Tigers_Grizzlys Wolfsburg,Nürnberg Ice Tigers,Grizzlys Wolfsburg,13
+2026-10-30T18:30:00Z,2026-10-30_Iserlohn Roosters_Schwenninger Wild Wings,Iserlohn Roosters,Schwenninger Wild Wings,13
+2026-10-30T18:30:00Z,2026-10-30_Adler Mannheim_Pinguins Bremerhaven,Adler Mannheim,Pinguins Bremerhaven,13
+2026-11-01T13:00:00Z,2026-11-01_Grizzlys Wolfsburg_Augsburger Panther,Grizzlys Wolfsburg,Augsburger Panther,14
+2026-11-01T13:00:00Z,2026-11-01_Eisbären Berlin_Adler Mannheim,Eisbären Berlin,Adler Mannheim,14
+2026-11-01T13:00:00Z,2026-11-01_Pinguins Bremerhaven_Straubing Tigers,Pinguins Bremerhaven,Straubing Tigers,14
+2026-11-01T15:30:00Z,2026-11-01_Löwen Frankfurt_ERC Ingolstadt,Löwen Frankfurt,ERC Ingolstadt,14
+2026-11-01T15:30:00Z,2026-11-01_EHC Red Bull München_Nürnberg Ice Tigers,EHC Red Bull München,Nürnberg Ice Tigers,14
+2026-11-01T15:30:00Z,2026-11-01_Schwenninger Wild Wings_Krefeld Pinguine,Schwenninger Wild Wings,Krefeld Pinguine,14
+2026-11-01T18:00:00Z,2026-11-01_Kölner Haie_Iserlohn Roosters,Kölner Haie,Iserlohn Roosters,14
+2026-11-12T18:30:00Z,2026-11-12_Iserlohn Roosters_Adler Mannheim,Iserlohn Roosters,Adler Mannheim,15
+2026-11-13T18:30:00Z,2026-11-13_ERC Ingolstadt_Straubing Tigers,ERC Ingolstadt,Straubing Tigers,15
+2026-11-13T18:30:00Z,2026-11-13_Schwenninger Wild Wings_Kölner Haie,Schwenninger Wild Wings,Kölner Haie,15
+2026-11-13T18:30:00Z,2026-11-13_Augsburger Panther_EHC Red Bull München,Augsburger Panther,EHC Red Bull München,15
+2026-11-13T18:30:00Z,2026-11-13_Krefeld Pinguine_Nürnberg Ice Tigers,Krefeld Pinguine,Nürnberg Ice Tigers,15
+2026-11-13T18:30:00Z,2026-11-13_Grizzlys Wolfsburg_Eisbären Berlin,Grizzlys Wolfsburg,Eisbären Berlin,15
+2026-11-13T18:30:00Z,2026-11-13_Löwen Frankfurt_Pinguins Bremerhaven,Löwen Frankfurt,Pinguins Bremerhaven,15
+2026-11-15T13:00:00Z,2026-11-15_EHC Red Bull München_Krefeld Pinguine,EHC Red Bull München,Krefeld Pinguine,16
+2026-11-15T13:00:00Z,2026-11-15_Pinguins Bremerhaven_Augsburger Panther,Pinguins Bremerhaven,Augsburger Panther,16
+2026-11-15T15:30:00Z,2026-11-15_Adler Mannheim_ERC Ingolstadt,Adler Mannheim,ERC Ingolstadt,16
+2026-11-15T15:30:00Z,2026-11-15_Kölner Haie_Grizzlys Wolfsburg,Kölner Haie,Grizzlys Wolfsburg,16
+2026-11-15T15:30:00Z,2026-11-15_Nürnberg Ice Tigers_Iserlohn Roosters,Nürnberg Ice Tigers,Iserlohn Roosters,16
+2026-11-15T15:30:00Z,2026-11-15_Straubing Tigers_Löwen Frankfurt,Straubing Tigers,Löwen Frankfurt,16
+2026-11-15T18:00:00Z,2026-11-15_Eisbären Berlin_Schwenninger Wild Wings,Eisbären Berlin,Schwenninger Wild Wings,16
+2026-11-19T18:30:00Z,2026-11-19_Krefeld Pinguine_Straubing Tigers,Krefeld Pinguine,Straubing Tigers,17
+2026-11-20T18:30:00Z,2026-11-20_Eisbären Berlin_ERC Ingolstadt,Eisbären Berlin,ERC Ingolstadt,17
+2026-11-20T18:30:00Z,2026-11-20_EHC Red Bull München_Kölner Haie,EHC Red Bull München,Kölner Haie,17
+2026-11-20T18:30:00Z,2026-11-20_Augsburger Panther_Nürnberg Ice Tigers,Augsburger Panther,Nürnberg Ice Tigers,17
+2026-11-20T18:30:00Z,2026-11-20_Löwen Frankfurt_Schwenninger Wild Wings,Löwen Frankfurt,Schwenninger Wild Wings,17
+2026-11-20T18:30:00Z,2026-11-20_Pinguins Bremerhaven_Adler Mannheim,Pinguins Bremerhaven,Adler Mannheim,17
+2026-11-20T18:30:00Z,2026-11-20_Grizzlys Wolfsburg_Iserlohn Roosters,Grizzlys Wolfsburg,Iserlohn Roosters,17
+2026-11-22T13:00:00Z,2026-11-22_ERC Ingolstadt_EHC Red Bull München,ERC Ingolstadt,EHC Red Bull München,18
+2026-11-22T13:00:00Z,2026-11-22_Nürnberg Ice Tigers_Pinguins Bremerhaven,Nürnberg Ice Tigers,Pinguins Bremerhaven,18
+2026-11-22T13:00:00Z,2026-11-22_Straubing Tigers_Eisbären Berlin,Straubing Tigers,Eisbären Berlin,18
+2026-11-22T15:30:00Z,2026-11-22_Adler Mannheim_Kölner Haie,Adler Mannheim,Kölner Haie,18
+2026-11-22T15:30:00Z,2026-11-22_Schwenninger Wild Wings_Augsburger Panther,Schwenninger Wild Wings,Augsburger Panther,18
+2026-11-22T15:30:00Z,2026-11-22_Iserlohn Roosters_Löwen Frankfurt,Iserlohn Roosters,Löwen Frankfurt,18
+2026-11-22T18:00:00Z,2026-11-22_Krefeld Pinguine_Grizzlys Wolfsburg,Krefeld Pinguine,Grizzlys Wolfsburg,18
+2026-11-24T18:30:00Z,2026-11-24_ERC Ingolstadt_Pinguins Bremerhaven,ERC Ingolstadt,Pinguins Bremerhaven,19
+2026-11-24T18:30:00Z,2026-11-24_Kölner Haie_Nürnberg Ice Tigers,Kölner Haie,Nürnberg Ice Tigers,19
+2026-11-24T18:30:00Z,2026-11-24_Augsburger Panther_Krefeld Pinguine,Augsburger Panther,Krefeld Pinguine,19
+2026-11-24T18:30:00Z,2026-11-24_Straubing Tigers_Adler Mannheim,Straubing Tigers,Adler Mannheim,19
+2026-11-24T18:30:00Z,2026-11-24_Eisbären Berlin_Löwen Frankfurt,Eisbären Berlin,Löwen Frankfurt,19
+2026-11-25T18:30:00Z,2026-11-25_EHC Red Bull München_Grizzlys Wolfsburg,EHC Red Bull München,Grizzlys Wolfsburg,19
+2026-11-25T18:30:00Z,2026-11-25_Schwenninger Wild Wings_Iserlohn Roosters,Schwenninger Wild Wings,Iserlohn Roosters,19
+2026-11-26T18:30:00Z,2026-11-26_Löwen Frankfurt_Adler Mannheim,Löwen Frankfurt,Adler Mannheim,20
+2026-11-27T18:30:00Z,2026-11-27_ERC Ingolstadt_Krefeld Pinguine,ERC Ingolstadt,Krefeld Pinguine,20
+2026-11-27T18:30:00Z,2026-11-27_Kölner Haie_Straubing Tigers,Kölner Haie,Straubing Tigers,20
+2026-11-27T18:30:00Z,2026-11-27_Iserlohn Roosters_EHC Red Bull München,Iserlohn Roosters,EHC Red Bull München,20
+2026-11-27T18:30:00Z,2026-11-27_Augsburger Panther_Eisbären Berlin,Augsburger Panther,Eisbären Berlin,20
+2026-11-27T18:30:00Z,2026-11-27_Grizzlys Wolfsburg_Nürnberg Ice Tigers,Grizzlys Wolfsburg,Nürnberg Ice Tigers,20
+2026-11-27T18:30:00Z,2026-11-27_Pinguins Bremerhaven_Schwenninger Wild Wings,Pinguins Bremerhaven,Schwenninger Wild Wings,20
+2026-11-29T13:00:00Z,2026-11-29_Kölner Haie_ERC Ingolstadt,Kölner Haie,ERC Ingolstadt,21
+2026-11-29T13:00:00Z,2026-11-29_Adler Mannheim_Augsburger Panther,Adler Mannheim,Augsburger Panther,21
+2026-11-29T13:00:00Z,2026-11-29_Eisbären Berlin_Pinguins Bremerhaven,Eisbären Berlin,Pinguins Bremerhaven,21
+2026-11-29T15:30:00Z,2026-11-29_EHC Red Bull München_Straubing Tigers,EHC Red Bull München,Straubing Tigers,21
+2026-11-29T15:30:00Z,2026-11-29_Nürnberg Ice Tigers_Löwen Frankfurt,Nürnberg Ice Tigers,Löwen Frankfurt,21
+2026-11-29T15:30:00Z,2026-11-29_Krefeld Pinguine_Iserlohn Roosters,Krefeld Pinguine,Iserlohn Roosters,21
+2026-11-29T18:00:00Z,2026-11-29_Schwenninger Wild Wings_Grizzlys Wolfsburg,Schwenninger Wild Wings,Grizzlys Wolfsburg,21
+2026-12-03T18:30:00Z,2026-12-03_Straubing Tigers_Augsburger Panther,Straubing Tigers,Augsburger Panther,22
+2026-12-04T18:30:00Z,2026-12-04_ERC Ingolstadt_Iserlohn Roosters,ERC Ingolstadt,Iserlohn Roosters,22
+2026-12-04T18:30:00Z,2026-12-04_Löwen Frankfurt_Kölner Haie,Löwen Frankfurt,Kölner Haie,22
+2026-12-04T18:30:00Z,2026-12-04_EHC Red Bull München_Schwenninger Wild Wings,EHC Red Bull München,Schwenninger Wild Wings,22
+2026-12-04T18:30:00Z,2026-12-04_Nürnberg Ice Tigers_Eisbären Berlin,Nürnberg Ice Tigers,Eisbären Berlin,22
+2026-12-04T18:30:00Z,2026-12-04_Adler Mannheim_Grizzlys Wolfsburg,Adler Mannheim,Grizzlys Wolfsburg,22
+2026-12-04T18:30:00Z,2026-12-04_Pinguins Bremerhaven_Krefeld Pinguine,Pinguins Bremerhaven,Krefeld Pinguine,22
+2026-12-06T13:00:00Z,2026-12-06_Augsburger Panther_ERC Ingolstadt,Augsburger Panther,ERC Ingolstadt,23
+2026-12-06T13:00:00Z,2026-12-06_Schwenninger Wild Wings_Nürnberg Ice Tigers,Schwenninger Wild Wings,Nürnberg Ice Tigers,23
+2026-12-06T13:00:00Z,2026-12-06_Grizzlys Wolfsburg_Löwen Frankfurt,Grizzlys Wolfsburg,Löwen Frankfurt,23
+2026-12-06T15:30:00Z,2026-12-06_Eisbären Berlin_Kölner Haie,Eisbären Berlin,Kölner Haie,23
+2026-12-06T15:30:00Z,2026-12-06_EHC Red Bull München_Pinguins Bremerhaven,EHC Red Bull München,Pinguins Bremerhaven,23
+2026-12-06T15:30:00Z,2026-12-06_Krefeld Pinguine_Adler Mannheim,Krefeld Pinguine,Adler Mannheim,23
+2026-12-06T18:00:00Z,2026-12-06_Iserlohn Roosters_Straubing Tigers,Iserlohn Roosters,Straubing Tigers,23
+2026-12-08T18:30:00Z,2026-12-08_ERC Ingolstadt_Schwenninger Wild Wings,ERC Ingolstadt,Schwenninger Wild Wings,24
+2026-12-08T18:30:00Z,2026-12-08_Kölner Haie_Krefeld Pinguine,Kölner Haie,Krefeld Pinguine,24
+2026-12-08T18:30:00Z,2026-12-08_Straubing Tigers_Nürnberg Ice Tigers,Straubing Tigers,Nürnberg Ice Tigers,24
+2026-12-08T18:30:00Z,2026-12-08_Pinguins Bremerhaven_Grizzlys Wolfsburg,Pinguins Bremerhaven,Grizzlys Wolfsburg,24
+2026-12-09T18:30:00Z,2026-12-09_Adler Mannheim_EHC Red Bull München,Adler Mannheim,EHC Red Bull München,24
+2026-12-09T18:30:00Z,2026-12-09_Löwen Frankfurt_Augsburger Panther,Löwen Frankfurt,Augsburger Panther,24
+2026-12-09T18:30:00Z,2026-12-09_Eisbären Berlin_Iserlohn Roosters,Eisbären Berlin,Iserlohn Roosters,24
+2026-12-10T18:30:00Z,2026-12-10_Nürnberg Ice Tigers_ERC Ingolstadt,Nürnberg Ice Tigers,ERC Ingolstadt,25
+2026-12-11T18:30:00Z,2026-12-11_Kölner Haie_Augsburger Panther,Kölner Haie,Augsburger Panther,25
+2026-12-11T18:30:00Z,2026-12-11_EHC Red Bull München_Eisbären Berlin,EHC Red Bull München,Eisbären Berlin,25
+2026-12-11T18:30:00Z,2026-12-11_Schwenninger Wild Wings_Adler Mannheim,Schwenninger Wild Wings,Adler Mannheim,25
+2026-12-11T18:30:00Z,2026-12-11_Krefeld Pinguine_Löwen Frankfurt,Krefeld Pinguine,Löwen Frankfurt,25
+2026-12-11T18:30:00Z,2026-12-11_Grizzlys Wolfsburg_Straubing Tigers,Grizzlys Wolfsburg,Straubing Tigers,25
+2026-12-11T18:30:00Z,2026-12-11_Iserlohn Roosters_Pinguins Bremerhaven,Iserlohn Roosters,Pinguins Bremerhaven,25
+2026-12-13T13:00:00Z,2026-12-13_ERC Ingolstadt_Grizzlys Wolfsburg,ERC Ingolstadt,Grizzlys Wolfsburg,26
+2026-12-13T13:00:00Z,2026-12-13_Pinguins Bremerhaven_Kölner Haie,Pinguins Bremerhaven,Kölner Haie,26
+2026-12-13T13:00:00Z,2026-12-13_Eisbären Berlin_Krefeld Pinguine,Eisbären Berlin,Krefeld Pinguine,26
+2026-12-13T15:30:00Z,2026-12-13_Löwen Frankfurt_EHC Red Bull München,Löwen Frankfurt,EHC Red Bull München,26
+2026-12-13T15:30:00Z,2026-12-13_Adler Mannheim_Nürnberg Ice Tigers,Adler Mannheim,Nürnberg Ice Tigers,26
+2026-12-13T15:30:00Z,2026-12-13_Straubing Tigers_Schwenninger Wild Wings,Straubing Tigers,Schwenninger Wild Wings,26
+2026-12-13T18:00:00Z,2026-12-13_Augsburger Panther_Iserlohn Roosters,Augsburger Panther,Iserlohn Roosters,26
+2026-12-17T18:30:00Z,2026-12-17_ERC Ingolstadt_Kölner Haie,ERC Ingolstadt,Kölner Haie,27
+2026-12-18T18:30:00Z,2026-12-18_Iserlohn Roosters_EHC Red Bull München,Iserlohn Roosters,EHC Red Bull München,27
+2026-12-18T18:30:00Z,2026-12-18_Augsburger Panther_Krefeld Pinguine,Augsburger Panther,Krefeld Pinguine,27
+2026-12-18T18:30:00Z,2026-12-18_Eisbären Berlin_Nürnberg Ice Tigers,Eisbären Berlin,Nürnberg Ice Tigers,27
+2026-12-18T18:30:00Z,2026-12-18_Grizzlys Wolfsburg_Schwenninger Wild Wings,Grizzlys Wolfsburg,Schwenninger Wild Wings,27
+2026-12-18T18:30:00Z,2026-12-18_Adler Mannheim_Löwen Frankfurt,Adler Mannheim,Löwen Frankfurt,27
+2026-12-18T18:30:00Z,2026-12-18_Straubing Tigers_Pinguins Bremerhaven,Straubing Tigers,Pinguins Bremerhaven,27
+2026-12-20T13:00:00Z,2026-12-20_Eisbären Berlin_ERC Ingolstadt,Eisbären Berlin,ERC Ingolstadt,28
+2026-12-20T13:00:00Z,2026-12-20_Kölner Haie_Adler Mannheim,Kölner Haie,Adler Mannheim,28
+2026-12-20T13:00:00Z,2026-12-20_Augsburger Panther_Pinguins Bremerhaven,Augsburger Panther,Pinguins Bremerhaven,28
+2026-12-20T15:30:00Z,2026-12-20_EHC Red Bull München_Krefeld Pinguine,EHC Red Bull München,Krefeld Pinguine,28
+2026-12-20T15:30:00Z,2026-12-20_Nürnberg Ice Tigers_Straubing Tigers,Nürnberg Ice Tigers,Straubing Tigers,28
+2026-12-20T15:30:00Z,2026-12-20_Schwenninger Wild Wings_Iserlohn Roosters,Schwenninger Wild Wings,Iserlohn Roosters,28
+2026-12-20T18:00:00Z,2026-12-20_Löwen Frankfurt_Grizzlys Wolfsburg,Löwen Frankfurt,Grizzlys Wolfsburg,28
+2026-12-23T18:30:00Z,2026-12-23_Pinguins Bremerhaven_ERC Ingolstadt,Pinguins Bremerhaven,ERC Ingolstadt,29
+2026-12-23T18:30:00Z,2026-12-23_Kölner Haie_Augsburger Panther,Kölner Haie,Augsburger Panther,29
+2026-12-23T18:30:00Z,2026-12-23_EHC Red Bull München_Schwenninger Wild Wings,EHC Red Bull München,Schwenninger Wild Wings,29
+2026-12-23T18:30:00Z,2026-12-23_Nürnberg Ice Tigers_Löwen Frankfurt,Nürnberg Ice Tigers,Löwen Frankfurt,29
+2026-12-23T18:30:00Z,2026-12-23_Adler Mannheim_Straubing Tigers,Adler Mannheim,Straubing Tigers,29
+2026-12-23T18:30:00Z,2026-12-23_Iserlohn Roosters_Eisbären Berlin,Iserlohn Roosters,Eisbären Berlin,29
+2026-12-23T18:30:00Z,2026-12-23_Krefeld Pinguine_Grizzlys Wolfsburg,Krefeld Pinguine,Grizzlys Wolfsburg,29
+2026-12-27T13:00:00Z,2026-12-27_Augsburger Panther_Nürnberg Ice Tigers,Augsburger Panther,Nürnberg Ice Tigers,30
+2026-12-27T13:00:00Z,2026-12-27_Grizzlys Wolfsburg_Eisbären Berlin,Grizzlys Wolfsburg,Eisbären Berlin,30
+2026-12-27T15:30:00Z,2026-12-27_ERC Ingolstadt_EHC Red Bull München,ERC Ingolstadt,EHC Red Bull München,30
+2026-12-27T15:30:00Z,2026-12-27_Straubing Tigers_Krefeld Pinguine,Straubing Tigers,Krefeld Pinguine,30
+2026-12-27T15:30:00Z,2026-12-27_Pinguins Bremerhaven_Iserlohn Roosters,Pinguins Bremerhaven,Iserlohn Roosters,30
+2026-12-27T18:00:00Z,2026-12-27_Löwen Frankfurt_Kölner Haie,Löwen Frankfurt,Kölner Haie,30
+2026-12-29T18:30:00Z,2026-12-29_Kölner Haie_EHC Red Bull München,Kölner Haie,EHC Red Bull München,31
+2026-12-29T18:30:00Z,2026-12-29_Eisbären Berlin_Augsburger Panther,Eisbären Berlin,Augsburger Panther,31
+2026-12-29T18:30:00Z,2026-12-29_Schwenninger Wild Wings_Löwen Frankfurt,Schwenninger Wild Wings,Löwen Frankfurt,31
+2026-12-29T18:30:00Z,2026-12-29_Krefeld Pinguine_Pinguins Bremerhaven,Krefeld Pinguine,Pinguins Bremerhaven,31
+2026-12-29T18:30:00Z,2026-12-29_Straubing Tigers_Grizzlys Wolfsburg,Straubing Tigers,Grizzlys Wolfsburg,31
+2026-12-30T18:30:00Z,2026-12-30_ERC Ingolstadt_Iserlohn Roosters,ERC Ingolstadt,Iserlohn Roosters,31
+2027-01-02T17:00:00Z,2027-01-02_Iserlohn Roosters_Kölner Haie,Iserlohn Roosters,Kölner Haie,32
+2027-01-02T19:00:00Z,2027-01-02_Augsburger Panther_Schwenninger Wild Wings,Augsburger Panther,Schwenninger Wild Wings,32
+2027-01-02T19:00:00Z,2027-01-02_Eisbären Berlin_Krefeld Pinguine,Eisbären Berlin,Krefeld Pinguine,32
+2027-01-03T13:00:00Z,2027-01-03_EHC Red Bull München_Straubing Tigers,EHC Red Bull München,Straubing Tigers,32
+2027-01-03T15:30:00Z,2027-01-03_Löwen Frankfurt_ERC Ingolstadt,Löwen Frankfurt,ERC Ingolstadt,32
+2027-01-03T15:30:00Z,2027-01-03_Adler Mannheim_Pinguins Bremerhaven,Adler Mannheim,Pinguins Bremerhaven,32
+2027-01-03T18:00:00Z,2027-01-03_Grizzlys Wolfsburg_Nürnberg Ice Tigers,Grizzlys Wolfsburg,Nürnberg Ice Tigers,32
+2027-01-05T18:30:00Z,2027-01-05_Schwenninger Wild Wings_ERC Ingolstadt,Schwenninger Wild Wings,ERC Ingolstadt,33
+2027-01-05T18:30:00Z,2027-01-05_Kölner Haie_Straubing Tigers,Kölner Haie,Straubing Tigers,33
+2027-01-05T18:30:00Z,2027-01-05_Augsburger Panther_EHC Red Bull München,Augsburger Panther,EHC Red Bull München,33
+2027-01-05T18:30:00Z,2027-01-05_Pinguins Bremerhaven_Nürnberg Ice Tigers,Pinguins Bremerhaven,Nürnberg Ice Tigers,33
+2027-01-05T18:30:00Z,2027-01-05_Krefeld Pinguine_Adler Mannheim,Krefeld Pinguine,Adler Mannheim,33
+2027-01-05T18:30:00Z,2027-01-05_Löwen Frankfurt_Eisbären Berlin,Löwen Frankfurt,Eisbären Berlin,33
+2027-01-05T18:30:00Z,2027-01-05_Grizzlys Wolfsburg_Iserlohn Roosters,Grizzlys Wolfsburg,Iserlohn Roosters,33
+2027-01-07T18:30:00Z,2027-01-07_EHC Red Bull München_Adler Mannheim,EHC Red Bull München,Adler Mannheim,34
+2027-01-08T18:30:00Z,2027-01-08_ERC Ingolstadt_Augsburger Panther,ERC Ingolstadt,Augsburger Panther,34
+2027-01-08T18:30:00Z,2027-01-08_Nürnberg Ice Tigers_Kölner Haie,Nürnberg Ice Tigers,Kölner Haie,34
+2027-01-08T18:30:00Z,2027-01-08_Eisbären Berlin_Schwenninger Wild Wings,Eisbären Berlin,Schwenninger Wild Wings,34
+2027-01-08T18:30:00Z,2027-01-08_Krefeld Pinguine_Löwen Frankfurt,Krefeld Pinguine,Löwen Frankfurt,34
+2027-01-08T18:30:00Z,2027-01-08_Straubing Tigers_Iserlohn Roosters,Straubing Tigers,Iserlohn Roosters,34
+2027-01-08T18:30:00Z,2027-01-08_Pinguins Bremerhaven_Grizzlys Wolfsburg,Pinguins Bremerhaven,Grizzlys Wolfsburg,34
+2027-01-10T13:00:00Z,2027-01-10_Adler Mannheim_ERC Ingolstadt,Adler Mannheim,ERC Ingolstadt,35
+2027-01-10T13:00:00Z,2027-01-10_Löwen Frankfurt_Pinguins Bremerhaven,Löwen Frankfurt,Pinguins Bremerhaven,35
+2027-01-10T15:30:00Z,2027-01-10_Grizzlys Wolfsburg_Kölner Haie,Grizzlys Wolfsburg,Kölner Haie,35
+2027-01-10T15:30:00Z,2027-01-10_Eisbären Berlin_EHC Red Bull München,Eisbären Berlin,EHC Red Bull München,35
+2027-01-10T15:30:00Z,2027-01-10_Augsburger Panther_Straubing Tigers,Augsburger Panther,Straubing Tigers,35
+2027-01-10T15:30:00Z,2027-01-10_Iserlohn Roosters_Krefeld Pinguine,Iserlohn Roosters,Krefeld Pinguine,35
+2027-01-10T18:00:00Z,2027-01-10_Schwenninger Wild Wings_Nürnberg Ice Tigers,Schwenninger Wild Wings,Nürnberg Ice Tigers,35
+2027-01-14T18:30:00Z,2027-01-14_Eisbären Berlin_Kölner Haie,Eisbären Berlin,Kölner Haie,36
+2027-01-15T18:30:00Z,2027-01-15_ERC Ingolstadt_Krefeld Pinguine,ERC Ingolstadt,Krefeld Pinguine,36
+2027-01-15T18:30:00Z,2027-01-15_Grizzlys Wolfsburg_EHC Red Bull München,Grizzlys Wolfsburg,EHC Red Bull München,36
+2027-01-15T18:30:00Z,2027-01-15_Adler Mannheim_Augsburger Panther,Adler Mannheim,Augsburger Panther,36
+2027-01-15T18:30:00Z,2027-01-15_Iserlohn Roosters_Nürnberg Ice Tigers,Iserlohn Roosters,Nürnberg Ice Tigers,36
+2027-01-15T18:30:00Z,2027-01-15_Pinguins Bremerhaven_Schwenninger Wild Wings,Pinguins Bremerhaven,Schwenninger Wild Wings,36
+2027-01-15T18:30:00Z,2027-01-15_Straubing Tigers_Löwen Frankfurt,Straubing Tigers,Löwen Frankfurt,36
+2027-01-17T13:00:00Z,2027-01-17_Kölner Haie_Pinguins Bremerhaven,Kölner Haie,Pinguins Bremerhaven,37
+2027-01-17T13:00:00Z,2027-01-17_Nürnberg Ice Tigers_EHC Red Bull München,Nürnberg Ice Tigers,EHC Red Bull München,37
+2027-01-17T13:00:00Z,2027-01-17_Eisbären Berlin_Adler Mannheim,Eisbären Berlin,Adler Mannheim,37
+2027-01-17T15:30:00Z,2027-01-17_ERC Ingolstadt_Straubing Tigers,ERC Ingolstadt,Straubing Tigers,37
+2027-01-17T15:30:00Z,2027-01-17_Augsburger Panther_Grizzlys Wolfsburg,Augsburger Panther,Grizzlys Wolfsburg,37
+2027-01-17T15:30:00Z,2027-01-17_Löwen Frankfurt_Iserlohn Roosters,Löwen Frankfurt,Iserlohn Roosters,37
+2027-01-17T18:00:00Z,2027-01-17_Schwenninger Wild Wings_Krefeld Pinguine,Schwenninger Wild Wings,Krefeld Pinguine,37
+2027-01-21T18:30:00Z,2027-01-21_Nürnberg Ice Tigers_Krefeld Pinguine,Nürnberg Ice Tigers,Krefeld Pinguine,38
+2027-01-22T18:30:00Z,2027-01-22_Grizzlys Wolfsburg_ERC Ingolstadt,Grizzlys Wolfsburg,ERC Ingolstadt,38
+2027-01-22T18:30:00Z,2027-01-22_Schwenninger Wild Wings_Kölner Haie,Schwenninger Wild Wings,Kölner Haie,38
+2027-01-22T18:30:00Z,2027-01-22_EHC Red Bull München_Pinguins Bremerhaven,EHC Red Bull München,Pinguins Bremerhaven,38
+2027-01-22T18:30:00Z,2027-01-22_Augsburger Panther_Löwen Frankfurt,Augsburger Panther,Löwen Frankfurt,38
+2027-01-22T18:30:00Z,2027-01-22_Iserlohn Roosters_Adler Mannheim,Iserlohn Roosters,Adler Mannheim,38
+2027-01-22T18:30:00Z,2027-01-22_Eisbären Berlin_Straubing Tigers,Eisbären Berlin,Straubing Tigers,38
+2027-01-24T13:00:00Z,2027-01-24_Löwen Frankfurt_EHC Red Bull München,Löwen Frankfurt,EHC Red Bull München,39
+2027-01-24T13:00:00Z,2027-01-24_Iserlohn Roosters_Augsburger Panther,Iserlohn Roosters,Augsburger Panther,39
+2027-01-24T13:00:00Z,2027-01-24_Pinguins Bremerhaven_Eisbären Berlin,Pinguins Bremerhaven,Eisbären Berlin,39
+2027-01-24T15:30:00Z,2027-01-24_Krefeld Pinguine_Kölner Haie,Krefeld Pinguine,Kölner Haie,39
+2027-01-24T15:30:00Z,2027-01-24_Straubing Tigers_Schwenninger Wild Wings,Straubing Tigers,Schwenninger Wild Wings,39
+2027-01-24T18:00:00Z,2027-01-24_ERC Ingolstadt_Nürnberg Ice Tigers,ERC Ingolstadt,Nürnberg Ice Tigers,39
+2027-01-24T18:00:00Z,2027-01-24_Adler Mannheim_Grizzlys Wolfsburg,Adler Mannheim,Grizzlys Wolfsburg,39
+2027-01-26T18:30:00Z,2027-01-26_Schwenninger Wild Wings_Adler Mannheim,Schwenninger Wild Wings,Adler Mannheim,30
+2027-01-28T18:30:00Z,2027-01-28_Pinguins Bremerhaven_Straubing Tigers,Pinguins Bremerhaven,Straubing Tigers,40
+2027-01-29T18:30:00Z,2027-01-29_ERC Ingolstadt_Löwen Frankfurt,ERC Ingolstadt,Löwen Frankfurt,40
+2027-01-29T18:30:00Z,2027-01-29_Grizzlys Wolfsburg_Kölner Haie,Grizzlys Wolfsburg,Kölner Haie,40
+2027-01-29T18:30:00Z,2027-01-29_EHC Red Bull München_Iserlohn Roosters,EHC Red Bull München,Iserlohn Roosters,40
+2027-01-29T18:30:00Z,2027-01-29_Nürnberg Ice Tigers_Augsburger Panther,Nürnberg Ice Tigers,Augsburger Panther,40
+2027-01-29T18:30:00Z,2027-01-29_Schwenninger Wild Wings_Eisbären Berlin,Schwenninger Wild Wings,Eisbären Berlin,40
+2027-01-29T18:30:00Z,2027-01-29_Adler Mannheim_Krefeld Pinguine,Adler Mannheim,Krefeld Pinguine,40
+2027-01-31T13:00:00Z,2027-01-31_EHC Red Bull München_Grizzlys Wolfsburg,EHC Red Bull München,Grizzlys Wolfsburg,41
+2027-01-31T13:00:00Z,2027-01-31_Nürnberg Ice Tigers_Pinguins Bremerhaven,Nürnberg Ice Tigers,Pinguins Bremerhaven,41
+2027-01-31T13:00:00Z,2027-01-31_Iserlohn Roosters_Löwen Frankfurt,Iserlohn Roosters,Löwen Frankfurt,41
+2027-01-31T15:30:00Z,2027-01-31_Straubing Tigers_Adler Mannheim,Straubing Tigers,Adler Mannheim,41
+2027-01-31T18:00:00Z,2027-01-31_Augsburger Panther_ERC Ingolstadt,Augsburger Panther,ERC Ingolstadt,41
+2027-02-01T18:30:00Z,2027-02-01_Kölner Haie_Eisbären Berlin,Kölner Haie,Eisbären Berlin,41
+2027-02-02T18:30:00Z,2027-02-02_Iserlohn Roosters_ERC Ingolstadt,Iserlohn Roosters,ERC Ingolstadt,42
+2027-02-02T18:30:00Z,2027-02-02_Pinguins Bremerhaven_EHC Red Bull München,Pinguins Bremerhaven,EHC Red Bull München,42
+2027-02-02T18:30:00Z,2027-02-02_Krefeld Pinguine_Augsburger Panther,Krefeld Pinguine,Augsburger Panther,42
+2027-02-02T18:30:00Z,2027-02-02_Adler Mannheim_Nürnberg Ice Tigers,Adler Mannheim,Nürnberg Ice Tigers,42
+2027-02-02T18:30:00Z,2027-02-02_Löwen Frankfurt_Schwenninger Wild Wings,Löwen Frankfurt,Schwenninger Wild Wings,42
+2027-02-03T18:30:00Z,2027-02-03_Straubing Tigers_Kölner Haie,Straubing Tigers,Kölner Haie,42
+2027-02-03T18:30:00Z,2027-02-03_Eisbären Berlin_Grizzlys Wolfsburg,Eisbären Berlin,Grizzlys Wolfsburg,42
+2027-02-04T18:30:00Z,2027-02-04_EHC Red Bull München_Nürnberg Ice Tigers,EHC Red Bull München,Nürnberg Ice Tigers,43
+2027-02-05T18:30:00Z,2027-02-05_ERC Ingolstadt_Eisbären Berlin,ERC Ingolstadt,Eisbären Berlin,43
+2027-02-05T18:30:00Z,2027-02-05_Pinguins Bremerhaven_Kölner Haie,Pinguins Bremerhaven,Kölner Haie,43
+2027-02-05T18:30:00Z,2027-02-05_Schwenninger Wild Wings_Augsburger Panther,Schwenninger Wild Wings,Augsburger Panther,43
+2027-02-05T18:30:00Z,2027-02-05_Löwen Frankfurt_Adler Mannheim,Löwen Frankfurt,Adler Mannheim,43
+2027-02-05T18:30:00Z,2027-02-05_Krefeld Pinguine_Iserlohn Roosters,Krefeld Pinguine,Iserlohn Roosters,43
+2027-02-05T18:30:00Z,2027-02-05_Grizzlys Wolfsburg_Straubing Tigers,Grizzlys Wolfsburg,Straubing Tigers,43
+2027-02-07T13:00:00Z,2027-02-07_Krefeld Pinguine_ERC Ingolstadt,Krefeld Pinguine,ERC Ingolstadt,44
+2027-02-07T13:00:00Z,2027-02-07_Pinguins Bremerhaven_Adler Mannheim,Pinguins Bremerhaven,Adler Mannheim,44
+2027-02-07T13:00:00Z,2027-02-07_Grizzlys Wolfsburg_Löwen Frankfurt,Grizzlys Wolfsburg,Löwen Frankfurt,44
+2027-02-07T15:30:00Z,2027-02-07_Augsburger Panther_Kölner Haie,Augsburger Panther,Kölner Haie,44
+2027-02-07T15:30:00Z,2027-02-07_Nürnberg Ice Tigers_Eisbären Berlin,Nürnberg Ice Tigers,Eisbären Berlin,44
+2027-02-07T15:30:00Z,2027-02-07_Iserlohn Roosters_Schwenninger Wild Wings,Iserlohn Roosters,Schwenninger Wild Wings,44
+2027-02-07T18:00:00Z,2027-02-07_Straubing Tigers_EHC Red Bull München,Straubing Tigers,EHC Red Bull München,44
+2027-02-17T18:30:00Z,2027-02-17_ERC Ingolstadt_Schwenninger Wild Wings,ERC Ingolstadt,Schwenninger Wild Wings,45
+2027-02-17T18:30:00Z,2027-02-17_Adler Mannheim_Kölner Haie,Adler Mannheim,Kölner Haie,45
+2027-02-17T18:30:00Z,2027-02-17_EHC Red Bull München_Augsburger Panther,EHC Red Bull München,Augsburger Panther,45
+2027-02-17T18:30:00Z,2027-02-17_Nürnberg Ice Tigers_Grizzlys Wolfsburg,Nürnberg Ice Tigers,Grizzlys Wolfsburg,45
+2027-02-17T18:30:00Z,2027-02-17_Straubing Tigers_Eisbären Berlin,Straubing Tigers,Eisbären Berlin,45
+2027-02-17T18:30:00Z,2027-02-17_Löwen Frankfurt_Krefeld Pinguine,Löwen Frankfurt,Krefeld Pinguine,45
+2027-02-17T18:30:00Z,2027-02-17_Iserlohn Roosters_Pinguins Bremerhaven,Iserlohn Roosters,Pinguins Bremerhaven,45
+2027-02-19T18:30:00Z,2027-02-19_Kölner Haie_Iserlohn Roosters,Kölner Haie,Iserlohn Roosters,46
+2027-02-19T18:30:00Z,2027-02-19_Schwenninger Wild Wings_EHC Red Bull München,Schwenninger Wild Wings,EHC Red Bull München,46
+2027-02-19T18:30:00Z,2027-02-19_Augsburger Panther_Adler Mannheim,Augsburger Panther,Adler Mannheim,46
+2027-02-19T18:30:00Z,2027-02-19_Krefeld Pinguine_Nürnberg Ice Tigers,Krefeld Pinguine,Nürnberg Ice Tigers,46
+2027-02-19T18:30:00Z,2027-02-19_Eisbären Berlin_Pinguins Bremerhaven,Eisbären Berlin,Pinguins Bremerhaven,46
+2027-02-19T18:30:00Z,2027-02-19_Löwen Frankfurt_Straubing Tigers,Löwen Frankfurt,Straubing Tigers,46
+2027-02-21T13:00:00Z,2027-02-21_Kölner Haie_Krefeld Pinguine,Kölner Haie,Krefeld Pinguine,47
+2027-02-21T13:00:00Z,2027-02-21_Pinguins Bremerhaven_Löwen Frankfurt,Pinguins Bremerhaven,Löwen Frankfurt,47
+2027-02-21T13:00:00Z,2027-02-21_Iserlohn Roosters_Straubing Tigers,Iserlohn Roosters,Straubing Tigers,47
+2027-02-21T15:30:00Z,2027-02-21_Grizzlys Wolfsburg_Augsburger Panther,Grizzlys Wolfsburg,Augsburger Panther,47
+2027-02-21T15:30:00Z,2027-02-21_Nürnberg Ice Tigers_Schwenninger Wild Wings,Nürnberg Ice Tigers,Schwenninger Wild Wings,47
+2027-02-21T18:00:00Z,2027-02-21_Adler Mannheim_Eisbären Berlin,Adler Mannheim,Eisbären Berlin,47
+2027-02-24T18:30:00Z,2027-02-24_EHC Red Bull München_ERC Ingolstadt,EHC Red Bull München,ERC Ingolstadt,47
+2027-02-25T18:30:00Z,2027-02-25_Schwenninger Wild Wings_Grizzlys Wolfsburg,Schwenninger Wild Wings,Grizzlys Wolfsburg,48
+2027-02-26T18:30:00Z,2027-02-26_Straubing Tigers_ERC Ingolstadt,Straubing Tigers,ERC Ingolstadt,48
+2027-02-26T18:30:00Z,2027-02-26_Nürnberg Ice Tigers_Kölner Haie,Nürnberg Ice Tigers,Kölner Haie,48
+2027-02-26T18:30:00Z,2027-02-26_EHC Red Bull München_Löwen Frankfurt,EHC Red Bull München,Löwen Frankfurt,48
+2027-02-26T18:30:00Z,2027-02-26_Augsburger Panther_Eisbären Berlin,Augsburger Panther,Eisbären Berlin,48
+2027-02-26T18:30:00Z,2027-02-26_Adler Mannheim_Iserlohn Roosters,Adler Mannheim,Iserlohn Roosters,48
+2027-02-26T18:30:00Z,2027-02-26_Pinguins Bremerhaven_Krefeld Pinguine,Pinguins Bremerhaven,Krefeld Pinguine,48
+2027-02-28T13:00:00Z,2027-02-28_ERC Ingolstadt_Adler Mannheim,ERC Ingolstadt,Adler Mannheim,49
+2027-02-28T13:00:00Z,2027-02-28_Grizzlys Wolfsburg_Pinguins Bremerhaven,Grizzlys Wolfsburg,Pinguins Bremerhaven,49
+2027-02-28T15:30:00Z,2027-02-28_Löwen Frankfurt_Augsburger Panther,Löwen Frankfurt,Augsburger Panther,49
+2027-02-28T15:30:00Z,2027-02-28_Straubing Tigers_Nürnberg Ice Tigers,Straubing Tigers,Nürnberg Ice Tigers,49
+2027-02-28T15:30:00Z,2027-02-28_Iserlohn Roosters_Eisbären Berlin,Iserlohn Roosters,Eisbären Berlin,49
+2027-02-28T18:00:00Z,2027-02-28_Krefeld Pinguine_EHC Red Bull München,Krefeld Pinguine,EHC Red Bull München,49
+2027-03-02T18:30:00Z,2027-03-02_Nürnberg Ice Tigers_ERC Ingolstadt,Nürnberg Ice Tigers,ERC Ingolstadt,50
+2027-03-02T18:30:00Z,2027-03-02_EHC Red Bull München_Kölner Haie,EHC Red Bull München,Kölner Haie,50
+2027-03-02T18:30:00Z,2027-03-02_Grizzlys Wolfsburg_Adler Mannheim,Grizzlys Wolfsburg,Adler Mannheim,50
+2027-03-02T18:30:00Z,2027-03-02_Eisbären Berlin_Löwen Frankfurt,Eisbären Berlin,Löwen Frankfurt,50
+2027-03-03T18:30:00Z,2027-03-03_Augsburger Panther_Iserlohn Roosters,Augsburger Panther,Iserlohn Roosters,50
+2027-03-03T18:30:00Z,2027-03-03_Schwenninger Wild Wings_Pinguins Bremerhaven,Schwenninger Wild Wings,Pinguins Bremerhaven,50
+2027-03-03T18:30:00Z,2027-03-03_Krefeld Pinguine_Straubing Tigers,Krefeld Pinguine,Straubing Tigers,50
+2027-03-05T18:30:00Z,2027-03-05_Kölner Haie_ERC Ingolstadt,Kölner Haie,ERC Ingolstadt,51
+2027-03-05T18:30:00Z,2027-03-05_Adler Mannheim_EHC Red Bull München,Adler Mannheim,EHC Red Bull München,51
+2027-03-05T18:30:00Z,2027-03-05_Pinguins Bremerhaven_Augsburger Panther,Pinguins Bremerhaven,Augsburger Panther,51
+2027-03-05T18:30:00Z,2027-03-05_Löwen Frankfurt_Nürnberg Ice Tigers,Löwen Frankfurt,Nürnberg Ice Tigers,51
+2027-03-05T18:30:00Z,2027-03-05_Schwenninger Wild Wings_Straubing Tigers,Schwenninger Wild Wings,Straubing Tigers,51
+2027-03-05T18:30:00Z,2027-03-05_Krefeld Pinguine_Eisbären Berlin,Krefeld Pinguine,Eisbären Berlin,51
+2027-03-05T18:30:00Z,2027-03-05_Iserlohn Roosters_Grizzlys Wolfsburg,Iserlohn Roosters,Grizzlys Wolfsburg,51
+2027-03-07T13:00:00Z,2027-03-07_ERC Ingolstadt_Pinguins Bremerhaven,ERC Ingolstadt,Pinguins Bremerhaven,52
+2027-03-07T13:00:00Z,2027-03-07_Kölner Haie_Löwen Frankfurt,Kölner Haie,Löwen Frankfurt,52
+2027-03-07T13:00:00Z,2027-03-07_EHC Red Bull München_Eisbären Berlin,EHC Red Bull München,Eisbären Berlin,52
+2027-03-07T13:00:00Z,2027-03-07_Straubing Tigers_Augsburger Panther,Straubing Tigers,Augsburger Panther,52
+2027-03-07T13:00:00Z,2027-03-07_Nürnberg Ice Tigers_Iserlohn Roosters,Nürnberg Ice Tigers,Iserlohn Roosters,52
+2027-03-07T13:00:00Z,2027-03-07_Adler Mannheim_Schwenninger Wild Wings,Adler Mannheim,Schwenninger Wild Wings,52
+2027-03-07T13:00:00Z,2027-03-07_Grizzlys Wolfsburg_Krefeld Pinguine,Grizzlys Wolfsburg,Krefeld Pinguine,52
