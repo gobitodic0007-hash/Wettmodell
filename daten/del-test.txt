@@ -1,0 +1,392 @@
+===== 1. Spieleseite
+OK 200 310259 Zeichen  https://www.penny-del.org/spiele
+Spieldetail-Links: 25
+   /statistik/spieldetails/17092026_eisbaeren-berlin_gg_straubing-tigers_4389
+   /statistik/spieldetails/18092026_ehc-red-bull-muenchen_gg_adler-mannheim_4394
+   /statistik/spieldetails/18092026_iserlohn-roosters_gg_erc-ingolstadt_4393
+   /statistik/spieldetails/18092026_koelner-haie_gg_grizzlys-wolfsburg_4390
+   /statistik/spieldetails/18092026_krefeld-pinguine_gg_pinguins-bremerhaven_4392
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660977
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660978
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660979
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660980
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660981
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660982
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660983
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660984
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660985
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660986
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660987
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660988
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660989
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660991
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660992
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660993
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660994
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660995
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660996
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660997
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660998
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660999
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661000
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661001
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661002
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661003
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661004
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661005
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661006
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661007
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661008
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661009
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661010
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661011
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661012
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661013
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661014
+  script /_assets/9367f9e008cf725f0db42f52450342c0/DataTables/datatables.min.js?1789985310
+  script /_assets/9367f9e008cf725f0db42f52450342c0/js/custom.js?1789985310
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/consent.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/core.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/custom.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/init.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/bootstrap/js/bootstrap.bundle.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery-migrate.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/swiper/js/swiper-bundle.min.js?1789985310
+  script https://download.digiaccess.org/digiaccess
+  attr data-loaded="false"
+  attr data-localize="notDE"
+  attr data-login-url="/sso/login"
+  attr data-logout-url="/sso/logout"
+  attr data-settings-url="/sso/einstellungen"
+--- Umfeld 'spieldetails' @6472
+d=11660977" class="a-magenta" target="_blank"> <div class="infobox magenta"> <span>Jetzt hier live</span> </div> </a> <a href="/statistik/spieldetails/27092026_eisbaeren-berlin_gg_iserlohn-roosters_4411"> <div class="alc-events-scoreboard__teams"> <div class="alc-events-scoreboard__team logos"> <figure class="alc-events-scoreboard__team-logo"> <img alt="Eisbären Berlin" class="img-fluid" src="/fileadmin/images/teams/2023/team_3.svg" width="160" height="160" /> </figure> <figure class="alc-events-scoreboard__team-logo"> <img alt="Iserlohn Roosters" class="img-fluid" src="/fileadmin/images/teams/2023/team_7.svg" width="200" height="207" /> </figure> </div> <div class="alc-events-scoreboard__team shortcut"> <figure class="alc-events-scoreboard__team-logo"> EBB </figure> <figure class="alc-events-scoreboard__team-logo"> 
+===== 2. Spielplan 2025-26
+OK 200 371721 Zeichen  https://www.penny-del.org/statistik/saison-2025-26/hauptrunde/spielplan
+Spieldetail-Links: 45
+   /statistik/spieldetails/09092025_eisbaeren-berlin_gg_dresdner-eisloewen_3939
+   /statistik/spieldetails/12092025_adler-mannheim_gg_straubing-tigers_3945
+   /statistik/spieldetails/12092025_erc-ingolstadt_gg_iserlohn-roosters_3947
+   /statistik/spieldetails/28092025_nuernberg-ice-tigers_gg_dresdner-eisloewen_3980
+   /statistik/spieldetails/28092025_pinguins-bremerhaven_gg_erc-ingolstadt_3981
+   /statistik/spieldetails/28092025_straubing-tigers_gg_augsburger-panther_3979
+IDs von 3939 bis 4416
+--- Umfeld 'Spieltag' @183001
+m</th> <th class="team-schedule__time">Uhrzeit</th> <th class="team-schedule__compet">Spieltag</th> <th class="team-schedule__versus">Heim</th> <th class="team-schedule__versus text-right">Gast</th> <th class="team-schedule__status"></th> <th class="team-schedule__status"></th> <th class="team-schedule__status"></th> </tr> 
+--- Umfeld 'page' @2524
+"canonical" href="/statistik/saison-2025-26/hauptrunde/spielplan"> <link rel="canonical" href="/statistik/saison-2025-26/hauptrunde/spielplan"> </head> <body class="page-loader-disable"> <div class="site-wrapper clearfix"> <div class="site-overlay"></div> <div class="page-heading page-heading--horizontal page-heading--title-highlight d-none d-lg-block" role="header"> <div class="row header_partner"> <div class="col-4"> <a href="/" class="dellogo"> <img alt="PENNY-DEL" class="header-mobile__logo-img my-auto" src="/_assets/e4ccd237e60ebadf8c55c336e47a814f/images/del/PENNY-DEL-LOGO_outline_r
+--- Umfeld 'select' @177283
+ <div class="form-group form-group--floating-label form-group--floating-label-sm"> <select name="select-team" id="select-team" class="form-control form-control-sm" onchange="if (this.value != '') window.location.href=this.value"> <option value="/statistik/saison-2025-26/hauptrunde/spielplan/team">Alle</option> <option value="/statistik/saison-2025-26/hauptrunde/spielplan/team/2" >Adler Mannheim</option> 
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660977
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660978
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660979
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660980
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660981
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660982
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660983
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660984
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660985
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660986
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660987
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660988
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660989
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660991
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660992
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660993
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660994
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660995
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660996
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660997
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660998
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660999
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661000
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661001
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661002
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661003
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661004
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661005
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661006
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661007
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661008
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661009
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661010
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661011
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661012
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661013
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661014
+  script /_assets/9367f9e008cf725f0db42f52450342c0/DataTables/datatables.min.js?1789985310
+  script /_assets/9367f9e008cf725f0db42f52450342c0/js/custom.js?1789985310
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/consent.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/core.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/custom.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/init.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/bootstrap/js/bootstrap.bundle.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery-migrate.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/swiper/js/swiper-bundle.min.js?1789985310
+  script https://download.digiaccess.org/digiaccess
+  attr data-loaded="false"
+  attr data-localize="notDE"
+  attr data-login-url="/sso/login"
+  attr data-logout-url="/sso/logout"
+  attr data-settings-url="/sso/einstellungen"
+===== 2. Spielplan 2024-25
+OK 200 308596 Zeichen  https://www.penny-del.org/statistik/saison-2024-25/hauptrunde/spielplan
+Spieldetail-Links: 30
+   /statistik/spieldetails/19092024_augsburger-panther_gg_erc-ingolstadt_3504
+   /statistik/spieldetails/20092024_adler-mannheim_gg_schwenninger-wild-wings_3507
+   /statistik/spieldetails/20092024_iserlohn-roosters_gg_ehc-red-bull-muenchen_3509
+   /statistik/spieldetails/29092024_pinguins-bremerhaven_gg_adler-mannheim_3527
+   /statistik/spieldetails/29092024_schwenninger-wild-wings_gg_eisbaeren-berlin_3530
+   /statistik/spieldetails/29092024_straubing-tigers_gg_ehc-red-bull-muenchen_3529
+IDs von 3504 bis 4416
+--- Umfeld 'Spieltag' @182998
+m</th> <th class="team-schedule__time">Uhrzeit</th> <th class="team-schedule__compet">Spieltag</th> <th class="team-schedule__versus">Heim</th> <th class="team-schedule__versus text-right">Gast</th> <th class="team-schedule__status"></th> <th class="team-schedule__status"></th> <th class="team-schedule__status"></th> </tr> 
+--- Umfeld 'page' @2524
+"canonical" href="/statistik/saison-2024-25/hauptrunde/spielplan"> <link rel="canonical" href="/statistik/saison-2024-25/hauptrunde/spielplan"> </head> <body class="page-loader-disable"> <div class="site-wrapper clearfix"> <div class="site-overlay"></div> <div class="page-heading page-heading--horizontal page-heading--title-highlight d-none d-lg-block" role="header"> <div class="row header_partner"> <div class="col-4"> <a href="/" class="dellogo"> <img alt="PENNY-DEL" class="header-mobile__logo-img my-auto" src="/_assets/e4ccd237e60ebadf8c55c336e47a814f/images/del/PENNY-DEL-LOGO_outline_r
+--- Umfeld 'select' @177283
+ <div class="form-group form-group--floating-label form-group--floating-label-sm"> <select name="select-team" id="select-team" class="form-control form-control-sm" onchange="if (this.value != '') window.location.href=this.value"> <option value="/statistik/saison-2024-25/hauptrunde/spielplan/team">Alle</option> <option value="/statistik/saison-2024-25/hauptrunde/spielplan/team/2" >Adler Mannheim</option> 
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660977
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660978
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660979
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660980
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660981
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660982
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660983
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660984
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660985
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660986
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660987
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660988
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660989
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660991
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660992
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660993
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660994
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660995
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660996
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660997
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660998
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660999
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661000
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661001
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661002
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661003
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661004
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661005
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661006
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661007
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661008
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661009
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661010
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661011
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661012
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661013
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661014
+  script /_assets/9367f9e008cf725f0db42f52450342c0/DataTables/datatables.min.js?1789985310
+  script /_assets/9367f9e008cf725f0db42f52450342c0/js/custom.js?1789985310
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/consent.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/core.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/custom.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/init.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/bootstrap/js/bootstrap.bundle.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery-migrate.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/swiper/js/swiper-bundle.min.js?1789985310
+  script https://download.digiaccess.org/digiaccess
+  attr data-loaded="false"
+  attr data-localize="notDE"
+  attr data-login-url="/sso/login"
+  attr data-logout-url="/sso/logout"
+  attr data-settings-url="/sso/einstellungen"
+===== 3. Spieldetails
+OK 200 379524 Zeichen  https://www.penny-del.org/statistik/spieldetails/17092026_eisbaeren-berlin_gg_straubing-tigers_4389
+--- Umfeld 'Schüsse' @183347
+pieldetails/17092026_eisbaeren-berlin_gg_straubing-tigers_4389/playbyplay" class="content-filter__link">Ereignisse</a></li--> <li class="content-filter__item "><a href="/statistik/spieldetails/17092026_eisbaeren-berlin_gg_straubing-tigers_4389/shots" class="content-filter__link">Schüsse</a></li> <li class="content-filter__item "><a href="/statistik/spieldetails/17092026_eisbaeren-berlin_gg_straubing-tigers_4389/faceoffs" class="content-filter__link">Bullies</a></li> </ul> </div> </nav> <!-- Event Filter / End --> <div id="gamedetail-content" class="js-gamedetail-content gamedetail-content"> <style> /* Der Alchemists-Wrapper hat selbst overflow-x:auto und erzeugte den grauen Scrollbar (Event-Boxen ragen je ~30px ueber). Wrapper-Overflow abschalten; die Timeline per 40px Margin links/rechts sicher innerhalb halten. Der aeussere .game-timeline-scroll bleibt als Mobile-Fallback. */ 
+--- Umfeld 'Strafminuten' @345477
+ <div class="progress-bar-wrapper progress-bar-wrapper--labels-side"> <div class="progress-labels"> <div class="progress-labels__title">Strafminuten</div> </div> <div class="progress-wrapper"> <div class="progress-labels__value">10</div> <div class="progress-labels__value">8</div> <div class="progress progress--lines progress--lines-sm" style="background-color: #3168a3;"> <div class="progress__bar" style="width: 44.444444444444%;background-color:#043770" role="progressbar" aria-valuenow="44.444444444444" aria-valuemin="0" aria-valuemax="18"></div> </div> 
+--- Umfeld 'Drittel' @8877
+> </div> <div class="bottombox"> <span>1. Drittel (19:54)</span> </div> </a> </div> </div> <div class="swiper-slide"> <div class="alc-events-scoreboard__item"> <a href="/index.php?eID=liveTVRedirect&videoid=11660978" class="a-magenta" target="_blank"> <div class="infobox magenta"> <span>Jetzt hier live</span> 
+--- Umfeld 'Zuschauer' @364608
+Arena</span> </li> <li class="alc-event-info__item"> <span class="alc-event-info__title">Zuschauer</span> <span class="alc-event-info__value">13.422</span> </li> <li class="alc-event-info__item"> <span class="alc-event-info__title">Schiedsrichter</span> <span class="alc-event-info__value"> André Schrader 
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660977
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660978
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660979
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660980
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660981
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660982
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660983
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660984
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660985
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660986
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660987
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660988
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660989
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660991
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660992
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660993
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660994
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660995
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660996
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660997
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660998
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660999
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661000
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661001
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661002
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661003
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661004
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661005
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661006
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661007
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661008
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661009
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661010
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661011
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661012
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661013
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661014
+  script /_assets/9367f9e008cf725f0db42f52450342c0/DataTables/datatables.min.js?1789985310
+  script /_assets/9367f9e008cf725f0db42f52450342c0/js/custom.js?1789985310
+  script /_assets/9367f9e008cf725f0db42f52450342c0/js/gamedetail-tabs.js?1789985310
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/consent.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/core.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/custom.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/init.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/bootstrap/js/bootstrap.bundle.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery-migrate.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/swiper/js/swiper-bundle.min.js?1789985310
+  script https://download.digiaccess.org/digiaccess
+  attr data-goal-ref="1-0"
+  attr data-goal-ref="2-0"
+  attr data-goal-ref="3-0"
+  attr data-goal-ref="3-1"
+  attr data-goal-ref="3-2"
+  attr data-goal-ref="4-2"
+  attr data-hide-value="true"
+  attr data-label="Tore"
+  attr data-loaded="false"
+  attr data-localize="notDE"
+  attr data-login-url="/sso/login"
+  attr data-logout-url="/sso/logout"
+  attr data-settings-url="/sso/einstellungen"
+  attr data-timeline-toggle="goal"
+  attr data-timeline-toggle="penalty"
+  attr data-value="33.333333333333"
+===== 4. Teamstatistik und Tabelle
+OK 200 222051 Zeichen  https://www.penny-del.org/statistik/saison-2026-27/hauptrunde/teamstats
+--- Umfeld 'Schüsse' @574
+opyright 1998-2026 of Kasper Skaarhoj. Extensions are copyright of their respective owners. Information and contribution at https://typo3.org/ --> <link rel="icon" href="/_assets/e4ccd237e60ebadf8c55c336e47a814f/images/del/penny-del-favicon.ico" type="image/vnd.microsoft.icon"> <title>PENNY DEL - Schüsse</title> <meta name="generator" content="TYPO3 CMS"> <meta name="viewport" content="width=device-width,initial-scale=1"> <meta name="twitter:card" content="summary"> <link rel="stylesheet" href="/_assets/9367f9e008cf725f0db42f52450342c0/DataTables/datatables.min.css?1789985310" media="all"> <link rel="stylesheet" href="/_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/bootstrap/css/bootstrap.css?1789985309" media="all"> <link rel="stylesheet" href="/_assets/e4ccd237e60ebadf8c55c336e47a814f/fonts/font-awesome/css/all.min.css?1789985309" media="all"> <link rel="stylesheet" href="/_assets/e4ccd237e60ebadf8c55c336e47a814f/fonts/simple-line-icons/css/simple-line-icons.css?1789985309" media="all"> <link rel="stylesheet" href="/_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/magnific-popup/dist/magnific-popup.css?1789985309" media="all"> <link rel="stylesheet" href="/_assets/e4ccd237e60
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660977
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660978
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660979
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660980
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660981
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660982
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660983
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660984
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660985
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660986
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660987
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660988
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660989
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660991
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660992
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660993
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660994
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660995
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660996
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660997
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660998
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660999
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661000
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661001
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661002
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661003
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661004
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661005
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661006
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661007
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661008
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661009
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661010
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661011
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661012
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661013
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661014
+  script /_assets/9367f9e008cf725f0db42f52450342c0/DataTables/datatables.min.js?1789985310
+  script /_assets/9367f9e008cf725f0db42f52450342c0/js/custom.js?1789985310
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/consent.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/core.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/custom.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/init.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/bootstrap/js/bootstrap.bundle.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery-migrate.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/swiper/js/swiper-bundle.min.js?1789985310
+  script https://download.digiaccess.org/digiaccess
+  attr data-loaded="false"
+  attr data-localize="notDE"
+  attr data-login-url="/sso/login"
+  attr data-logout-url="/sso/logout"
+  attr data-order="[[ 4, &quot;desc&quot; ]]"
+  attr data-orderable="false"
+  attr data-settings-url="/sso/einstellungen"
+  attr data-sortorder="desc"
+OK 200 221802 Zeichen  https://www.penny-del.org/tabelle
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660977
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660978
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660979
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660980
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660981
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660982
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660983
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660984
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660985
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660986
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660987
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660988
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660989
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660991
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660992
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660993
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660994
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660995
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660996
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660997
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660998
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11660999
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661000
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661001
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661002
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661003
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661004
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661005
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661006
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661007
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661008
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661009
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661010
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661011
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661012
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661013
+  Quelle? /index.php?eID=liveTVRedirect&videoid=11661014
+  script /_assets/9367f9e008cf725f0db42f52450342c0/DataTables/datatables.min.js?1789985310
+  script /_assets/9367f9e008cf725f0db42f52450342c0/js/custom.js?1789985310
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/consent.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/core.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/custom.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/javascript/init.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/bootstrap/js/bootstrap.bundle.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery-migrate.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/jquery/jquery.min.js?1789985309
+  script /_assets/e4ccd237e60ebadf8c55c336e47a814f/vendor/swiper/js/swiper-bundle.min.js?1789985310
+  script https://download.digiaccess.org/digiaccess
+  attr data-loaded="false"
+  attr data-localize="notDE"
+  attr data-login-url="/sso/login"
+  attr data-logout-url="/sso/logout"
+  attr data-order="[[ 3, &quot;desc&quot; ], [ 5, &quot;desc&quot; ], [ 12, &quot;desc&quot; ]]"
+  attr data-orderable="false"
+  attr data-settings-url="/sso/einstellungen"
