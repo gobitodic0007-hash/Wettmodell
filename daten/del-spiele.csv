@@ -726,28 +726,32 @@ Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,Gas
 2026-03-15,4301,2025-26,Augsburger Panther,Grizzlys Wolfsburg,5,6,5,5,SO,,,,,,,,,52,,,,,,
 2026-03-15,4302,2025-26,Iserlohn Roosters,ERC Ingolstadt,5,3,5,3,REG,,,,,,,,,52,,,,,,
 2026-03-15,4303,2025-26,Adler Mannheim,Schwenninger Wild Wings,4,2,4,2,REG,,,,,,,,,52,,,,,,
-2026-09-17,4389,2026-27,Eisbären Berlin,Straubing Tigers,4,2,4,2,REG,,,,,,,,,1,,,,,,
-2026-09-18,4390,2026-27,Kölner Haie,Grizzlys Wolfsburg,4,8,4,8,REG,,,,,,,,,1,,,,,,
-2026-09-18,4391,2026-27,Nürnberg Ice Tigers,Augsburger Panther,4,1,4,1,REG,,,,,,,,,1,,,,,,
-2026-09-18,4392,2026-27,Krefeld Pinguine,Pinguins Bremerhaven,1,3,1,3,REG,,,,,,,,,1,,,,,,
-2026-09-18,4393,2026-27,Iserlohn Roosters,ERC Ingolstadt,3,4,3,4,REG,,,,,,,,,1,,,,,,
-2026-09-18,4394,2026-27,EHC Red Bull München,Adler Mannheim,4,3,3,3,SO,,,,,,,,,1,,,,,,
-2026-09-18,4395,2026-27,Schwenninger Wild Wings,Löwen Frankfurt,0,5,0,5,REG,,,,,,,,,1,,,,,,
-2026-09-20,4396,2026-27,Adler Mannheim,Eisbären Berlin,4,3,4,3,REG,,,,,,,,,2,,,,,,
-2026-09-20,4397,2026-27,Augsburger Panther,Schwenninger Wild Wings,7,3,7,3,REG,,,,,,,,,2,,,,,,
-2026-09-20,4398,2026-27,Pinguins Bremerhaven,Iserlohn Roosters,2,1,2,1,REG,,,,,,,,,2,,,,,,
-2026-09-20,4399,2026-27,ERC Ingolstadt,Nürnberg Ice Tigers,2,6,2,6,REG,,,,,,,,,2,,,,,,
-2026-09-20,4400,2026-27,Straubing Tigers,Krefeld Pinguine,3,6,3,6,REG,,,,,,,,,2,,,,,,
-2026-09-20,4401,2026-27,Grizzlys Wolfsburg,EHC Red Bull München,4,3,3,3,OT,,,,,,,,,2,,,,,,
-2026-09-20,4402,2026-27,Kölner Haie,Löwen Frankfurt,4,3,3,3,OT,,,,,,,,,2,,,,,,
-2026-09-22,4403,2026-27,Nürnberg Ice Tigers,Adler Mannheim,5,3,5,3,REG,,,,,,,,,31,,,,,,
-2026-09-24,4404,2026-27,Iserlohn Roosters,Augsburger Panther,2,3,2,2,SO,,,,,,,,,3,,,,,,
-2026-09-25,4405,2026-27,Kölner Haie,Eisbären Berlin,5,6,5,5,SO,,,,,,,,,3,,,,,,
-2026-09-25,4406,2026-27,Löwen Frankfurt,Nürnberg Ice Tigers,1,2,1,2,REG,,,,,,,,,3,,,,,,
-2026-09-25,4407,2026-27,Adler Mannheim,Krefeld Pinguine,4,1,4,1,REG,,,,,,,,,3,,,,,,
-2026-09-25,4408,2026-27,Pinguins Bremerhaven,EHC Red Bull München,1,4,1,4,REG,,,,,,,,,3,,,,,,
-2026-09-25,4409,2026-27,Straubing Tigers,ERC Ingolstadt,4,1,4,1,REG,,,,,,,,,3,,,,,,
-2026-09-25,4410,2026-27,Grizzlys Wolfsburg,Schwenninger Wild Wings,3,4,3,3,OT,,,,,,,,,3,,,,,,
-2026-09-27,4411,2026-27,Eisbären Berlin,Iserlohn Roosters,4,0,4,0,REG,,,,,,,,,4,,,,,,
-2026-09-27,4415,2026-27,EHC Red Bull München,Löwen Frankfurt,1,2,1,2,REG,,,,,,,,,4,,,,,,
-2026-09-27,4416,2026-27,Grizzlys Wolfsburg,Pinguins Bremerhaven,3,0,3,0,REG,,,,,,,,,4,,,,,,
+2026-09-17,4389,2026-27,Eisbären Berlin,Straubing Tigers,4,2,4,2,REG,21,30,10,8,,,,,1,42,66,3,4,28,37
+2026-09-18,4390,2026-27,Kölner Haie,Grizzlys Wolfsburg,4,8,4,8,REG,31,23,4,4,,,,,1,58,37,2,2,29,21
+2026-09-18,4391,2026-27,Nürnberg Ice Tigers,Augsburger Panther,4,1,4,1,REG,25,33,8,8,,,,,1,46,61,3,3,25,26
+2026-09-18,4392,2026-27,Krefeld Pinguine,Pinguins Bremerhaven,1,3,1,3,REG,27,31,31,6,,,,,1,61,49,3,4,26,29
+2026-09-18,4393,2026-27,Iserlohn Roosters,ERC Ingolstadt,3,4,3,4,REG,19,21,8,10,,,,,1,30,51,4,3,19,26
+2026-09-18,4394,2026-27,EHC Red Bull München,Adler Mannheim,4,3,3,3,SO,29,43,10,6,,,,,1,51,75,3,5,32,38
+2026-09-18,4395,2026-27,Schwenninger Wild Wings,Löwen Frankfurt,0,5,0,5,REG,28,15,10,14,,,,,1,60,26,7,4,28,23
+2026-09-20,4396,2026-27,Adler Mannheim,Eisbären Berlin,4,3,4,3,REG,27,26,12,6,,,,,2,52,50,2,4,28,29
+2026-09-20,4397,2026-27,Augsburger Panther,Schwenninger Wild Wings,7,3,7,3,REG,46,29,8,4,,,,,2,68,48,2,4,44,25
+2026-09-20,4398,2026-27,Pinguins Bremerhaven,Iserlohn Roosters,2,1,2,1,REG,37,21,40,17,,,,,2,69,37,5,6,29,25
+2026-09-20,4399,2026-27,ERC Ingolstadt,Nürnberg Ice Tigers,2,6,2,6,REG,31,28,12,14,,,,,2,58,48,4,3,46,27
+2026-09-20,4400,2026-27,Straubing Tigers,Krefeld Pinguine,3,6,3,6,REG,33,45,6,14,,,,,2,58,65,5,1,33,30
+2026-09-20,4401,2026-27,Grizzlys Wolfsburg,EHC Red Bull München,4,3,3,3,OT,27,45,8,6,,,,,2,47,63,2,3,26,42
+2026-09-20,4402,2026-27,Kölner Haie,Löwen Frankfurt,4,3,3,3,OT,33,23,4,2,,,,,2,66,37,1,2,33,14
+2026-09-22,4403,2026-27,Nürnberg Ice Tigers,Adler Mannheim,5,3,5,3,REG,22,27,6,14,,,,,31,36,53,5,2,32,29
+2026-09-24,4404,2026-27,Iserlohn Roosters,Augsburger Panther,2,3,2,2,SO,31,23,2,4,,,,,3,52,53,2,1,23,25
+2026-09-25,4405,2026-27,Kölner Haie,Eisbären Berlin,5,6,5,5,SO,32,32,14,8,,,,,3,56,48,3,6,35,28
+2026-09-25,4406,2026-27,Löwen Frankfurt,Nürnberg Ice Tigers,1,2,1,2,REG,22,22,15,17,,,,,3,53,44,6,3,32,24
+2026-09-25,4407,2026-27,Adler Mannheim,Krefeld Pinguine,4,1,4,1,REG,33,29,8,8,,,,,3,67,64,3,3,27,32
+2026-09-25,4408,2026-27,Pinguins Bremerhaven,EHC Red Bull München,1,4,1,4,REG,30,35,10,12,,,,,3,48,55,4,3,25,33
+2026-09-25,4409,2026-27,Straubing Tigers,ERC Ingolstadt,4,1,4,1,REG,43,26,18,39,,,,,3,74,47,2,4,29,31
+2026-09-25,4410,2026-27,Grizzlys Wolfsburg,Schwenninger Wild Wings,3,4,3,3,OT,23,35,6,4,,,,,3,49,68,2,3,32,38
+2026-09-27,4411,2026-27,Eisbären Berlin,Iserlohn Roosters,4,0,4,0,REG,27,15,8,10,,,,,4,53,31,4,3,29,21
+2026-09-27,4412,2026-27,Nürnberg Ice Tigers,Straubing Tigers,2,3,2,2,SO,30,25,6,6,,,,,4,47,52,3,3,26,30
+2026-09-27,4413,2026-27,Krefeld Pinguine,Schwenninger Wild Wings,5,2,5,2,REG,32,21,8,12,,,,,4,63,45,6,4,31,22
+2026-09-27,4414,2026-27,Augsburger Panther,Kölner Haie,4,6,4,6,REG,35,24,6,6,,,,,4,52,45,3,3,32,33
+2026-09-27,4415,2026-27,EHC Red Bull München,Löwen Frankfurt,1,4,1,4,REG,37,23,17,24,,,,,4,62,52,6,4,36,23
+2026-09-27,4416,2026-27,Grizzlys Wolfsburg,Pinguins Bremerhaven,3,2,3,2,REG,27,31,8,8,,,,,4,49,68,3,3,27,38
+2026-09-27,4417,2026-27,ERC Ingolstadt,Adler Mannheim,3,2,2,2,OT,25,42,8,6,,,,,4,47,84,3,4,37,35
