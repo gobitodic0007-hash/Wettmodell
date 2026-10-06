@@ -1752,6 +1752,7 @@ Datum,GamePk,Park,Heim,Gast,HeimF5,GastF5,HeimI1,GastI1,HeimR,GastR,HeimHits,Gas
 2024-08-10,745304,Oracle Park,San Francisco Giants,Detroit Tigers,3,1,0,0,3,1,6,5,4,2,657277,Logan Webb,656412,Alex Faedo
 2024-08-10,745708,Yankee Stadium,New York Yankees,Texas Rangers,1,1,0,0,4,9,8,16,5,6,543037,Gerrit Cole,674003,Cody Bradford
 2024-08-10,745712,Yankee Stadium,New York Yankees,Texas Rangers,7,0,1,0,8,0,12,5,11,2,607074,Carlos Rodón,543135,Nathan Eovaldi
+2024-08-10,745873,Target Field,Minnesota Twins,Cleveland Guardians,0,1,0,1,1,2,4,4,2,2,680573,Simeon Woods Richardson,668909,Gavin Williams
 2024-08-10,745955,American Family Field,Milwaukee Brewers,Cincinnati Reds,0,0,0,0,1,0,2,3,1,1,668964,Tobias Myers,607259,Nick Martinez
 2024-08-10,746026,loanDepot park,Miami Marlins,San Diego Padres,7,3,0,1,8,9,11,12,7,6,682610,Roddery Muñoz,663362,Matt Waldron
 2024-08-10,746112,Dodger Stadium,Los Angeles Dodgers,Pittsburgh Pirates,4,0,1,0,4,1,8,9,6,5,689981,River Ryan,694973,Paul Skenes
