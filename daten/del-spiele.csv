@@ -776,3 +776,10 @@ Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,Gas
 2026-10-09,4436,2026-27,Augsburger Panther,Pinguins Bremerhaven,3,0,3,0,REG,30,28,10,10,,,,,7,51,65,3,3,28,29
 2026-10-09,4437,2026-27,EHC Red Bull München,ERC Ingolstadt,1,5,1,5,REG,32,30,15,11,,,,,7,63,57,2,4,31,25
 2026-10-09,4438,2026-27,Straubing Tigers,Iserlohn Roosters,11,4,11,4,REG,35,26,4,2,,,,,7,53,44,1,2,23,29
+2026-10-11,4439,2026-27,Kölner Haie,Nürnberg Ice Tigers,4,2,4,2,REG,37,13,4,6,,,,,8,60,40,2,1,32,21
+2026-10-11,4440,2026-27,Krefeld Pinguine,Augsburger Panther,1,2,1,2,REG,42,20,6,8,,,,,8,70,51,4,3,30,27
+2026-10-11,4441,2026-27,Pinguins Bremerhaven,Eisbären Berlin,0,3,0,3,REG,26,25,0,8,,,,,8,60,57,4,0,32,31
+2026-10-11,4442,2026-27,ERC Ingolstadt,Löwen Frankfurt,2,3,2,2,SO,36,19,10,8,,,,,8,60,30,4,5,41,17
+2026-10-11,4443,2026-27,Iserlohn Roosters,Grizzlys Wolfsburg,3,2,2,2,OT,30,28,4,26,,,,,8,51,54,6,1,24,23
+2026-10-11,4444,2026-27,Schwenninger Wild Wings,EHC Red Bull München,3,4,3,4,REG,30,28,29,8,,,,,8,48,51,3,2,25,35
+2026-10-11,4445,2026-27,Adler Mannheim,Straubing Tigers,2,1,2,1,REG,24,23,13,17,,,,,8,58,38,5,3,28,23
