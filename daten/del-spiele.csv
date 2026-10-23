@@ -799,3 +799,10 @@ Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,Gas
 2026-10-18,4459,2026-27,Nürnberg Ice Tigers,EHC Red Bull München,6,2,6,2,REG,30,33,8,6,,,,,10,48,59,3,4,34,30
 2026-10-20,4460,2026-27,ERC Ingolstadt,Grizzlys Wolfsburg,3,2,3,2,REG,34,21,4,8,,,,,46,69,52,3,1,29,34
 2026-10-20,4731,2026-27,Kölner Haie,Schwenninger Wild Wings,0,1,0,1,REG,12,11,0,0,,,,,49,30,15,0,0,8,16
+2026-10-23,4461,2026-27,Schwenninger Wild Wings,Pinguins Bremerhaven,4,2,4,2,REG,20,24,8,6,,,,,11,28,48,3,4,23,24
+2026-10-23,4462,2026-27,Eisbären Berlin,Augsburger Panther,2,1,2,1,REG,26,23,10,8,,,,,11,58,49,1,2,30,26
+2026-10-23,4463,2026-27,Nürnberg Ice Tigers,Krefeld Pinguine,7,2,7,2,REG,35,24,12,8,,,,,11,52,45,4,6,34,30
+2026-10-23,4464,2026-27,Adler Mannheim,Löwen Frankfurt,3,0,3,0,REG,34,15,4,10,,,,,11,67,31,5,2,36,23
+2026-10-23,4465,2026-27,EHC Red Bull München,Iserlohn Roosters,3,2,3,2,REG,27,22,6,6,,,,,11,63,45,3,3,31,31
+2026-10-23,4466,2026-27,Straubing Tigers,Kölner Haie,3,5,3,5,REG,49,20,8,10,,,,,11,76,43,3,2,34,29
+2026-10-23,4467,2026-27,Grizzlys Wolfsburg,ERC Ingolstadt,1,4,1,4,REG,21,40,12,10,,,,,11,45,61,3,4,38,33

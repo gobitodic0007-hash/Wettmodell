@@ -1,11 +1,4 @@
 Zeit,GameId,Heim,Gast,Spieltag
-2026-10-23T17:30:00Z,2026-10-23_Grizzlys Wolfsburg_ERC Ingolstadt,Grizzlys Wolfsburg,ERC Ingolstadt,11
-2026-10-23T17:30:00Z,2026-10-23_Straubing Tigers_Kölner Haie,Straubing Tigers,Kölner Haie,11
-2026-10-23T17:30:00Z,2026-10-23_EHC Red Bull München_Iserlohn Roosters,EHC Red Bull München,Iserlohn Roosters,11
-2026-10-23T17:30:00Z,2026-10-23_Eisbären Berlin_Augsburger Panther,Eisbären Berlin,Augsburger Panther,11
-2026-10-23T17:30:00Z,2026-10-23_Nürnberg Ice Tigers_Krefeld Pinguine,Nürnberg Ice Tigers,Krefeld Pinguine,11
-2026-10-23T17:30:00Z,2026-10-23_Schwenninger Wild Wings_Pinguins Bremerhaven,Schwenninger Wild Wings,Pinguins Bremerhaven,11
-2026-10-23T17:30:00Z,2026-10-23_Adler Mannheim_Löwen Frankfurt,Adler Mannheim,Löwen Frankfurt,11
 2026-10-25T13:00:00Z,2026-10-25_Schwenninger Wild Wings_Eisbären Berlin,Schwenninger Wild Wings,Eisbären Berlin,12
 2026-10-25T13:00:00Z,2026-10-25_Löwen Frankfurt_Grizzlys Wolfsburg,Löwen Frankfurt,Grizzlys Wolfsburg,12
 2026-10-25T15:30:00Z,2026-10-25_Krefeld Pinguine_EHC Red Bull München,Krefeld Pinguine,EHC Red Bull München,12
@@ -250,10 +243,10 @@ Zeit,GameId,Heim,Gast,Spieltag
 2027-02-19T18:30:00Z,2027-02-19_Eisbären Berlin_Pinguins Bremerhaven,Eisbären Berlin,Pinguins Bremerhaven,46
 2027-02-19T18:30:00Z,2027-02-19_Löwen Frankfurt_Straubing Tigers,Löwen Frankfurt,Straubing Tigers,46
 2027-02-21T13:00:00Z,2027-02-21_Kölner Haie_Krefeld Pinguine,Kölner Haie,Krefeld Pinguine,47
-2027-02-21T13:00:00Z,2027-02-21_Pinguins Bremerhaven_Löwen Frankfurt,Pinguins Bremerhaven,Löwen Frankfurt,47
 2027-02-21T13:00:00Z,2027-02-21_Iserlohn Roosters_Straubing Tigers,Iserlohn Roosters,Straubing Tigers,47
 2027-02-21T15:30:00Z,2027-02-21_Grizzlys Wolfsburg_Augsburger Panther,Grizzlys Wolfsburg,Augsburger Panther,47
 2027-02-21T15:30:00Z,2027-02-21_Nürnberg Ice Tigers_Schwenninger Wild Wings,Nürnberg Ice Tigers,Schwenninger Wild Wings,47
+2027-02-21T15:30:00Z,2027-02-21_Pinguins Bremerhaven_Löwen Frankfurt,Pinguins Bremerhaven,Löwen Frankfurt,47
 2027-02-21T18:00:00Z,2027-02-21_Adler Mannheim_Eisbären Berlin,Adler Mannheim,Eisbären Berlin,47
 2027-02-24T18:30:00Z,2027-02-24_EHC Red Bull München_ERC Ingolstadt,EHC Red Bull München,ERC Ingolstadt,47
 2027-02-25T18:30:00Z,2027-02-25_Schwenninger Wild Wings_Grizzlys Wolfsburg,Schwenninger Wild Wings,Grizzlys Wolfsburg,48
