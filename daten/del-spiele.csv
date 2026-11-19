@@ -842,3 +842,4 @@ Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,Gas
 2026-11-15,4501,2026-27,EHC Red Bull München,Krefeld Pinguine,4,0,4,0,REG,36,25,35,20,,,,,16,64,52,7,4,29,28
 2026-11-15,4502,2026-27,Straubing Tigers,Löwen Frankfurt,5,1,5,1,REG,30,21,8,10,,,,,16,44,46,4,3,24,21
 2026-11-15,4503,2026-27,Eisbären Berlin,Schwenninger Wild Wings,2,4,2,4,REG,27,20,4,2,,,,,16,47,32,1,2,26,23
+2026-11-19,4504,2026-27,Krefeld Pinguine,Straubing Tigers,4,3,4,3,REG,25,45,12,6,,,,,17,41,86,3,6,35,28
