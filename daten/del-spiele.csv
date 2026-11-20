@@ -843,3 +843,9 @@ Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,Gas
 2026-11-15,4502,2026-27,Straubing Tigers,Löwen Frankfurt,5,1,5,1,REG,30,21,8,10,,,,,16,44,46,4,3,24,21
 2026-11-15,4503,2026-27,Eisbären Berlin,Schwenninger Wild Wings,2,4,2,4,REG,27,20,4,2,,,,,16,47,32,1,2,26,23
 2026-11-19,4504,2026-27,Krefeld Pinguine,Straubing Tigers,4,3,4,3,REG,25,45,12,6,,,,,17,41,86,3,6,35,28
+2026-11-20,4505,2026-27,Eisbären Berlin,ERC Ingolstadt,5,3,5,3,REG,51,25,4,6,,,,,17,82,44,3,2,35,39
+2026-11-20,4506,2026-27,Löwen Frankfurt,Schwenninger Wild Wings,2,3,2,3,REG,10,12,0,4,,,,,17,19,16,2,0,13,9
+2026-11-20,4507,2026-27,Augsburger Panther,Nürnberg Ice Tigers,5,4,4,4,SO,41,41,21,19,,,,,17,59,73,4,5,34,40
+2026-11-20,4508,2026-27,Pinguins Bremerhaven,Adler Mannheim,6,3,6,3,REG,37,21,12,47,,,,,17,65,42,7,6,33,36
+2026-11-20,4509,2026-27,EHC Red Bull München,Kölner Haie,4,3,3,3,OT,26,19,8,8,,,,,17,41,30,2,2,22,23
+2026-11-20,4510,2026-27,Grizzlys Wolfsburg,Iserlohn Roosters,7,2,7,2,REG,23,32,8,4,,,,,17,36,64,2,4,24,35
