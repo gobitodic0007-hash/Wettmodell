@@ -856,3 +856,8 @@ Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,Gas
 2026-11-22,4515,2026-27,Straubing Tigers,Eisbären Berlin,4,6,4,6,REG,26,39,18,20,,,,,18,51,68,3,2,27,31
 2026-11-22,4516,2026-27,Schwenninger Wild Wings,Augsburger Panther,4,5,4,5,REG,29,26,6,10,,,,,18,55,51,4,2,33,35
 2026-11-22,4517,2026-27,Krefeld Pinguine,Grizzlys Wolfsburg,4,0,4,0,REG,25,37,16,12,,,,,18,46,74,6,6,25,27
+2026-11-24,4518,2026-27,Eisbären Berlin,Löwen Frankfurt,7,1,7,1,REG,36,22,10,10,,,,,19,62,42,4,4,35,28
+2026-11-24,4519,2026-27,Augsburger Panther,Krefeld Pinguine,5,1,5,1,REG,42,23,13,14,,,,,19,72,48,3,4,24,27
+2026-11-24,4520,2026-27,ERC Ingolstadt,Pinguins Bremerhaven,4,3,3,3,OT,20,32,6,8,,,,,19,51,67,4,3,28,36
+2026-11-24,4521,2026-27,Straubing Tigers,Adler Mannheim,2,1,1,1,SO,26,33,6,14,,,,,19,57,50,5,1,20,34
+2026-11-24,4522,2026-27,Kölner Haie,Nürnberg Ice Tigers,4,3,3,3,OT,35,31,4,4,,,,,19,61,48,2,2,24,27
