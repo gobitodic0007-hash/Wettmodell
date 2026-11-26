@@ -861,3 +861,5 @@ Datum,GameId,Saison,Heim,Gast,HeimTore,GastTore,HeimReg,GastReg,Ende,HeimSOG,Gas
 2026-11-24,4520,2026-27,ERC Ingolstadt,Pinguins Bremerhaven,4,3,3,3,OT,20,32,6,8,,,,,19,51,67,4,3,28,36
 2026-11-24,4521,2026-27,Straubing Tigers,Adler Mannheim,2,1,1,1,SO,26,33,6,14,,,,,19,57,50,5,1,20,34
 2026-11-24,4522,2026-27,Kölner Haie,Nürnberg Ice Tigers,4,3,3,3,OT,35,31,4,4,,,,,19,61,48,2,2,24,27
+2026-11-25,4523,2026-27,EHC Red Bull München,Grizzlys Wolfsburg,4,2,4,2,REG,34,23,6,12,,,,,19,59,42,6,3,27,39
+2026-11-25,4524,2026-27,Schwenninger Wild Wings,Iserlohn Roosters,6,1,6,1,REG,18,22,10,6,,,,,19,36,46,3,5,28,26
